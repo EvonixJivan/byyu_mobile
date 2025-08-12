@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">byyu</string>
+    <string name="default_notification_channel_id">1234</string>
+    <!-- <string name="facebook_app_id">745291036841931</string>
+    <string name="fb_login_protocol_scheme">fb745291036841931</string>
+    <string name="facebook_client_token">089acaf9f07a8bb3b4f0a04685e2e78f</string> -->
+    <!-- <string name="map_key">AIzaSyDJD4uR9IS6X7lg5cX9Hp5Ef0-Xot6M8zQ</string> -->
+    <string name="map_key">AIzaSyDJD4uR9IS6X7lg5cX9Hp5Ef0-Xot6M8zQ</string>
+    <!-- <string name="fb_login_protocol_scheme">fb1018363386048764</string> -->
+    <!-- <string name="facebook_app_id">1018363386048764</string> -->
+    <!-- Below are Nikunj fb acount generated App iD -->
+<!-- <string name="facebook_app_id">1096897254935781</string> old-->
+<string name="facebook_app_id">516940081042300</string>
+<!-- <string name="fb_login_protocol_scheme">fb1096897254935781</string>old -->
+<string name="fb_login_protocol_scheme">fb516940081042300</string>
+<!-- <string name="facebook_client_token">b4d156e56ad0deda4baac63af69d737f</string>old -->
+    <string name="facebook_app_secret">274d12a5e79a11ef6328217937a9f444</string>
+
+<string name="facebook_client_token">5e9fdfa299e912c98b1804ccc4cc4301</string>
+<string name="facebook_configuration_id">2648460275327682</string>
+<!-- Below are mohit dixit fb acount generated App iD -->
+<!-- <string name="facebook_app_id">830677185481324</string> -->
+<!-- <string name="fb_login_protocol_scheme">fb830677185481324</string> -->
+<!-- <string name="facebook_client_token">f51e7a283d3b693df7e9f3f9554583b2</string> -->
+</resources>

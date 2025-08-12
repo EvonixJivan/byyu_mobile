@@ -1,0 +1,70 @@
+{
+  "project_info": {
+    "project_number": "1015885835938",
+    "project_id": "byyu-a656a",
+    "storage_bucket": "byyu-a656a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1015885835938:android:da934fbd6e1f12c12a71fb",
+        "android_client_info": {
+          "package_name": "com.byyu"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1015885835938-507udkh4jg15d94k5icdhndq8l0vmond.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.byyu",
+            "certificate_hash": "c49d64427f0b47c54e734b9cfffe5beb7a243a78"
+          }
+        },
+        {
+          "client_id": "1015885835938-72krqqvjm1ldduvhofvrr0enkla3aanv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.byyu",
+            "certificate_hash": "3d58267bf2f0c47a3721474196c4d7f59c1f005d"
+          }
+        },
+        {
+          "client_id": "1015885835938-q1loo1enl9an05f9hmsqfpm8t812n2pf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.byyu",
+            "certificate_hash": "4a723c11da27a8009bca972461ad1ae85429c71a"
+          }
+        },
+        {
+          "client_id": "1015885835938-t0438bphmnu6sne39obhk2mengfojsko.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAVHJv5gic5_7zBg3StbFYosGdG_zzuEgE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1015885835938-fajpaq9dqo6ft9e6qcq1b05ccg2im2tu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1015885835938-b626a6j5bf5h1g3pn5iut2o9487hdc78.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.byyu"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
