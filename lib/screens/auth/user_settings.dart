@@ -43,16 +43,23 @@ class _UserSettingsScreenState extends BaseRouteState {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: ColorConstants.appBrownFaintColor,
+        backgroundColor: ColorConstants.appBarColorWhite,
         leadingWidth: 46,
+        leading: BackButton(
+              onPressed: () {
+                print("Go back");
+                Navigator.pop(context);
+              },
+              color: ColorConstants.appColor,
+            ),
         actions: [],
-        centerTitle: true,
+        centerTitle: false,
         title: Text(
           "Settings",
           textAlign: TextAlign.center,
           style: TextStyle(
-              color: ColorConstants.pureBlack,
-              fontFamily: fontMetropolisRegular,
+              color: ColorConstants.newTextHeadingFooter,
+              fontFamily: fontRailwayRegular,
               fontWeight: FontWeight.w200),
         ),
       ),
@@ -92,7 +99,7 @@ class _UserSettingsScreenState extends BaseRouteState {
                           SizedBox(width: 10),
                           Text("Privacy Policy",
                               style: TextStyle(
-                                  fontFamily: fontMetropolisRegular,
+                                  fontFamily: fontRailwayRegular,
                                   color: ColorConstants.pureBlack,
                                   fontWeight: FontWeight.w200,
                                   fontSize: 15)),
@@ -100,7 +107,7 @@ class _UserSettingsScreenState extends BaseRouteState {
                             child: Text(">",
                                 textAlign: TextAlign.end,
                                 style: TextStyle(
-                                    fontFamily: fontMetropolisRegular,
+                                    fontFamily: fontRailwayRegular,
                                     color: ColorConstants.pureBlack,
                                     fontWeight: FontWeight.w200,
                                     fontSize: 25)),
@@ -146,7 +153,7 @@ class _UserSettingsScreenState extends BaseRouteState {
                           SizedBox(width: 10),
                           Text("Terms & Conditions",
                               style: TextStyle(
-                                  fontFamily: fontMetropolisRegular,
+                                  fontFamily: fontRailwayRegular,
                                   color: ColorConstants.pureBlack,
                                   fontWeight: FontWeight.w200,
                                   fontSize: 15)),
@@ -154,7 +161,7 @@ class _UserSettingsScreenState extends BaseRouteState {
                             child: Text(">",
                                 textAlign: TextAlign.end,
                                 style: TextStyle(
-                                    fontFamily: fontMetropolisRegular,
+                                    fontFamily: fontRailwayRegular,
                                     color: ColorConstants.pureBlack,
                                     fontWeight: FontWeight.w200,
                                     fontSize: 25)),
@@ -196,7 +203,7 @@ class _UserSettingsScreenState extends BaseRouteState {
                                 SizedBox(width: 10),
                                 Text("Delete My Account",
                                     style: TextStyle(
-                                        fontFamily: fontMetropolisRegular,
+                                        fontFamily: fontRailwayRegular,
                                         color: ColorConstants.pureBlack,
                                         fontWeight: FontWeight.w200,
                                         fontSize: 15)),
@@ -228,7 +235,7 @@ class _UserSettingsScreenState extends BaseRouteState {
                                 ? "Enable/ Disable Face ID"
                                 : "Enable/ Disable biometric auth",
                             style: TextStyle(
-                                fontFamily: fontMetropolisRegular,
+                                fontFamily: fontRailwayRegular,
                                 color: ColorConstants.pureBlack,
                                 fontWeight: FontWeight.w200,
                                 fontSize: 15)),
@@ -320,7 +327,7 @@ class _UserSettingsScreenState extends BaseRouteState {
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 14,
-                    fontFamily: fontMetropolisRegular,
+                    fontFamily: fontRailwayRegular,
                     fontWeight: FontWeight.w200,
                   ),
                 ),
@@ -331,7 +338,7 @@ class _UserSettingsScreenState extends BaseRouteState {
                       style: TextStyle(
                         color: Colors.red,
                         fontSize: 16,
-                        fontFamily: fontMetropolisRegular,
+                        fontFamily: fontRailwayRegular,
                         fontWeight: FontWeight.w200,
                       ),
                     ),
@@ -344,7 +351,7 @@ class _UserSettingsScreenState extends BaseRouteState {
                       'Yes',
                       style: TextStyle(
                           fontSize: 16,
-                          fontFamily: fontMetropolisRegular,
+                          fontFamily: fontRailwayRegular,
                           fontWeight: FontWeight.w200,
                           color: Colors.blue),
                     ),

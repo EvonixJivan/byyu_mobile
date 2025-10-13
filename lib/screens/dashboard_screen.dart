@@ -5,6 +5,7 @@ import 'package:byyu/screens/auth/signup_screen.dart';
 import 'package:byyu/screens/product/all_events_screen.dart';
 import 'package:byyu/screens/product/filtered_sub_categories_screen.dart';
 import 'package:byyu/screens/product/product_description_screen.dart';
+import 'package:byyu/widgets/side_drawer.dart';
 import 'package:byyu/widgets/toastfile.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -13,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:marquee/marquee.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:numberpicker/numberpicker.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -84,7 +86,7 @@ class _DashboardScreenState extends BaseRouteState with WidgetsBindingObserver {
   // CarouselController _secondCarouselController;
   IconData lastTapped = Icons.notifications;
   AnimationController? menuAnimation;
-  double _productContainerheight = 265.0;
+  double _productContainerheight = 330.0;
   int? randomSearchProductId;
 
   bool showRelationField = false;
@@ -117,6 +119,9 @@ class _DashboardScreenState extends BaseRouteState with WidgetsBindingObserver {
 
   SelectionData selectionData = new SelectionData();
   var SelectionFilterModel = 0;
+
+    final ScrollController _scrollAutoController = ScrollController();
+
 
   _DashboardScreenState(
       {required this.onAppDrawerButtonPressed, required this.isSubscription});
@@ -247,44 +252,62 @@ class _DashboardScreenState extends BaseRouteState with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //drawerEnableOpenDragGesture: true,
-      //drawer: sideDrawer(context, widget.analytics, widget.observer),
-      appBar: isSubscription == global.isSubscription
-          ? AppBar(
-              backgroundColor: ColorConstants.appBrownFaintColor,
+      key: _scaffoldKey,
+      drawerEnableOpenDragGesture: true,
+      drawer: SideDrawer(
+        analytics: widget.analytics,
+        observer: widget.observer,
+      ),
+      appBar:  AppBar(
+              backgroundColor: ColorConstants.appBarColorWhite,
               leadingWidth: 46,
+              
               automaticallyImplyLeading: false, // use for back button remover
               centerTitle: true, // place logo in center
-              // leading: InkWell(
-              //   onTap: () => onAppDrawerButtonPressed(),
-              //   child: Container(
-              //     margin:
-              //         EdgeInsets.only(left: 10, right: 5, top: 5, bottom: 5),
-              //     width: MediaQuery.of(context).size.width - 23,
-              //     height: MediaQuery.of(context).size.height - 23,
-              //     child: Icon(
-              //       Icons.menu,
-              //       size: 35,
-              //     ),
-              //   ),
-              //   // onTap: () {
+              leading: InkWell(
+                onTap: () => {
+                  
+                  _scaffoldKey.currentState?.openDrawer()
+                },
+                child: Container(
+                  margin:
+                      EdgeInsets.only(left: 10, right: 5, top: 5, bottom: 5),
+                  width: MediaQuery.of(context).size.width - 23,
+                  height: MediaQuery.of(context).size.height - 23,
+                  child: Icon(
+                    Icons.menu_outlined,
+                    size: 35,
+                    color: ColorConstants.appColor,
+                  ),
+                ),
+                // onTap: () {
 
-              //   // },
-              // ),
+                // },
+              ),
               actions: [
-                // InkWell(
-                //   onTap: () {
-                //     Navigator.of(context).push(MaterialPageRoute(
-                //         builder: (context) => SearchScreen(
-                //               a: widget.analytics,
-                //               o: widget.observer,
-                //             )));
-                //   },
-                //   child: Icon(
-                //     Icons.search,
-                //     size: 30,
-                //   ),
-                // ),
+                InkWell(
+                  onTap: () {
+                    randomSearchProductId = _homeScreenData!
+                                    .topselling![Random().nextInt(
+                                        _homeScreenData!.topselling!.length)]
+                                    .productId!;
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => SearchScreen(
+                              a: widget.analytics,
+                              o: widget.observer,
+                              searchProductId: randomSearchProductId!,
+                            )));
+                  },
+                  child: Padding(
+                          padding: const EdgeInsets.only(top: 17,bottom: 17,right: 10),
+                          child: Image.asset(
+                                            "assets/images/iv_search.png",
+                                            fit: BoxFit.contain,
+                                            height: 25,
+                                            alignment: Alignment.center,
+                                ),
+                        ),
+                ),
                 SizedBox(
                   width: 8,
                 ),
@@ -298,16 +321,17 @@ class _DashboardScreenState extends BaseRouteState with WidgetsBindingObserver {
                                   builder: (context) => NotificationScreen(
                                         a: widget.analytics,
                                         o: widget.observer,
+                                        
                                       )));
                         },
-                        child: Container(
-                          margin: EdgeInsets.only(
-                              left: 10, right: 10, top: 5, bottom: 5),
-                          child: Icon(
-                            Icons.notifications_none,
-                            size: 25,
-                            color: Colors.black45,
-                          ),
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 15,bottom: 15,right: 5),
+                          child: Image.asset(
+                                    "assets/images/iv_bell_appcolor.png",
+                                    fit: BoxFit.contain,
+                                    height: 25,
+                                    alignment: Alignment.center,
+                                ),
                         ),
                       )
                     : SizedBox(),
@@ -317,749 +341,636 @@ class _DashboardScreenState extends BaseRouteState with WidgetsBindingObserver {
                 )
               ],
               title: Image.asset(
-                "assets/images/byyu_logo_no_tag.png",
+                "assets/images/new_logo.png",
                 fit: BoxFit.contain,
-                height: 40,
+                height: 25,
                 alignment: Alignment.center,
-              ))
-          : AppBar(
-              backgroundColor: ColorConstants.appBrownFaintColor,
-              automaticallyImplyLeading: false,
-              centerTitle: true,
-              title: Text(
-                "Subscription Category",
-                style: TextStyle(
-                    fontFamily: global.fontMontserratMedium,
-                    fontWeight: FontWeight.normal,
-                    color: ColorConstants.pureBlack),
-              ),
-            ),
+              )),
+          
       body: RefreshIndicator(
         onRefresh: () async {
           await _onRefresh();
         },
         child: _isDataLoaded && _homeScreenData != null
-            ? SingleChildScrollView(
-                physics: AlwaysScrollableScrollPhysics(),
-                child: Column(children: [
-                  Padding(
-                    padding: EdgeInsets.only(left: 8, right: 8),
-                    child: Row(
-                      // mainAxisAlignment:
-                      // MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          child: InkWell(
-                            // onTap: () => Get.to(() => SearchScreen(
-                            //       a: widget.analytics,
-                            //       o: widget.observer,
-                            //     )),
-                            onTap: () {
-                              randomSearchProductId = _homeScreenData!
-                                  .topselling![Random().nextInt(
-                                      _homeScreenData!.topselling!.length)]
-                                  .productId!;
-                              print(
-                                  "Search click This is the random product id from topseling${randomSearchProductId}");
-
-                              Navigator.of(context)
-                                  .push(NavigationUtils.createAnimatedRoute(
-                                      1.0,
-                                      SearchScreen(
-                                        a: widget.analytics,
-                                        o: widget.observer,
-                                        searchProductId: randomSearchProductId!,
-                                      )));
-                            },
-                            child: Container(
-                              margin: EdgeInsets.symmetric(
-                                  horizontal: 12, vertical: 10),
-                              height:
-                                  50, //MediaQuery.of(context).size.height - 758,
-                              // width: 100,
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                    color: global.textGrey, width: 0.1),
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(70),
-                                ),
-                                color: global.searchBox,
-                              ),
-                              child: Row(
-                                children: <Widget>[
-                                  SizedBox(
-                                    width: 12,
-                                  ),
-                                  Expanded(
-                                    child: Text(
-                                      'Search Product',
-                                      style: TextStyle(
-                                          fontFamily:
-                                              global.fontMetropolisRegular,
-                                          fontWeight: FontWeight.w200,
-                                          fontSize: 14,
-                                          color: ColorConstants.grey),
-                                    ),
-                                  ),
-                                  Icon(
-                                    Icons.search,
-                                    size: 30,
-                                    color: ColorConstants.black26,
-                                  ),
-                                  SizedBox(
-                                    width: 8,
+            ? Container(
+              color: ColorConstants.colorPageBackground,
+              child: SingleChildScrollView(
+                  physics: AlwaysScrollableScrollPhysics(),
+                  child: Column(children: [
+                    // Padding(
+                    //   padding: EdgeInsets.only(left: 8, right: 8),
+                    //   child: Row(
+                    //     // mainAxisAlignment:
+                    //     // MainAxisAlignment.spaceBetween,
+                    //     children: [
+                    //       Expanded(
+                    //         child: InkWell(
+                    //           // onTap: () => Get.to(() => SearchScreen(
+                    //           //       a: widget.analytics,
+                    //           //       o: widget.observer,
+                    //           //     )),
+                    //           onTap: () {
+                    //             randomSearchProductId = _homeScreenData!
+                    //                 .topselling![Random().nextInt(
+                    //                     _homeScreenData!.topselling!.length)]
+                    //                 .productId!;
+                    //             print(
+                    //                 "Search click This is the random product id from topseling${randomSearchProductId}");
+              
+                    //             Navigator.of(context)
+                    //                 .push(NavigationUtils.createAnimatedRoute(
+                    //                     1.0,
+                    //                     SearchScreen(
+                    //                       a: widget.analytics,
+                    //                       o: widget.observer,
+                    //                       searchProductId: randomSearchProductId!,
+                    //                     )));
+                    //           },
+                    //           child: Container(
+                    //             margin: EdgeInsets.symmetric(
+                    //                 horizontal: 12, vertical: 10),
+                    //             height:
+                    //                 50, //MediaQuery.of(context).size.height - 758,
+                    //             // width: 100,
+                    //             decoration: BoxDecoration(
+                    //               border: Border.all(
+                    //                   color: global.textGrey, width: 0.1),
+                    //               borderRadius: BorderRadius.all(
+                    //                 Radius.circular(70),
+                    //               ),
+                    //               color: global.searchBox,
+                    //             ),
+                    //             child: Row(
+                    //               children: <Widget>[
+                    //                 SizedBox(
+                    //                   width: 12,
+                    //                 ),
+                    //                 Expanded(
+                    //                   child: Text(
+                    //                     'Search Product',
+                    //                     style: TextStyle(
+                    //                         fontFamily:
+                    //                             global.fontRailwayRegular,
+                    //                         fontWeight: FontWeight.w200,
+                    //                         fontSize: 14,
+                    //                         color: ColorConstants.grey),
+                    //                   ),
+                    //                 ),
+                    //                 Icon(
+                    //                   Icons.search,
+                    //                   size: 30,
+                    //                   color: ColorConstants.black26,
+                    //                 ),
+                    //                 SizedBox(
+                    //                   width: 8,
+                    //                 )
+                    //               ],
+                    //             ),
+                    //           ),
+                    //         ),
+                    //       ),
+                    //     ],
+                    //   ),
+                    // ),
+              
+                    // Container(
+                    //   width: MediaQuery.of(context).size.width,
+                    //   margin: EdgeInsets.only(top: 5, left: 5, right: 5),
+                    //   child: MyTextBox(
+                    //     isHomePage: true,
+                    //     onTap: () {
+                    //       Navigator.of(context).push(MaterialPageRoute(
+                    //           builder: (context) => SearchScreen(
+                    //                 a: widget.analytics,
+                    //                 o: widget.observer,
+                    //               )));
+                    //     },
+              
+                    //     borderRadius: 50,
+                    //     autofocus: false,
+                    //     suffixIcon: Icon(Icons.cancel, color: Colors.black45
+                    //         //Theme.of(context).primaryColor,
+                    //         ),
+                    //     prefixIcon: Icon(
+                    //       Icons.search_outlined,
+                    //       color: Colors.black45,
+                    //     ),
+                    //     hintText:
+                    //         "Search products", //"${AppLocalizations.of(context).hnt_search_product}",
+                    //   ),
+                    // ),
+              
+              // AAAST down
+                    
+                    _homeScreenData!.banner != null &&
+                                            _homeScreenData!.banner != [] &&
+                                            _homeScreenData!.banner!.length > 0 && bannerEventImageURL !=null && bannerEventImageURL.length>0?Container(
+                      width: MediaQuery.of(context).size.width,
+                      //color: new Color(0xffF3E2B3),
+                      //height: 340, //'#F3E2B3',
+                      child: Column(
+                        children: [
+                          Container(  
+                            
+                            child: _isDataLoaded && _homeScreenData != null
+                                ? Container(
+                                    alignment: Alignment.center,
+                                    // padding: EdgeInsets.only(left: 8, right: 8),
+                                    child: _homeScreenData!.banner != null &&
+                                            _homeScreenData!.banner != [] &&
+                                            _homeScreenData!.banner!.length > 0 && bannerEventImageURL !=null && bannerEventImageURL.length>0
+                                        ? BannerImage(
+                                            onTap: (p0) {
+                                              global.homeSelectedCatID =
+                                                  _homeScreenData!
+                                                      .events![p0].id!;
+                                              global.isEventProduct = true;
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          SubCategoriesScreen(
+                                                            a: widget.analytics,
+                                                            o: widget.observer,
+                                                            showCategories: true,
+                                                            screenHeading:
+                                                                _homeScreenData!
+                                                                    .events![p0]
+                                                                    .eventName,
+                                                            categoryId:
+                                                                _homeScreenData!
+                                                                    .events![p0]
+                                                                    .id,
+                                                            isEventProducts: true,
+                                                            isSubcategory:
+                                                                false, //subscriptionProduct: 1,
+                                                          )));
+                                            },
+                                            // borderRadius:
+                                            //     BorderRadius.circular(10),
+                                            autoPlay: true,
+                                            timerDuration: Duration(seconds: 4),
+                                            aspectRatio: 2.3,
+                                            padding: EdgeInsets.only(),
+                                            itemLength:
+                                                bannerEventImageURL.length,
+                                            imageUrlList: bannerEventImageURL,
+                                            selectedIndicatorColor:
+                                                ColorConstants.appColor,
+                                            fit: BoxFit.cover,
+                                            errorBuilder: (context, child,
+                                                loadingProgress) {
+                                              return Container(
+                                                height: 10,
+                                                width: 10,
+                                                child:
+                                                    CircularProgressIndicator(),
+                                              );
+                                            },
+                                          )
+                                        : SizedBox(),
                                   )
-                                ],
-                              ),
+                                : _bannerShimmer(),
+                          ),
+                        ],
+                      ),
+                    ):SizedBox(),
+
+                    // Container(
+                    //   height: 50,
+                    //   color: ColorConstants.colorHomePageSectiondim,
+                    //   padding: EdgeInsets.only(top:10,bottom: 10,left: 10),
+                    // child:   ListView.builder(
+                    //     controller: _scrollAutoController,
+                    //     scrollDirection: Axis.horizontal,
+                    //     itemCount: homeScrollingTitles.length,
+                    //     itemBuilder: (context, index) {
+                    //       return Container(
+                    //         margin: EdgeInsets.only(right: 10),
+                    //         child: Text(
+                    //           homeScrollingTitles[index],
+                    //           style: TextStyle(
+                    //                   fontFamily: global.fontRailwayRegular,
+                    //                   fontWeight: FontWeight.w400,
+                    //                   fontSize: 19,
+                    //                   color: ColorConstants.colorAllHomeTitle),
+                              
+                    //         ),
+                    //       );
+                    //     },
+                    //   ),
+                    // ),
+                    // Container(
+                    //   height: 35,
+                    //   color: ColorConstants.colorHomePageSectiondim,
+                    //   padding: EdgeInsets.only(top:10,bottom: 10,left: 2),
+                    // child:   Marquee(
+                    //   text:homeScrollingTitles.join("                   "),
+                    //   blankSpace: 20.0,
+                    //   startPadding: 20.0,
+                    //     pauseAfterRound: Duration(seconds: 1),
+                    //   accelerationDuration: Duration(seconds: 1),
+                    //   scrollAxis: Axis.horizontal,
+                    //   style: TextStyle(
+                    //                   fontFamily: global.fontRailwayRegular,
+                    //                   fontWeight: FontWeight.w400,
+                    //                   fontSize: 15,
+                    //                   color: ColorConstants.colorAllHomeTitle),
+                                
+
+
+                      
+                    // )
+                    // ),
+                    // /////this is the section for special events
+                    
+                    Container(
+                      color: ColorConstants.colorHomePageSection,
+                      padding: EdgeInsets.only(top: 25),
+                      child: Column(
+                        children: [
+                          Container(
+                            margin: EdgeInsets.only(top: 1, left: 10, right: 10),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Celebrate every occasion",
+                                  style: TextStyle(
+                                      fontFamily: global.fontRalewayMedium,
+                                      fontWeight: FontWeight.w900,
+                                      fontSize: 19,
+                                      color: ColorConstants.colorAllHomeTitle),
+                                ),
+                                  ],
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ),
 
-                  // Container(
-                  //   width: MediaQuery.of(context).size.width,
-                  //   margin: EdgeInsets.only(top: 5, left: 5, right: 5),
-                  //   child: MyTextBox(
-                  //     isHomePage: true,
-                  //     onTap: () {
-                  //       Navigator.of(context).push(MaterialPageRoute(
-                  //           builder: (context) => SearchScreen(
-                  //                 a: widget.analytics,
-                  //                 o: widget.observer,
-                  //               )));
-                  //     },
-
-                  //     borderRadius: 50,
-                  //     autofocus: false,
-                  //     suffixIcon: Icon(Icons.cancel, color: Colors.black45
-                  //         //Theme.of(context).primaryColor,
-                  //         ),
-                  //     prefixIcon: Icon(
-                  //       Icons.search_outlined,
-                  //       color: Colors.black45,
-                  //     ),
-                  //     hintText:
-                  //         "Search products", //"${AppLocalizations.of(context).hnt_search_product}",
-                  //   ),
-                  // ),
-
-// AAAST down
-                  Container(
-                    margin: EdgeInsets.only(top: 1, left: 20, right: 20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Categories",
-                          style: TextStyle(
-                              fontFamily: global.fontMontserratLight,
-                              fontWeight: FontWeight.w200,
-                              fontSize: 19,
-                              color: Colors.black),
-                        ),
-                        TextButton(
-                          child: Text(
-                            "View All",
-                            style: TextStyle(
-                                fontFamily: global.fontMetropolisRegular,
-                                fontWeight: FontWeight.w200,
-                                fontSize: 14,
-                                color: ColorConstants.appdimColor),
-                          ),
-                          onPressed: () {
-                            // Akshada change
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => AllCategoriesScreen(
-                                        a: widget.analytics,
-                                        o: widget.observer,
-                                      )),
-                            );
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    // margin: EdgeInsets.only(top: 5, bottom: 20),
-                    // padding: EdgeInsets.only(top: 5, bottom: 20),
-                    height: 130,
-                    child: Stack(
-                      children: [
-                        Container(
-                          padding: EdgeInsets.only(bottom: 5),
-                          height: 130,
-                          child: _isDataLoaded && _homeScreenData != null
-                              ? _homeScreenData!.topCat != null &&
-                                      _homeScreenData!.topCat != [] &&
-                                      _homeScreenData!.topCat!.length > 0
-                                  ? ListView.builder(
-                                      itemCount:
-                                          _homeScreenData!.topCat!.length,
-                                      shrinkWrap: true,
-                                      scrollDirection: Axis.horizontal,
-                                      itemBuilder: (context, index) {
-                                        return Container(
-                                            width: 75,
-                                            margin: EdgeInsets.all(5),
-                                            child: GestureDetector(
-                                              onTap: () {
-                                                // print(
-                                                //     "hellooo----------------------");
-                                                setState(() {
-                                                  _homeScreenData!.topCat!
-                                                      .map((e) =>
-                                                          e.isSelected = false)
-                                                      .toList();
-                                                  _selectedIndex = index;
-                                                  if (_selectedIndex == index) {
-                                                    _homeScreenData!
-                                                        .topCat![index]
-                                                        .isSelected = true;
-                                                  }
-                                                });
-                                                print(
-                                                    "caategory id-------${_homeScreenData!.topCat![index].catId}");
-                                                global.isEventProduct = false;
-                                                global.isSubCatSelected = false;
-                                                global.homeSelectedCatID =
-                                                    _homeScreenData!
-                                                        .topCat![index].catId!;
-                                                Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            (SubCategoriesScreen(
-                                                              a: widget
-                                                                  .analytics,
-                                                              o: widget
-                                                                  .observer,
-                                                              showCategories:
-                                                                  true,
-                                                              screenHeading:
-                                                                  _homeScreenData!
-                                                                      .topCat![
-                                                                          index]
-                                                                      .title,
-                                                              categoryId:
-                                                                  _homeScreenData!
-                                                                      .topCat![
-                                                                          index]
-                                                                      .catId,
-                                                              isEventProducts:
-                                                                  false,
-                                                              isSubcategory:
-                                                                  false, //subscriptionProduct: 1,
-                                                            ))));
-                                              }, // remove single child scroll view that wrap with column
-                                              child: Column(
-                                                children: [
-                                                  Container(
-                                                    width: 75,
-                                                    height: 75,
-                                                    child: Card(
-                                                      elevation: 0,
-                                                      shadowColor:
-                                                          Colors.transparent,
-                                                      shape:
-                                                          RoundedRectangleBorder(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(8.0),
-                                                      ),
-                                                      margin: EdgeInsets.only(
-                                                          left: 1, right: 1),
-                                                      child: Column(
-                                                        children: [
-                                                          Container(
-                                                            width: 75,
-                                                            height: 75,
-                                                            child: ClipRRect(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          8),
-                                                              child:
-                                                                  CachedNetworkImage(
-                                                                height: 70,
-                                                                fit: BoxFit
-                                                                    .cover,
-                                                                width: 70,
-                                                                imageUrl: global
-                                                                        .catImageBaseUrl +
-                                                                    _homeScreenData!
-                                                                        .topCat![
-                                                                            index]
-                                                                        .image!,
-                                                                imageBuilder:
-                                                                    (context,
-                                                                            imageProvider) =>
-                                                                        Container(
-                                                                  height: double
-                                                                      .infinity,
-                                                                  width: double
-                                                                      .infinity,
-                                                                  decoration:
-                                                                      BoxDecoration(
-                                                                    // borderRadius: BorderRadius.circular(10),
-                                                                    image:
-                                                                        DecorationImage(
+                          Container(
+                      // margin: EdgeInsets.only(top: 5, bottom: 20),
+                      // padding: EdgeInsets.only(top: 5, bottom: 20),
+                      height: 125,
+                      margin: EdgeInsets.only(top: 25),
+                      child: Stack(
+                        children: [
+                          Container(
+                            height: 125,
+                            child: _isDataLoaded && _homeScreenData != null
+                                ? _isDataLoaded && _homeScreenData != null
+                                  && bannerEventIconURL != null &&
+                                          bannerEventIconURL != [] &&
+                                          bannerEventIconURL.length > 0
+                                      
+                                    ? ListView.builder(
+                                        itemCount:
+                                            bannerEventIconURL.length,
+                                        shrinkWrap: true,
+                                        scrollDirection: Axis.horizontal,
+                                        itemBuilder: (context, index) {
+                                          return InkWell(
+                                            onTap: (){
+                                              global.homeSelectedCatID =
+                                                  _homeScreenData!
+                                                      .events![index].id!;
+                                              global.isEventProduct = true;
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          SubCategoriesScreen(
+                                                            a: widget.analytics,
+                                                            o: widget.observer,
+                                                            showCategories: true,
+                                                            screenHeading:
+                                                                _homeScreenData!
+                                                                    .events![index]
+                                                                    .eventName,
+                                                            categoryId:
+                                                                _homeScreenData!
+                                                                    .events![index]
+                                                                    .id,
+                                                            isEventProducts: true,
+                                                            isSubcategory:
+                                                                false, //subscriptionProduct: 1,
+                                                          )));
+                                            },
+                                            child: Container(
+                                                width: 75,
+                                                margin: EdgeInsets.all(5),
+                                                child: Column(
+                                                  children: [
+                                                    Container(
+                                                      width: 75,
+                                                      height: 75,
+                                                      child: Card(
+                                                        elevation: 0,
+                                                        color: Colors.white,
+                                                        shadowColor:
+                                                            Colors.transparent,
+                                                        shape:
+                                                            RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(100),
+                                                        ),
+                                                        margin: EdgeInsets.only(
+                                                            left: 1, right: 1),
+                                                        child: Column(
+                                                          children: [
+                                                            Container(
+                                                              width: 75,
+                                                              height: 75,
+                                                              child: ClipRRect(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            100),
+                                                                child:
+                                                                    CachedNetworkImage(
+                                                                  height: 70,
+                                                                  fit: BoxFit
+                                                                      .contain,
+                                                                  width: 70,
+                                                                  imageUrl: global
+                                                                     .imageBaseUrl +
+                                                                 bannerEventIconURL[index]
+                                                                     .eventIconURL!,
+                                                                  imageBuilder:
+                                                                      (context,
+                                                                              imageProvider) =>
+                                                                          Container(
+                                                                    height: double
+                                                                        .infinity,
+                                                                    width: double
+                                                                        .infinity,
+                                                                    decoration:
+                                                                        BoxDecoration(
+                                                                      // borderRadius: BorderRadius.circular(10),
                                                                       image:
-                                                                          imageProvider,
-                                                                      fit: BoxFit
-                                                                          .cover,
-                                                                      alignment:
-                                                                          Alignment
-                                                                              .center,
+                                                                          DecorationImage(
+                                                                        image:
+                                                                            imageProvider,
+                                                                        fit: BoxFit
+                                                                            .contain,
+                                                                        alignment:
+                                                                            Alignment
+                                                                                .center,
+                                                                      ),
                                                                     ),
                                                                   ),
-                                                                ),
-                                                                placeholder: (context,
-                                                                        url) =>
-                                                                    Center(
-                                                                        child:
-                                                                            CircularProgressIndicator()),
-                                                                errorWidget: (context,
-                                                                        url,
-                                                                        error) =>
-                                                                    Container(
-                                                                  width: 70.0,
-                                                                  height: 70.0,
-                                                                  decoration:
-                                                                      BoxDecoration(
-                                                                    // borderRadius: BorderRadius.circular(15),
-                                                                    image:
-                                                                        DecorationImage(
-                                                                      image: AssetImage(
-                                                                          global
-                                                                              .catNoImage),
-                                                                      fit: BoxFit
-                                                                          .contain,
+                                                                  placeholder: (context,
+                                                                          url) =>
+                                                                      Center(
+                                                                          child:
+                                                                              CircularProgressIndicator()),
+                                                                  errorWidget: (context,
+                                                                          url,
+                                                                          error) =>
+                                                                      Container(
+                                                                    width: 70.0,
+                                                                    height: 70.0,
+                                                                    decoration:
+                                                                        BoxDecoration(
+                                                                      // borderRadius: BorderRadius.circular(15),
+                                                                      image:
+                                                                          DecorationImage(
+                                                                        image: AssetImage(
+                                                                            global
+                                                                                .catNoImage),
+                                                                        fit: BoxFit
+                                                                            .contain,
+                                                                      ),
                                                                     ),
                                                                   ),
                                                                 ),
                                                               ),
                                                             ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Container(
+                                                      margin:
+                                                          EdgeInsets.only(top: 8),
+                                                      child: Column(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment.end,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          Container(
+                                                            padding:
+                                                                EdgeInsets.only(
+                                                                    left: 1,
+                                                                    right: 1),
+                                                           
+                                                            child: Text(
+                                                              "${bannerEventIconURL[index].eventName}",
+                                                              maxLines: 2,
+                                                              textAlign: TextAlign
+                                                                  .center,
+                                                              style: TextStyle(
+                                                                  fontFamily: global
+                                                                      .fontRailwayRegular,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w200,
+                                                                  fontSize: 12,
+                                                                  overflow:
+                                                                      TextOverflow
+                                                                          .ellipsis,
+                                                                  color: Colors
+                                                                      .black),
+                                                            ),
                                                           ),
                                                         ],
                                                       ),
                                                     ),
-                                                  ),
-                                                  Container(
-                                                    margin:
-                                                        EdgeInsets.only(top: 8),
-                                                    child: Column(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment.end,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        Container(
-                                                          padding:
-                                                              EdgeInsets.only(
-                                                                  left: 1,
-                                                                  right: 1),
-                                                          decoration:
-                                                              BoxDecoration(
-                                                                  color: Colors
-                                                                      .white38),
-                                                          child: Text(
-                                                            "${_homeScreenData!.topCat![index].title}",
-                                                            maxLines: 2,
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            style: TextStyle(
-                                                                fontFamily: global
-                                                                    .fontMetropolisRegular,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w200,
-                                                                fontSize: 12,
-                                                                overflow:
-                                                                    TextOverflow
-                                                                        .ellipsis,
-                                                                color: Colors
-                                                                    .black),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ));
-                                      },
-                                    )
-                                  : SizedBox()
-                              : SizedBox(),
-                        ),
-                      ],
-                    ),
-                  ),
-                  
-                  _homeScreenData!.banner != null &&
-                                          _homeScreenData!.banner != [] &&
-                                          _homeScreenData!.banner!.length > 0 && bannerEventImageURL !=null && bannerEventImageURL.length>0?Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.width / 2.1,
-                    //color: new Color(0xffF3E2B3),
-                    //height: 340, //'#F3E2B3',
-                    child: Column(
-                      children: [
-                        Container(
-                          height: MediaQuery.of(context).size.width / 2.1,
-                          child: _isDataLoaded && _homeScreenData != null
-                              ? Container(
-                                  alignment: Alignment.center,
-                                  padding: EdgeInsets.only(left: 8, right: 8),
-                                  child: _homeScreenData!.banner != null &&
-                                          _homeScreenData!.banner != [] &&
-                                          _homeScreenData!.banner!.length > 0 && bannerEventImageURL !=null && bannerEventImageURL.length>0
-                                      ? BannerImage(
-                                          onTap: (p0) {
-                                            global.homeSelectedCatID =
-                                                _homeScreenData!
-                                                    .events![p0].id!;
-                                            global.isEventProduct = true;
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        SubCategoriesScreen(
-                                                          a: widget.analytics,
-                                                          o: widget.observer,
-                                                          showCategories: true,
-                                                          screenHeading:
-                                                              _homeScreenData!
-                                                                  .events![p0]
-                                                                  .eventName,
-                                                          categoryId:
-                                                              _homeScreenData!
-                                                                  .events![p0]
-                                                                  .id,
-                                                          isEventProducts: true,
-                                                          isSubcategory:
-                                                              false, //subscriptionProduct: 1,
-                                                        )));
-                                          },
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          autoPlay: true,
-                                          timerDuration: Duration(seconds: 4),
-                                          aspectRatio: 2.3,
-                                          padding: EdgeInsets.only(),
-                                          itemLength:
-                                              bannerEventImageURL.length,
-                                          imageUrlList: bannerEventImageURL,
-                                          selectedIndicatorColor:
-                                              ColorConstants.appColor,
-                                          fit: BoxFit.cover,
-                                          errorBuilder: (context, child,
-                                              loadingProgress) {
-                                            return Container(
-                                              height: 10,
-                                              width: 10,
-                                              child:
-                                                  CircularProgressIndicator(),
-                                            );
-                                          },
-                                        )
-                                      : SizedBox(),
-                                )
-                              : _bannerShimmer(),
-                        ),
-                      ],
-                    ),
-                  ):SizedBox(),
-                  _isDataLoaded && _homeScreenData != null
-                                && bannerEventIconURL != null &&
-                                        bannerEventIconURL != [] &&
-                                        bannerEventIconURL.length > 0
-                                    ?Container(
-                    margin: EdgeInsets.only(top: 1, left: 20, right: 20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Special Occasions",
-                          style: TextStyle(
-                              fontFamily: global.fontMontserratLight,
-                              fontWeight: FontWeight.w200,
-                              fontSize: 19,
-                              color: Colors.black),
-                        ),
-                        TextButton(
-                          child: Text(
-                            "View All",
-                            style: TextStyle(
-                                fontFamily: global.fontMetropolisRegular,
-                                fontWeight: FontWeight.w200,
-                                fontSize: 14,
-                                color: ColorConstants.appdimColor),
+                                                  ],
+                                                )),
+                                          );
+                                        },
+                                      )
+                                    : SizedBox()
+                                : SizedBox(),
                           ),
-                          onPressed: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => AllEventsScreen(
-                                        a: widget.analytics,
-                                        o: widget.observer,
-                                      )),
-                            );
-                          },
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ):SizedBox(),
-                  _isDataLoaded && _homeScreenData != null
-                                && bannerEventIconURL != null &&
-                                        bannerEventIconURL != [] &&
-                                        bannerEventIconURL.length > 0
-                                    ?Align(
-                    alignment: Alignment.topLeft,
-                    child: Container(
-                      //height: 120,
-                      padding: EdgeInsets.only(left: 8, right: 8),
-                      child: Wrap(
+                   
+                        ],
+                      ),
+                    ),
+                    
+                    SizedBox(height: 25,),
+                     
+                    ///Special events section ends here
+                    Container(
+
+                      margin: EdgeInsets.only(left: 10, right: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
+                          Text(
+                            "Curated just for you",
+                            style: TextStyle(
+                                fontFamily: global.fontRalewayMedium,
+                                fontWeight: FontWeight.w900,
+                                fontSize: 19,
+                                color: ColorConstants.newTextHeadingFooter),
+                          ),
                           Container(
-                            width: MediaQuery.of(context).size.width,
-                            //padding: EdgeInsets.only(top: 5, bottom: 5),
-                            //height: 240,
-                            child: _isDataLoaded && _homeScreenData != null
-                                ? bannerEventIconURL != null &&
-                                        bannerEventIconURL != [] &&
-                                        bannerEventIconURL.length > 0
-                                    ? Container(
-                                        child: Stack(
-                                          children: [
-                                            //////////////////////////////////////////
-                                           bannerEventIconURL.length>0? Container(
-                                             width: MediaQuery.of(context)
-                                                     .size
-                                                     .width /
-                                                 2.1,
-                                             height: MediaQuery.of(context)
-                                                     .size
-                                                     .width /
-                                                 2.8,
-                                             //margin: EdgeInsets.only(),
-                                             child: Card(
-                                               shape: RoundedRectangleBorder(
-                                                   borderRadius:
-                                                       BorderRadius.circular(
-                                                           8)),
-                                               color: ColorConstants
-                                                   .dashBoardSpecialOcassions,
-                                               child: Stack(
-                                                 children: [
-                                                   InkWell(
-                                                     onTap: () {
-                                                       print(
-                                                           "Event list on tap Birthday");
-                                                       global.homeSelectedCatID =
-                                                           bannerEventIconURL[0].eventID!;
-                                                       global.isEventProduct =
-                                                           true;
-                                                       Navigator.push(
-                                                           context,
-                                                           MaterialPageRoute(
-                                                               builder:
-                                                                   (context) =>
-                                                                       SubCategoriesScreen(
-                                                                         a: widget
-                                                                             .analytics,
-                                                                         o: widget
-                                                                             .observer,
-                                                                         showCategories:
-                                                                             true,
-                                                                         screenHeading:bannerEventIconURL[0]
-                                                                             .eventName,
-                                                                         categoryId: bannerEventIconURL[0]
-                                                                             .eventID,
-                                                                         isEventProducts:
-                                                                             true,
-                                                                         isSubcategory:
-                                                                             true, //subscriptionProduct: 1,
-                                                                       )));
-                                                     },
-                                                     child: Container(
-                                                       padding:
-                                                           EdgeInsets.only(
-                                                               top: 25,
-                                                               left: 25,
-                                                               right: 25,
-                                                               bottom: 39),
-                                                       child:
-                                                           CachedNetworkImage(
-                                                         imageUrl: global
-                                                                 .imageBaseUrl +
-                                                             bannerEventIconURL[0]
-                                                                 .eventIconURL!,
-                                                         imageBuilder: (context,
-                                                                 imageProvider) =>
-                                                             Container(
-                                                           height:
-                                                               double.infinity,
-                                                           width:
-                                                               double.infinity,
-                                                           decoration:
-                                                               BoxDecoration(
-                                                             // borderRadius: BorderRadius.circular(10),
-                                                             image:
-                                                                 DecorationImage(
-                                                               image:
-                                                                   imageProvider,
-                                                               fit: BoxFit
-                                                                   .contain,
-                                                               alignment:
-                                                                   Alignment
-                                                                       .center,
-                                                             ),
-                                                           ),
-                                                         ),
-                                                         placeholder: (context,
-                                                                 url) =>
-                                                             Center(
-                                                                 child:
-                                                                     CircularProgressIndicator()),
-                                                         errorWidget: (context,
-                                                                 url, error) =>
-                                                             Container(
-                                                           width: 100.0,
-                                                           height: 100.0,
-                                                           decoration:
-                                                               BoxDecoration(
-                                                             // borderRadius: BorderRadius.circular(15),
-                                                             image:
-                                                                 DecorationImage(
-                                                               image: AssetImage(
-                                                                   global
-                                                                       .catNoImage),
-                                                               fit: BoxFit
-                                                                   .contain,
-                                                             ),
-                                                           ),
-                                                         ),
-                                                       ),
-                                                     ),
-                                                   ),
-                                                   Container(
-                                                     padding: EdgeInsets.only(
-                                                         top: 2, bottom: 5),
-                                                     width:
-                                                         MediaQuery.of(context)
-                                                                 .size
-                                                                 .width /
-                                                             2.2,
-                                                     height:
-                                                         MediaQuery.of(context)
-                                                                 .size
-                                                                 .width /
-                                                             2.2,
-                                                     child: Align(
-                                                       alignment: Alignment
-                                                           .bottomCenter,
-                                                       child: Text(
-                                                         "${bannerEventIconURL[0].eventName}"
-                                                             .trim(),
-                                                         maxLines: 2,
-                                                         textAlign:
-                                                             TextAlign.center,
-                                                         style: TextStyle(
-                                                             fontFamily: global
-                                                                 .fontMetropolisRegular,
-                                                             fontWeight:
-                                                                 FontWeight
-                                                                     .w200,
-                                                             fontSize: 15,
-                                                             overflow:
-                                                                 TextOverflow
-                                                                     .ellipsis,
-                                                             color:
-                                                                 ColorConstants
-                                                                     .pureBlack),
-                                                       ),
-                                                     ),
-                                                   )
-                                                 ],
-                                               ),
-                                             ),
-                                           ):Container(),
-                                            /////////////////////////////////////////
-                                           bannerEventIconURL.length>1? Align(
-                                              // margin: EdgeInsets.only(
-                                              //     left: MediaQuery.of(context)
-                                              //             .size
-                                              //             .width /
-                                              //         2.2),
-                                              alignment: Alignment.topRight,
-                                              child: Container(
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width /
-                                                    2.1,
-                                                height: MediaQuery.of(context)
-                                                        .size
-                                                        .width /
-                                                    2.1,
-                                                child: GestureDetector(
-                                                  onTap: () {},
+                            height: 28,
+                            padding: EdgeInsets.only(left: 8,right: 8),
+                            decoration: BoxDecoration(
+                             color: Colors.white,
+                             borderRadius: BorderRadius.circular(100),
+                             border: Border.all(color: ColorConstants.newAppColor, width: 0.25)
+                            ),
+                            child: TextButton(
+                              child: Text(
+                                "View All",
+                                style: TextStyle(
+                                    fontFamily: global.fontRailwayRegular,
+                                    fontWeight: FontWeight.w200,
+                                    fontSize: 12,
+                                    color: ColorConstants.newTextHeadingFooter),
+                              ),
+                              onPressed: () {
+                                // Akshada change
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                      builder: (context) => AllCategoriesScreen(
+                                            a: widget.analytics,
+                                            o: widget.observer,
+                                          )),
+                                );
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 25,),
+                    Container(
+                      // margin: EdgeInsets.only(top: 5, bottom: 20),
+                      // padding: EdgeInsets.only(top: 5, bottom: 20),
+                      height: 130,
+                      child: Container(
+                        padding: EdgeInsets.only(bottom: 5),
+                        height: 130,
+                        child: _isDataLoaded && _homeScreenData != null
+                            ? _homeScreenData!.topCat != null &&
+                                    _homeScreenData!.topCat != [] &&
+                                    _homeScreenData!.topCat!.length > 0
+                                ? ListView.builder(
+                                    itemCount:
+                                        _homeScreenData!.topCat!.length,
+                                    shrinkWrap: true,
+                                    scrollDirection: Axis.horizontal,
+                                    itemBuilder: (context, index) {
+                                      return Container(
+                                          width: 75,
+                                          margin: EdgeInsets.all(5),
+                                          child: GestureDetector(
+                                            onTap: () {
+                                              // print(
+                                              //     "hellooo----------------------");
+                                              setState(() {
+                                                _homeScreenData!.topCat!
+                                                    .map((e) =>
+                                                        e.isSelected = false)
+                                                    .toList();
+                                                _selectedIndex = index;
+                                                if (_selectedIndex == index) {
+                                                  _homeScreenData!
+                                                      .topCat![index]
+                                                      .isSelected = true;
+                                                }
+                                              });
+                                              print(
+                                                  "caategory id-------${_homeScreenData!.topCat![index].catId}");
+                                              global.isEventProduct = false;
+                                              global.isSubCatSelected = false;
+                                              global.homeSelectedCatID =
+                                                  _homeScreenData!
+                                                      .topCat![index].catId!;
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          (SubCategoriesScreen(
+                                                            a: widget
+                                                                .analytics,
+                                                            o: widget
+                                                                .observer,
+                                                            showCategories:
+                                                                true,
+                                                            screenHeading:
+                                                                _homeScreenData!
+                                                                    .topCat![
+                                                                        index]
+                                                                    .title,
+                                                            categoryId:
+                                                                _homeScreenData!
+                                                                    .topCat![
+                                                                        index]
+                                                                    .catId,
+                                                            isEventProducts:
+                                                                false,
+                                                            isSubcategory:
+                                                                false, //subscriptionProduct: 1,
+                                                          ))));
+                                            }, // remove single child scroll view that wrap with column
+                                            child: Column(
+                                              children: [
+                                                Container(
+                                                  width: 75,
+                                                  height: 75,
                                                   child: Card(
+                                                    elevation: 0,
+                                                    color: Colors.white,
+                                                    shadowColor:
+                                                        Colors.transparent,
                                                     shape:
                                                         RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius
+                                                              .circular(100),
+                                                    ),
+                                                    margin: EdgeInsets.only(
+                                                        left: 1, right: 1),
+                                                    child: Column(
+                                                      children: [
+                                                        Container(
+                                                          width: 75,
+                                                          height: 75,
+                                                          child: ClipRRect(
                                                             borderRadius:
                                                                 BorderRadius
                                                                     .circular(
-                                                                        8)),
-                                                    color: ColorConstants
-                                                        .dashBoardSpecialOcassions,
-                                                    child: Stack(
-                                                      children: [
-                                                        InkWell(
-                                                          onTap: () {
-                                                            print(
-                                                                "Event list on tap Birthday${_homeScreenData!.events![1].eventName}");
-                                                            global.homeSelectedCatID =
-                                                                bannerEventIconURL[1]
-                                                                    .eventID!;
-                                                            global.isEventProduct =
-                                                                true;
-                                                            Navigator.push(
-                                                                context,
-                                                                MaterialPageRoute(
-                                                                    builder:
-                                                                        (context) =>
-                                                                            SubCategoriesScreen(
-                                                                              a: widget.analytics,
-                                                                              o: widget.observer,
-                                                                              showCategories: true,
-                                                                              screenHeading: bannerEventIconURL[1].eventName,
-                                                                              categoryId: bannerEventIconURL[1].eventID,
-                                                                              isEventProducts: true,
-                                                                              isSubcategory: true, //subscriptionProduct: 1,
-                                                                            )));
-                                                          },
-                                                          child: Container(
-                                                            padding:
-                                                                EdgeInsets.only(
-                                                                    top: 35,
-                                                                    left: 35,
-                                                                    right: 35,
-                                                                    bottom: 39),
+                                                                        100),
                                                             child:
                                                                 CachedNetworkImage(
+                                                              height: 65,
+                                                              fit: BoxFit
+                                                                  .contain,
+                                                              width: 65,
                                                               imageUrl: global
                                                                       .imageBaseUrl +
-                                                                  bannerEventIconURL[
-                                                                          1]
-                                                                      .eventIconURL!,
+                                                                  _homeScreenData!
+                                                                      .topCat![
+                                                                          index]
+                                                                      .image!,
                                                               imageBuilder:
                                                                   (context,
                                                                           imageProvider) =>
                                                                       Container(
+                                                                height: double
+                                                                    .infinity,
+                                                                width: double
+                                                                    .infinity,
                                                                 decoration:
                                                                     BoxDecoration(
                                                                   // borderRadius: BorderRadius.circular(10),
@@ -1080,12 +991,12 @@ class _DashboardScreenState extends BaseRouteState with WidgetsBindingObserver {
                                                                   Center(
                                                                       child:
                                                                           CircularProgressIndicator()),
-                                                              errorWidget:
-                                                                  (context, url,
-                                                                          error) =>
-                                                                      Container(
-                                                                width: 100.0,
-                                                                height: 100.0,
+                                                              errorWidget: (context,
+                                                                      url,
+                                                                      error) =>
+                                                                  Container(
+                                                                width: 60.0,
+                                                                height: 60.0,
                                                                 decoration:
                                                                     BoxDecoration(
                                                                   // borderRadius: BorderRadius.circular(15),
@@ -1102,2435 +1013,562 @@ class _DashboardScreenState extends BaseRouteState with WidgetsBindingObserver {
                                                             ),
                                                           ),
                                                         ),
-                                                        Container(
-                                                          padding:
-                                                              EdgeInsets.only(
-                                                                  top: 2,
-                                                                  bottom: 5),
-                                                          width: MediaQuery.of(
-                                                                      context)
-                                                                  .size
-                                                                  .width /
-                                                              2.2,
-                                                          height: MediaQuery.of(
-                                                                      context)
-                                                                  .size
-                                                                  .width /
-                                                              1.5,
-                                                          child: Align(
-                                                            alignment: Alignment
-                                                                .bottomCenter,
-                                                            child: Text(
-                                                              "${bannerEventIconURL[1].eventName}"
-                                                                  .trim(),
-                                                              maxLines: 2,
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .center,
-                                                              style: TextStyle(
-                                                                  fontFamily: global
-                                                                      .fontMetropolisRegular,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w200,
-                                                                  fontSize: 15,
-                                                                  overflow:
-                                                                      TextOverflow
-                                                                          .ellipsis,
-                                                                  color: ColorConstants
-                                                                      .pureBlack),
-                                                            ),
-                                                          ),
-                                                        )
                                                       ],
                                                     ),
                                                   ),
                                                 ),
-                                              ),
-                                            ):Container(),
-                                            ////////////////////////////////////////
-                                            bannerEventIconURL != null &&
-                                          bannerEventIconURL != [] &&
-                                          bannerEventIconURL.length>2? Container(
-                                                height: MediaQuery.of(context)
-                                                        .size
-                                                        .width /
-                                                    2.1,
-                                                margin: EdgeInsets.only(
-                                                    top: (MediaQuery.of(context)
-                                                                .size
-                                                                .width /
-                                                            2.8) +
-                                                        4),
-                                                child: Card(
-                                                  shape: RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              8)),
-                                                  color: ColorConstants
-                                                      .dashBoardSpecialOcassions,
-                                                  child: Stack(
+                                                Container(
+                                                  margin:
+                                                      EdgeInsets.only(top: 8),
+                                                  child: Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.end,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .center,
                                                     children: [
-                                                      InkWell(
-                                                        onTap: () {
-                                                          global.homeSelectedCatID =
-                                                                bannerEventIconURL[2]
-                                                                    .eventID!;
-                                                            global.isEventProduct =
-                                                                true;
-                                                            Navigator.push(
-                                                                context,
-                                                                MaterialPageRoute(
-                                                                    builder:
-                                                                        (context) =>
-                                                                            SubCategoriesScreen(
-                                                                              a: widget.analytics,
-                                                                              o: widget.observer,
-                                                                              showCategories:
-                                                                                  true,
-                                                                              screenHeading:
-                                                                                  bannerEventIconURL[2].eventName,
-                                                                              categoryId:
-                                                                                  bannerEventIconURL[2].eventID,
-                                                                              isEventProducts:
-                                                                                  true,
-                                                                              isSubcategory:
-                                                                                  true, //subscriptionProduct: 1,
-                                                                            )));
-                                                        },
-                                                        child: Container(
-                                                          padding:
-                                                              EdgeInsets.only(
-                                                                  top: 35,
-                                                                  left: 35,
-                                                                  right: 35,
-                                                                  bottom: 49),
-                                                          width: MediaQuery.of(
-                                                                      context)
-                                                                  .size
-                                                                  .width /
-                                                              2.2,
-                                                          height: MediaQuery.of(
-                                                                      context)
-                                                                  .size
-                                                                  .width /
-                                                              2.1,
-                                                          child:
-                                                              CachedNetworkImage(
-                                                            imageUrl: global
-                                                                    .imageBaseUrl +
-                                                                bannerEventIconURL[2]
-                                                                    .eventIconURL!,
-                                                            imageBuilder: (context,
-                                                                    imageProvider) =>
-                                                                Container(
-                                                              height:
-                                                                  double.infinity,
-                                                              width:
-                                                                  double.infinity,
-                                                              decoration:
-                                                                  BoxDecoration(
-                                                                // borderRadius: BorderRadius.circular(10),
-                                                                image:
-                                                                    DecorationImage(
-                                                                  image:
-                                                                      imageProvider,
-                                                                  fit: BoxFit
-                                                                      .contain,
-                                                                  alignment:
-                                                                      Alignment
-                                                                          .center,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            placeholder: (context,
-                                                                    url) =>
-                                                                Center(
-                                                                    child:
-                                                                        CircularProgressIndicator()),
-                                                            errorWidget: (context,
-                                                                    url, error) =>
-                                                                Container(
-                                                              width: 100.0,
-                                                              height: 100.0,
-                                                              decoration:
-                                                                  BoxDecoration(
-                                                                // borderRadius: BorderRadius.circular(15),
-                                                                image:
-                                                                    DecorationImage(
-                                                                  image: AssetImage(
-                                                                      global
-                                                                          .catNoImage),
-                                                                  fit: BoxFit
-                                                                      .contain,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      Container(
-                                                        padding: EdgeInsets.only(
-                                                            top: 2, bottom: 5),
-                                                        width:
-                                                            MediaQuery.of(context)
-                                                                    .size
-                                                                    .width /
-                                                                2.2,
-                                                        height:
-                                                            MediaQuery.of(context)
-                                                                    .size
-                                                                    .width /
-                                                                1.5,
-                                                        child: Align(
-                                                          alignment: Alignment
-                                                              .bottomCenter,
-                                                          child: Text(
-                                                            "${bannerEventIconURL[2].eventName}"
-                                                                .trim(),
-                                                            maxLines: 2,
-                                                            textAlign:
-                                                                TextAlign.center,
-                                                            style: TextStyle(
-                                                                fontFamily: global
-                                                                    .fontMetropolisRegular,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w200,
-                                                                fontSize: 15,
-                                                                overflow:
-                                                                    TextOverflow
-                                                                        .ellipsis,
-                                                                color:
-                                                                    ColorConstants
-                                                                        .pureBlack),
-                                                          ),
-                                                        ),
-                                                      )
-                                                    ],
-                                                  ),
-                                                ),
-                                              )
-                                            :Container(),
-                                            ////////////////////////////////////////
-                                            bannerEventIconURL!=null && bannerEventIconURL!=[] && bannerEventIconURL.length>3? Align(
-                                              alignment: Alignment.topRight,
-                                              child: Container(
-                                                margin: EdgeInsets.only(
-                                                    top: (MediaQuery.of(context)
-                                                                .size
-                                                                .width /
-                                                            2.1) +
-                                                        5),
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width /
-                                                    2.1,
-                                                height: MediaQuery.of(context)
-                                                        .size
-                                                        .width /
-                                                    2.8,
-                                                //margin: EdgeInsets.only(),
-                                                child: Card(
-                                                  shape: RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              8)),
-                                                  color: ColorConstants
-                                                      .dashBoardSpecialOcassions,
-                                                  child: Stack(
-                                                    children: [
-                                                      InkWell(
-                                                        onTap: () {
-                                                          global.homeSelectedCatID =
-                                                              bannerEventIconURL[3]
-                                                                  .eventID!;
-                                                          global.isEventProduct =
-                                                              true;
-                                                          Navigator.push(
-                                                              context,
-                                                              MaterialPageRoute(
-                                                                  builder:
-                                                                      (context) =>
-                                                                          SubCategoriesScreen(
-                                                                            a: widget.analytics,
-                                                                            o: widget.observer,
-                                                                            showCategories:
-                                                                                true,
-                                                                            screenHeading:
-                                                                                bannerEventIconURL[3].eventName,
-                                                                            categoryId:
-                                                                                bannerEventIconURL[3].eventID,
-                                                                            isEventProducts:
-                                                                                true,
-                                                                            isSubcategory:
-                                                                                true, //subscriptionProduct: 1,
-                                                                          )));
-                                                        },
-                                                        child: Container(
-                                                          padding:
-                                                              EdgeInsets.only(
-                                                                  top: 20,
-                                                                  left: 20,
-                                                                  right: 20,
-                                                                  bottom: 39),
-                                                          child:
-                                                              CachedNetworkImage(
-                                                            imageUrl: global
-                                                                    .imageBaseUrl +
-                                                                bannerEventIconURL[3]
-                                                                    .eventIconURL!,
-                                                            imageBuilder: (context,
-                                                                    imageProvider) =>
-                                                                Container(
-                                                              height: double
-                                                                  .infinity,
-                                                              width: double
-                                                                  .infinity,
-                                                              decoration:
-                                                                  BoxDecoration(
-                                                                // borderRadius: BorderRadius.circular(10),
-                                                                image:
-                                                                    DecorationImage(
-                                                                  image:
-                                                                      imageProvider,
-                                                                  fit: BoxFit
-                                                                      .contain,
-                                                                  alignment:
-                                                                      Alignment
-                                                                          .center,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            placeholder: (context,
-                                                                    url) =>
-                                                                Center(
-                                                                    child:
-                                                                        CircularProgressIndicator()),
-                                                            errorWidget:
-                                                                (context, url,
-                                                                        error) =>
-                                                                    Container(
-                                                              width: 100.0,
-                                                              height: 100.0,
-                                                              decoration:
-                                                                  BoxDecoration(
-                                                                // borderRadius: BorderRadius.circular(15),
-                                                                image:
-                                                                    DecorationImage(
-                                                                  image: AssetImage(
-                                                                      global
-                                                                          .catNoImage),
-                                                                  fit: BoxFit
-                                                                      .contain,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
                                                       Container(
                                                         padding:
                                                             EdgeInsets.only(
-                                                                top: 2,
-                                                                bottom: 5),
-                                                        width: MediaQuery.of(
-                                                                    context)
-                                                                .size
-                                                                .width /
-                                                            2.2,
-                                                        height: MediaQuery.of(
-                                                                    context)
-                                                                .size
-                                                                .width /
-                                                            2.2,
-                                                        child: Align(
-                                                          alignment: Alignment
-                                                              .bottomCenter,
-                                                          child: Text(
-                                                            "${bannerEventIconURL[3].eventName}"
-                                                                .trim(),
-                                                            maxLines: 2,
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            style: TextStyle(
-                                                                fontFamily: global
-                                                                    .fontMetropolisRegular,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w200,
-                                                                fontSize: 15,
-                                                                overflow:
-                                                                    TextOverflow
-                                                                        .ellipsis,
-                                                                color: ColorConstants
-                                                                    .pureBlack),
-                                                          ),
-                                                        ),
-                                                      )
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                            ):Container(),
-                                            /////////////////////////////////////////
-                                            bannerEventIconURL!=null && bannerEventIconURL!=[] && bannerEventIconURL.length>4?Container(
-                                              margin: EdgeInsets.only(
-                                                  top: (MediaQuery.of(context)
-                                                              .size
-                                                              .width /
-                                                          1.2) +
-                                                      8),
-                                              //alignment: Alignment.bottomCenter,
-                                              child: Container(
-                                                width: MediaQuery.of(context)
-                                                    .size
-                                                    .width,
-                                                height: MediaQuery.of(context)
-                                                        .size
-                                                        .width /
-                                                    2.1,
-                                                child: Card(
-                                                  shape: RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              8)),
-                                                  color: ColorConstants
-                                                      .dashBoardSpecialOcassions,
-                                                  child: Stack(
-                                                    children: [
-                                                      InkWell(
-                                                        onTap: () {
-                                                          global.homeSelectedCatID =
-                                                              bannerEventIconURL[4]
-                                                                  .eventID!;
-                                                          global.isEventProduct =
-                                                              true;
-                                                          Navigator.push(
-                                                              context,
-                                                              MaterialPageRoute(
-                                                                  builder:
-                                                                      (context) =>
-                                                                          SubCategoriesScreen(
-                                                                            a: widget.analytics,
-                                                                            o: widget.observer,
-                                                                            showCategories:
-                                                                                true,
-                                                                            screenHeading:
-                                                                                bannerEventIconURL[4].eventName,
-                                                                            categoryId:
-                                                                                bannerEventIconURL[4].eventID,
-                                                                            isEventProducts:
-                                                                                true,
-                                                                            isSubcategory:
-                                                                                true, //subscriptionProduct: 1,
-                                                                          )));
-                                                        },
-                                                        child: Container(
-                                                          padding:
-                                                              EdgeInsets.only(
-                                                                  top: 35,
-                                                                  left: 35,
-                                                                  right: 35,
-                                                                  bottom: 49),
-                                                          child:
-                                                              CachedNetworkImage(
-                                                            imageUrl: global
-                                                                    .imageBaseUrl +
-                                                                bannerEventIconURL[4]
-                                                                    .eventIconURL! +
-                                                                "?width=500&height=500",
-                                                            imageBuilder: (context,
-                                                                    imageProvider) =>
-                                                                Container(
-                                                              height: double
-                                                                  .infinity,
-                                                              width: double
-                                                                  .infinity,
-                                                              decoration:
-                                                                  BoxDecoration(
-                                                                // borderRadius: BorderRadius.circular(10),
-                                                                image:
-                                                                    DecorationImage(
-                                                                  image:
-                                                                      imageProvider,
-                                                                  fit: BoxFit
-                                                                      .contain,
-                                                                  alignment:
-                                                                      Alignment
-                                                                          .center,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            placeholder: (context,
-                                                                    url) =>
-                                                                Center(
-                                                                    child:
-                                                                        CircularProgressIndicator()),
-                                                            errorWidget:
-                                                                (context, url,
-                                                                        error) =>
-                                                                    Container(
-                                                              width: 100.0,
-                                                              height: 100.0,
-                                                              decoration:
-                                                                  BoxDecoration(
-                                                                // borderRadius: BorderRadius.circular(15),
-                                                                image:
-                                                                    DecorationImage(
-                                                                  image: AssetImage(
-                                                                      global
-                                                                          .catNoImage),
-                                                                  fit: BoxFit
-                                                                      .contain,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ),
+                                                                left: 1,
+                                                                right: 1),
+                                                        
+                                                        child: Text(
+                                                          "${_homeScreenData!.topCat![index].title}",
+                                                          maxLines: 2,
+                                                          textAlign: TextAlign
+                                                              .center,
+                                                          style: TextStyle(
+                                                              fontFamily: global
+                                                                  .fontRailwayRegular,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w200,
+                                                              fontSize: 12,
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis,
+                                                              color: Colors
+                                                                  .black),
                                                         ),
                                                       ),
-                                                      Container(
-                                                        padding:
-                                                            EdgeInsets.only(
-                                                                top: 2,
-                                                                bottom: 5),
-                                                        width: MediaQuery.of(
-                                                                context)
-                                                            .size
-                                                            .width,
-                                                        height: MediaQuery.of(
-                                                                    context)
-                                                                .size
-                                                                .width /
-                                                            1.5,
-                                                        child: Align(
-                                                          alignment: Alignment
-                                                              .bottomCenter,
-                                                          child: Text(
-                                                            "${bannerEventIconURL[4].eventName}"
-                                                                .trim(),
-                                                            maxLines: 2,
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            style: TextStyle(
-                                                                fontFamily: global
-                                                                    .fontMetropolisRegular,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w200,
-                                                                fontSize: 15,
-                                                                overflow:
-                                                                    TextOverflow
-                                                                        .ellipsis,
-                                                                color: ColorConstants
-                                                                    .pureBlack),
-                                                          ),
-                                                        ),
-                                                      )
                                                     ],
                                                   ),
                                                 ),
-                                              ),
-                                            ):Container(),
-                                          ],
-                                        ),
-                                      )
-                                    : SizedBox()
-                                : SizedBox(),
+                                              ],
+                                            ),
+                                          ));
+                                    },
+                                  )
+                                : SizedBox()
+                            : SizedBox(),
+                      ),
+                    ),
+                    
+                    SizedBox(
+                      height: 25,
+                    ),
+                    Container(
+                      
+                      margin: EdgeInsets.only(left: 8, right: 8),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                              _homeScreenData!.recentselling!.length > 0
+                                  ? "${_homeScreenData!.recentselling![0].catName}"
+                                  : "",
+                              maxLines: 1,
+                              style: TextStyle(
+                                  fontFamily: global.fontRalewayMedium,
+                                fontWeight: FontWeight.w900,
+                                fontSize: 19,
+                                color: ColorConstants.newTextHeadingFooter)),
+                          Container(
+                            height: 28,
+                            padding: EdgeInsets.only(left: 8,right: 8),
+                            decoration: BoxDecoration(
+                             color: Colors.white,
+                             borderRadius: BorderRadius.circular(100),
+                             border: Border.all(color: ColorConstants.newAppColor, width: 0.25)
+                            ),
+                            child: TextButton(
+                              child: Text(
+                                "View All",
+                                style: TextStyle(
+                                    fontFamily: global.fontRailwayRegular,
+                                    fontWeight: FontWeight.w200,
+                                    fontSize: 12,
+                                    color: ColorConstants.newTextHeadingFooter),
+                              ),
+                              onPressed: () {
+                                global.isSubCatSelected = false;
+                                setState(() {});
+                                global.homeSelectedCatID =
+                                    _homeScreenData!.recentselling![0].catId!;
+                                global.parentCatID =
+                                    _homeScreenData!.recentselling![0].catId!;
+                                global.isEventProduct = false;
+                                global.isSubCatSelected = false;
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => SubCategoriesScreen(
+                                              a: widget.analytics,
+                                              o: widget.observer,
+                                              showCategories: true,
+                                              screenHeading: _homeScreenData!
+                                                  .recentselling![0].catName,
+                                              categoryId: _homeScreenData!
+                                                  .recentselling![0].catId,
+                                              isEventProducts: false,
+                                              isSubcategory:
+                                                  false, //subscriptionProduct: 1,
+                                            )));
+                              },
+                            ),
                           ),
                         ],
                       ),
                     ),
-                  ):SizedBox(),
-                  Container(
-                    margin: EdgeInsets.only(left: 20, right: 20, bottom: 1),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                            _homeScreenData!.recentselling!.length > 0
-                                ? "${_homeScreenData!.recentselling![0].catName}"
-                                : "",
-                            maxLines: 1,
-                            style: TextStyle(
-                                fontFamily: global.fontMontserratLight,
-                                fontWeight: FontWeight.w200,
-                                fontSize: 19,
-                                color: Colors.black)),
-                        TextButton(
-                          child: Text(
-                            "View All",
-                            style: TextStyle(
-                                fontFamily: global.fontMetropolisRegular,
-                                fontWeight: FontWeight.w200,
-                                fontSize: 14,
-                                color: ColorConstants.appdimColor),
-                          ),
-                          onPressed: () {
-                            global.isSubCatSelected = false;
-                            setState(() {});
-                            global.homeSelectedCatID =
-                                _homeScreenData!.recentselling![0].catId!;
-                            global.parentCatID =
-                                _homeScreenData!.recentselling![0].catId!;
-                            global.isEventProduct = false;
-                            global.isSubCatSelected = false;
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => SubCategoriesScreen(
-                                          a: widget.analytics,
-                                          o: widget.observer,
-                                          showCategories: true,
-                                          screenHeading: _homeScreenData!
-                                              .recentselling![0].catName,
-                                          categoryId: _homeScreenData!
-                                              .recentselling![0].catId,
-                                          isEventProducts: false,
-                                          isSubcategory:
-                                              false, //subscriptionProduct: 1,
-                                        )));
-                          },
-                        ),
-                      ],
+                    SizedBox(
+                      height: 25,
                     ),
-                  ),
-                  Container(
-                    height: productSection1List != null
-                        ? _productContainerheight
-                        : 0,
-                    child: _isDataLoaded && productSection1List != null
-                        ? productSection1List != null &&
-                                productSection1List.length > 0
-                            ? BundleOffersMenu(
-                                analytics: widget.analytics,
-                                observer: widget.observer,
-                                categoryProductList: productSection1List,
-                                isHomeSelected: 'home',
-                              )
-                            : SizedBox()
-                        : _shimmer2(),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(left: 20, right: 20, bottom: 20),
-                    width: MediaQuery.of(context).size.width,
-                    //height: MediaQuery.of(context).size.width / 2,
-                    child: Stack(
-                      children: [
-                        Container(
-                          //color: ColorConstants.lightRedVelvet70,
-
-                          height: MediaQuery.of(context).size.width / 2.5,
-                          decoration: BoxDecoration(
-                              border: Border.all(
-                                color: ColorConstants.lightRedVelvet30,
-                              ),
-                              borderRadius: BorderRadius.circular(10)),
-                          width: MediaQuery.of(context).size.width,
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(10),
-                            child: Container(
-                              width: MediaQuery.of(context).size.width,
-                              color: ColorConstants.lightRedVelvet70,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Container(
-                                    width: MediaQuery.of(context).size.width,
-                                    margin: EdgeInsets.only(top: 10, left: 8),
-                                    child: Text(
-                                      "Find The Perfect Gift",
-                                      textAlign: TextAlign.start,
-                                      style: TextStyle(
-                                        color: ColorConstants.white,
-                                        fontSize: 20,
-                                        fontFamily:
-                                            global.fontMetropolisRegular,
-                                        fontWeight: FontWeight.w200,
-                                      ),
-                                    ),
-                                  ),
-                                  Container(
-                                    width: MediaQuery.of(context).size.width,
-                                    margin: EdgeInsets.only(top: 10, left: 8),
-                                    child: Text(
-                                      "Gifts made memorable..",
-                                      textAlign: TextAlign.start,
-                                      style: TextStyle(
-                                        color: ColorConstants.white,
-                                        fontSize: 15,
-                                        fontFamily:
-                                            global.fontMetropolisRegular,
-                                        fontWeight: FontWeight.w200,
-                                      ),
-                                    ),
-                                  ),
-                                  Container(
-                                    width:
-                                        MediaQuery.of(context).size.width / 2,
-                                    margin: EdgeInsets.only(
-                                        top: 10,
-                                        left: 10,
-                                        right:
-                                            MediaQuery.of(context).size.width /
-                                                2,
-                                        bottom: 10),
-                                    child: Container(
-                                      width:
-                                          (MediaQuery.of(context).size.width /
-                                              2),
-                                      child: BottomButton(
-                                          child: Text(
-                                            "SEARCH",
-                                            style: TextStyle(
-                                                fontFamily: global
-                                                    .fontMetropolisRegular,
-                                                fontWeight: FontWeight.w200,
-                                                fontSize: 19,
-                                                color: global.white),
-                                          ),
-                                          loadingState: false,
-                                          disabledState: true,
-                                          onPressed: () {
-                                            randomSearchProductId =
-                                                _homeScreenData!
-                                                    .topselling![Random()
-                                                        .nextInt(
-                                                            _homeScreenData!
-                                                                .topselling!
-                                                                .length)]
-                                                    .productId!;
-                                            Navigator.of(context).push(
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        SearchScreen(
-                                                          a: widget.analytics,
-                                                          o: widget.observer,
-                                                          searchProductId:
-                                                              randomSearchProductId!,
-                                                        )));
-                                          }),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                        Container(
-                          padding: EdgeInsets.only(right: 5),
-                          width: MediaQuery.of(context).size.width,
-                          height: MediaQuery.of(context).size.width / 2.5,
-                          //height: MediaQuery.of(context).size.width / 1.3,
-                          child: Align(
-                            alignment: Alignment.centerRight,
-                            child: Image.asset(
-                              "assets/images/gift.png",
-                              height: MediaQuery.of(context).size.width / 2.9,
-                              //width: double.infinity,
-                            ),
-                          ),
-                        )
-                      ],
+                    Container(
+                      height: productSection1List != null
+                          ? _productContainerheight
+                          : 0,
+                      child: _isDataLoaded && productSection1List != null
+                          ? productSection1List != null &&
+                                  productSection1List.length > 0
+                              ? BundleOffersMenu(
+                                  analytics: widget.analytics,
+                                  observer: widget.observer,
+                                  categoryProductList: productSection1List,
+                                  isHomeSelected: 'home',
+                                )
+                              : SizedBox()
+                          : _shimmer2(),
                     ),
-                  ),
-
-                  _homeScreenData!.recentselling!.length > 1
-                      ? Stack(
-                          children: [
-                            Wrap(
-                              children: [
-                                Container(
-                                  color: ColorConstants.appfaintColor,
-                                  //height: productSection2List != null ? 675 : 0,
-                                  //padding: EdgeInsets.only(left: 8, right: 10),
-                                  //margin: EdgeInsets.only(top: 10, left: 20, right: 20),
-                                  child: Column(
-                                    children: [
-                                      Container(
-                                        margin: EdgeInsets.only(
-                                            left: 10,
-                                            right: 10,
-                                            bottom: 8,
-                                            top: 1),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Container(
-                                              child: Text(
-                                                _homeScreenData!.recentselling!
-                                                            .length >
-                                                        1
-                                                    ? "${_homeScreenData!.recentselling![1].catName}"
-                                                    : "",
-                                                style: TextStyle(
-                                                    fontFamily: global
-                                                        .fontMontserratLight,
-                                                    fontWeight: FontWeight.w600,
-                                                    fontSize: 19,
-                                                    color: Colors.black),
-                                              ),
-                                            ),
-                                            TextButton(
-                                              child: Text(
-                                                "View All",
-                                                style: TextStyle(
-                                                    fontFamily: global
-                                                        .fontMetropolisRegular,
-                                                    fontWeight: FontWeight.w200,
-                                                    fontSize: 14,
-                                                    color: ColorConstants
-                                                        .appdimColor),
-                                              ),
-                                              onPressed: () {
-                                                setState(() {
-                                                  // _homeScreenData.topCat
-                                                  //     .map((e) =>
-                                                  //         e.isSelected = false)
-                                                  //     .toList();
-                                                  // _selectedIndex = index;
-                                                  // if (_selectedIndex == index) {
-                                                  //   _homeScreenData.topCat[index]
-                                                  //       .isSelected = true;
-                                                  // }
-                                                });
-                                                global.homeSelectedCatID =
-                                                    _homeScreenData!
-                                                        .recentselling![1]
-                                                        .catId!;
-                                                global.parentCatID =
-                                                    _homeScreenData!
-                                                        .recentselling![1]
-                                                        .catId!;
-                                                global.isEventProduct = false;
-                                                global.isSubCatSelected = false;
-                                                Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            SubCategoriesScreen(
-                                                              a: widget
-                                                                  .analytics,
-                                                              o: widget
-                                                                  .observer,
-                                                              showCategories:
-                                                                  true,
-                                                              screenHeading:
-                                                                  _homeScreenData!
-                                                                      .recentselling![
-                                                                          1]
-                                                                      .catName,
-                                                              categoryId:
-                                                                  _homeScreenData!
-                                                                      .recentselling![
-                                                                          1]
-                                                                      .catId,
-                                                              isSubcategory:
-                                                                  false,
-                                                              isEventProducts:
-                                                                  false,
-                                                              // subscriptionProduct: global
-                                                              //     .isSubscription, //subscriptionProduct: 1,
-                                                            )));
-                                              },
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      Container(
-                                        margin: EdgeInsets.only(bottom: 2),
-                                        height: _productContainerheight,
-                                        child: _isDataLoaded &&
-                                                productSection2List != null
-                                            ? productSection2List != null &&
-                                                    productSection2List.length >
-                                                        0
-                                                ? BundleOffersMenu(
-                                                    analytics: widget.analytics,
-                                                    observer: widget.observer,
-                                                    categoryProductList:
-                                                        productSection2List,
-                                                    isHomeSelected: 'home',
-                                                  )
-                                                : SizedBox()
-                                            : _shimmer2(),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        )
-                      : SizedBox(),
-
-                  Container(
-                      //margin: EdgeInsets.only(bottom: 80.0),
-                      child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        child: Text(
-                          "Gifts",
-                          style: TextStyle(
-                              fontFamily: global.fontAdelia,
-                              fontWeight: FontWeight.w200,
-                              fontSize: 62,
-                              color: ColorConstants.appColor),
-                        ),
-                      ),
-                      SizedBox(height: 5),
-                      Text(
-                        "Best for your loved ones!",
-                        style: TextStyle(
-                            fontFamily: global.fontMetropolisRegular,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 17,
-                            color: ColorConstants.pureBlack),
-                      ),
-                      Container(
-                        margin: EdgeInsets.only(top: 10),
-                        height: 37,
-                        //width: 133,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30)),
-                        child: BottomButton(
-                            child: Text(
-                              "GIFT NOW",
-                              style: TextStyle(
-                                  fontFamily: fontMontserratMedium,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16,
-                                  color: ColorConstants.white,
-                                  letterSpacing: 1),
-                            ),
-                            loadingState: false,
-                            disabledState: true,
-                            onPressed: () {
-                              showRelationField = false;
-                              showAgeField = false;
-                              showOcassionField = false;
-                              if (showRecipientField) {
-                                showRecipientField = false;
-                                for (int i = 0; i < maleRelation.length; i++) {
-                                  maleRelation[i].selectedRelation = false;
-                                }
-                                for (int i = 0;
-                                    i < femaleRelation.length;
-                                    i++) {
-                                  femaleRelation[i].selectedRelation = false;
-                                }
-                                for (int i = 0;
-                                    i <
-                                        selectionData
-                                            .searchRelationship!.length;
-                                    i++) {
-                                  selectionData.searchRelationship![i]
-                                      .selectedRelation = false;
-                                }
-                                for (int i = 0;
-                                    i < selectionData.searchAge!.length;
-                                    i++) {
-                                  selectionData.searchAge![i].selectedAge =
-                                      false;
-                                }
-                                for (int i = 0;
-                                    i < selectionData.searchGender!.length;
-                                    i++) {
-                                  selectionData
-                                      .searchGender![i].selectedGender = false;
-                                }
-                              } else {
-                                showRecipientField = true;
-                              }
-                              setState(() {});
-                            }),
-                      ),
-                    ],
-                  )),
-
-                  showRecipientField
-                      ? Wrap(
+                   ////section 2 products ends here
+                    _homeScreenData!.recentselling!.length >= 1
+                        ? Wrap(
                           children: [
                             Container(
-                              padding: EdgeInsets.all(10),
-                              margin:
-                                  EdgeInsets.only(top: 10, right: 5, left: 5),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(8),
-                                  border: Border.all(
-                                      color: ColorConstants.allBorderColor)),
+                              color: ColorConstants.colorHomePageSectiondim,
+                              //height: productSection2List != null ? 675 : 0,
+                              padding: EdgeInsets.only(top: 25),
+                              //margin: EdgeInsets.only(top: 10, left: 20, right: 20),
                               child: Column(
                                 children: [
                                   Container(
-                                    width: MediaQuery.of(context).size.width,
-                                    child: Text(
-                                      // hideRecipientField
-                                      //     ? "Recipient; ${recipient}"
-                                      //     :
-                                      "Choose Recipient",
-                                      style: TextStyle(
-                                          fontFamily:
-                                              global.fontMontserratLight,
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 15,
-                                          color: Colors.black),
+                                    margin: EdgeInsets.only(
+                                        left: 8,
+                                        right: 8,
+                                        
+                                        top: 1),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Container(
+                                          child: Text(
+                                            _homeScreenData!.recentselling!
+                                                        .length >
+                                                    1
+                                                ? "${_homeScreenData!.recentselling![1].catName}"
+                                                : "",
+                                            style: TextStyle(
+                                                fontFamily: global.fontRalewayMedium,
+                                                fontWeight: FontWeight.w900,
+                                                fontSize: 19,
+                                                color: ColorConstants.newTextHeadingFooter),
+                                          ),
+                                        ),
+                                        Container(
+                                          height: 28,
+                                          padding: EdgeInsets.only(left: 8,right: 8),
+                                          decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius: BorderRadius.circular(100),
+                                          border: Border.all(color: ColorConstants.newAppColor, width: 0.25)
+                                          ),
+                                          child: TextButton(
+                                            child: Text(
+                                              "View All",
+                                              style: TextStyle(
+                                                  fontFamily: global
+                                                      .fontRailwayRegular,
+                                                  fontWeight: FontWeight.w200,
+                                                  fontSize: 12,
+                                                  color: ColorConstants
+                                                      .newTextHeadingFooter),
+                                            ),
+                                            onPressed: () {
+                                              setState(() {
+                                                // _homeScreenData.topCat
+                                                //     .map((e) =>
+                                                //         e.isSelected = false)
+                                                //     .toList();
+                                                // _selectedIndex = index;
+                                                // if (_selectedIndex == index) {
+                                                //   _homeScreenData.topCat[index]
+                                                //       .isSelected = true;
+                                                // }
+                                              });
+                                              global.homeSelectedCatID =
+                                                  _homeScreenData!
+                                                      .recentselling![1]
+                                                      .catId!;
+                                              global.parentCatID =
+                                                  _homeScreenData!
+                                                      .recentselling![1]
+                                                      .catId!;
+                                              global.isEventProduct = false;
+                                              global.isSubCatSelected = false;
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          SubCategoriesScreen(
+                                                            a: widget
+                                                                .analytics,
+                                                            o: widget
+                                                                .observer,
+                                                            showCategories:
+                                                                true,
+                                                            screenHeading:
+                                                                _homeScreenData!
+                                                                    .recentselling![
+                                                                        1]
+                                                                    .catName,
+                                                            categoryId:
+                                                                _homeScreenData!
+                                                                    .recentselling![
+                                                                        1]
+                                                                    .catId,
+                                                            isSubcategory:
+                                                                false,
+                                                            isEventProducts:
+                                                                false,
+                                                            // subscriptionProduct: global
+                                                            //     .isSubscription, //subscriptionProduct: 1,
+                                                          )));
+                                            },
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
                                   SizedBox(
-                                    height: 8,
+                                    height: 25,
                                   ),
-                                  GridView.builder(
-                                      shrinkWrap: true,
-                                      gridDelegate:
-                                          SliverGridDelegateWithFixedCrossAxisCount(
-                                              crossAxisCount: 2,
-                                              childAspectRatio: 1.7),
-                                      scrollDirection: Axis.vertical,
-                                      itemCount:
-                                          selectionData.searchGender!.length,
-                                      physics: NeverScrollableScrollPhysics(),
-                                      itemBuilder: (context, index) {
-                                        return Container(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width /
-                                              2.1,
-                                          child: Column(
-                                            children: [
-                                              InkWell(
-                                                onTap: () {
-                                                  // openedContainerHeight = 2;
-                                                  showRelationField = true;
-                                                  hideRecipientField = true;
-                                                  recipient = selectionData
-                                                      .searchGender![index]
-                                                      .name!;
-                                                  selectedRecipient_ID =
-                                                      selectionData
-                                                          .searchGender![index]
-                                                          .id!;
-                                                  for (int i = 0;
-                                                      i <
-                                                          selectionData
-                                                              .searchGender!
-                                                              .length;
-                                                      i++) {
-                                                    if (i == index) {
-                                                      selectionData
-                                                              .searchGender![i]
-                                                              .selectedGender =
-                                                          true;
-                                                    } else {
-                                                      selectionData
-                                                              .searchGender![i]
-                                                              .selectedGender =
-                                                          false;
-                                                      for (int i = 0;
-                                                          i <
-                                                              selectionData
-                                                                  .searchRelationship!
-                                                                  .length;
-                                                          i++) {
-                                                        if (i == index) {
-                                                          selectionData
-                                                              .searchRelationship![
-                                                                  i]
-                                                              .selectedRelation = false;
-                                                        }
-                                                      }
-                                                      for (int i = 0;
-                                                          i <
-                                                              maleRelation
-                                                                  .length;
-                                                          i++) {
-                                                        maleRelation[i]
-                                                                .selectedRelation =
-                                                            false;
-                                                      }
-                                                      for (int i = 0;
-                                                          i <
-                                                              femaleRelation
-                                                                  .length;
-                                                          i++) {
-                                                        femaleRelation[i]
-                                                                .selectedRelation =
-                                                            false;
-                                                      }
-                                                      for (int i = 0;
-                                                          i <
-                                                              selectionData
-                                                                  .searchRelationship!
-                                                                  .length;
-                                                          i++) {
-                                                        selectionData
-                                                            .searchRelationship![
-                                                                i]
-                                                            .selectedRelation = false;
-                                                      }
-                                                      for (int i = 0;
-                                                          i <
-                                                              selectionData
-                                                                  .searchAge!
-                                                                  .length;
-                                                          i++) {
-                                                        selectionData
-                                                                .searchAge![i]
-                                                                .selectedAge =
-                                                            false;
-                                                      }
-                                                    }
-                                                  }
-
-                                                  setState(() {});
-                                                },
-                                                child: Container(
-                                                  height: 70,
-                                                  margin: EdgeInsets.only(
-                                                      left: 5, right: 5),
-                                                  padding: EdgeInsets.only(
-                                                      top: 5,
-                                                      bottom: 5,
-                                                      right: 40,
-                                                      left: 40),
-                                                  decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              8),
-                                                      border: Border.all(
-                                                          color: selectionData
-                                                                  .searchGender![
-                                                                      index]
-                                                                  .selectedGender!
-                                                              ? ColorConstants
-                                                                  .appColor
-                                                              : ColorConstants
-                                                                  .allBorderColor)),
-                                                  child: Container(
-                                                    padding: EdgeInsets.only(
-                                                        left: 5,
-                                                        right: 5,
-                                                        top: 5),
-                                                    width: 60,
-                                                    height: 50,
-                                                    decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(100),
-                                                        color: selectionData
-                                                                .searchGender![
-                                                                    index]
-                                                                .selectedGender!
-                                                            ? ColorConstants
-                                                                .orderDtailBorder
-                                                            : ColorConstants
-                                                                .white),
-                                                    child: CachedNetworkImage(
-                                                      // height: 200,
-                                                      imageUrl: global
-                                                              .imageBaseUrl +
-                                                          selectionData
-                                                              .searchGender![
-                                                                  index]
-                                                              .icon!,
-                                                      imageBuilder: (context,
-                                                              imageProvider) =>
-                                                          Container(
-                                                        height: 100,
-                                                        width: 100,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          // borderRadius: BorderRadius.circular(10),
-                                                          image:
-                                                              DecorationImage(
-                                                            image:
-                                                                imageProvider,
-                                                            fit: BoxFit.contain,
-                                                            alignment: Alignment
-                                                                .center,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      placeholder: (context,
-                                                              url) =>
-                                                          Center(
-                                                              child:
-                                                                  CircularProgressIndicator()),
-                                                      errorWidget: (context,
-                                                              url, error) =>
-                                                          Container(
-                                                        width: 100.0,
-                                                        height: 100.0,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          // borderRadius: BorderRadius.circular(15),
-                                                          image:
-                                                              DecorationImage(
-                                                            image: AssetImage(
-                                                                "assets/images/male_icon.png"),
-                                                            fit: BoxFit.contain,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  // Image.asset(
-                                                  //   //"assets/images/loation_pin_green.png",
-                                                  //   "assets/images/male_icon.png",
-                                                  //   height: Platform.isIOS
-                                                  //       ? 60
-                                                  //       : 60,
-                                                  //   width: Platform.isIOS
-                                                  //       ? 60
-                                                  //       : 60,
-                                                  // ),
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                height: 8,
-                                              ),
-                                              Container(
-                                                child: Text(
-                                                  "${selectionData.searchGender![index].name}",
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                      fontFamily: global
-                                                          .fontMontserratLight,
-                                                      fontWeight:
-                                                          FontWeight.w200,
-                                                      fontSize: 13,
-                                                      color: Colors.black),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        );
-                                      }),
-                                  // : Container(
-                                  //     width:
-                                  //         MediaQuery.of(context).size.width,
-                                  //     child: Text(
-                                  //       "Gender : ${recipient}",
-                                  //       style: TextStyle(
-                                  //           fontFamily:
-                                  //               global.fontMontserratLight,
-                                  //           fontWeight: FontWeight.w600,
-                                  //           fontSize: 15,
-                                  //           color: Colors.black),
-                                  //     ),
-                                  //   ),
-
-                                  showRelationField
-                                      ? Container(
-                                          child: Column(
-                                            children: [
-                                              Container(
-                                                width: MediaQuery.of(context)
-                                                    .size
-                                                    .width,
-                                                child: Text(
-                                                  "Choose Relation",
-                                                  style: TextStyle(
-                                                      fontFamily: global
-                                                          .fontMontserratLight,
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                      fontSize: 15,
-                                                      color: Colors.black),
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                height: 8,
-                                              ),
-                                              recipient.toLowerCase() ==
-                                                          "male" ||
-                                                      recipient.toLowerCase() ==
-                                                          "female"
-                                                  ? GridView.builder(
-                                                      shrinkWrap: true,
-                                                      gridDelegate:
-                                                          SliverGridDelegateWithFixedCrossAxisCount(
-                                                              crossAxisCount: 3,
-                                                              childAspectRatio:
-                                                                  1),
-                                                      scrollDirection:
-                                                          Axis.vertical,
-                                                      itemCount: recipient
-                                                                  .toLowerCase() ==
-                                                              "male"
-                                                          ? maleRelation.length
-                                                          : femaleRelation
-                                                              .length,
-                                                      physics: ScrollPhysics(),
-                                                      itemBuilder:
-                                                          (context, index) {
-                                                        return Column(
-                                                          children: [
-                                                            InkWell(
-                                                              onTap: () {
-                                                                showAgeField =
-                                                                    true;
-                                                                showOcassionField =
-                                                                    true;
-                                                                for (int i = 0;
-                                                                    i <
-                                                                        selectionData
-                                                                            .searchRelationship!
-                                                                            .length;
-                                                                    i++) {
-                                                                  if (i ==
-                                                                      index) {
-                                                                    selectionData
-                                                                        .searchRelationship![
-                                                                            i]
-                                                                        .selectedRelation = false;
-                                                                  }
-                                                                }
-                                                                if (recipient
-                                                                        .toLowerCase() ==
-                                                                    "male") {
-                                                                  relation =
-                                                                      maleRelation[
-                                                                              index]
-                                                                          .name!;
-                                                                  selectedRelation_ID =
-                                                                      maleRelation[
-                                                                              index]
-                                                                          .id!;
-                                                                  for (int i =
-                                                                          0;
-                                                                      i <
-                                                                          femaleRelation
-                                                                              .length;
-                                                                      i++) {
-                                                                    femaleRelation[i]
-                                                                            .selectedRelation =
-                                                                        false;
-                                                                  }
-                                                                  for (int i =
-                                                                          0;
-                                                                      i <
-                                                                          maleRelation
-                                                                              .length;
-                                                                      i++) {
-                                                                    if (i ==
-                                                                        index) {
-                                                                      maleRelation[i]
-                                                                              .selectedRelation =
-                                                                          true;
-                                                                    } else {
-                                                                      maleRelation[i]
-                                                                              .selectedRelation =
-                                                                          false;
-                                                                    }
-                                                                  }
-                                                                } else {
-                                                                  relation =
-                                                                      femaleRelation[
-                                                                              index]
-                                                                          .name!;
-                                                                  selectedRelation_ID =
-                                                                      femaleRelation[
-                                                                              index]
-                                                                          .id!;
-                                                                  for (int i =
-                                                                          0;
-                                                                      i <
-                                                                          maleRelation
-                                                                              .length;
-                                                                      i++) {
-                                                                    maleRelation[i]
-                                                                            .selectedRelation =
-                                                                        false;
-                                                                  }
-                                                                  for (int i =
-                                                                          0;
-                                                                      i <
-                                                                          femaleRelation
-                                                                              .length;
-                                                                      i++) {
-                                                                    if (i ==
-                                                                        index) {
-                                                                      femaleRelation[i]
-                                                                              .selectedRelation =
-                                                                          true;
-                                                                    } else {
-                                                                      femaleRelation[i]
-                                                                              .selectedRelation =
-                                                                          false;
-                                                                    }
-                                                                  }
-                                                                }
-                                                                for (int i = 0;
-                                                                    i <
-                                                                        selectionData
-                                                                            .searchAge!
-                                                                            .length;
-                                                                    i++) {
-                                                                  selectionData
-                                                                      .searchAge![
-                                                                          i]
-                                                                      .selectedAge = false;
-                                                                }
-
-                                                                setState(() {});
-                                                              },
-                                                              child: Container(
-                                                                padding: EdgeInsets
-                                                                    .only(
-                                                                        top: 5,
-                                                                        bottom:
-                                                                            5,
-                                                                        right:
-                                                                            20,
-                                                                        left:
-                                                                            20),
-                                                                decoration: BoxDecoration(
-                                                                    borderRadius: BorderRadius.circular(8),
-                                                                    border: recipient.toLowerCase() == "male"
-                                                                        ? Border.all(
-                                                                            color: maleRelation[index].selectedRelation!
-                                                                                ? ColorConstants.appColor
-                                                                                : ColorConstants.allBorderColor,
-                                                                            // color: recipient.toLowerCase() == "male" && maleRelation[index].selectedRelation
-                                                                            //     ? ColorConstants.appColor
-                                                                            //     : recipient.toLowerCase() == "female" && femaleRelation[index].selectedRelation
-                                                                            //         ? ColorConstants.appColor
-                                                                            //         : ColorConstants.allBorderColor
-                                                                          )
-                                                                        : Border.all(
-                                                                            color: femaleRelation[index].selectedRelation!
-                                                                                ? ColorConstants.appColor
-                                                                                : ColorConstants.allBorderColor,
-                                                                            // color: recipient.toLowerCase() == "male" && maleRelation[index].selectedRelation
-                                                                            //     ? ColorConstants.appColor
-                                                                            //     : recipient.toLowerCase() == "female" && femaleRelation[index].selectedRelation
-                                                                            //         ? ColorConstants.appColor
-                                                                            //         : ColorConstants.allBorderColor
-                                                                          )),
-                                                                child:
-                                                                    Container(
-                                                                  padding: EdgeInsets
-                                                                      .only(
-                                                                          left:
-                                                                              5,
-                                                                          right:
-                                                                              5,
-                                                                          top:
-                                                                              5),
-                                                                  width: 50,
-                                                                  height: 50,
-                                                                  decoration: recipient
-                                                                              .toLowerCase() ==
-                                                                          "male"
-                                                                      ? BoxDecoration(
-                                                                          borderRadius: BorderRadius.circular(
-                                                                              100),
-                                                                          color: maleRelation[index].selectedRelation!
-                                                                              ? ColorConstants
-                                                                                  .orderDtailBorder
-                                                                              : ColorConstants
-                                                                                  .white)
-                                                                      : BoxDecoration(
-                                                                          borderRadius: BorderRadius.circular(
-                                                                              100),
-                                                                          color: femaleRelation[index].selectedRelation!
-                                                                              ? ColorConstants.orderDtailBorder
-                                                                              : ColorConstants.white),
-                                                                  child:
-                                                                      CachedNetworkImage(
-                                                                    // height: 200,
-
-                                                                    imageUrl: recipient.toLowerCase() ==
-                                                                            "male"
-                                                                        ? global.imageBaseUrl +
-                                                                            maleRelation[index]
-                                                                                .icon!
-                                                                        : global.imageBaseUrl +
-                                                                            femaleRelation[index].icon!,
-                                                                    imageBuilder:
-                                                                        (context,
-                                                                                imageProvider) =>
-                                                                            Container(
-                                                                      height:
-                                                                          100,
-                                                                      width: double
-                                                                          .infinity,
-                                                                      decoration:
-                                                                          BoxDecoration(
-                                                                        // borderRadius: BorderRadius.circular(10),
-                                                                        image:
-                                                                            DecorationImage(
-                                                                          image:
-                                                                              imageProvider,
-                                                                          fit: BoxFit
-                                                                              .contain,
-                                                                          alignment:
-                                                                              Alignment.center,
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                    placeholder: (context,
-                                                                            url) =>
-                                                                        Center(
-                                                                            child:
-                                                                                CircularProgressIndicator()),
-                                                                    errorWidget: (context,
-                                                                            url,
-                                                                            error) =>
-                                                                        Container(
-                                                                      width:
-                                                                          100.0,
-                                                                      height:
-                                                                          100.0,
-                                                                      decoration:
-                                                                          BoxDecoration(
-                                                                        // borderRadius: BorderRadius.circular(15),
-                                                                        image:
-                                                                            DecorationImage(
-                                                                          image:
-                                                                              AssetImage("assets/images/male_icon.png"),
-                                                                          fit: BoxFit
-                                                                              .contain,
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            SizedBox(
-                                                              height: 8,
-                                                            ),
-                                                            Container(
-                                                              child: Text(
-                                                                recipient.toLowerCase() ==
-                                                                        "male"
-                                                                    ? "${maleRelation[index].name}"
-                                                                    : "${femaleRelation[index].name}",
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .center,
-                                                                style: TextStyle(
-                                                                    fontFamily:
-                                                                        global
-                                                                            .fontMontserratLight,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w200,
-                                                                    fontSize:
-                                                                        13,
-                                                                    color: Colors
-                                                                        .black),
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        );
-                                                      })
-                                                  : GridView.builder(
-                                                      shrinkWrap: true,
-                                                      gridDelegate:
-                                                          SliverGridDelegateWithFixedCrossAxisCount(
-                                                              crossAxisCount: 3,
-                                                              childAspectRatio:
-                                                                  1),
-                                                      scrollDirection:
-                                                          Axis.vertical,
-                                                      itemCount: selectionData
-                                                          .searchRelationship!
-                                                          .length,
-                                                      physics: ScrollPhysics(),
-                                                      itemBuilder:
-                                                          (context, index) {
-                                                        return Column(
-                                                          children: [
-                                                            InkWell(
-                                                              onTap: () {
-                                                                showAgeField =
-                                                                    true;
-                                                                showOcassionField =
-                                                                    true;
-                                                                relation = selectionData
-                                                                    .searchRelationship![
-                                                                        index]
-                                                                    .id
-                                                                    .toString();
-                                                                selectedRelation_ID =
-                                                                    selectionData
-                                                                        .searchRelationship![
-                                                                            index]
-                                                                        .id!;
-                                                                for (int i = 0;
-                                                                    i <
-                                                                        femaleRelation
-                                                                            .length;
-                                                                    i++) {
-                                                                  femaleRelation[
-                                                                              i]
-                                                                          .selectedRelation =
-                                                                      false;
-                                                                }
-                                                                for (int i = 0;
-                                                                    i <
-                                                                        maleRelation
-                                                                            .length;
-                                                                    i++) {
-                                                                  maleRelation[
-                                                                              i]
-                                                                          .selectedRelation =
-                                                                      false;
-                                                                }
-                                                                for (int i = 0;
-                                                                    i <
-                                                                        selectionData
-                                                                            .searchRelationship!
-                                                                            .length;
-                                                                    i++) {
-                                                                  if (i ==
-                                                                      index) {
-                                                                    selectionData
-                                                                        .searchRelationship![
-                                                                            i]
-                                                                        .selectedRelation = true;
-                                                                  } else {
-                                                                    selectionData
-                                                                        .searchRelationship![
-                                                                            i]
-                                                                        .selectedRelation = false;
-                                                                  }
-                                                                }
-                                                                for (int i = 0;
-                                                                    i <
-                                                                        selectionData
-                                                                            .searchAge!
-                                                                            .length;
-                                                                    i++) {
-                                                                  selectionData
-                                                                      .searchAge![
-                                                                          i]
-                                                                      .selectedAge = false;
-                                                                }
-
-                                                                setState(() {});
-                                                              },
-                                                              child: Container(
-                                                                padding: EdgeInsets
-                                                                    .only(
-                                                                        top: 10,
-                                                                        bottom:
-                                                                            10,
-                                                                        right:
-                                                                            20,
-                                                                        left:
-                                                                            20),
-                                                                decoration: BoxDecoration(
-                                                                    borderRadius: BorderRadius.circular(8),
-                                                                    border: Border.all(
-                                                                        color: //ColorConstants.appColor
-                                                                            selectionData.searchRelationship![index].selectedRelation! ? ColorConstants.appColor : ColorConstants.allBorderColor)),
-                                                                child:
-                                                                    Container(
-                                                                  padding: EdgeInsets
-                                                                      .only(
-                                                                          left:
-                                                                              5,
-                                                                          right:
-                                                                              5,
-                                                                          top:
-                                                                              5),
-                                                                  width: 50,
-                                                                  height: 50,
-                                                                  decoration: BoxDecoration(
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              100),
-                                                                      color: selectionData
-                                                                              .searchRelationship![
-                                                                                  index]
-                                                                              .selectedRelation!
-                                                                          ? ColorConstants
-                                                                              .orderDtailBorder
-                                                                          : ColorConstants
-                                                                              .white),
-                                                                  child:
-                                                                      CachedNetworkImage(
-                                                                    // height: 200,
-
-                                                                    imageUrl: global
-                                                                            .imageBaseUrl +
-                                                                        selectionData
-                                                                            .searchRelationship![index]
-                                                                            .icon!,
-                                                                    imageBuilder:
-                                                                        (context,
-                                                                                imageProvider) =>
-                                                                            Container(
-                                                                      height:
-                                                                          100,
-                                                                      width: double
-                                                                          .infinity,
-                                                                      decoration:
-                                                                          BoxDecoration(
-                                                                        // borderRadius: BorderRadius.circular(10),
-                                                                        image:
-                                                                            DecorationImage(
-                                                                          image:
-                                                                              imageProvider,
-                                                                          fit: BoxFit
-                                                                              .contain,
-                                                                          alignment:
-                                                                              Alignment.center,
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                    placeholder: (context,
-                                                                            url) =>
-                                                                        Center(
-                                                                            child:
-                                                                                CircularProgressIndicator()),
-                                                                    errorWidget: (context,
-                                                                            url,
-                                                                            error) =>
-                                                                        Container(
-                                                                      width:
-                                                                          100.0,
-                                                                      height:
-                                                                          100.0,
-                                                                      decoration:
-                                                                          BoxDecoration(
-                                                                        // borderRadius: BorderRadius.circular(15),
-                                                                        image:
-                                                                            DecorationImage(
-                                                                          image:
-                                                                              AssetImage("assets/images/male_icon.png"),
-                                                                          fit: BoxFit
-                                                                              .contain,
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            SizedBox(
-                                                              height: 8,
-                                                            ),
-                                                            Container(
-                                                              child: Text(
-                                                                "${selectionData.searchRelationship![index].name}",
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .center,
-                                                                style: TextStyle(
-                                                                    fontFamily:
-                                                                        global
-                                                                            .fontMontserratLight,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w200,
-                                                                    fontSize:
-                                                                        13,
-                                                                    color: Colors
-                                                                        .black),
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        );
-                                                      },
-                                                    ),
-                                            ],
-                                          ),
-                                        )
-                                      : Container(),
-
-                                  showAgeField
-                                      ? Container(
-                                          child: Column(
-                                            children: [
-                                              Container(
-                                                width: MediaQuery.of(context)
-                                                    .size
-                                                    .width,
-                                                child: Text(
-                                                  "Choose Age",
-                                                  style: TextStyle(
-                                                      fontFamily: global
-                                                          .fontMontserratLight,
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                      fontSize: 15,
-                                                      color: Colors.black),
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                height: 8,
-                                              ),
-                                              Wrap(
-                                                children: [
-                                                  Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      Container(
-                                                          child: NumberPicker(
-                                                        // value: _currentValue,
-                                                        textStyle: TextStyle(
-                                                            fontSize: 12,
-                                                            color:
-                                                                ColorConstants
-                                                                    .grey),
-                                                        selectedTextStyle: TextStyle(
-                                                            fontSize: 18,
-                                                            color:
-                                                                ColorConstants
-                                                                    .appColor),
-                                                        minValue: 18,
-                                                        maxValue: 113,
-                                                        step: 5,
-                                                        value: _mincurrentValue,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          border: Border(
-                                                              top: BorderSide(
-                                                                  color: ColorConstants
-                                                                      .pureBlack,
-                                                                  width: 1),
-                                                              bottom: BorderSide(
-                                                                  color: ColorConstants
-                                                                      .pureBlack,
-                                                                  width: 1)),
-                                                        ),
-                                                        onChanged: (value) {
-                                                          _mincurrentValue =
-                                                              value;
-                                                          _maxcurrentValue =
-                                                              _mincurrentValue +
-                                                                  5;
-                                                          selectedAge =
-                                                              "${_mincurrentValue} - ${_maxcurrentValue}";
-                                                          showOcassionField =
-                                                              true;
-
-                                                          setState(() {});
-                                                        },
-                                                      )),
-                                                      Container(
-                                                        child: Text(
-                                                          "TO",
-                                                          style: TextStyle(
-                                                              fontFamily: global
-                                                                  .fontMontserratLight,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600,
-                                                              fontSize: 15,
-                                                              color:
-                                                                  Colors.black),
-                                                        ),
-                                                      ),
-                                                      Container(
-                                                          child: NumberPicker(
-                                                        // value: _currentValue,
-                                                        textStyle: TextStyle(
-                                                            fontSize: 12,
-                                                            color:
-                                                                ColorConstants
-                                                                    .grey),
-                                                        selectedTextStyle: TextStyle(
-                                                            fontSize: 18,
-                                                            color:
-                                                                ColorConstants
-                                                                    .appColor),
-                                                        minValue: 23,
-                                                        step: 5,
-                                                        maxValue: 118,
-                                                        value: _maxcurrentValue,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          border: Border(
-                                                              top: BorderSide(
-                                                                  color: ColorConstants
-                                                                      .pureBlack,
-                                                                  width: 1),
-                                                              bottom: BorderSide(
-                                                                  color: ColorConstants
-                                                                      .pureBlack,
-                                                                  width: 1)),
-                                                        ),
-                                                        onChanged: (value) {
-                                                          _maxcurrentValue =
-                                                              value;
-                                                          _mincurrentValue =
-                                                              _maxcurrentValue -
-                                                                  5;
-                                                          selectedAge =
-                                                              "${_mincurrentValue} - ${_maxcurrentValue}";
-                                                          showOcassionField =
-                                                              true;
-
-                                                          setState(() {});
-                                                        },
-                                                      )),
-                                                    ],
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                        )
-                                      : Container(),
-
-                                  showOcassionField
-                                      ? Container(
-                                          child: Column(
-                                            children: [
-                                              Container(
-                                                width: MediaQuery.of(context)
-                                                    .size
-                                                    .width,
-                                                child: Text(
-                                                  "Choose Occassion",
-                                                  style: TextStyle(
-                                                      fontFamily: global
-                                                          .fontMontserratLight,
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                      fontSize: 15,
-                                                      color: Colors.black),
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                height: 8,
-                                              ),
-                                              GridView.builder(
-                                                  shrinkWrap: true,
-                                                  gridDelegate:
-                                                      SliverGridDelegateWithFixedCrossAxisCount(
-                                                          crossAxisCount: 3,
-                                                          childAspectRatio: 1),
-                                                  scrollDirection:
-                                                      Axis.vertical,
-                                                  itemCount: selectionData
-                                                      .searchOccasion!.length,
-                                                  physics: ScrollPhysics(),
-                                                  itemBuilder:
-                                                      (context, index) {
-                                                    return Column(
-                                                      children: [
-                                                        InkWell(
-                                                          onTap: () {
-                                                            ocassion = selectionData
-                                                                .searchOccasion![
-                                                                    index]
-                                                                .id
-                                                                .toString();
-                                                            selectedOccasion_ID =
-                                                                selectionData
-                                                                    .searchOccasion![
-                                                                        index]
-                                                                    .id!;
-                                                            Navigator.push(
-                                                                context,
-                                                                MaterialPageRoute(
-                                                                    builder:
-                                                                        (context) =>
-                                                                            FilteredSubCategoriesScreen(
-                                                                              a: widget.analytics,
-                                                                              o: widget.observer,
-                                                                              minAge: _mincurrentValue,
-                                                                              maxAge: _maxcurrentValue,
-                                                                              genderID: selectedRecipient_ID,
-                                                                              relationID: selectedRelation_ID,
-                                                                              ocassionID: selectedOccasion_ID,
-                                                                            )));
-
-                                                            setState(() {});
-                                                          },
-                                                          child: Container(
-                                                            padding:
-                                                                EdgeInsets.only(
-                                                                    top: 10,
-                                                                    bottom: 10,
-                                                                    right: 20,
-                                                                    left: 20),
-                                                            decoration: BoxDecoration(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            8),
-                                                                border: Border.all(
-                                                                    color: ColorConstants
-                                                                        .allBorderColor)),
-                                                            child:
-                                                                CachedNetworkImage(
-                                                              // height: 200,
-                                                              height: 50,
-                                                              width: 50,
-                                                              imageUrl: global
-                                                                      .imageBaseUrl +
-                                                                  selectionData
-                                                                      .searchOccasion![
-                                                                          index]
-                                                                      .icon!,
-                                                              imageBuilder:
-                                                                  (context,
-                                                                          imageProvider) =>
-                                                                      Container(
-                                                                height: 100,
-                                                                width: 100,
-                                                                decoration:
-                                                                    BoxDecoration(
-                                                                  // borderRadius: BorderRadius.circular(10),
-                                                                  image:
-                                                                      DecorationImage(
-                                                                    image:
-                                                                        imageProvider,
-                                                                    fit: BoxFit
-                                                                        .contain,
-                                                                    alignment:
-                                                                        Alignment
-                                                                            .center,
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                              placeholder: (context,
-                                                                      url) =>
-                                                                  Center(
-                                                                      child:
-                                                                          CircularProgressIndicator()),
-                                                              errorWidget:
-                                                                  (context, url,
-                                                                          error) =>
-                                                                      Container(
-                                                                width: 100.0,
-                                                                height: 100.0,
-                                                                decoration:
-                                                                    BoxDecoration(
-                                                                  // borderRadius: BorderRadius.circular(15),
-                                                                  image:
-                                                                      DecorationImage(
-                                                                    image: AssetImage(
-                                                                        "assets/images/male_icon.png"),
-                                                                    fit: BoxFit
-                                                                        .contain,
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        SizedBox(
-                                                          height: 8,
-                                                        ),
-                                                        Expanded(
-                                                          child: Container(
-                                                            child: Text(
-                                                              "${selectionData.searchOccasion![index].name}",
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .center,
-                                                              style: TextStyle(
-                                                                  fontFamily: global
-                                                                      .fontMontserratLight,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w200,
-                                                                  fontSize: 13,
-                                                                  color: Colors
-                                                                      .black),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    );
-                                                  }),
-                                            ],
-                                          ),
-                                        )
-                                      : Container(),
+                                  Container(
+                                    
+                                    height: _productContainerheight-20,
+                                    child: _isDataLoaded &&
+                                            productSection2List != null
+                                        ? productSection2List != null &&
+                                                productSection2List.length >
+                                                    0
+                                            ? BundleOffersMenu(
+                                                analytics: widget.analytics,
+                                                observer: widget.observer,
+                                                categoryProductList:
+                                                    productSection2List,
+                                                isHomeSelected: 'home',
+                                              )
+                                            : SizedBox()
+                                        : _shimmer2(),
+                                  ),
                                 ],
                               ),
                             ),
                           ],
                         )
-                      : Container(),
-
-                  Container(
-                    margin: EdgeInsets.only(top: 10),
-                    // height: 160,
-
-                    color: Colors.transparent,
-                    child: Image.asset(
-                      "assets/images/iv_cakes_card.png",
-                      fit: BoxFit.cover,
-                      height: 185,
-                      width: MediaQuery.of(context).size.width,
+                        : SizedBox(),
+                    SizedBox(
+                      height: 25,
                     ),
-                  ),
-
-                  homeProducts.length > 0
-                      ? ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: homeProducts.length,
-                          scrollDirection: Axis.vertical,
-                          physics: NeverScrollableScrollPhysics(),
-                          itemBuilder: (BuildContext context, int index) {
-                            return Column(
-                              children: [
-                                Container(
-                                  margin: EdgeInsets.only(
-                                      top: 1, left: 20, right: 20),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        "${homeProducts[index].catName}",
-                                        style: TextStyle(
-                                            fontFamily:
-                                                global.fontMontserratLight,
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 19,
-                                            color: Colors.black),
-                                      ),
-                                      TextButton(
-                                        child: Text(
-                                          "View All",
-                                          style: TextStyle(
-                                              fontFamily:
-                                                  global.fontMetropolisRegular,
-                                              fontWeight: FontWeight.w200,
-                                              fontSize: 14,
-                                              color:
-                                                  ColorConstants.appdimColor),
+//////Setion 3 products starts here
+                     _homeScreenData!.recentselling!.length >= 2
+                        ? Wrap(
+                          children: [
+                            Container(
+                              color: Colors.transparent,
+                              //height: productSection2List != null ? 675 : 0,
+                              
+                              //margin: EdgeInsets.only(top: 10, left: 20, right: 20),
+                              child: Column(
+                                children: [
+                                  Container(
+                                    margin: EdgeInsets.only(
+                                        left: 8,
+                                        right: 8,
+                                        top: 1),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Container(
+                                          child: Text(
+                                            _homeScreenData!.recentselling!
+                                                        .length >
+                                                    1
+                                                ? "${_homeScreenData!.recentselling![2].catName}"
+                                                : "",
+                                            style: TextStyle(
+                                                fontFamily: global.fontRalewayMedium,
+                                                fontWeight: FontWeight.w900,
+                                                fontSize: 19,
+                                                color: ColorConstants.newTextHeadingFooter),
+                                          ),
                                         ),
-                                        onPressed: () {
-                                          setState(() {
-                                            // _homeScreenData.topCat
-                                            //     .map((e) =>
-                                            //         e.isSelected = false)
-                                            //     .toList();
-                                            // _selectedIndex = index;
-                                            // if (_selectedIndex == index) {
-                                            //   _homeScreenData.topCat[index]
-                                            //       .isSelected = true;
-                                            // }
-                                          });
-                                          global.homeSelectedCatID =
-                                              homeProducts[index].catId!;
-                                          global.isEventProduct = false;
-                                          global.isSubCatSelected = false;
-                                          global.parentCatID =
-                                              homeProducts[index].catId!;
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      SubCategoriesScreen(
-                                                        a: widget.analytics,
-                                                        o: widget.observer,
-                                                        showCategories: true,
-                                                        screenHeading:
-                                                            homeProducts[index]
-                                                                .catName,
-                                                        categoryId:
-                                                            homeProducts[index]
-                                                                .catId,
-                                                        isSubcategory: false,
-                                                        isEventProducts: false,
-                                                        // subscriptionProduct: global
-                                                        //     .isSubscription, //subscriptionProduct: 1,
-                                                      )));
-                                        },
-                                      ),
-                                    ],
+                                        Container(
+                                          height: 28,
+                                          padding: EdgeInsets.only(left: 8,right: 8),
+                                          decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius: BorderRadius.circular(100),
+                                          border: Border.all(color: ColorConstants.newAppColor, width: 0.25)
+                                          ),
+                                          child: TextButton(
+                                            child: Text(
+                                              "View All",
+                                              style: TextStyle(
+                                                  fontFamily: global
+                                                      .fontRailwayRegular,
+                                                  fontWeight: FontWeight.w200,
+                                                  fontSize: 12,
+                                                  color: ColorConstants
+                                                      .newTextHeadingFooter),
+                                            ),
+                                            onPressed: () {
+                                              setState(() {
+                                                // _homeScreenData.topCat
+                                                //     .map((e) =>
+                                                //         e.isSelected = false)
+                                                //     .toList();
+                                                // _selectedIndex = index;
+                                                // if (_selectedIndex == index) {
+                                                //   _homeScreenData.topCat[index]
+                                                //       .isSelected = true;
+                                                // }
+                                              });
+                                              global.homeSelectedCatID =
+                                                  _homeScreenData!
+                                                      .recentselling![1]
+                                                      .catId!;
+                                              global.parentCatID =
+                                                  _homeScreenData!
+                                                      .recentselling![1]
+                                                      .catId!;
+                                              global.isEventProduct = false;
+                                              global.isSubCatSelected = false;
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          SubCategoriesScreen(
+                                                            a: widget
+                                                                .analytics,
+                                                            o: widget
+                                                                .observer,
+                                                            showCategories:
+                                                                true,
+                                                            screenHeading:
+                                                                _homeScreenData!
+                                                                    .recentselling![
+                                                                        2]
+                                                                    .catName,
+                                                            categoryId:
+                                                                _homeScreenData!
+                                                                    .recentselling![
+                                                                        2]
+                                                                    .catId,
+                                                            isSubcategory:
+                                                                false,
+                                                            isEventProducts:
+                                                                false,
+                                                            // subscriptionProduct: global
+                                                            //     .isSubscription, //subscriptionProduct: 1,
+                                                          )));
+                                            },
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                                Container(
-                                  height: _productContainerheight,
-                                  child: _isDataLoaded
-                                      ? BundleOffersMenu(
-                                          analytics: widget.analytics,
-                                          observer: widget.observer,
-                                          categoryProductList:
-                                              homeProducts[index].productList,
-                                          isHomeSelected: 'home',
-                                        )
-                                      : SizedBox(),
-                                )
-                              ],
-                            );
-                          })
-                      : SizedBox(),
+                                  SizedBox(height: 25),
+                                  Container(
+                                    margin: EdgeInsets.only(bottom: 14),
+                                    height: _productContainerheight-25,
+                                    child: _isDataLoaded &&
+                                            productSection3List != null
+                                        ? productSection3List != null &&
+                                                productSection3List.length >
+                                                    0
+                                            ? BundleOffersMenu(
+                                                analytics: widget.analytics,
+                                                observer: widget.observer,
+                                                categoryProductList:
+                                                    productSection3List,
+                                                isHomeSelected: 'home',
+                                              )
+                                            : SizedBox()
+                                        : _shimmer2(),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        )
+                        : SizedBox(),    
+ //////Setion 3 products ends here             
+ 
+                    Container(
+                      margin: EdgeInsets.only(left: 10,right: 10),
+                      // height: 160,
 
-                  // _homeScreenData!.recentselling!.length > 2
-                  //     ? Container(
-                  //         margin: EdgeInsets.only(top: 1, left: 20, right: 20),
-                  //         child: Row(
-                  //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //           children: [
-                  //             Text(
-                  //               _homeScreenData!.recentselling!.length > 2
-                  //                   ? "${_homeScreenData!.recentselling![2].catName}"
-                  //                   : "",
-                  //               style: TextStyle(
-                  //                   fontFamily: global.fontMontserratLight,
-                  //                   fontWeight: FontWeight.w600,
-                  //                   fontSize: 19,
-                  //                   color: Colors.black),
-                  //             ),
-                  //             TextButton(
-                  //               child: Text(
-                  //                 "View All",
-                  //                 style: TextStyle(
-                  //                     fontFamily: global.fontMetropolisRegular,
-                  //                     fontWeight: FontWeight.w200,
-                  //                     fontSize: 14,
-                  //                     color: ColorConstants.appdimColor),
-                  //               ),
-                  //               onPressed: () {
-                  //                 setState(() {
-                  //                   // _homeScreenData.topCat
-                  //                   //     .map((e) =>
-                  //                   //         e.isSelected = false)
-                  //                   //     .toList();
-                  //                   // _selectedIndex = index;
-                  //                   // if (_selectedIndex == index) {
-                  //                   //   _homeScreenData.topCat[index]
-                  //                   //       .isSelected = true;
-                  //                   // }
-                  //                 });
-                  //                 global.homeSelectedCatID =
-                  //                     _homeScreenData!.recentselling![2].catId!;
-                  //                 global.isEventProduct = false;
-                  //                 global.isSubCatSelected = false;
-                  //                 Navigator.push(
-                  //                     context,
-                  //                     MaterialPageRoute(
-                  //                         builder: (context) =>
-                  //                             SubCategoriesScreen(
-                  //                               a: widget.analytics,
-                  //                               o: widget.observer,
-                  //                               screenHeading: _homeScreenData!
-                  //                                   .recentselling![2].catName,
-                  //                               categoryId: _homeScreenData!
-                  //                                   .recentselling![2].catId,
-                  //                               isSubcategory: false,
-                  //                               isEventProducts: false,
-                  //                               // subscriptionProduct: global
-                  //                               //     .isSubscription, //subscriptionProduct: 1,
-                  //                             )));
-                  //               },
-                  //             ),
-                  //           ],
-                  //         ),
-                  //       )
-                  //     : SizedBox(),
-                  // _homeScreenData!.recentselling!.length > 2
-                  //     ? Container(
-                  //         height: productSection3List != null
-                  //             ? _productContainerheight
-                  //             : 0,
-                  //         child: _isDataLoaded && productSection3List != null
-                  //             ? productSection3List != null &&
-                  //                     productSection3List.length > 0
-                  //                 ? BundleOffersMenu(
-                  //                     analytics: widget.analytics,
-                  //                     observer: widget.observer,
-                  //                     categoryProductList: productSection3List,
-                  //                     isHomeSelected: 'home',
-                  //                   )
-                  //                 : SizedBox()
-                  //             : _shimmer2(),
-                  //       )
-                  //     : SizedBox(),
-                  // // this is section 4 products
-                  // _homeScreenData!.recentselling!.length > 3
-                  //     ? Container(
-                  //         margin: EdgeInsets.only(
-                  //             top: 1, left: 20, right: 20, bottom: 4),
-                  //         child: Row(
-                  //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //           children: [
-                  //             Text(
-                  //               _homeScreenData!.recentselling!.length > 3
-                  //                   ? "${_homeScreenData!.recentselling![3].catName}"
-                  //                   : "",
-                  //               style: TextStyle(
-                  //                   fontFamily: global.fontMontserratLight,
-                  //                   fontWeight: FontWeight.w600,
-                  //                   fontSize: 19,
-                  //                   color: Colors.black),
-                  //             ),
-                  //             TextButton(
-                  //               child: Text(
-                  //                 "View All",
-                  //                 style: TextStyle(
-                  //                     fontFamily: global.fontMetropolisRegular,
-                  //                     fontWeight: FontWeight.w200,
-                  //                     fontSize: 14,
-                  //                     color: ColorConstants.appdimColor),
-                  //               ),
-                  //               onPressed: () {
-                  //                 setState(() {
-                  //                   // _homeScreenData.topCat
-                  //                   //     .map((e) =>
-                  //                   //         e.isSelected = false)
-                  //                   //     .toList();
-                  //                   // _selectedIndex = index;
-                  //                   // if (_selectedIndex == index) {
-                  //                   //   _homeScreenData.topCat[index]
-                  //                   //       .isSelected = true;
-                  //                   // }
-                  //                 });
-                  //                 global.homeSelectedCatID =
-                  //                     _homeScreenData!.recentselling![3].catId!;
-                  //                 global.isEventProduct = false;
-                  //                 global.isSubCatSelected = false;
-                  //                 Navigator.push(
-                  //                     context,
-                  //                     MaterialPageRoute(
-                  //                         builder: (context) =>
-                  //                             SubCategoriesScreen(
-                  //                               a: widget.analytics,
-                  //                               o: widget.observer,
-                  //                               screenHeading: _homeScreenData!
-                  //                                   .recentselling![3].catName,
-                  //                               categoryId: _homeScreenData!
-                  //                                   .recentselling![3].catId,
-                  //                               isSubcategory: false,
-                  //                               isEventProducts: false,
-                  //                               // subscriptionProduct: global
-                  //                               //     .isSubscription, //subscriptionProduct: 1,
-                  //                             )));
-                  //               },
-                  //             ),
-                  //           ],
-                  //         ),
-                  //       )
-                  //     : SizedBox(),
-                  // _homeScreenData!.recentselling!.length > 3
-                  //     ? Container(
-                  //         margin: EdgeInsets.only(bottom: 1),
-                  //         height: productSection4List != null
-                  //             ? _productContainerheight
-                  //             : 0,
-                  //         child: _isDataLoaded && productSection4List != null
-                  //             ? productSection4List != null &&
-                  //                     productSection4List.length > 0
-                  //                 ? BundleOffersMenu(
-                  //                     analytics: widget.analytics,
-                  //                     observer: widget.observer,
-                  //                     categoryProductList: productSection4List,
-                  //                     isHomeSelected: 'home',
-                  //                   )
-                  //                 : SizedBox()
-                  //             : _shimmer2(),
-                  //       )
-                  //     : SizedBox(),
-                  // // this is section 4 products
-                  // _homeScreenData!.recentselling!.length > 4
-                  //     ? Container(
-                  //         margin: EdgeInsets.only(
-                  //           top: 1,
-                  //           left: 20,
-                  //           right: 20,
-                  //         ),
-                  //         child: Row(
-                  //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //           children: [
-                  //             Text(
-                  //               _homeScreenData!.recentselling!.length > 4
-                  //                   ? "${_homeScreenData!.recentselling![4].catName}"
-                  //                   : "",
-                  //               style: TextStyle(
-                  //                   fontFamily: global.fontMontserratLight,
-                  //                   fontWeight: FontWeight.w600,
-                  //                   fontSize: 19,
-                  //                   color: Colors.black),
-                  //             ),
-                  //             TextButton(
-                  //               child: Text(
-                  //                 "View All",
-                  //                 style: TextStyle(
-                  //                     fontFamily: global.fontMetropolisRegular,
-                  //                     fontWeight: FontWeight.w200,
-                  //                     fontSize: 14,
-                  //                     color: ColorConstants.appdimColor),
-                  //               ),
-                  //               onPressed: () {
-                  //                 setState(() {
-                  //                   // _homeScreenData.topCat
-                  //                   //     .map((e) =>
-                  //                   //         e.isSelected = false)
-                  //                   //     .toList();
-                  //                   // _selectedIndex = index;
-                  //                   // if (_selectedIndex == index) {
-                  //                   //   _homeScreenData.topCat[index]
-                  //                   //       .isSelected = true;
-                  //                   // }
-                  //                 });
-                  //                 global.homeSelectedCatID =
-                  //                     _homeScreenData!.recentselling![4].catId!;
-                  //                 global.isEventProduct = false;
-                  //                 global.isSubCatSelected = false;
-                  //                 Navigator.push(
-                  //                     context,
-                  //                     MaterialPageRoute(
-                  //                         builder: (context) =>
-                  //                             SubCategoriesScreen(
-                  //                               a: widget.analytics,
-                  //                               o: widget.observer,
-                  //                               screenHeading: _homeScreenData!
-                  //                                   .recentselling![4].catName,
-                  //                               categoryId: _homeScreenData!
-                  //                                   .recentselling![4].catId,
-                  //                               isSubcategory: false,
-                  //                               isEventProducts: false,
-                  //                               // subscriptionProduct: global
-                  //                               //     .isSubscription, //subscriptionProduct: 1,
-                  //                             )));
-                  //               },
-                  //             ),
-                  //           ],
-                  //         ),
-                  //       )
-                  //     : SizedBox(),
-                  // _homeScreenData!.recentselling!.length > 4
-                  //     ? Container(
-                  //         margin: EdgeInsets.only(bottom: 1),
-                  //         height: productSection5List != null
-                  //             ? _productContainerheight
-                  //             : 0,
-                  //         child: _isDataLoaded && productSection5List != null
-                  //             ? productSection5List != null &&
-                  //                     productSection5List.length > 0
-                  //                 ? BundleOffersMenu(
-                  //                     analytics: widget.analytics,
-                  //                     observer: widget.observer,
-                  //                     categoryProductList: productSection5List,
-                  //                     isHomeSelected: 'home',
-                  //                   )
-                  //                 : SizedBox()
-                  //             : _shimmer2(),
-                  //       )
-                  //     : SizedBox(),
-                ]))
-            : Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      CircularProgressIndicator(),
-                    ],
-                  )
-                ],
-              ),
+                      color: Colors.transparent,
+                      child: Image.asset(
+                        "assets/images/home_section_image.png",
+                        fit: BoxFit.contain,
+                        
+                        width: MediaQuery.of(context).size.width,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 25,
+                    ),
+                    homeProducts.length > 0
+                        ? ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: homeProducts.length,
+                            scrollDirection: Axis.vertical,
+                            physics: NeverScrollableScrollPhysics(),
+                            itemBuilder: (BuildContext context, int index) {
+                              return Column(
+                                children: [
+                                  
+                                  Container(
+                                    margin: EdgeInsets.only(
+                                         left: 8, right: 8),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          "${homeProducts[index].catName}",
+                                          style: TextStyle(
+                                              fontFamily: global.fontRalewayMedium,
+                                              fontWeight: FontWeight.w900,
+                                              fontSize: 19,
+                                              color: ColorConstants.newTextHeadingFooter),
+                                        ),
+                                        Container(
+                                          height: 28,
+                                          padding: EdgeInsets.only(left: 8,right: 8),
+                                          decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius: BorderRadius.circular(100),
+                                          border: Border.all(color: ColorConstants.newAppColor, width: 0.25)
+                                          ),
+                                          child: TextButton(
+                                            child: Text(
+                                              "View All",
+                                              style: TextStyle(
+                                                  fontFamily:
+                                                      global.fontRailwayRegular,
+                                                  fontWeight: FontWeight.w200,
+                                                  fontSize: 12,
+                                                  color:
+                                                      ColorConstants.newTextHeadingFooter),
+                                            ),
+                                            onPressed: () {
+                                              setState(() {
+                                                // _homeScreenData.topCat
+                                                //     .map((e) =>
+                                                //         e.isSelected = false)
+                                                //     .toList();
+                                                // _selectedIndex = index;
+                                                // if (_selectedIndex == index) {
+                                                //   _homeScreenData.topCat[index]
+                                                //       .isSelected = true;
+                                                // }
+                                              });
+                                              global.homeSelectedCatID =
+                                                  homeProducts[index].catId!;
+                                              global.isEventProduct = false;
+                                              global.isSubCatSelected = false;
+                                              global.parentCatID =
+                                                  homeProducts[index].catId!;
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          SubCategoriesScreen(
+                                                            a: widget.analytics,
+                                                            o: widget.observer,
+                                                            showCategories: true,
+                                                            screenHeading:
+                                                                homeProducts[index]
+                                                                    .catName,
+                                                            categoryId:
+                                                                homeProducts[index]
+                                                                    .catId,
+                                                            isSubcategory: false,
+                                                            isEventProducts: false,
+                                                            // subscriptionProduct: global
+                                                            //     .isSubscription, //subscriptionProduct: 1,
+                                                          )));
+                                            },
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 25,
+                                  ),
+                                  Container(
+                                    height: _productContainerheight-20,
+                                    child: _isDataLoaded
+                                        ? BundleOffersMenu(
+                                            analytics: widget.analytics,
+                                            observer: widget.observer,
+                                            categoryProductList:
+                                                homeProducts[index].productList,
+                                            isHomeSelected: 'home',
+                                          )
+                                        : SizedBox(),
+                                  ),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                ],
+                              );
+                            })
+                        : SizedBox(),
+              
+                        ])),
+            )
+            : Container(
+              color: ColorConstants.colorPageBackground,
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        CircularProgressIndicator(),
+                      ],
+                    )
+                  ],
+                ),
+            ),
       ),
     );
   }
@@ -3673,7 +1711,7 @@ class _DashboardScreenState extends BaseRouteState with WidgetsBindingObserver {
                     child: Text('OK',
                         style: TextStyle(
                             fontSize: 16,
-                            fontFamily: fontMetropolisRegular,
+                            fontFamily: fontRailwayRegular,
                             fontWeight: FontWeight.w200,
                             color: Colors.blue)),
                     onPressed: () async {
@@ -3711,6 +1749,32 @@ class _DashboardScreenState extends BaseRouteState with WidgetsBindingObserver {
   //     }
   //   }
   // }
+
+  void _startAutoScroll() async {
+    final itemWidth = 160.0; // item width (150) + margin (10)
+    while (true) {
+      await Future.delayed(const Duration(seconds: 2));
+
+      if (_scrollAutoController.hasClients) {
+        _currentIndex++;
+
+        double targetOffset = _currentIndex * itemWidth;
+
+        // if we reach the end of the duplicated list, reset back to 0 instantly
+        if (targetOffset >= homeScrollingTitles.length * itemWidth) {
+          _currentIndex = 0;
+          _scrollAutoController.jumpTo(0); // jump instantly (no backward scroll)
+          targetOffset = 0;
+        }
+
+        _scrollAutoController.animateTo(
+          targetOffset,
+          duration: const Duration(milliseconds: 600),
+          curve: Curves.easeInOut,
+        );
+      }
+    }
+  }
 
   @override
   void initState() {
@@ -3827,6 +1891,7 @@ class _DashboardScreenState extends BaseRouteState with WidgetsBindingObserver {
             SearchScreen(
               a: widget.analytics,
               o: widget.observer,
+              fromBottomNvigation: false,
               searchProductId:
                   randomSearchProductId != null ? randomSearchProductId! : 5,
             )));
@@ -3835,6 +1900,9 @@ class _DashboardScreenState extends BaseRouteState with WidgetsBindingObserver {
       if (global.refferalCode == "" ||
           global.refferalCode.isEmpty ||
           global.refferalCode == null) {
+             WidgetsBinding.instance.addPostFrameCallback((_) {
+      _startAutoScroll();
+    });
         callHomeDataApi();
         _updateFCMTOken();
         // isLoading = true;
@@ -4185,7 +2253,7 @@ class _DashboardScreenState extends BaseRouteState with WidgetsBindingObserver {
 
             _homeScreenData = result.data;
             if(_homeScreenData!.banner !=null && _homeScreenData!.banner!.length>0){
-_homeScreenData!.banner![0].isSelected = true;
+                _homeScreenData!.banner![0].isSelected = true;
             }
             
             if(_homeScreenData!.events!=null && _homeScreenData!.events!.length>0){
@@ -4202,21 +2270,34 @@ _homeScreenData!.banner![0].isSelected = true;
               }  
             }
             }
-            for (int i = 2; i < _homeScreenData!.recentselling!.length; i++) {
-              homeProducts.add(_homeScreenData!.recentselling![i]);
+            if(_homeScreenData!.recentselling!.length>2){
+              for (int i = 3; i < _homeScreenData!.recentselling!.length; i++) {
+                homeProducts.add(_homeScreenData!.recentselling![i]);
+              }
             }
-            if (_homeScreenData!.recentselling!.length >= 2) {
+            if (_homeScreenData!.recentselling!.length >= 3) {
               productSection1List =
                   _homeScreenData!.recentselling![0].productList!;
               productSection2List =
                   _homeScreenData!.recentselling![1].productList!;
-            } else if (_homeScreenData!.recentselling!.length >= 1) {
+              productSection3List =
+                  _homeScreenData!.recentselling![2].productList!;
+              
+            } 
+            else if (_homeScreenData!.recentselling!.length >= 2) {
+              productSection1List =
+                  _homeScreenData!.recentselling![0].productList!;
+              productSection2List =
+                  _homeScreenData!.recentselling![1].productList!;
+              
+            } 
+            else if (_homeScreenData!.recentselling!.length >= 1) {
               productSection1List =
                   _homeScreenData!.recentselling![0].productList!;
             }
 
             _isDataLoaded = true;
-            await callFiltersApi();
+            // await callFiltersApi();
             //await cartController.getCartList();
             setState(() {
               _bannerIndex = 0;

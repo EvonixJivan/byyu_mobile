@@ -38,7 +38,7 @@ class _TransactionHistoryScreenState extends BaseRouteState {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          backgroundColor: ColorConstants.appBrownFaintColor,
+          backgroundColor: ColorConstants.white,
           centerTitle: false,
           leading: BackButton(
             onPressed: () {
@@ -54,13 +54,18 @@ class _TransactionHistoryScreenState extends BaseRouteState {
                     builder: (context) => SearchScreen(
                           a: widget.analytics,
                           o: widget.observer,
+                          fromBottomNvigation: false,
                         )));
               },
-              child: Icon(
-                Icons.search,
-                size: 25,
-                color: ColorConstants.allIconsBlack45,
-              ),
+              child: Padding(
+                  padding: EdgeInsets.all(18),
+                  child: Image.asset(
+                  "assets/images/iv_search.png",
+                  fit: BoxFit.contain,
+                  height: 25,
+                  alignment: Alignment.center,
+                                ),
+                ),
             ),
             SizedBox(
               width: 8,
@@ -126,9 +131,9 @@ class _TransactionHistoryScreenState extends BaseRouteState {
                       )));
             },
             child: Image.asset(
-              "assets/images/byyu_logo_no_tag.png",
+              "assets/images/new_logo.png",
               fit: BoxFit.contain,
-              height: 40,
+              height: 25,
               alignment: Alignment.center,
             ),
           )),
@@ -281,7 +286,7 @@ class _TransactionHistoryScreenState extends BaseRouteState {
                                                                   style:
                                                                       TextStyle(
                                                                     fontFamily:
-                                                                        fontMetropolisRegular,
+                                                                        fontRailwayRegular,
                                                                     color: ColorConstants
                                                                         .pureBlack,
                                                                     fontSize:
@@ -316,7 +321,7 @@ class _TransactionHistoryScreenState extends BaseRouteState {
                                                                   style:
                                                                       TextStyle(
                                                                     fontFamily:
-                                                                        fontMetropolisRegular,
+                                                                        fontRailwayRegular,
                                                                     color: ColorConstants
                                                                         .green,
                                                                     fontSize:
@@ -360,7 +365,7 @@ class _TransactionHistoryScreenState extends BaseRouteState {
                                                                   style:
                                                                       TextStyle(
                                                                     fontFamily:
-                                                                        fontMetropolisRegular,
+                                                                        fontRailwayRegular,
                                                                     color: transactionhistory[index].orderStatus!.toLowerCase() ==
                                                                                 "delivered" ||
                                                                             transactionhistory[index].orderStatus!.toLowerCase() ==
@@ -390,7 +395,7 @@ class _TransactionHistoryScreenState extends BaseRouteState {
                                                             "Order id:",
                                                             style: TextStyle(
                                                               fontFamily:
-                                                                  fontMetropolisRegular,
+                                                                  fontRailwayRegular,
                                                               color:
                                                                   ColorConstants
                                                                       .pureBlack,
@@ -411,7 +416,7 @@ class _TransactionHistoryScreenState extends BaseRouteState {
                                                             "${transactionhistory[index].groupCartId}",
                                                             style: TextStyle(
                                                               fontFamily:
-                                                                  fontMetropolisRegular,
+                                                                  fontRailwayRegular,
                                                               color:
                                                                   ColorConstants
                                                                       .pureBlack,
@@ -441,7 +446,7 @@ class _TransactionHistoryScreenState extends BaseRouteState {
                                                     "Total Pay",
                                                     style: TextStyle(
                                                       fontFamily:
-                                                          fontMetropolisRegular,
+                                                          fontRailwayRegular,
                                                       color: ColorConstants
                                                           .pureBlack,
                                                       fontSize: 14,
@@ -459,7 +464,7 @@ class _TransactionHistoryScreenState extends BaseRouteState {
                                                     " ${double.parse(transactionhistory[index].amount!).toStringAsFixed(0)} AED",
                                                     style: TextStyle(
                                                       fontFamily:
-                                                          fontMetropolisRegular,
+                                                          fontRailwayRegular,
                                                       color: transactionhistory[
                                                                           index]
                                                                       .paymentMethod ==
@@ -519,7 +524,7 @@ class _TransactionHistoryScreenState extends BaseRouteState {
                                                                     : "",
                                                                 style: TextStyle(
                                                                     fontFamily:
-                                                                        fontMetropolisRegular,
+                                                                        fontRailwayRegular,
                                                                     color: ColorConstants
                                                                         .pureBlack,
                                                                     fontSize:
@@ -545,7 +550,7 @@ class _TransactionHistoryScreenState extends BaseRouteState {
                                                                     : "",
                                                                 style: TextStyle(
                                                                     fontFamily:
-                                                                        fontMetropolisRegular,
+                                                                        fontRailwayRegular,
                                                                     color: ColorConstants
                                                                         .pureBlack,
                                                                     fontSize:
@@ -589,7 +594,7 @@ class _TransactionHistoryScreenState extends BaseRouteState {
                                                                 "Order date:",
                                                                 style: TextStyle(
                                                                     fontFamily:
-                                                                        fontMetropolisRegular,
+                                                                        fontRailwayRegular,
                                                                     color: ColorConstants
                                                                         .pureBlack,
                                                                     fontSize:
@@ -615,7 +620,7 @@ class _TransactionHistoryScreenState extends BaseRouteState {
                                                                   //         .right,
                                                                   style: TextStyle(
                                                                       fontFamily:
-                                                                          fontMetropolisRegular,
+                                                                          fontRailwayRegular,
                                                                       color: ColorConstants
                                                                           .pureBlack,
                                                                       fontSize:
@@ -649,7 +654,7 @@ class _TransactionHistoryScreenState extends BaseRouteState {
                                                                 "Delivery Date:",
                                                                 style: TextStyle(
                                                                     fontFamily:
-                                                                        fontMetropolisRegular,
+                                                                        fontRailwayRegular,
                                                                     color: ColorConstants
                                                                         .pureBlack,
                                                                     fontSize:
@@ -670,7 +675,7 @@ class _TransactionHistoryScreenState extends BaseRouteState {
                                                                 "${transactionhistory[index].deliveryDate}",
                                                                 style: TextStyle(
                                                                     fontFamily:
-                                                                        fontMetropolisRegular,
+                                                                        fontRailwayRegular,
                                                                     color: ColorConstants
                                                                         .pureBlack,
                                                                     fontSize:
@@ -693,7 +698,7 @@ class _TransactionHistoryScreenState extends BaseRouteState {
                                                           "Payment Method:",
                                                           style: TextStyle(
                                                               fontFamily:
-                                                                  fontMetropolisRegular,
+                                                                  fontRailwayRegular,
                                                               color:
                                                                   ColorConstants
                                                                       .pureBlack,
@@ -713,7 +718,7 @@ class _TransactionHistoryScreenState extends BaseRouteState {
                                                           "${transactionhistory[index].paymentMethod}",
                                                           style: TextStyle(
                                                               fontFamily:
-                                                                  fontMetropolisRegular,
+                                                                  fontRailwayRegular,
                                                               color:
                                                                   ColorConstants
                                                                       .pureBlack,

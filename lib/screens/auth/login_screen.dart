@@ -17,7 +17,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+// import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -94,28 +94,33 @@ class _LoginScreenState extends BaseRouteState {
     double screenHeight = MediaQuery.of(context).size.height;
     final isKeyboardOpen = MediaQuery.of(context).viewInsets.bottom != 0;
     return Scaffold(
+      backgroundColor: ColorConstants.colorPageBackground,
       resizeToAvoidBottomInset: false,
       key: _scaffoldKey1,
       appBar: AppBar(
         leadingWidth: 46,
-        backgroundColor: ColorConstants.appBrownFaintColor,
+        backgroundColor: ColorConstants.appBarColorWhite,
         title: Text("SIGN IN",
             style: TextStyle(
-              fontFamily: fontMetropolisRegular,
-              color: ColorConstants.pureBlack,
+              fontFamily: fontRailwayRegular,
+              color: ColorConstants.newTextHeadingFooter,
               fontWeight: FontWeight.w200,
             )),
-        centerTitle: true,
+        centerTitle: false,
+        leading: BackButton(
+              onPressed: () {
+                print("Go back");
+                Navigator.pop(context);
+              },
+              color: ColorConstants.appColor,
+            ),
       ),
       body: GestureDetector(
         onTap: () {
           FocusScope.of(context).unfocus();
         },
         child: Container(
-          decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage("assets/images/login_bg.png"),
-                  fit: BoxFit.cover)),
+          
           child: _isLoading
               ? Center(
                   child: CircularProgressIndicator(),
@@ -140,7 +145,7 @@ class _LoginScreenState extends BaseRouteState {
                                       height: 200,
                                       width: 200,
                                       child: Image.asset(
-                                        'assets/images/Byyu_vertical.png',
+                                        'assets/images/new_logo.png',
                                         fit: BoxFit.contain,
                                       ),
                                     ),
@@ -177,7 +182,7 @@ class _LoginScreenState extends BaseRouteState {
                                                                           fontSize:
                                                                               16,
                                                                           fontFamily:
-                                                                              fontMetropolisRegular,
+                                                                              fontRailwayRegular,
                                                                           color:
                                                                               ColorConstants.appColor),
                                                                     )),
@@ -191,7 +196,7 @@ class _LoginScreenState extends BaseRouteState {
                                                                   TextOverflow
                                                                       .ellipsis,
                                                               fontFamily:
-                                                                  fontMetropolisRegular,
+                                                                  fontRailwayRegular,
                                                               fontWeight:
                                                                   FontWeight
                                                                       .w200,
@@ -259,7 +264,7 @@ class _LoginScreenState extends BaseRouteState {
                                                                   countryCodeSelected,
                                                                   style: TextStyle(
                                                                       fontFamily:
-                                                                          fontMetropolisRegular,
+                                                                          fontRailwayRegular,
                                                                       fontWeight:
                                                                           FontWeight
                                                                               .w200,
@@ -305,7 +310,7 @@ class _LoginScreenState extends BaseRouteState {
                                                     style: TextStyle(
                                                         fontSize: 14,
                                                         fontFamily:
-                                                            fontMetropolisRegular,
+                                                            fontRailwayRegular,
                                                         fontWeight:
                                                             FontWeight.w200,
                                                         color: ColorConstants
@@ -368,7 +373,7 @@ class _LoginScreenState extends BaseRouteState {
                                                         hintText: '561234567',
                                                         hintStyle: TextStyle(
                                                             fontFamily:
-                                                                fontMetropolisRegular,
+                                                                fontRailwayRegular,
                                                             fontSize: 14)),
                                                   ),
                                                 ),
@@ -390,7 +395,7 @@ class _LoginScreenState extends BaseRouteState {
                                                       ColorConstants.appColor,
                                                   fontSize: 11,
                                                   fontFamily: global
-                                                      .fontMetropolisRegular,
+                                                      .fontRailwayRegular,
                                                   fontWeight: FontWeight.w200),
                                             ),
                                           ),
@@ -416,7 +421,7 @@ class _LoginScreenState extends BaseRouteState {
                                                       ColorConstants.appColor,
                                                   fontSize: 11,
                                                   fontFamily: global
-                                                      .fontMetropolisRegular,
+                                                      .fontRailwayRegular,
                                                   fontWeight: FontWeight.w200),
                                             ),
                                           ),
@@ -438,7 +443,7 @@ class _LoginScreenState extends BaseRouteState {
                                                         ColorConstants.appColor,
                                                     fontSize: 13,
                                                     fontFamily: global
-                                                        .fontMetropolisRegular,
+                                                        .fontRailwayRegular,
                                                     fontWeight:
                                                         FontWeight.w600),
                                               ),
@@ -617,7 +622,7 @@ class _LoginScreenState extends BaseRouteState {
                                                     color: ColorConstants
                                                         .pureBlack,
                                                     fontFamily:
-                                                        fontMetropolisRegular,
+                                                        fontRailwayRegular,
                                                     fontWeight:
                                                         FontWeight.normal)),
                                             SizedBox(
@@ -685,7 +690,7 @@ class _LoginScreenState extends BaseRouteState {
                                                                     color: ColorConstants
                                                                         .pureBlack,
                                                                     fontFamily:
-                                                                        fontMetropolisRegular,
+                                                                        fontRailwayRegular,
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .w400,
@@ -817,7 +822,7 @@ class _LoginScreenState extends BaseRouteState {
                                                                     color: ColorConstants
                                                                         .pureBlack,
                                                                     fontFamily:
-                                                                        fontMetropolisRegular,
+                                                                        fontRailwayRegular,
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .w400,
@@ -886,7 +891,7 @@ class _LoginScreenState extends BaseRouteState {
                                                                     color: ColorConstants
                                                                         .pureBlack,
                                                                     fontFamily:
-                                                                        fontMetropolisRegular,
+                                                                        fontRailwayRegular,
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .w400,
@@ -965,7 +970,7 @@ class _LoginScreenState extends BaseRouteState {
                                                     //                 color: ColorConstants
                                                     //                     .pureBlack,
                                                     //                 fontFamily:
-                                                    //                     fontMetropolisRegular,
+                                                    //                     fontRailwayRegular,
                                                     //                 fontWeight:
                                                     //                     FontWeight
                                                     //                         .w400,
@@ -1051,7 +1056,7 @@ class _LoginScreenState extends BaseRouteState {
                                                     textAlign: TextAlign.center,
                                                     style: TextStyle(
                                                         fontFamily:
-                                                            fontMetropolisRegular,
+                                                            fontRailwayRegular,
                                                         color: ColorConstants
                                                             .pureBlack,
                                                         fontWeight:
@@ -1094,7 +1099,7 @@ class _LoginScreenState extends BaseRouteState {
                                                           TextAlign.center,
                                                       style: TextStyle(
                                                           fontFamily:
-                                                              fontMetropolisRegular,
+                                                              fontRailwayRegular,
                                                           color: ColorConstants
                                                               .appColor,
                                                           fontWeight:
@@ -1260,9 +1265,22 @@ class _LoginScreenState extends BaseRouteState {
           if (result != null) {
             print(result.status);
             if (result.status == "1") {
+              print("Nikhil login method-countryCode- ${int.parse(countryCode)!=971}");
+              print("Nikhil login method-global.currentUser.whatsapp_flag- ${global.currentUser.whatsapp_flag}");
+              bool isWhatsAppFlag;
+                
+                if(global.currentUser.whatsapp_flag != null &&
+                    global.currentUser.whatsapp_flag == "1") {
+                  isWhatsAppFlag = true;
+                } else if (int.parse(countryCode)==971) {
+                  print("Nikhil login method-countryCode- ${countryCode}");
+                  isWhatsAppFlag = false;
+                }else{
+                  isWhatsAppFlag = true;
+                }
               if (Platform.isAndroid) {
                 hideLoader();
-
+                
                 Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -1272,13 +1290,7 @@ class _LoginScreenState extends BaseRouteState {
                             isFromUpdate: false,
                             isAddMobile: false,
                             isFromSignUPLogin:
-                                global.currentUser.whatsapp_flag != null &&
-                                        global.currentUser.whatsapp_flag == "1"
-                                    ? true
-                                    : (countryCode != "971" ||
-                                            countryCode != "+971")
-                                        ? true
-                                        : false,
+                                isWhatsAppFlag,
                             countryCode:
                                 countryCode != null ? countryCode : "971",
                             a: widget.analytics,
@@ -1294,9 +1306,7 @@ class _LoginScreenState extends BaseRouteState {
                             isFromUpdate: false,
                             isAddMobile: false,
                             isFromSignUPLogin:
-                                global.currentUser.whatsapp_flag == "1"
-                                    ? true
-                                    : false,
+                                isWhatsAppFlag,
                             countryCode:
                                 countryCode != null ? countryCode : "+971",
                             a: widget.analytics,
@@ -1549,7 +1559,7 @@ class _LoginScreenState extends BaseRouteState {
                     child: Text('NO',
                         style: TextStyle(
                             fontSize: 16,
-                            fontFamily: fontMetropolisRegular,
+                            fontFamily: fontRailwayRegular,
                             fontWeight: FontWeight.w200,
                             color: ColorConstants.appColor)),
                     onPressed: () async {
@@ -1585,7 +1595,7 @@ class _LoginScreenState extends BaseRouteState {
                     child: Text('YES',
                         style: TextStyle(
                             fontSize: 16,
-                            fontFamily: fontMetropolisRegular,
+                            fontFamily: fontRailwayRegular,
                             fontWeight: FontWeight.w200,
                             color: Colors.blue)),
                     onPressed: () async {
@@ -1641,7 +1651,7 @@ class _LoginScreenState extends BaseRouteState {
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 16,
-                    fontFamily: fontMetropolisRegular,
+                    fontFamily: fontRailwayRegular,
                     fontWeight: FontWeight.w200,
                   ),
                 ),
@@ -1652,7 +1662,7 @@ class _LoginScreenState extends BaseRouteState {
                       style: TextStyle(
                         color: Colors.red,
                         fontSize: 16,
-                        fontFamily: fontMetropolisRegular,
+                        fontFamily: fontRailwayRegular,
                         fontWeight: FontWeight.w200,
                       ),
                     ),
@@ -1665,7 +1675,7 @@ class _LoginScreenState extends BaseRouteState {
                       'OK',
                       style: TextStyle(
                           fontSize: 16,
-                          fontFamily: fontMetropolisRegular,
+                          fontFamily: fontRailwayRegular,
                           fontWeight: FontWeight.w200,
                           color: Colors.blue),
                     ),

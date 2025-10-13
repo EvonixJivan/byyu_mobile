@@ -34,24 +34,24 @@ class _NotificationScreenState extends BaseRouteState {
         child: Scaffold(
             key: _scaffoldKey,
             appBar: AppBar(
-              backgroundColor: ColorConstants.appBrownFaintColor,
+              backgroundColor: ColorConstants.appBarColorWhite,
               leading: IconButton(
                 onPressed: () async {
                   Navigator.of(context).pop();
                 },
                 icon: Icon(
                   Icons.arrow_back,
-                  color: ColorConstants.pureBlack,
+                  color: ColorConstants.newAppColor,
                 ),
               ),
-              centerTitle: true,
+              centerTitle: false,
               title: Text(
                 // "${AppLocalizations.of(context).btn_notification}",
                 "Notification",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     color: ColorConstants.pureBlack,
-                    fontFamily: fontMetropolisRegular,
+                    fontFamily: fontRailwayRegular,
                     fontWeight: FontWeight.w200),
               ),
 
@@ -71,10 +71,7 @@ class _NotificationScreenState extends BaseRouteState {
             ),
             body: Container(
               height: MediaQuery.of(context).size.height,
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage("assets/images/login_bg.png"),
-                      fit: BoxFit.cover)),
+              color: ColorConstants.colorPageBackground,
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: RefreshIndicator(
@@ -212,10 +209,10 @@ class _NotificationScreenState extends BaseRouteState {
                                                             .notiTitle!,
                                                         style: TextStyle(
                                                           fontFamily: global
-                                                              .fontMetropolisRegular,
+                                                              .fontRailwayRegular,
                                                           fontWeight:
-                                                              FontWeight.w400,
-                                                          fontSize: 14,
+                                                              FontWeight.w900,
+                                                          fontSize: 16,
                                                           color: ColorConstants
                                                               .pureBlack,
                                                         ),
@@ -239,11 +236,11 @@ class _NotificationScreenState extends BaseRouteState {
                                                           '${_notificationList[index].notiMessage}',
                                                           style: TextStyle(
                                                               fontFamily: global
-                                                                  .fontMetropolisRegular,
+                                                                  .fontRailwayRegular,
                                                               fontWeight:
                                                                   FontWeight
                                                                       .w200,
-                                                              fontSize: 12,
+                                                              fontSize: 14,
                                                               color:
                                                                   ColorConstants
                                                                       .pureBlack,
@@ -271,7 +268,7 @@ class _NotificationScreenState extends BaseRouteState {
                                                           '\n${global.getFormattedDate(dateandtime.format(_notificationList[index].createdAt!))}',//'\n${dateOnly.format(_notificationList[index].createdAt!)}',
                                                           style: TextStyle(
                                                               fontFamily: global
-                                                                  .fontMetropolisRegular,
+                                                                  .fontRailwayRegular,
                                                               fontWeight:
                                                                   FontWeight
                                                                       .w200,
@@ -379,7 +376,7 @@ class _NotificationScreenState extends BaseRouteState {
                                             //                 .notiTitle!,
                                             //             style: TextStyle(
                                             //               fontFamily: global
-                                            //                   .fontMetropolisRegular,
+                                            //                   .fontRailwayRegular,
                                             //               fontWeight:
                                             //                   FontWeight.w400,
                                             //               fontSize: 14,
@@ -405,7 +402,7 @@ class _NotificationScreenState extends BaseRouteState {
                                             //           '${_notificationList[index].notiMessage}',
                                             //           style: TextStyle(
                                             //               fontFamily: global
-                                            //                   .fontMetropolisRegular,
+                                            //                   .fontRailwayRegular,
                                             //               fontWeight:
                                             //                   FontWeight.w200,
                                             //               fontSize: 12,
@@ -463,10 +460,10 @@ class _NotificationScreenState extends BaseRouteState {
                                 "Nothing is yet to see here",
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                    fontFamily: global.fontMontserratLight,
+                                    fontFamily: global.fontRalewayMedium,
                                     fontSize: 20,
-                                    fontWeight: FontWeight.w200,
-                                    color: ColorConstants.guidlinesGolden),
+                                    fontWeight: FontWeight.w900,
+                                    color: ColorConstants.newAppColor),
                               ),
                             )
                       : _shimmerWidget(),
@@ -490,7 +487,7 @@ class _NotificationScreenState extends BaseRouteState {
               content: Text(
                   // "${AppLocalizations.of(context).txt_delete_notification_desc}",
                   "Are you sure you want to delete all notification?",
-                  style: normalCaptionStyle(context)),
+                  style: Theme.of(context).textTheme.bodyMedium),
               actions: [
                 ElevatedButton(
                     onPressed: () async {

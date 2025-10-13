@@ -247,21 +247,28 @@ class _AddMemberScreenState extends BaseRouteState {
   Widget build(BuildContext context) {
 
     return Scaffold(
-        backgroundColor: white,
+        backgroundColor: ColorConstants.colorPageBackground,
         key: _scaffoldKey1,
         appBar: AppBar(
-            backgroundColor: ColorConstants.appBrownFaintColor,
+            backgroundColor: ColorConstants.appBarColorWhite,
             leadingWidth: 46,
             actions: [],
-            centerTitle: true,
+            leading: BackButton(
+              onPressed: () {
+                print("Go back");
+                Navigator.pop(context);
+              },
+              color: ColorConstants.appColor,
+            ),
+            centerTitle: false,
             title: Text(
               fullName != null && fullName!.length > 0
                   ? "Update Special Day"
                   : "Add Special Day",
               textAlign: TextAlign.center,
               style: TextStyle(
-                  color: ColorConstants.pureBlack,
-                  fontFamily: fontMetropolisRegular,
+                  color: ColorConstants.newTextHeadingFooter,
+                  fontFamily: fontRailwayRegular,
                   fontWeight: FontWeight.w200),
             )),
         body: Form(
@@ -289,7 +296,6 @@ class _AddMemberScreenState extends BaseRouteState {
                                       children: [
                                         Container(
                                           decoration: BoxDecoration(
-                                              color: ColorConstants.white,
                                               borderRadius: BorderRadius.all(
                                                   Radius.circular(7.0))),
                                           margin: EdgeInsets.only(
@@ -298,11 +304,11 @@ class _AddMemberScreenState extends BaseRouteState {
                                           child: MaterialTextField(
                                               style: TextStyle(
                                                   fontFamily: global
-                                                      .fontMetropolisRegular,
+                                                      .fontRailwayRegular,
                                                   fontSize: 14,
                                                   fontWeight: FontWeight.w200,
                                                   color:
-                                                      ColorConstants.pureBlack),
+                                                      ColorConstants.newTextHeadingFooter),
                                               theme: FilledOrOutlinedTextTheme(
                                                 radius: 8,
                                                 contentPadding:
@@ -312,17 +318,17 @@ class _AddMemberScreenState extends BaseRouteState {
                                                 errorStyle: const TextStyle(
                                                     fontSize: 10,
                                                     fontFamily: global
-                                                        .fontMetropolisRegular,
+                                                        .fontRailwayRegular,
                                                     fontWeight:
                                                         FontWeight.w200),
                                                 fillColor: Colors.transparent,
                                                 enabledColor: Colors.grey,
                                                 focusedColor:
-                                                    ColorConstants.appColor,
+                                                    ColorConstants.newTextHeadingFooter,
                                                 floatingLabelStyle:
                                                     const TextStyle(
                                                         color: ColorConstants
-                                                            .appColor),
+                                                            .newTextHeadingFooter),
                                                 width: 0.5,
                                                 labelStyle: const TextStyle(
                                                     fontSize: 14,
@@ -368,9 +374,9 @@ class _AddMemberScreenState extends BaseRouteState {
                                                       fontWeight:
                                                           FontWeight.w200,
                                                       fontFamily:
-                                                          fontMetropolisRegular,
+                                                          fontRailwayRegular,
                                                       color: ColorConstants
-                                                          .pureBlack,
+                                                          .newTextHeadingFooter,
                                                       fontSize: 16),
                                                 ),
                                               ),
@@ -387,7 +393,7 @@ class _AddMemberScreenState extends BaseRouteState {
                                                   .width -
                                               40,
                                           decoration: BoxDecoration(
-                                              color: ColorConstants.white,
+                                              color: ColorConstants.colorPageBackground,
                                               border: Border.all(
                                                 color: Colors.grey.shade300,
                                               ),
@@ -400,7 +406,7 @@ class _AddMemberScreenState extends BaseRouteState {
                                             decoration: BoxDecoration(
                                               borderRadius:
                                                   BorderRadius.circular(7),
-                                              color: ColorConstants.white,
+                                              color: ColorConstants.colorPageBackground,
                                             ),
                                             child: FormField<String>(
                                               builder: (FormFieldState<String>
@@ -422,18 +428,17 @@ class _AddMemberScreenState extends BaseRouteState {
                                                                   relation!
                                                                           .length >
                                                                       0
-                                                              ? ColorConstants
-                                                                  .pureBlack
+                                                              ? const Color.fromRGBO(0, 0, 0, 1)
                                                               : ColorConstants
                                                                   .grey,
                                                           fontSize: 14,
                                                           
                                                           fontFamily:
-                                                              fontMetropolisRegular)),
+                                                              fontRailwayRegular)),
                                                   dropdownColor:
                                                       ColorConstants.white,
                                                   iconEnabledColor:
-                                                      ColorConstants.pureBlack,
+                                                      ColorConstants.appColor,
                                                   isExpanded: true,
                                                   value: relationshipEvent,
                                                   isDense: true,
@@ -475,9 +480,9 @@ class _AddMemberScreenState extends BaseRouteState {
                                                             fontSize: 14,
                                                             color:
                                                                 ColorConstants
-                                                                    .pureBlack,
+                                                                    .newTextHeadingFooter,
                                                             fontFamily:
-                                                                fontMetropolisRegular,
+                                                                fontRailwayRegular,
                                                             letterSpacing: 1),
                                                       ),
                                                     );
@@ -507,10 +512,10 @@ class _AddMemberScreenState extends BaseRouteState {
                                                 "Select Relationship",
                                                 style: TextStyle(
                                                     color:
-                                                        ColorConstants.appColor,
+                                                        ColorConstants.newTextHeadingFooter,
                                                     fontSize: 10,
                                                     fontFamily: global
-                                                        .fontMetropolisRegular,
+                                                        .fontRailwayRegular,
                                                     fontWeight:
                                                         FontWeight.w200),
                                               ),
@@ -523,7 +528,7 @@ class _AddMemberScreenState extends BaseRouteState {
                                           visible: showRelationOthers,
                                           child: Container(
                                             decoration: BoxDecoration(
-                                                color: ColorConstants.white,
+                                                
                                                 borderRadius: BorderRadius.all(
                                                     Radius.circular(7.0))),
                                             margin: EdgeInsets.only(
@@ -532,7 +537,7 @@ class _AddMemberScreenState extends BaseRouteState {
                                             child: MaterialTextField(
                                                 style: TextStyle(
                                                     fontFamily: global
-                                                        .fontMetropolisRegular,
+                                                        .fontRailwayRegular,
                                                     fontSize: 14,
                                                     fontWeight: FontWeight.w200,
                                                     color: ColorConstants
@@ -548,7 +553,7 @@ class _AddMemberScreenState extends BaseRouteState {
                                                   errorStyle: const TextStyle(
                                                       fontSize: 10,
                                                       fontFamily: global
-                                                          .fontMetropolisRegular,
+                                                          .fontRailwayRegular,
                                                       fontWeight:
                                                           FontWeight.w200),
                                                   fillColor: Colors.transparent,
@@ -609,9 +614,9 @@ class _AddMemberScreenState extends BaseRouteState {
                                                       fontWeight:
                                                           FontWeight.w200,
                                                       fontFamily:
-                                                          fontMetropolisRegular,
+                                                          fontRailwayRegular,
                                                       color: ColorConstants
-                                                          .pureBlack,
+                                                          .newTextHeadingFooter,
                                                       fontSize: 16),
                                                 ),
                                               ),
@@ -628,7 +633,7 @@ class _AddMemberScreenState extends BaseRouteState {
                                                   .width -
                                               40,
                                           decoration: BoxDecoration(
-                                              color: ColorConstants.white,
+                                              
                                               border: Border.all(
                                                 color: Colors.grey.shade300,
                                               ),
@@ -641,7 +646,7 @@ class _AddMemberScreenState extends BaseRouteState {
                                             decoration: BoxDecoration(
                                               borderRadius:
                                                   BorderRadius.circular(7),
-                                              color: ColorConstants.white,
+                                              
                                             ),
                                             child: FormField<String>(
                                               builder: (FormFieldState<String>
@@ -669,7 +674,7 @@ class _AddMemberScreenState extends BaseRouteState {
                                                                   .grey,
                                                           fontSize: 14,
                                                           fontFamily:
-                                                              fontMetropolisRegular)),
+                                                              fontRailwayRegular)),
                                                   dropdownColor:
                                                       ColorConstants.white,
                                                   iconEnabledColor:
@@ -702,7 +707,7 @@ class _AddMemberScreenState extends BaseRouteState {
                                                                 ColorConstants
                                                                     .pureBlack,
                                                             fontFamily:
-                                                                fontMetropolisRegular,
+                                                                fontRailwayRegular,
                                                             letterSpacing: 1),
                                                       ),
                                                     );
@@ -735,7 +740,7 @@ class _AddMemberScreenState extends BaseRouteState {
                                                         ColorConstants.appColor,
                                                     fontSize: 10,
                                                     fontFamily: global
-                                                        .fontMetropolisRegular,
+                                                        .fontRailwayRegular,
                                                     fontWeight:
                                                         FontWeight.w200),
                                               ),
@@ -757,9 +762,9 @@ class _AddMemberScreenState extends BaseRouteState {
                                                       fontWeight:
                                                           FontWeight.w200,
                                                       fontFamily:
-                                                          fontMetropolisRegular,
+                                                          fontRailwayRegular,
                                                       color: ColorConstants
-                                                          .pureBlack,
+                                                          .newTextHeadingFooter,
                                                       fontSize: 16),
                                                 ),
                                               ),
@@ -825,11 +830,11 @@ class _AddMemberScreenState extends BaseRouteState {
                                                           color: Colors.black,
                                                           fontSize: 14,
                                                           fontFamily: global
-                                                              .fontMetropolisRegular,
+                                                              .fontRailwayRegular,
                                                           fontWeight:
                                                               FontWeight.w200),
                                                       dividerColor:
-                                                          Colors.black,
+                                                          ColorConstants.newTextHeadingFooter,
                                                     ),
                                                   ),
                                                 ],
@@ -865,7 +870,7 @@ class _AddMemberScreenState extends BaseRouteState {
 
                                                   style: TextStyle(
                                                       fontFamily:
-                                                          fontMontserratMedium,
+                                                          fontRalewayMedium,
                                                       fontWeight:
                                                           FontWeight.bold,
                                                       fontSize: 16,
@@ -903,11 +908,11 @@ class _AddMemberScreenState extends BaseRouteState {
                                                 strErrorShow,
                                                 style: TextStyle(
                                                     fontFamily: global
-                                                        .fontMetropolisRegular,
+                                                        .fontRailwayRegular,
                                                     fontWeight: FontWeight.w300,
                                                     fontSize: 12,
                                                     color: ColorConstants
-                                                        .appColor),
+                                                        .newTextHeadingFooter),
                                               )),
                                         )
                                       ],

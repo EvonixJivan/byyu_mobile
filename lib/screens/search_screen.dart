@@ -23,19 +23,22 @@ import 'package:byyu/widgets/my_text_box.dart';
 
 class SearchScreen extends BaseRoute {
   int? searchProductId;
-  SearchScreen({a, o, this.searchProductId})
+  bool? fromBottomNvigation;
+  SearchScreen({a, o, this.searchProductId,this.fromBottomNvigation})
       : super(a: a, o: o, r: 'SearchScreen');
 
   @override
   _SearchScreenState createState() =>
-      _SearchScreenState(productId: searchProductId);
+      _SearchScreenState(productId: searchProductId,fromBottomNvigation:fromBottomNvigation);
 }
 
 class SearchScreenHeader extends StatefulWidget {
   final TextTheme textTheme;
   final dynamic analytics;
   final dynamic observer;
-  SearchScreenHeader({required this.textTheme, this.analytics, this.observer})
+    bool? fromBottomNvigation;
+
+  SearchScreenHeader({required this.textTheme, this.analytics, this.observer,this.fromBottomNvigation})
       : super();
 
   @override
@@ -43,6 +46,7 @@ class SearchScreenHeader extends StatefulWidget {
       textTheme: textTheme,
       analytics: analytics,
       observer: observer,
+      fromBottomNvigation: fromBottomNvigation,
       searchProductId: 0);
 }
 
@@ -51,22 +55,25 @@ class _SearchScreenHeaderState extends State<SearchScreenHeader> {
   dynamic analytics;
   dynamic observer;
   int? searchProductId;
+  bool? fromBottomNvigation;
   TextEditingController _cSearch = new TextEditingController();
   _SearchScreenHeaderState(
       {required this.textTheme,
       this.analytics,
       this.observer,
+      this.fromBottomNvigation,
       required this.searchProductId});
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-        BackButton(
+
+        fromBottomNvigation==true?SizedBox():BackButton(
             onPressed: () {
               Navigator.of(context).pop();
             },
             //icon: Icon(Icons.keyboard_arrow_left),
-            color: ColorConstants.pureBlack),
+            color: ColorConstants.appColor),
         SizedBox(width: 16),
         MyTextBox(
             isHomePage: false,
@@ -80,13 +87,15 @@ class _SearchScreenHeaderState extends State<SearchScreenHeader> {
               },
               child: Icon(Icons.cancel,
                   color:
-                      ColorConstants.pureBlack //Theme.of(context).primaryColor,
+                      ColorConstants.appColor //Theme.of(context).primaryColor,
                   ),
             ),
             prefixIcon: Icon(
-              Icons.search_outlined,
-              color: ColorConstants.pureBlack,
+              Icons.search,
+              color: ColorConstants.appColor,
             ),
+            
+            
             hintText:
                 "Search products", //"${AppLocalizations.of(context).hnt_search_product}",
             textCapitalization: TextCapitalization.words,
@@ -135,12 +144,13 @@ class _SearchScreenState extends BaseRouteState {
   bool _isRecordPending = true;
   bool _isMoreDataLoaded = false;
   int page = 1;
+  bool? fromBottomNvigation;
   int? categoryId;
   ProductFilter _productFilter = new ProductFilter();
 
   GlobalKey<ScaffoldState>? _scaffoldKey;
 
-  _SearchScreenState({this.productId});
+  _SearchScreenState({this.productId,this.fromBottomNvigation});
 
   @override
   Widget build(BuildContext context) {
@@ -165,24 +175,26 @@ class _SearchScreenState extends BaseRouteState {
           appBar: global.nearStoreModel != null
               ? null
               : AppBar(
-                  backgroundColor: ColorConstants.appBrownFaintColor,
+                  backgroundColor: ColorConstants.appBarColorWhite,
                   title: Text("Search products",
                       // '${AppLocalizations.of(context).hnt_search_product}',
                       style: TextStyle(
-                          fontFamily: fontMetropolisRegular,
+                          fontFamily: fontRailwayRegular,
                           color:
-                              ColorConstants.pureBlack) //textTheme.headline6,
+                              ColorConstants.pureBlack) //textTheme.titleLarge,
                       ),
+                      leading: BackButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              color: ColorConstants.newAppColor),
                 ),
           body: Container(
             height: MediaQuery.of(context).size.height,
-            decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage("assets/images/login_bg.png"),
-                    fit: BoxFit.cover)),
+            color: ColorConstants.colorPageBackground,
             child: SafeArea(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                padding: const EdgeInsets.symmetric(horizontal: 1.0),
                 child: global.nearStoreModel != null
                     ? RefreshIndicator(
                         onRefresh: () async {
@@ -190,7 +202,7 @@ class _SearchScreenState extends BaseRouteState {
                         },
                         child: SingleChildScrollView(
                           child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Padding(
                                 padding: const EdgeInsets.only(
@@ -201,6 +213,7 @@ class _SearchScreenState extends BaseRouteState {
                                   textTheme: textTheme,
                                   analytics: widget.analytics,
                                   observer: widget.observer,
+                                  fromBottomNvigation:fromBottomNvigation,
                                 ),
                               ),
 
@@ -209,7 +222,7 @@ class _SearchScreenState extends BaseRouteState {
                               //   child: Text("Recent search",
                               //       // "${AppLocalizations.of(context).lbl_recent_search}",
                               //       style: TextStyle(
-                              //           fontFamily: fontMetropolisRegular,
+                              //           fontFamily: fontRailwayRegular,
                               //           color: ColorConstants.appColor,
                               //           fontWeight: FontWeight.w200,
                               //           fontSize: 22)),
@@ -262,7 +275,7 @@ class _SearchScreenState extends BaseRouteState {
                               //                 "No gift? No problem! We love a challenge. What's next on your list?",
                               //                 style: TextStyle(
                               //                     fontFamily:
-                              //                         fontMetropolisRegular,
+                              //                         fontRailwayRegular,
                               //                     color: ColorConstants
                               //                         .guidlinesGolden,
                               //                     fontWeight: FontWeight.w200,
@@ -273,18 +286,17 @@ class _SearchScreenState extends BaseRouteState {
                               //     : _shimmer2(),
 
                               Padding(
-                                padding: const EdgeInsets.only(top: 20),
+                                padding: const EdgeInsets.only(left:10,top: 20),
                                 child: Text("Trending products",
                                     // "${AppLocalizations.of(context).lbl_trending_products}",
                                     style: TextStyle(
-                                        fontFamily: fontMetropolisRegular,
-                                        color: ColorConstants.appColor,
-                                        fontWeight: FontWeight.w200,
-                                        fontSize: 22)),
+                                        fontFamily: fontRalewayMedium,
+                                        color: ColorConstants.newTextHeadingFooter,
+                                        fontWeight: FontWeight.w900,
+                                        fontSize: 19)),
                               ),
                               Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 5.0),
+                                padding: const EdgeInsets.only(top: 10),
                                 child: _isDataLoaded
                                     ? _productDetail != null &&
                                             _productDetail.similarProductList!
@@ -295,7 +307,7 @@ class _SearchScreenState extends BaseRouteState {
                                             height: _productDetail
                                                         .similarProductList !=
                                                     null
-                                                ? 300
+                                                ? 310
                                                 : 0,
                                             child: _isDataLoaded &&
                                                     _productDetail
@@ -327,17 +339,12 @@ class _SearchScreenState extends BaseRouteState {
                                             height: MediaQuery.of(context)
                                                 .size
                                                 .height,
-                                            decoration: BoxDecoration(
-                                              image: DecorationImage(
-                                                  image: AssetImage(
-                                                      "assets/images/login_bg.png"),
-                                                  fit: BoxFit.cover),
-                                            ),
+                                            color: ColorConstants.colorPageBackground,
                                             child: Text(
                                                 "No gift? No problem! We love a challenge. What's next on your list?",
                                                 style: TextStyle(
                                                     fontFamily:
-                                                        fontMetropolisRegular,
+                                                        fontRailwayRegular,
                                                     color: ColorConstants
                                                         .guidlinesGolden,
                                                     fontWeight: FontWeight.w200,

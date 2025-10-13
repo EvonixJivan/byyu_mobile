@@ -121,8 +121,8 @@ class _SubCategoriesScreenState extends BaseRouteState {
     return Scaffold(
       backgroundColor: global.whitebackground,
       appBar: AppBar(
-        backgroundColor: ColorConstants.appBrownFaintColor,
-        centerTitle: true,
+        backgroundColor: ColorConstants.white,
+        centerTitle: false,
         title: InkWell(
           onTap: () {
             Navigator.push(
@@ -135,9 +135,9 @@ class _SubCategoriesScreenState extends BaseRouteState {
                         )));
           },
           child: Image.asset(
-            "assets/images/byyu_logo_no_tag.png",
+            "assets/images/new_logo.png",
             fit: BoxFit.contain,
-            height: 40,
+            height: 25,
             alignment: Alignment.center,
           ),
         ),
@@ -158,7 +158,7 @@ class _SubCategoriesScreenState extends BaseRouteState {
               }
             },
             //icon: Icon(Icons.keyboard_arrow_left),
-            color: ColorConstants.pureBlack),
+            color: ColorConstants.newAppColor),
         actions: [
           InkWell(
             onTap: () {
@@ -166,13 +166,18 @@ class _SubCategoriesScreenState extends BaseRouteState {
                   builder: (context) => SearchScreen(
                         a: widget.analytics,
                         o: widget.observer,
+                        fromBottomNvigation: false,
                       )));
             },
-            child: Icon(
-              Icons.search,
-              size: 25,
-              color: ColorConstants.allIconsBlack45,
-            ),
+            child: Padding(
+                  padding: EdgeInsets.only(top:18,bottom:18),
+                  child: Image.asset(
+                  "assets/images/iv_search.png",
+                  fit: BoxFit.contain,
+                  height: 25,
+                  alignment: Alignment.center,
+                                ),
+                ),
           ),
           SizedBox(
             width: 8,
@@ -197,28 +202,32 @@ class _SubCategoriesScreenState extends BaseRouteState {
               Center(
                 child: InkWell(
                   onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => HomeScreen(
-                              a: widget.analytics,
-                              o: widget.observer,
-                              selectedIndex: 2,
-                            )));
+                    // Navigator.of(context).push(MaterialPageRoute(
+                    //     builder: (context) => HomeScreen(
+                    //           a: widget.analytics,
+                    //           o: widget.observer,
+                    //           selectedIndex: 2,
+                    //         )));
+                    global.showCartBottomSheet(context,widget.analytics,widget.observer);
                   },
-                  child: Icon(
-                    Icons.shopping_cart_outlined,
-                    size: 25,
-                    color: ColorConstants.allIconsBlack45,
-                  ),
+                  child: Padding(
+                              padding: const EdgeInsets.only(top:15,bottom:15,right: 10),
+                              child: Image.asset(
+                                'assets/images/ic_nav_cart.png',
+                                fit: BoxFit.contain,
+                                
+                              ),
+                            ),
                 ),
               ),
               global.cartCount != 0 && global.cartCount <= 10
                   ? new Positioned(
-                      right: 1,
-                      top: 8,
+                      right: 6,
+                      top: 10,
                       child: new Container(
                         padding: EdgeInsets.all(2),
                         decoration: new BoxDecoration(
-                          color: Colors.red,
+                          color: ColorConstants.newAppColor,
                           borderRadius: BorderRadius.circular(6),
                         ),
                         constraints: BoxConstraints(
@@ -230,6 +239,8 @@ class _SubCategoriesScreenState extends BaseRouteState {
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 8,
+                            fontFamily: fontOufitMedium,
+
                           ),
                           textAlign: TextAlign.center,
                         ),
@@ -261,7 +272,7 @@ class _SubCategoriesScreenState extends BaseRouteState {
       //       ),
       //     )),
       body: Padding(
-          padding: const EdgeInsets.only(left: 1, right: 1, top: 5, bottom: 0),
+          padding: const EdgeInsets.only(left: 1, right: 1),
           child: _isDataLoaded
               ? Column(
                   children: [
@@ -272,8 +283,8 @@ class _SubCategoriesScreenState extends BaseRouteState {
                         ? categoriesSelectedIndex != null &&
                                 categoriesSelectedIndex! >= 0 && _subCategoryList!=null && _subCategoryList.length>0
                             ? Container(
-                                color: ColorConstants.filterColor,
-                                height: MediaQuery.of(context).size.width / 5.4,
+                                color: ColorConstants.colorHomePageSectiondim,
+                                height: MediaQuery.of(context).size.width / 5.2,
                                 width: MediaQuery.of(context).size.width,
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
@@ -282,7 +293,7 @@ class _SubCategoriesScreenState extends BaseRouteState {
                                     categoriesSelectedIndex != null &&
                                             categoriesSelectedIndex! >= 0
                                         ? SizedBox(
-                                            height: 8,
+                                            height: 10,
                                           )
                                         : SizedBox(),
                                     categoriesSelectedIndex != null &&
@@ -298,11 +309,11 @@ class _SubCategoriesScreenState extends BaseRouteState {
                                                     .title!,
                                                 style: TextStyle(
                                                     fontFamily: global
-                                                        .fontMetropolisRegular,
+                                                        .fontRailwayRegular,
                                                     fontWeight: FontWeight.w600,
                                                     fontSize: 13,
                                                     color: ColorConstants
-                                                        .pureBlack),
+                                                        .newTextHeadingFooter),
                                               ),
                                             ),
                                           )
@@ -322,6 +333,7 @@ class _SubCategoriesScreenState extends BaseRouteState {
                                       child: Visibility(
                                         visible: _subCategoryList!=null && _subCategoryList.length>0,
                                         child: Container(
+                                          color: Colors.transparent,
                                           padding:
                                               EdgeInsets.only(top: 1, bottom: 5),
                                           child: ListView.builder(
@@ -330,10 +342,8 @@ class _SubCategoriesScreenState extends BaseRouteState {
                                             scrollDirection: Axis.horizontal,
                                             itemBuilder: (context, index) {
                                               return Container(
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(10),
-                                                  ),
+                                                
+                                                  
                                                   // width: 65,
                                                   margin: EdgeInsets.all(5),
                                                   child: GestureDetector(
@@ -476,6 +486,7 @@ class _SubCategoriesScreenState extends BaseRouteState {
                                                         //   ),
                                                         // ),
                                                         Container(
+                                                          
                                                           margin: EdgeInsets.only(
                                                               top: 4),
                                                           child: Column(
@@ -491,10 +502,7 @@ class _SubCategoriesScreenState extends BaseRouteState {
                                                                     .only(
                                                                         left: 1,
                                                                         right: 1),
-                                                                decoration:
-                                                                    BoxDecoration(
-                                                                        color: Colors
-                                                                            .white38),
+                                                                
                                                                 child: subCateSelectIndex ==
                                                                         index
                                                                     ? Container(
@@ -512,7 +520,7 @@ class _SubCategoriesScreenState extends BaseRouteState {
                                                                             color: ColorConstants
                                                                                 .appColor,
                                                                             border: Border.all(
-                                                                                color: ColorConstants.grey,
+                                                                                color: ColorConstants.appColor,
                                                                                 width: 0.5),
                                                                             borderRadius: BorderRadius.circular(8)),
                                                                         child:
@@ -524,7 +532,7 @@ class _SubCategoriesScreenState extends BaseRouteState {
                                                                               TextAlign.center,
                                                                           style: TextStyle(
                                                                               fontFamily: global
-                                                                                  .fontMetropolisRegular,
+                                                                                  .fontRailwayRegular,
                                                                               fontWeight: FontWeight
                                                                                   .w200,
                                                                               fontSize:
@@ -551,7 +559,7 @@ class _SubCategoriesScreenState extends BaseRouteState {
                                                                                 8),
                                                                         decoration: BoxDecoration(
                                                                             border: Border.all(
-                                                                                color: ColorConstants.grey,
+                                                                                color: ColorConstants.appColor,
                                                                                 width: 0.5),
                                                                             borderRadius: BorderRadius.circular(8)),
                                                                         child:
@@ -563,7 +571,7 @@ class _SubCategoriesScreenState extends BaseRouteState {
                                                                               TextAlign.center,
                                                                           style: TextStyle(
                                                                               fontFamily: global
-                                                                                  .fontMetropolisRegular,
+                                                                                  .fontRailwayRegular,
                                                                               fontWeight: FontWeight
                                                                                   .w200,
                                                                               fontSize:
@@ -614,7 +622,7 @@ class _SubCategoriesScreenState extends BaseRouteState {
                                 child: Text(
                                   "Filters",
                                   style: TextStyle(
-                                      fontFamily: global.fontMetropolisRegular,
+                                      fontFamily: global.fontRailwayRegular,
                                       fontWeight: FontWeight.w600,
                                       fontSize: 13,
                                       color: ColorConstants.pureBlack),
@@ -642,7 +650,7 @@ class _SubCategoriesScreenState extends BaseRouteState {
                             ),
                             Expanded(
                               child: Container(
-                                height: 30,
+                                height: 25,
                                 child: ListView.builder(
                                     controller: _scrollController,
                                     physics: AlwaysScrollableScrollPhysics(),
@@ -831,15 +839,16 @@ class _SubCategoriesScreenState extends BaseRouteState {
                                             }
                                           },
                                           child: Container(
+                                            
                                             padding: EdgeInsets.only(
-                                                top: 3,
-                                                bottom: 3,
+                                                
                                                 left: 8,
                                                 right: 8),
                                             margin: EdgeInsets.only(right: 10),
                                             decoration: BoxDecoration(
+                                              
                                                 border: Border.all(
-                                                    color: ColorConstants.grey,
+                                                    color: ColorConstants.appColor,
                                                     width: 0.5),
                                                 borderRadius:
                                                     BorderRadius.circular(8)),
@@ -851,7 +860,7 @@ class _SubCategoriesScreenState extends BaseRouteState {
                                                     appliedFilter[index].name!,
                                                     style: TextStyle(
                                                         fontFamily: global
-                                                            .fontMetropolisRegular,
+                                                            .fontRailwayRegular,
                                                         fontWeight:
                                                             FontWeight.w200,
                                                         fontSize: 12,
@@ -1112,6 +1121,7 @@ class _SubCategoriesScreenState extends BaseRouteState {
                                               width: 80,
                                               height: 60,
                                               child: Card(
+                                                color: Colors.transparent,
                                                 elevation: 0,
                                                 shadowColor: Colors.transparent,
                                                 shape: RoundedRectangleBorder(
@@ -1126,7 +1136,7 @@ class _SubCategoriesScreenState extends BaseRouteState {
                                                     ClipRRect(
                                                       borderRadius:
                                                           BorderRadius.circular(
-                                                              8),
+                                                              100),
                                                       child: Container(
                                                         decoration:
                                                             BoxDecoration(
@@ -1168,7 +1178,7 @@ class _SubCategoriesScreenState extends BaseRouteState {
                                                                 image:
                                                                     imageProvider,
                                                                 fit: BoxFit
-                                                                    .contain,
+                                                                    .fitWidth,
                                                                 alignment:
                                                                     Alignment
                                                                         .center,
@@ -1227,6 +1237,7 @@ class _SubCategoriesScreenState extends BaseRouteState {
                                                                     BoxDecoration(
                                                                   color: ColorConstants
                                                                       .appColor,
+                                                                      
                                                                   borderRadius:
                                                                       BorderRadius
                                                                           .circular(
@@ -1241,7 +1252,7 @@ class _SubCategoriesScreenState extends BaseRouteState {
                                                                   style: TextStyle(
                                                                       fontFamily:
                                                                           global
-                                                                              .fontMetropolisRegular,
+                                                                              .fontRailwayRegular,
                                                                       fontWeight:
                                                                           FontWeight
                                                                               .w200,
@@ -1272,7 +1283,7 @@ class _SubCategoriesScreenState extends BaseRouteState {
                                                                   style: TextStyle(
                                                                       fontFamily:
                                                                           global
-                                                                              .fontMetropolisRegular,
+                                                                              .fontRailwayRegular,
                                                                       fontWeight:
                                                                           FontWeight
                                                                               .w200,
@@ -1308,7 +1319,7 @@ class _SubCategoriesScreenState extends BaseRouteState {
                                                   //             .center,
                                                   //     style: TextStyle(
                                                   //         fontFamily: global
-                                                  //             .fontMetropolisRegular,
+                                                  //             .fontRailwayRegular,
                                                   //         fontWeight:
                                                   //             FontWeight
                                                   //                 .w200,
@@ -1342,6 +1353,7 @@ class _SubCategoriesScreenState extends BaseRouteState {
                                       child: Container(
                                         height:
                                             MediaQuery.of(context).size.height,
+                                        padding: EdgeInsets.only(top: 8),    
                                         child: SingleChildScrollView(
                                           scrollDirection: Axis.vertical,
                                           physics:
@@ -1387,7 +1399,7 @@ class _SubCategoriesScreenState extends BaseRouteState {
                                                       child:
                                                           CircularProgressIndicator(
                                                         backgroundColor:
-                                                            Colors.white,
+                                                            ColorConstants.colorPageBackground,
                                                         strokeWidth: 1,
                                                       ),
                                                     )
@@ -1399,12 +1411,7 @@ class _SubCategoriesScreenState extends BaseRouteState {
                                     )
                                   : Expanded(
                                       child: Container(
-                                        decoration: BoxDecoration(
-                                          image: DecorationImage(
-                                              image: AssetImage(
-                                                  "assets/images/login_bg.png"),
-                                              fit: BoxFit.cover),
-                                        ),
+                                        color: ColorConstants.colorPageBackground,
                                         child: Center(
                                           child: Text(
                                             loadingOrError,
@@ -1421,12 +1428,7 @@ class _SubCategoriesScreenState extends BaseRouteState {
                                     )
                               : Expanded(
                                   child: Container(
-                                    decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                          image: AssetImage(
-                                              "assets/images/login_bg.png"),
-                                          fit: BoxFit.cover),
-                                    ),
+                                    color: ColorConstants.colorPageBackground,
                                     child: Center(
                                         child: CircularProgressIndicator()),
                                   ),

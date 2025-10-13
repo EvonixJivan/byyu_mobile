@@ -58,280 +58,304 @@ class _OrderHistoryScreenState extends BaseRouteState {
       },
       child: Scaffold(
           key: _globalKey,
+          
           appBar: AppBar(
-            backgroundColor: ColorConstants.appBrownFaintColor,
+            backgroundColor: ColorConstants.appBarColorWhite,
             leading: BackButton(
               onPressed: () {
                 print("Go back");
                 Navigator.pop(context);
               },
-              color: ColorConstants.pureBlack,
+              color: ColorConstants.appColor,
             ),
-            centerTitle: true,
+            centerTitle: false,
             title: Text("Your Orders",
                 style: TextStyle(
-                    fontFamily: fontMetropolisRegular,
-                    color: ColorConstants.pureBlack,
-                    fontWeight: FontWeight.w200) //textTheme.headline6,
+                    fontFamily: fontRailwayRegular,
+                    color: ColorConstants.newTextHeadingFooter,
+                    fontWeight: FontWeight.w200) //textTheme.titleLarge,
                 ),
           ),
-          backgroundColor: white,
+          backgroundColor: ColorConstants.colorPageBackground,
           body: _isDataLoaded
               ? activeOrderList.length > 0
-                  ? Padding(
-                      padding: const EdgeInsets.only(left: 10, right: 10),
-                      child: global.currentUser != null &&
-                              global.currentUser.id != null
-                          ? Container(
-                              child: ListView.builder(
-                                  physics: BouncingScrollPhysics(),
-                                  itemCount: activeOrderList.length,
-                                  padding: const EdgeInsets.only(top: 1.0),
-                                  itemBuilder: (context, index) {
-                                    
-                                    return Padding(
-                                      padding: const EdgeInsets.only(bottom: 5),
-                                      child: InkWell(
-                                        onTap: () {
-                                          Navigator.of(context)
-                                              .push(
-                                                NavigationUtils
-                                                    .createAnimatedRoute(
-                                                        1.0,
-                                                        OrderDetailsScreen(
-                                                          a: widget.analytics,
-                                                          o: widget.observer,
-                                                          orderController:
-                                                              orderController,
-                                                          cartID:
-                                                              activeOrderList[
-                                                                      index]
-                                                                  .cartid,
-                                                        )),
-                                              )
-                                              .then((value) => {
-                                                    _isDataLoaded = false,
-                                                    _getOrderHistory(),
-                                                    setState(() {}),
-                                                  });
-                                        },
-                                        child: Card(
-                                          elevation: 1,
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(20)),
-                                          child: Row(
-                                            children: [
-                                              ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                                //MediaQuery.of(context).size.width - 10,
-                                                child: CachedNetworkImage(
-                                                  width: 100,
-                                                  height: 100,
-                                                  fit: BoxFit.cover,
-                                                  imageUrl:
-                                                      global.imageBaseUrl +
-                                                          activeOrderList[index]
-                                                              .productList![0]
-                                                              .varientImage!,
-                                                  placeholder: (context, url) =>
-                                                      Center(
-                                                          child:
-                                                              CircularProgressIndicator(
-                                                    strokeWidth: 1.0,
-                                                  )),
-                                                  errorWidget: (context, url,
-                                                          error) =>
-                                                      Container(
-                                                          child: Image.asset(
-                                                    global.noImage,
-                                                    fit: BoxFit.fill,
-                                                    width: 175,
-                                                    height: 210,
-                                                    alignment: Alignment.center,
-                                                  )),
-                                                ),
-                                                // child: Image.asset(
-                                                //   'assets/images/iv_home_main.png',
-                                                //   fit: BoxFit.fill,
-                                                //   height: 100,
-                                                //   width: 100,
-                                                // ),
-                                              ),
-                                              SizedBox(
-                                                width: 10,
-                                              ),
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Row(
-                                                    children: [
-                                                      Container(
-                                                        child: Text(
-                                                          "Order Status:",
-                                                          style: TextStyle(
-                                                              fontFamily:
-                                                                  fontMetropolisRegular,
-                                                              fontSize: 13),
-                                                        ),
-                                                      ),
-                                                      SizedBox(width: 8),
-                                                      Container(
-                                                        width: MediaQuery.of(
-                                                                    context)
-                                                                .size
-                                                                .width /
-                                                            3,
-                                                        child:  activeOrderList[
-                                                                        index]
-                                                                    .productList![
-                                                                        0]
-                                                                    .order_status_delivery!
-                                                                    .toLowerCase() !=
-                                                                "pending"
-                                                            ? Text(
+                  ? SafeArea(
+                    top: false,
+                    bottom: true,
+                    child: Padding(
+                        padding: const EdgeInsets.only(left: 10, right: 10),
+                        child: global.currentUser != null &&
+                                global.currentUser.id != null
+                            ? Container(
+                                child: ListView.builder(
+                                    physics: BouncingScrollPhysics(),
+                                    itemCount: activeOrderList.length,
+                                    padding: const EdgeInsets.only(top: 1.0),
+                                    itemBuilder: (context, index) {
+                                      
+                                      return Padding(
+                                        padding: const EdgeInsets.only(bottom: 5),
+                                        child: InkWell(
+                                          onTap: () {
+                                            Navigator.of(context)
+                                                .push(
+                                                  NavigationUtils
+                                                      .createAnimatedRoute(
+                                                          1.0,
+                                                          OrderDetailsScreen(
+                                                            a: widget.analytics,
+                                                            o: widget.observer,
+                                                            orderController:
+                                                                orderController,
+                                                            cartID:
                                                                 activeOrderList[
-                                                                            index]
-                                                                        .productList![
-                                                                            0]
-                                                                        .order_status_delivery!
-                                                                        .contains(
-                                                                            "_")
-                                                                    ? "${activeOrderList[index].productList![0].order_status_delivery!.replaceAll("_", " ")}"
-                                                                    : "${activeOrderList[index].productList![0].order_status_delivery}",
-                                                                style: TextStyle(
-                                                                    fontSize:
-                                                                        13,
-                                                                    overflow:
-                                                                        TextOverflow
-                                                                            .ellipsis,
-                                                                    fontFamily:
-                                                                        fontMetropolisRegular,
-                                                                    color: activeOrderList[index].productList![0].order_status_delivery!.toLowerCase() ==
-                                                                                "completed" ||
-                                                                            activeOrderList[index].productList![0].order_status_delivery!.toLowerCase() ==
-                                                                                "delivered"
-                                                                        ? ColorConstants
-                                                                            .green
-                                                                        : ColorConstants
-                                                                            .appColor),
-                                                              )
-                                                            : Text(
-                                                                "Placed",
-                                                                style: TextStyle(
-                                                                    fontSize:
-                                                                        13,
-                                                                    overflow:
-                                                                        TextOverflow
-                                                                            .ellipsis,
-                                                                    fontFamily:
-                                                                        fontMetropolisRegular,
-                                                                    color: ColorConstants
-                                                                        .green),
-                                                              ),
-                                                      ),
-                                                    ],
+                                                                        index]
+                                                                    .cartid,
+                                                          )),
+                                                )
+                                                .then((value) => {
+                                                      _isDataLoaded = false,
+                                                      _getOrderHistory(),
+                                                      setState(() {}),
+                                                    });
+                                          },
+                                          child: Card(
+                                            elevation: 1,
+                                            color: ColorConstants.colorHomePageSectiondim,
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(20)),
+                                            child: Row(
+                                              children: [
+                                                ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                  //MediaQuery.of(context).size.width - 10,
+                                                  child: CachedNetworkImage(
+                                                    width: 100,
+                                                    height: 100,
+                                                    fit: BoxFit.cover,
+                                                    imageUrl:
+                                                        global.imageBaseUrl +
+                                                            activeOrderList[index]
+                                                                .productList![0]
+                                                                .varientImage!,
+                                                    placeholder: (context, url) =>
+                                                        Center(
+                                                            child:
+                                                                CircularProgressIndicator(
+                                                      strokeWidth: 1.0,
+                                                    )),
+                                                    errorWidget: (context, url,
+                                                            error) =>
+                                                        Container(
+                                                            child: Image.asset(
+                                                      global.noImage,
+                                                      fit: BoxFit.fill,
+                                                      width: 175,
+                                                      height: 210,
+                                                      alignment: Alignment.center,
+                                                    )),
                                                   ),
-                                                  SizedBox(height: 8),
-                                                  // Expanded(child: Text("")),
-                                                  Row(
-                                                    children: [
-                                                      Container(
-                                                        child: Text(
-                                                          "Delivery Date:",
-                                                          style: TextStyle(
-                                                              fontFamily:
-                                                                  fontMetropolisRegular,
-                                                              fontSize: 12,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w200),
+                                                  // child: Image.asset(
+                                                  //   'assets/images/iv_home_main.png',
+                                                  //   fit: BoxFit.fill,
+                                                  //   height: 100,
+                                                  //   width: 100,
+                                                  // ),
+                                                ),
+                                                SizedBox(
+                                                  width: 10,
+                                                ),
+                                                Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Row(
+                                                      children: [
+                                                        Container(
+                                                          child: Text(
+                                                            "Order Status:",
+                                                            style: TextStyle(
+                                                                fontFamily:
+                                                                    fontRailwayRegular,
+                                                                fontSize: 13),
+                                                          ),
                                                         ),
-                                                      ),
-                                                      SizedBox(width: 8),
-                                                      Container(
-                                                        child: Text(
-                                                          "${activeOrderList[index].deliveryDate}",
-                                                          style: TextStyle(
-                                                              color:
-                                                                  ColorConstants
-                                                                      .green,
-                                                              fontFamily:
-                                                                  fontMetropolisRegular,
-                                                              fontSize: 12,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w200),
+                                                        SizedBox(width: 8),
+                                                        Container(
+                                                          width: MediaQuery.of(
+                                                                      context)
+                                                                  .size
+                                                                  .width /
+                                                              3,
+                                                          child:  activeOrderList[
+                                                                          index]
+                                                                      .productList![
+                                                                          0]
+                                                                      .order_status_delivery!
+                                                                      .toLowerCase() !=
+                                                                  "pending"
+                                                              ? Text(
+                                                                  activeOrderList[
+                                                                              index]
+                                                                          .productList![
+                                                                              0]
+                                                                          .order_status_delivery!
+                                                                          .contains(
+                                                                              "_")
+                                                                      ? "${activeOrderList[index].productList![0].order_status_delivery!.replaceAll("_", " ")}"
+                                                                      : "${activeOrderList[index].productList![0].order_status_delivery}",
+                                                                  style: TextStyle(
+                                                                      fontSize:
+                                                                          13,
+                                                                      overflow:
+                                                                          TextOverflow
+                                                                              .ellipsis,
+                                                                      fontFamily:
+                                                                          fontRailwayRegular,
+                                                                      color: activeOrderList[index].productList![0].order_status_delivery!.toLowerCase() ==
+                                                                                  "completed" ||
+                                                                              activeOrderList[index].productList![0].order_status_delivery!.toLowerCase() ==
+                                                                                  "delivered"
+                                                                          ? ColorConstants
+                                                                              .green
+                                                                          : ColorConstants
+                                                                              .appColor),
+                                                                )
+                                                              : Text(
+                                                                  "Placed",
+                                                                  style: TextStyle(
+                                                                      fontSize:
+                                                                          13,
+                                                                      overflow:
+                                                                          TextOverflow
+                                                                              .ellipsis,
+                                                                      fontFamily:
+                                                                          fontRailwayRegular,
+                                                                      color: ColorConstants
+                                                                          .green),
+                                                                ),
                                                         ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  SizedBox(height: 8),
-                                                  // Expanded(child: Text("")),
-                                                  Row(
-                                                    children: [
-                                                      Container(
-                                                        child: Text(
-                                                          "Time:",
-                                                          style: TextStyle(
-                                                              fontFamily:
-                                                                  fontMetropolisRegular,
-                                                              fontSize: 12,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w200),
+                                                      ],
+                                                    ),
+                                                    SizedBox(height: 8),
+                                                    // Expanded(child: Text("")),
+                                                    Row(
+                                                      children: [
+                                                        Container(
+                                                          child: Text(
+                                                            "Delivery Date:",
+                                                            style: TextStyle(
+                                                                fontFamily:
+                                                                    fontRailwayRegular,
+                                                                fontSize: 12,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w200),
+                                                          ),
                                                         ),
-                                                      ),
-                                                      SizedBox(width: 8),
-                                                      Container(
-                                                        child: Text(
-                                                          "${activeOrderList[index].timeSlot}",
-                                                          style: TextStyle(
-                                                              color:
-                                                                  ColorConstants
-                                                                      .green,
-                                                              fontFamily:
-                                                                  fontMetropolisRegular,
-                                                              fontSize: 12,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w200),
+                                                        SizedBox(width: 8),
+                                                        Container(
+                                                          child: Text(
+                                                            "${activeOrderList[index].deliveryDate}",
+                                                            style: TextStyle(
+                                                                color:
+                                                                    ColorConstants
+                                                                        .newTextHeadingFooter,
+                                                                fontFamily:
+                                                                    fontRailwayRegular,
+                                                                fontSize: 12,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w200),
+                                                          ),
                                                         ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  SizedBox(height: 8),
-                                                  Text(
-                                                      "Order ID: ${activeOrderList[index].orderid}",
-                                                      style: TextStyle(
-                                                          fontFamily:
-                                                              fontMetropolisRegular,
-                                                          fontSize: 13))
-                                                ],
-                                              ),
-                                            ],
+                                                      ],
+                                                    ),
+                                                    SizedBox(height: 8),
+                                                    // Expanded(child: Text("")),
+                                                    Row(
+                                                      children: [
+                                                        Container(
+                                                          child: Text(
+                                                            "Time:",
+                                                            style: TextStyle(
+                                                                fontFamily:
+                                                                    fontRailwayRegular,
+                                                                fontSize: 12,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w200),
+                                                          ),
+                                                        ),
+                                                        SizedBox(width: 8),
+                                                        Container(
+                                                          child: Text(
+                                                            "${activeOrderList[index].timeSlot}",
+                                                            style: TextStyle(
+                                                                color:
+                                                                    ColorConstants
+                                                                        .newTextHeadingFooter,
+                                                                fontFamily:
+                                                                    fontRailwayRegular,
+                                                                fontSize: 12,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w200),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    SizedBox(height: 8),
+                                                    Row(
+                                                      children: [
+                                                        Container(
+                                                          child: Text(
+                                                            "Order ID: ",
+                                                            style: TextStyle(
+                                                                fontFamily:
+                                                                    fontRailwayRegular,
+                                                                fontSize: 13,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w900),
+                                                          ),
+                                                        ),
+                                                        SizedBox(width: 8),
+                                                        Text(
+                                                            "${activeOrderList[index].orderid}",
+                                                            style: TextStyle(
+                                                                fontFamily:
+                                                                    fontRailwayRegular,
+                                                                    color: ColorConstants.newTextHeadingFooter,
+                                                                fontSize: 13)),
+                                                      ],
+                                                    )
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    );
-                                  }))
-                          : Container(
-                              width: MediaQuery.of(context).size.width,
-                              height: MediaQuery.of(context).size.height,
-                              child: Center(
-                                child: Text(
-                                  global.pleaseLogin,
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontFamily: global.fontMontserratLight,
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w200,
-                                      color: ColorConstants.grey),
+                                      );
+                                    }))
+                            : Container(
+                                width: MediaQuery.of(context).size.width,
+                                height: MediaQuery.of(context).size.height,
+                                child: Center(
+                                  child: Text(
+                                    global.pleaseLogin,
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontFamily: global.fontMontserratLight,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w200,
+                                        color: ColorConstants.grey),
+                                  ),
                                 ),
-                              ),
-                            ))
+                              )),
+                  )
                   : Center(
                       child: Container(
                       width: MediaQuery.of(context).size.width,
@@ -441,7 +465,7 @@ class _OrderHistoryScreenState extends BaseRouteState {
                       DateFormat('EE, dd MMMM').format(DateTime.parse(
                           (order.productList![0].orderDate).toString())),
                       style: TextStyle(
-                          fontFamily: global.fontMetropolisRegular,
+                          fontFamily: global.fontRailwayRegular,
                           fontSize: 12,
                           fontWeight: FontWeight.w200,
                           color: ColorConstants.appColor),
@@ -449,7 +473,7 @@ class _OrderHistoryScreenState extends BaseRouteState {
                     Text(
                       "AED ${(order.priceWithoutDelivery! - order.couponDiscount!).toStringAsFixed(2)} >",
                       style: TextStyle(
-                          fontFamily: global.fontMetropolisRegular,
+                          fontFamily: global.fontRailwayRegular,
                           fontSize: 12,
                           fontWeight: FontWeight.w600,
                           color: ColorConstants.grey),
@@ -464,7 +488,7 @@ class _OrderHistoryScreenState extends BaseRouteState {
                   child: Text(
                     "Order ID: ${order.cartid}",
                     style: TextStyle(
-                        fontFamily: global.fontMetropolisRegular,
+                        fontFamily: global.fontRailwayRegular,
                         fontSize: 14,
                         fontWeight: FontWeight.w200,
                         color: ColorConstants.grey),
@@ -508,7 +532,7 @@ class _OrderHistoryScreenState extends BaseRouteState {
                           "Change Card",
                           //textAlign: TextAlign.center,
                           style: TextStyle(
-                              fontFamily: global.fontMetropolisRegular,
+                              fontFamily: global.fontRailwayRegular,
                               fontSize: 14,
                               fontWeight: FontWeight.w200,
                               color: ColorConstants.grey),
@@ -535,7 +559,7 @@ class _OrderHistoryScreenState extends BaseRouteState {
                         "Repeat Order",
                         //textAlign: TextAlign.center,
                         style: TextStyle(
-                            fontFamily: global.fontMetropolisRegular,
+                            fontFamily: global.fontRailwayRegular,
                             fontSize: 14,
                             fontWeight: FontWeight.w200,
                             color: ColorConstants.grey),
@@ -587,7 +611,7 @@ class _OrderHistoryScreenState extends BaseRouteState {
                       child: Text('Replace Order',
                           style: TextStyle(
                               fontSize: 16,
-                              fontFamily: fontMetropolisRegular,
+                              fontFamily: fontRailwayRegular,
                               fontWeight: FontWeight.w200,
                               color: ColorConstants.appColor)
                           // style: TextStyle(color: Colors.red),
@@ -601,12 +625,12 @@ class _OrderHistoryScreenState extends BaseRouteState {
                     child: error == 0 ? Text('Add this order',
                             style: TextStyle(
                                 fontSize: 16,
-                                fontFamily: fontMetropolisRegular,
+                                fontFamily: fontRailwayRegular,
                                 fontWeight: FontWeight.w200,
                                 color: Colors.blue)) : Text('OK',
                             style: TextStyle(
                                 fontSize: 16,
-                                fontFamily: fontMetropolisRegular,
+                                fontFamily: fontRailwayRegular,
                                 fontWeight: FontWeight.w200,
                                 color: Colors.blue)),
                     onPressed: () async {

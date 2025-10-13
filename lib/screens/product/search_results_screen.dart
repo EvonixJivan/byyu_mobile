@@ -130,7 +130,12 @@ class _SearchResultsScreenState extends BaseRouteState {
                   )));
         } else {
           Navigator.of(context).pop();
-          Navigator.of(context).pop();
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => HomeScreen(
+                    a: widget.analytics,
+                    o: widget.observer,
+                    selectedIndex: 0,
+                  )));
         }
         return true;
         // if (searchScreen != 'sub_cat') {
@@ -152,10 +157,7 @@ class _SearchResultsScreenState extends BaseRouteState {
           },
           child: Container(
             height: MediaQuery.of(context).size.height,
-            decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage("assets/images/login_bg.png"),
-                    fit: BoxFit.cover)),
+            color: ColorConstants.colorPageBackground,
             child: Stack(
               children: [
                 SafeArea(
@@ -204,8 +206,18 @@ class _SearchResultsScreenState extends BaseRouteState {
                                                               selectedIndex: 0,
                                                             )));
                                           } else {
-                                            Navigator.of(context).pop();
-                                            Navigator.of(context).pop();
+                                            Navigator.of(context)
+                                                .pushReplacement(
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            HomeScreen(
+                                                              a: widget
+                                                                  .analytics,
+                                                              o: widget
+                                                                  .observer,
+                                                              selectedIndex: 0,
+                                                            )));
+                                            // Navigator.of(context).pop();
                                           }
                                         },
                                         //icon: Icon(Icons.keyboard_arrow_left),
@@ -218,7 +230,7 @@ class _SearchResultsScreenState extends BaseRouteState {
                                         autofocus: false,
                                         controller: _cSearch,
                                         style: TextStyle(
-                                            fontFamily: fontMetropolisRegular,
+                                            fontFamily: fontRailwayRegular,
                                             color: ColorConstants.pureBlack),
                                         keyboardType: TextInputType.text,
                                         textCapitalization:
@@ -229,7 +241,7 @@ class _SearchResultsScreenState extends BaseRouteState {
                                         decoration: InputDecoration(
                                           filled: true,
                                           fillColor:
-                                              ColorConstants.appfaintColor,
+                                              ColorConstants.colorHomePageSectiondim,
                                           enabledBorder: OutlineInputBorder(
                                             borderRadius: BorderRadius.all(
                                               Radius.circular(10),
@@ -266,8 +278,8 @@ class _SearchResultsScreenState extends BaseRouteState {
                                                     : Text(""),
                                           ),
                                           prefixIcon: Icon(
-                                            Icons.search_outlined,
-                                            color: ColorConstants.pureBlack,
+                                            Icons.search,
+                                            color: ColorConstants.appColor,
                                           ),
                                           hintText: "Search product",
                                           //"${AppLocalizations.of(context).hnt_search_product}",
@@ -323,7 +335,8 @@ class _SearchResultsScreenState extends BaseRouteState {
                                                 : "",
                                             style: TextStyle(
                                                 fontFamily:
-                                                    fontMetropolisRegular,
+                                                    fontRailwayRegular,
+                                                fontWeight: FontWeight.w900,    
                                                 fontSize: 16))
                                         : SizedBox(),
                                   )
@@ -366,7 +379,7 @@ class _SearchResultsScreenState extends BaseRouteState {
                                                             .title!,
                                                         style: TextStyle(
                                                             fontFamily: global
-                                                                .fontMetropolisRegular,
+                                                                .fontRailwayRegular,
                                                             fontWeight:
                                                                 FontWeight.w600,
                                                             fontSize: 13,
@@ -545,7 +558,7 @@ class _SearchResultsScreenState extends BaseRouteState {
                                                                                   "${_subCategoryList[index].title}",
                                                                                   maxLines: 2,
                                                                                   textAlign: TextAlign.center,
-                                                                                  style: TextStyle(fontFamily: global.fontMetropolisRegular, fontWeight: FontWeight.w200, fontSize: 12, overflow: TextOverflow.ellipsis, color: subCateSelectIndex == index ? Colors.white : Colors.black),
+                                                                                  style: TextStyle(fontFamily: global.fontRailwayRegular, fontWeight: FontWeight.w200, fontSize: 12, overflow: TextOverflow.ellipsis, color: subCateSelectIndex == index ? Colors.white : Colors.black),
                                                                                 ),
                                                                               )
                                                                             : Container(
@@ -558,7 +571,7 @@ class _SearchResultsScreenState extends BaseRouteState {
                                                                                   "${_subCategoryList[index].title}",
                                                                                   maxLines: 1,
                                                                                   textAlign: TextAlign.center,
-                                                                                  style: TextStyle(fontFamily: global.fontMetropolisRegular, fontWeight: FontWeight.w200, fontSize: 12, overflow: TextOverflow.ellipsis, color: subCateSelectIndex == index ? ColorConstants.appColor : Colors.black),
+                                                                                  style: TextStyle(fontFamily: global.fontRailwayRegular, fontWeight: FontWeight.w200, fontSize: 12, overflow: TextOverflow.ellipsis, color: subCateSelectIndex == index ? ColorConstants.appColor : Colors.black),
                                                                                 ),
                                                                               ),
                                                                       ),
@@ -602,7 +615,7 @@ class _SearchResultsScreenState extends BaseRouteState {
                                         "Filters",
                                         style: TextStyle(
                                             fontFamily:
-                                                global.fontMetropolisRegular,
+                                                global.fontRailwayRegular,
                                             fontWeight: FontWeight.w600,
                                             fontSize: 13,
                                             color: ColorConstants.pureBlack),
@@ -801,7 +814,7 @@ class _SearchResultsScreenState extends BaseRouteState {
                                                               .name!,
                                                           style: TextStyle(
                                                               fontFamily: global
-                                                                  .fontMetropolisRegular,
+                                                                  .fontRailwayRegular,
                                                               fontWeight:
                                                                   FontWeight
                                                                       .w200,
@@ -985,9 +998,11 @@ class _SearchResultsScreenState extends BaseRouteState {
                                                 child: Column(
                                                   children: [
                                                     Container(
-                                                      width: 80,
+                                                      width: 90,
                                                       height: 60,
+                                                      color: Colors.transparent,
                                                       child: Card(
+                                                        color: Colors.transparent,
                                                         elevation: 0,
                                                         shadowColor:
                                                             Colors.transparent,
@@ -1006,7 +1021,7 @@ class _SearchResultsScreenState extends BaseRouteState {
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
-                                                                          8),
+                                                                          100),
                                                               child: Container(
                                                                 decoration:
                                                                     BoxDecoration(
@@ -1124,9 +1139,9 @@ class _SearchResultsScreenState extends BaseRouteState {
                                                                           textAlign:
                                                                               TextAlign.center,
                                                                           style: TextStyle(
-                                                                              fontFamily: global.fontMetropolisRegular,
+                                                                              fontFamily: global.fontRailwayRegular,
                                                                               fontWeight: FontWeight.w200,
-                                                                              fontSize: 10,
+                                                                              fontSize: 11,
                                                                               overflow: TextOverflow.ellipsis,
                                                                               color: categoriesSelectedIndex == index ? Colors.white : Colors.black),
                                                                         ),
@@ -1143,7 +1158,7 @@ class _SearchResultsScreenState extends BaseRouteState {
                                                                           textAlign:
                                                                               TextAlign.center,
                                                                           style: TextStyle(
-                                                                              fontFamily: global.fontMetropolisRegular,
+                                                                              fontFamily: global.fontRailwayRegular,
                                                                               fontWeight: FontWeight.w200,
                                                                               fontSize: 10,
                                                                               overflow: TextOverflow.ellipsis,
@@ -1169,7 +1184,7 @@ class _SearchResultsScreenState extends BaseRouteState {
                                                           //             .center,
                                                           //     style: TextStyle(
                                                           //         fontFamily: global
-                                                          //             .fontMetropolisRegular,
+                                                          //             .fontRailwayRegular,
                                                           //         fontWeight:
                                                           //             FontWeight
                                                           //                 .w200,

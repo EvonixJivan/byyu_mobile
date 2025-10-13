@@ -1,10 +1,13 @@
+import 'package:byyu/constants/analytics_GA4.dart';
+import 'package:byyu/screens/home_screen.dart';
+import 'package:byyu/widgets/cart_bottom_sheet.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-  
+
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:byyu/constants/color_constants.dart';
 import 'package:byyu/controllers/cart_controller.dart';
@@ -69,30 +72,30 @@ class _BundleOffersMenuItemState extends State<BundleOffersMenuItem> {
   String? isHomeSelected;
   final CartController cartController = Get.put(CartController());
 
-  int? _qty;
-  
+  int? _qty=0;
+  String addCartText = "Add To Cart";
+  String? responseMessage;
+
+
+
   _BundleOffersMenuItemState(
       {this.product, this.isHomeSelected, this.analytics, this.observer});
 
   @override
   Widget build(BuildContext context) {
-    print("NIKHIL BUNDLE ---------${product!.productName}------product id-----${product!.productId}");
+    _qty=product!.cartQty==0?0:product!.cartQty;
+    print(
+        "NIKHIL BUNDLE ---------${product!.productName}------product id-----${product!.productId}");
     return Container(
-      width: MediaQuery.of(context).size.width / 1.9,
+      width: MediaQuery.of(context).size.width / 2,
       //height: 265,
       child: GetBuilder<CartController>(
         init: cartController,
         builder: (value) => Card(
           //margin: EdgeInsets.only(left: 8),
 
-          color: Colors.white,
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10.0),
-              side: BorderSide(
-                color: ColorConstants.greyfaint,
-                width: 0.5,
-              )),
-          
+          color: Colors.transparent,
+
           elevation: 0,
           child: Stack(
             children: [
@@ -101,51 +104,27 @@ class _BundleOffersMenuItemState extends State<BundleOffersMenuItem> {
                 children: [
                   Card(
                     elevation: 0,
+                    color: Colors.transparent,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      // side: BorderSide(
-                      //   color: ColorConstants.greyfaint,
-                      //   width: 0.5,
-                      // )
-                    ),
+
+                        // side: BorderSide(
+                        //   color: ColorConstants.greyfaint,
+                        //   width: 0.5,
+                        // )
+                        ),
                     // color: global.cardColor,
                     child: Container(
-                      height: 155,
+                      height: 175,
                       //margin: EdgeInsets.all(10),
 
                       alignment: Alignment.center,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10.0),
-                        child: Stack(children: [
-                          // CachedNetworkImage(
-                          //   width: MediaQuery.of(context).size.width,
-                          //   height: MediaQuery.of(context).size.height,
-                          //   // memCacheWidth: 45,
-                          //   // memCacheHeight: 60,
-                          //   // maxHeightDiskCache: 60,
-                          //   // maxWidthDiskCache: 45,
-                          //   fit: BoxFit.cover,
-                          //   imageUrl: product.thumbnail != null &&
-                          //           product.thumbnail.isNotEmpty &&
-                          //           product.thumbnail != "N/A"
-                          //       ? global.imageBaseUrl + product.thumbnail
-                          //       : global.imageBaseUrl + product.productImage,
-                          //   placeholder: (context, url) => Center(
-                          //       child: CircularProgressIndicator(
-                          //     strokeWidth: 1.0,
-                          //   )),
-                          //   errorWidget: (context, url, error) => Container(
-                          //       //height: 150, //50
-                          //       //width: 150, //55
-                          //       child: Image.asset(
-                          //     global.noImage,
-                          //     fit: BoxFit.fill,
-                          //     width: 175,
-                          //     height: 210,
-                          //     alignment: Alignment.center,
-                          //   )),
-                          // ),
-                          Image.network(
+                      child: Stack(children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(100),
+                            topRight: Radius.circular(100),
+                          ),
+                          child: Image.network(
                             product!.thumbnail != null &&
                                     product!.thumbnail!.isNotEmpty &&
                                     product!.thumbnail! != "N/A"
@@ -154,8 +133,8 @@ class _BundleOffersMenuItemState extends State<BundleOffersMenuItem> {
                                     product!.productImage! +
                                     "?width=500&height=500",
                             cacheWidth: 360,
-                            fit: BoxFit.contain,
-                            width: MediaQuery.of(context).size.width / 2.1,
+                            fit: BoxFit.fitWidth,
+                            width: MediaQuery.of(context).size.width,
                             height: MediaQuery.of(context).size.height,
                             errorBuilder: (context, error, stackTrace) {
                               return Center(
@@ -164,144 +143,143 @@ class _BundleOffersMenuItemState extends State<BundleOffersMenuItem> {
                               ));
                             },
                           ),
-                          Align(
-                            alignment: Alignment.topRight,
-                            child: Padding(
-                              padding: const EdgeInsets.all(2.0),
-                              child: InkWell(
-                                onTap: () async {
-                                  if (global.currentUser.id == null) {
-                                    Future.delayed(Duration.zero, () {
-                                      Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                            builder: (context) => LoginScreen(
-                                                  a: widget.analytics,
-                                                  o: widget.observer,
-                                                )),
-                                      );
-                                    });
-                                  } else {
-                                    showOnlyLoaderDialog();
+                        ),
+                        Align(
+                          alignment: Alignment.topRight,
+                          child: Padding(
+                            padding: const EdgeInsets.all(2.0),
+                            child: InkWell(
+                              onTap: () async {
+                                if (global.currentUser.id == null) {
+                                  Future.delayed(Duration.zero, () {
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                          builder: (context) => LoginScreen(
+                                                a: widget.analytics,
+                                                o: widget.observer,
+                                              )),
+                                    );
+                                  });
+                                } else {
+                                  showOnlyLoaderDialog();
 
-                                    await addRemoveWishList(
-                                        product!.varientId!);
-                                    // // funOnTap();
-                                    // _showToastWishlist(context);
-                                    Navigator.pop(context);
-                                    setState(() {});
-                                  }
-                                },
-                                child: product!.isFavourite!.toLowerCase() ==
-                                        "true"
-                                    ? Icon(
-                                        MdiIcons.heart,
-                                        size: 24,
-                                        weight: 10,
-                                        color: ColorConstants.heartFavorite,
-                                      )
-                                    : Icon(
-                                        MdiIcons.heartOutline,
-                                        size: 24,
-                                        weight: 10,
-                                        color: ColorConstants.grey,
-                                      ),
-                              ),
+                                  await addRemoveWishList(product!.varientId!);
+                                  // // funOnTap();
+                                  // _showToastWishlist(context);
+                                  Navigator.pop(context);
+                                  setState(() {});
+                                }
+                              },
+                              child: product!.isFavourite!.toLowerCase() ==
+                                      "true"
+                                  ? Icon(
+                                      MdiIcons.heart,
+                                      size: 24,
+                                      weight: 10,
+                                      color: ColorConstants.newHeartFavorite,
+                                    )
+                                  : Icon(
+                                      MdiIcons.heartOutline,
+                                      size: 24,
+                                      weight: 10,
+                                      color: ColorConstants.newHeartFavorite,
+                                    ),
                             ),
                           ),
-                          Visibility(
-                            visible: false,
-                            child: Container(
-                              width: MediaQuery.of(context).size.width / 2,
-                              height: 210,
-                              child: Align(
-                                alignment: Alignment.bottomLeft,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Container(
-                                      width: 45,
-                                      height: 22,
-                                      padding: EdgeInsets.all(2),
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.only(
-                                              bottomLeft: Radius.circular(10),
-                                              topRight: Radius.circular(10)),
-                                          color: ColorConstants
-                                              .ratingContainerColor),
-                                      child: Row(
-                                        children: [
-                                          Icon(
-                                            Icons.star,
-                                            size: 18,
-                                            color: Colors.yellow.shade400,
-                                          ),
-                                          Text(
-                                            "${product!.rating}",
+                        ),
+                        Visibility(
+                          visible: false,
+                          child: Container(
+                            width: MediaQuery.of(context).size.width / 2,
+                            height: 210,
+                            child: Align(
+                              alignment: Alignment.bottomLeft,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                    width: 45,
+                                    height: 22,
+                                    padding: EdgeInsets.all(2),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.only(
+                                            bottomLeft: Radius.circular(10),
+                                            topRight: Radius.circular(10)),
+                                        color: ColorConstants
+                                            .ratingContainerColor),
+                                    child: Row(
+                                      children: [
+                                        Icon(
+                                          Icons.star,
+                                          size: 18,
+                                          color: Colors.yellow.shade400,
+                                        ),
+                                        Text(
+                                          "${product!.rating}",
+                                          style: TextStyle(
+                                              fontFamily:
+                                                  global.fontRailwayRegular,
+                                              fontSize: 11,
+                                              color: ColorConstants.white),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                  Container(
+                                    //width: 45,
+                                    height: 22,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.only(
+                                            bottomRight: Radius.circular(10),
+                                            topLeft: Radius.circular(10)),
+                                        color: ColorConstants
+                                            .ratingContainerColor),
+                                    padding: EdgeInsets.only(
+                                        bottom: 1, top: 1, left: 6, right: 6),
+                                    child: Row(
+                                      children: [
+                                        Text(
+                                            "${product!.countrating} Reviews", //"${product.countrating} Reviews",
                                             style: TextStyle(
-                                                fontFamily: global
-                                                    .fontMetropolisRegular,
+                                                fontFamily:
+                                                    global.fontRailwayRegular,
                                                 fontSize: 11,
-                                                color: ColorConstants.white),
-                                          )
-                                        ],
-                                      ),
+                                                color: ColorConstants.white)),
+                                      ],
                                     ),
-                                    Container(
-                                      //width: 45,
-                                      height: 22,
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.only(
-                                              bottomRight: Radius.circular(10),
-                                              topLeft: Radius.circular(10)),
-                                          color: ColorConstants
-                                              .ratingContainerColor),
-                                      padding: EdgeInsets.only(
-                                          bottom: 1, top: 1, left: 6, right: 6),
-                                      child: Row(
-                                        children: [
-                                          Text(
-                                              "${product!.countrating} Reviews", //"${product.countrating} Reviews",
-                                              style: TextStyle(
-                                                  fontFamily: global
-                                                      .fontMetropolisRegular,
-                                                  fontSize: 11,
-                                                  color: ColorConstants.white)),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
                             ),
                           ),
-                          // Visibility(
-                          //   visible: product.stock > 0 ? false : true,
-                          //   child: Container(
-                          //     alignment: Alignment.center,
-                          //     // decoration: BoxDecoration(
-                          //     //     color: Colors.white.withOpacity(0.6),
-                          //     //     borderRadius: BorderRadius.circular(5)),
-                          //     padding: const EdgeInsets.all(5),
-                          //     child: Center(
-                          //       child: Transform.rotate(
-                          //         angle: 12,
-                          //         child: Text(
-                          //           "Currently Product\nis Unavailable",
-                          //           // '${AppLocalizations.of(context).txt_out_of_stock}',
-                          //           textAlign: TextAlign.center,
-                          //           maxLines: 2,
-                          //           style: GoogleFonts.poppins(
-                          //               fontWeight: FontWeight.w600,
-                          //               fontSize: 17,
-                          //               color: ColorConstants.appColor),
-                          //         ),
-                          //       ),
-                          //     ),
-                          //   ),
-                          // ),
-                        ]),
-                      ),
+                        ),
+                        // Visibility(
+                        //   visible: product.stock > 0 ? false : true,
+                        //   child: Container(
+                        //     alignment: Alignment.center,
+                        //     // decoration: BoxDecoration(
+                        //     //     color: Colors.white.withOpacity(0.6),
+                        //     //     borderRadius: BorderRadius.circular(5)),
+                        //     padding: const EdgeInsets.all(5),
+                        //     child: Center(
+                        //       child: Transform.rotate(
+                        //         angle: 12,
+                        //         child: Text(
+                        //           "Currently Product\nis Unavailable",
+                        //           // '${AppLocalizations.of(context).txt_out_of_stock}',
+                        //           textAlign: TextAlign.center,
+                        //           maxLines: 2,
+                        //           style: GoogleFonts.poppins(
+                        //               fontWeight: FontWeight.w600,
+                        //               fontSize: 17,
+                        //               color: ColorConstants.appColor),
+                        //         ),
+                        //       ),
+                        //     ),
+                        //   ),
+                        // ),
+                      ]),
                     ),
                   ),
                   Container(
@@ -321,11 +299,11 @@ class _BundleOffersMenuItemState extends State<BundleOffersMenuItem> {
                                   maxLines: 1,
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                      fontFamily: global.fontMetropolisRegular,
+                                      fontFamily: global.fontRalewayMedium,
                                       fontSize: 16,
-                                      fontWeight: FontWeight.w200,
+                                      fontWeight: FontWeight.w500,
                                       overflow: TextOverflow.ellipsis,
-                                      color: ColorConstants.pureBlack),
+                                      color: ColorConstants.newTextHeadingFooter),
                                 ),
                               ),
                               // product.productName.length < 18
@@ -355,10 +333,9 @@ class _BundleOffersMenuItemState extends State<BundleOffersMenuItem> {
                                       child: Text(
                                         "AED",
                                         style: TextStyle(
-                                            fontFamily:
-                                                global.fontMetropolisRegular,
-                                            fontWeight: FontWeight.w200,
-                                            fontSize: 13,
+                                            fontFamily: global.fontOufitMedium,
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 15,
                                             color: ColorConstants.pureBlack),
                                       ),
                                     ),
@@ -366,8 +343,7 @@ class _BundleOffersMenuItemState extends State<BundleOffersMenuItem> {
                                     Text(
                                       int.parse(product!.price
                                                   .toString()
-                                                  .substring(product!
-                                                          .price
+                                                  .substring(product!.price
                                                           .toString()
                                                           .indexOf(".") +
                                                       1)) >
@@ -376,28 +352,24 @@ class _BundleOffersMenuItemState extends State<BundleOffersMenuItem> {
                                           : "${product!.price.toString().substring(0, product!.price.toString().indexOf("."))}",
                                       //"${product.varient[0].basePrice.toString().substring(0, product.varient[0].basePrice.toString().indexOf("."))}",
                                       style: TextStyle(
-                                          fontFamily:
-                                              global.fontMontserratLight,
-                                          fontWeight: FontWeight.w400,
+                                          fontFamily: global.fontOufitMedium,
+                                          fontWeight: FontWeight.w500,
                                           fontSize: 15,
                                           color: ColorConstants.pureBlack),
                                     ),
                                     SizedBox(
                                       width: 8,
                                     ),
-                                    product!.price! <
-                                            product!.mrp!
+                                    product!.price! < product!.mrp!
                                         ? Stack(children: [
                                             Container(
                                               margin: EdgeInsets.only(left: 2),
                                               padding: EdgeInsets.only(
                                                   top: 2, bottom: 2),
                                               child: Text(
-                                                int.parse(product!
-                                                            .mrp
+                                                int.parse(product!.mrp
                                                             .toString()
                                                             .substring(product!
-                                                                    
                                                                     .mrp
                                                                     .toString()
                                                                     .indexOf(
@@ -409,7 +381,7 @@ class _BundleOffersMenuItemState extends State<BundleOffersMenuItem> {
                                                 //"${product.varient[0].baseMrp.toString().substring(0, product.varient[0].baseMrp.toString().indexOf("."))}",
                                                 style: TextStyle(
                                                     fontFamily: global
-                                                        .fontMetropolisRegular,
+                                                        .fontRailwayRegular,
                                                     fontSize: 11,
                                                     fontWeight: FontWeight.w200,
                                                     color: Colors.grey),
@@ -432,7 +404,7 @@ class _BundleOffersMenuItemState extends State<BundleOffersMenuItem> {
                                                     maxLines: 2,
                                                     style: TextStyle(
                                                         fontFamily: global
-                                                            .fontMetropolisRegular,
+                                                            .fontRailwayRegular,
                                                         fontSize: 11,
                                                         fontWeight:
                                                             FontWeight.w200,
@@ -443,6 +415,7 @@ class _BundleOffersMenuItemState extends State<BundleOffersMenuItem> {
                                             ),
                                           ])
                                         : SizedBox(),
+
                                     // product.varient[0].discountper
                                     //                 .toString()
                                     //                 .length >
@@ -461,7 +434,7 @@ class _BundleOffersMenuItemState extends State<BundleOffersMenuItem> {
                                     //               : "${product.varient[0].discountper}% off",
                                     //           style: TextStyle(
                                     //               fontFamily:
-                                    //                   global.fontMetropolisRegular,
+                                    //                   global.fontRailwayRegular,
                                     //               fontWeight: FontWeight.w200,
                                     //               fontSize: 12,
                                     //               color: ColorConstants.green),
@@ -471,104 +444,257 @@ class _BundleOffersMenuItemState extends State<BundleOffersMenuItem> {
                                   ],
                                 ),
                               ),
-
-                              product!.stock! > 0
-                                  ? Container(
-                                      margin: EdgeInsets.only(
-                                          top: 1, left: 3, right: 3),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          Text(
-                                            "Estimated Delivery:",
-                                            style: TextStyle(
-                                                fontFamily: global
-                                                    .fontMetropolisRegular,
-                                                fontWeight: FontWeight.w200,
-                                                fontSize: 10,
-                                                color:
-                                                    ColorConstants.pureBlack),
-                                          ),
-                                          Container(
-                                              padding: EdgeInsets.all(5),
-                                              decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.all(
-                                                          Radius.circular(10)),
-                                                  color: Colors.green.shade100),
-                                              child: product!.delivery !=
-                                                              null &&
-                                                          product!.delivery ==
-                                                              "1" ||
-                                                      product!.delivery ==
-                                                          "Today"
-                                                  ? Text(
-                                                      "Express",
-                                                      style: TextStyle(
-                                                          fontFamily: global
-                                                              .fontMetropolisRegular,
-                                                          fontWeight:
-                                                              FontWeight.w200,
-                                                          fontSize: 10,
-                                                          color: ColorConstants
-                                                              .pureBlack),
-                                                    )
-                                                  : product!.delivery != null &&
-                                                              product!.delivery ==
-                                                                  "2" ||
-                                                          product!.delivery ==
-                                                              "Tomorrow"
-                                                      ? Text(
-                                                          "Today",
-                                                          style: TextStyle(
-                                                              fontFamily: global
-                                                                  .fontMetropolisRegular,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w200,
-                                                              fontSize: 11,
-                                                              color:
-                                                                  ColorConstants
-                                                                      .pureBlack),
-                                                        )
-                                                      : product!.delivery !=
-                                                                  null &&
-                                                              product!.delivery ==
-                                                                  "3"
-                                                          ? Text(
-                                                              "Tomorrow",
-                                                              style: TextStyle(
-                                                                  fontFamily: global
-                                                                      .fontMetropolisRegular,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w200,
-                                                                  fontSize: 10,
-                                                                  color: ColorConstants
-                                                                      .pureBlack),
-                                                            )
-                                                          : Text(
-                                                              product!.delivery ==
-                                                                          null ||
-                                                                      product!.delivery ==
-                                                                          ""
-                                                                  ? "Tomorrow"
-                                                                  : "${int.parse(product!.delivery!) - 2} days",
-                                                              style: TextStyle(
-                                                                  fontFamily: global
-                                                                      .fontMetropolisRegular,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w200,
-                                                                  fontSize: 10,
-                                                                  color: ColorConstants
-                                                                      .pureBlack),
-                                                            )),
-                                        ],
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Container(
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      product!.delivery == "1" ||
+                                              product!.delivery == "Today"
+                                          ? "Express"
+                                          : product!.delivery == "2" ||
+                                                  product!.delivery ==
+                                                      "Tomorrow"
+                                              ? "Today"
+                                              : "Scheduled Delivery",
+                                      style: TextStyle(
+                                          fontFamily: global.fontRailwayRegular,
+                                          fontWeight: FontWeight.w200,
+                                          fontSize: 13,
+                                          color: ColorConstants.appColor),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(height: 5,),
+                              product!.cartQty==0? 
+                              InkWell(
+                                onTap: () {
+                                  print("Nikhil-----this is on pressed");
+                                  
+                                    addToCartRO(1);
+                                  
+                                },
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.only(left: 2, right: 2),
+                                  child: Container(
+                                    height: 25,
+                                    width:
+                                        MediaQuery.of(context).size.width / 3.2,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: ColorConstants.appColor,
+                                        border: Border.all(
+                                            width: 0.5,
+                                            color: ColorConstants.appColor)),
+                                    child: Align(
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        // product.cartQty != 0
+                                        //     ? "GO TO CART"
+                                        // :
+                                        addCartText,
+                                        style: TextStyle(
+                                            fontFamily: global.fontOufitMedium,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 12,
+                                            color: ColorConstants.white,
+                                            letterSpacing: 1),
                                       ),
-                                    )
-                                  : Container(),
+                                    ),
+                                  ),
+                                ),
+                              ):
+                              Container(
+                                width: MediaQuery.of(context).size.width / 3.2,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                   
+                                    border: Border.all(
+                                        width: 0.5,
+                                        color: ColorConstants.appColor)),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    InkWell(
+                                          onTap: () {
+                                            print("nikhil");
+                                            if (product!.cartQty! >=
+                                                0) {
+                                              addToCartRO(product!.cartQty! -
+                                                  1);
+                                              _qty=_qty!-1;    
+                                            }
+                                            
+
+                                            setState(() {});
+                                          },
+                                          child: Container(
+                                            margin: EdgeInsets.only(right: 5),
+                                            width: 25,
+                                            height: 25,
+                                            
+                                            child: product!
+                                                            .cartQty !=
+                                                        null &&
+                                                    product!
+                                                            .cartQty ==
+                                                        1
+                                                ? Icon(
+                                                    FontAwesomeIcons.trashCan,
+                                                    size: 14.0,
+                                                    color: ColorConstants.newTextHeadingFooter,
+                                                  )
+                                                : Icon(
+                                                    MdiIcons.minus,
+                                                    size: 14.0,
+                                                    color: ColorConstants.newTextHeadingFooter,
+                                                  ),
+                                          ),
+                                        ),
+                                      
+                                  Text(
+                                    product!.cartQty != 0
+                                        ? "${product!.cartQty}"
+                                        : "${_qty}",
+                                    style: TextStyle(
+                                      fontFamily: global.fontRailwayRegular,
+                                      fontWeight: FontWeight.w200,
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                   InkWell(
+                                    onTap: () {
+                                      if (product!.cartQty !=
+                                          0) {
+                                        product!.cartQty =
+                                            product!.cartQty! +
+                                                1;
+                                      } 
+                                      _qty = _qty!+1;
+                                      addToCartRO(_qty!);
+                                      setState(() {});
+                                    },
+                                    child: Container(
+                                      margin: EdgeInsets.only(left: 5),
+                                      width: 25,
+                                      height: 25,
+                                      
+                                      child: Icon(
+                                        MdiIcons.plus,
+                                        size: 20,
+                                        color: ColorConstants.newTextHeadingFooter,
+                                      ),
+                                    ),
+                                  ),
+                              
+                                  ],
+                                ),        
+                              ),
+                          
+                              // product!.stock! > 0
+                              //     ? Container(
+                              //         margin: EdgeInsets.only(
+                              //             top: 1, left: 3, right: 3),
+                              //         child: Row(
+                              //           mainAxisAlignment:
+                              //               MainAxisAlignment.spaceEvenly,
+                              //           children: [
+                              //             Text(
+                              //               "Estimated Delivery:",
+                              //               style: TextStyle(
+                              //                   fontFamily: global
+                              //                       .fontRailwayRegular,
+                              //                   fontWeight: FontWeight.w200,
+                              //                   fontSize: 10,
+                              //                   color:
+                              //                       ColorConstants.pureBlack),
+                              //             ),
+                              //             Container(
+                              //                 padding: EdgeInsets.all(5),
+                              //                 decoration: BoxDecoration(
+                              //                     borderRadius:
+                              //                         BorderRadius.all(
+                              //                             Radius.circular(10)),
+                              //                     color: Colors.green.shade100),
+                              //                 child: product!.delivery !=
+                              //                                 null &&
+                              //                             product!.delivery ==
+                              //                                 "1" ||
+                              //                         product!.delivery ==
+                              //                             "Today"
+                              //                     ? Text(
+                              //                         "Express",
+                              //                         style: TextStyle(
+                              //                             fontFamily: global
+                              //                                 .fontRailwayRegular,
+                              //                             fontWeight:
+                              //                                 FontWeight.w200,
+                              //                             fontSize: 10,
+                              //                             color: ColorConstants
+                              //                                 .pureBlack),
+                              //                       )
+                              //                     : product!.delivery != null &&
+                              //                                 product!.delivery ==
+                              //                                     "2" ||
+                              //                             product!.delivery ==
+                              //                                 "Tomorrow"
+                              //                         ? Text(
+                              //                             "Today",
+                              //                             style: TextStyle(
+                              //                                 fontFamily: global
+                              //                                     .fontRailwayRegular,
+                              //                                 fontWeight:
+                              //                                     FontWeight
+                              //                                         .w200,
+                              //                                 fontSize: 11,
+                              //                                 color:
+                              //                                     ColorConstants
+                              //                                         .pureBlack),
+                              //                           )
+                              //                         : product!.delivery !=
+                              //                                     null &&
+                              //                                 product!.delivery ==
+                              //                                     "3"
+                              //                             ? Text(
+                              //                                 "Tomorrow",
+                              //                                 style: TextStyle(
+                              //                                     fontFamily: global
+                              //                                         .fontRailwayRegular,
+                              //                                     fontWeight:
+                              //                                         FontWeight
+                              //                                             .w200,
+                              //                                     fontSize: 10,
+                              //                                     color: ColorConstants
+                              //                                         .pureBlack),
+                              //                               )
+                              //                             : Text(
+                              //                                 product!.delivery ==
+                              //                                             null ||
+                              //                                         product!.delivery ==
+                              //                                             ""
+                              //                                     ? "Tomorrow"
+                              //                                     : "${int.parse(product!.delivery!) - 2} days",
+                              //                                 style: TextStyle(
+                              //                                     fontFamily: global
+                              //                                         .fontRailwayRegular,
+                              //                                     fontWeight:
+                              //                                         FontWeight
+                              //                                             .w200,
+                              //                                     fontSize: 10,
+                              //                                     color: ColorConstants
+                              //                                         .pureBlack),
+                              //                               )),
+                              //           ],
+                              //         ),
+                              //       )
+                              //     : Container(),
                             ],
                           ),
                         ),
@@ -652,6 +778,90 @@ class _BundleOffersMenuItemState extends State<BundleOffersMenuItem> {
     ));
     showToast(snackBarMessage);
   }
+
+ 
+ void addToCartRO(int qty) async {
+    showOnlyLoaderDialog();
+    print("Nikhil Add To Cart RO");
+    try {
+      bool isSuccess = false;
+      String message = '--';
+
+      await apiHelper
+          .addToCart(
+              qty: qty,
+              varientId: product!.varientId,
+              special: 0,
+              deliveryDate: "",
+              deliveryTime: "",
+              repeat_orders: "0")
+          .then((result) {
+        if (result != null) {
+          FirebaseAnalyticsGA4().callAnalyticsAddCart(
+              product!.productId!,
+              product!.productName!,
+              "",
+              product!.varientId!,
+              '',
+              product!.price!,
+              qty,
+              product!.mrp!,
+              false,
+              false);
+          if (global.cartCount > 0) {
+            
+                global.cartCount = global.cartCount - 1;
+            
+            
+          } else {
+            global.cartCount = 0;
+          }
+
+          product!.cartQty = qty;
+          
+
+          _qty = 1;
+          hideloadershowing();
+          cartController.getCartList();
+          showCartBottomSheet();
+          setState(() {});
+        } else {
+          isSuccess = false;
+          message = 'Something went wrong please try after some time';
+        }
+      });
+      // return ATCMS(isSuccess: isSuccess, message: message);
+    } catch (e) {
+      print("Exception -  cart_controller.dart - addToCart():" + e.toString());
+      return null;
+    }
+  }
+
+ void showCartBottomSheet(){
+    showModalBottomSheet(
+                        context: context,
+                        isScrollControlled: true,
+                        useRootNavigator: true,
+                        backgroundColor: Colors.transparent,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(20),
+                            topRight: Radius.circular(20),
+                          ),
+                        ),
+                        builder: (context) => CartBottomSheet(
+                          analytics: widget.analytics,
+                          observer: widget.observer,
+                          fromNavigationBar: false,
+                          callbackHomescreenSetState: null,
+                        ),
+                      );
+  }
+
+  void hideloadershowing() {
+    Navigator.pop(context);
+  }
+
 }
 
 class _BundleOffersMenuState extends State<BundleOffersMenu> {
@@ -702,7 +912,7 @@ class _BundleOffersMenuState extends State<BundleOffersMenu> {
       // height: MediaQuery.of(context).size.width * 1 / 2 / 1,
       //height: MediaQuery.of(context).size.width * 1.2 / 2 / 1,
       child: ListView.builder(
-          padding: EdgeInsets.only(bottom: 20),
+          padding: EdgeInsets.only(bottom: 10),
           // gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           //     crossAxisCount: 2,
           //     crossAxisSpacing: 0.1,
@@ -781,7 +991,7 @@ class _BundleOffersMenuState extends State<BundleOffersMenu> {
                                               fontWeight: FontWeight.w200,
                                               fontSize: 10,
                                               fontFamily:
-                                                  global.fontMetropolisRegular,
+                                                  global.fontRailwayRegular,
                                               color: Colors.white),
                                         ),
                                       ),
@@ -813,8 +1023,7 @@ class _BundleOffersMenuState extends State<BundleOffersMenu> {
                                       style: TextStyle(
                                           fontWeight: FontWeight.w200,
                                           fontSize: 15,
-                                          fontFamily:
-                                              global.fontMetropolisRegular,
+                                          fontFamily: global.fontRailwayRegular,
                                           color: ColorConstants.white),
                                     ),
                                   ),

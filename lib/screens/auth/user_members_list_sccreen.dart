@@ -123,16 +123,23 @@ class _UserMemberListScreenState extends BaseRouteState {
     return Scaffold(
         key: _scaffoldKey1,
         appBar: AppBar(
+          leading: BackButton(
+              onPressed: () {
+                print("Go back");
+                Navigator.pop(context);
+              },
+              color: ColorConstants.appColor,
+            ),
             actions: [],
-            backgroundColor: ColorConstants.appBrownFaintColor,
+            backgroundColor: ColorConstants.appBarColorWhite,
             leadingWidth: 46,
-            centerTitle: true,
+            centerTitle: false,
             title: Text(
               "Special Days",
               textAlign: TextAlign.center,
               style: TextStyle(
-                  color: ColorConstants.pureBlack,
-                  fontFamily: fontMetropolisRegular,
+                  color: ColorConstants.newTextHeadingFooter,
+                  fontFamily: fontRailwayRegular,
                   fontWeight: FontWeight.w200),
             )),
         floatingActionButton: Container(
@@ -145,7 +152,7 @@ class _UserMemberListScreenState extends BaseRouteState {
               child: Text(
                 "ADD",
                 style: TextStyle(
-                    fontFamily: fontMontserratMedium,
+                    fontFamily: fontRalewayMedium,
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
                     color: ColorConstants.white,
@@ -171,10 +178,7 @@ class _UserMemberListScreenState extends BaseRouteState {
         ),
         body: Container(
             height: MediaQuery.of(context).size.height,
-            decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage("assets/images/login_bg.png"),
-                    fit: BoxFit.cover)),
+            color: ColorConstants.colorPageBackground,
             child: memberList.length > 0
                 ? _isDataLoaded
                     ? RefreshIndicator(
@@ -183,479 +187,469 @@ class _UserMemberListScreenState extends BaseRouteState {
                               new CurrentUser();
                           await _callGetMemberApi();
                         },
-                        child: Padding(
-                          padding:
-                              const EdgeInsets.only(top: 10, right: 0, left: 0),
-                          child: SingleChildScrollView(
-                            physics: BouncingScrollPhysics(),
-                            child: Column(
-                              children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: [
-                                    Container(
-                                      padding: EdgeInsets.only(
-                                          top: 5, bottom: 5, right: 3, left: 3),
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(5),
-                                          border: Border.all(
-                                              color: ColorConstants.greyfaint)),
-                                      child: Row(
-                                        children: [
-                                          Image.asset(
-                                            'assets/images/swipeleft.png',
-                                            width: 30,
-                                            height: 30,
-                                            fit: BoxFit.contain,
-                                          ),
-                                          SizedBox(
-                                            width: 5,
-                                          ),
-                                          Text(
-                                            "Swipe left to",
-                                            style: TextStyle(
-                                                fontFamily: global
-                                                    .fontMetropolisRegular,
-                                                fontWeight: FontWeight.w200,
-                                                fontSize: 13,
+                        child: SafeArea(
+                          top: false,
+                          bottom: true,
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                                top: 10, right: 0, left: 0),
+                            child: SingleChildScrollView(
+                              physics: BouncingScrollPhysics(),
+                              child: Column(
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: [
+                                      Container(
+                                        padding: EdgeInsets.only(
+                                            top: 5,
+                                            bottom: 5,
+                                            right: 3,
+                                            left: 3),
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(5),
+                                            border: Border.all(
                                                 color:
-                                                    ColorConstants.pureBlack),
-                                          ),
-                                          Text(
-                                            " Delete",
-                                            style: TextStyle(
-                                                fontFamily: global
-                                                    .fontMetropolisRegular,
-                                                fontWeight: FontWeight.w200,
-                                                fontSize: 13,
-                                                color: ColorConstants.appColor),
-                                          ),
-                                        ],
+                                                    ColorConstants.newAppColor)),
+                                        child: Row(
+                                          children: [
+                                            Image.asset(
+                                              'assets/images/swipeleft.png',
+                                              width: 30,
+                                              height: 30,
+                                              color: ColorConstants.appColor,
+                                              fit: BoxFit.contain,
+                                            ),
+                                            SizedBox(
+                                              width: 5,
+                                            ),
+                                            Text(
+                                              "Swipe left to",
+                                              style: TextStyle(
+                                                  fontFamily:
+                                                      global.fontRailwayRegular,
+                                                  fontWeight: FontWeight.w200,
+                                                  fontSize: 13,
+                                                  color:
+                                                      ColorConstants.newTextHeadingFooter),
+                                            ),
+                                            Text(
+                                              " Delete",
+                                              style: TextStyle(
+                                                  fontFamily:
+                                                      global.fontRailwayRegular,
+                                                  fontWeight: FontWeight.w400,
+                                                  fontSize: 13,
+                                                  color: ColorConstants
+                                                      .newTextHeadingFooter),
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                    Container(
-                                      padding: EdgeInsets.only(
-                                          top: 5, bottom: 5, right: 3, left: 3),
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(5),
-                                          border: Border.all(
-                                              color: ColorConstants.greyfaint)),
-                                      child: Row(
-                                        children: [
-                                          Text(
-                                            "Swipe right to",
-                                            style: TextStyle(
-                                                fontFamily: global
-                                                    .fontMetropolisRegular,
-                                                fontWeight: FontWeight.w200,
-                                                fontSize: 13,
+                                      Container(
+                                        padding: EdgeInsets.only(
+                                            top: 5,
+                                            bottom: 5,
+                                            right: 3,
+                                            left: 3),
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(5),
+                                            border: Border.all(
                                                 color:
-                                                    ColorConstants.pureBlack),
-                                          ),
-                                          Text(
-                                            " Edit",
-                                            style: TextStyle(
-                                                fontFamily: global
-                                                    .fontMetropolisRegular,
-                                                fontWeight: FontWeight.w200,
-                                                fontSize: 13,
-                                                color: ColorConstants.appColor),
-                                          ),
-                                          SizedBox(
-                                            width: 5,
-                                          ),
-                                          Image.asset(
-                                            'assets/images/swiperight.png',
-                                            width: 30,
-                                            height: 30,
-                                            fit: BoxFit.contain,
-                                          ),
-                                        ],
+                                                    ColorConstants.newAppColor)),
+                                        child: Row(
+                                          children: [
+                                            Text(
+                                              "Swipe right to",
+                                              style: TextStyle(
+                                                  fontFamily:
+                                                      global.fontRailwayRegular,
+                                                  fontWeight: FontWeight.w200,
+                                                  fontSize: 13,
+                                                  color:
+                                                      ColorConstants.newTextHeadingFooter),
+                                            ),
+                                            Text(
+                                              " Edit",
+                                              style: TextStyle(
+                                                  fontFamily:
+                                                      global.fontRailwayRegular,
+                                                  fontWeight: FontWeight.w400,
+                                                  fontSize: 13,
+                                                  color: ColorConstants
+                                                      .newTextHeadingFooter),
+                                            ),
+                                            SizedBox(
+                                              width: 5,
+                                            ),
+                                            Image.asset(
+                                              'assets/images/swiperight.png',
+                                              width: 30,
+                                              height: 30,
+                                              fit: BoxFit.contain,
+                                              color: ColorConstants.newAppColor,
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                  ],
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      top: 20, left: 10, right: 10, bottom: 5),
-                                  child: Container(
-                                    child: ListView.builder(
-                                        shrinkWrap: true,
-                                        physics: NeverScrollableScrollPhysics(),
-                                        itemCount: memberList
-                                            .length, 
-                                        itemBuilder:
-                                            (BuildContext context, int index) {
-                                          return Dismissible(
-                                            key: UniqueKey(),
-                                            direction:
-                                                DismissDirection.horizontal,
-                                            onDismissed: (direction) async {
-                                              
-                                              if (direction ==
-                                                  DismissDirection.endToStart) {
-                                                callMemberDeleteAPI(
-                                                    memberList[index].id!);
-                                              } else {
-                                                Navigator.of(context)
-                                                    .push(
-                                                      MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              AddMemberScreen(
-                                                                a: widget
-                                                                    .analytics,
-                                                                o: widget
-                                                                    .observer,
-                                                                memberID:
-                                                                    memberList[
-                                                                            index]
-                                                                        .id,
-                                                                fullName:
-                                                                    memberList[
-                                                                            index]
-                                                                        .name,
-                                                                relation:
-                                                                    memberList[
-                                                                            index]
-                                                                        .relation,
-                                                                specialDay:
-                                                                    memberList[
-                                                                            index]
-                                                                        .celebrationName,
-                                                                date: memberList[
-                                                                        index]
-                                                                    .dateDay,
-                                                                month: memberList[
-                                                                        index]
-                                                                    .dateMonth,
-                                                              )),
-                                                    )
-                                                    .then((value) => {
-                                                          print(
-                                                              "this is the then function of user member where value =${value}"),
-                                                          value == "true"
-                                                              ? _callGetMemberApi()
-                                                              : Container(),
-                                                        });
-                                              }
+                                    ],
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 20,
+                                        left: 10,
+                                        right: 10,
+                                        bottom: 5),
+                                    child: Container(
+                                      child: ListView.builder(
+                                          shrinkWrap: true,
+                                          physics:
+                                              NeverScrollableScrollPhysics(),
+                                          itemCount: memberList.length,
+                                          itemBuilder: (BuildContext context,
+                                              int index) {
+                                            return Dismissible(
+                                              key: UniqueKey(),
+                                              direction:
+                                                  DismissDirection.horizontal,
+                                              onDismissed: (direction) async {
+                                                if (direction ==
+                                                    DismissDirection
+                                                        .endToStart) {
+                                                  callMemberDeleteAPI(
+                                                      memberList[index].id!);
+                                                } else {
+                                                  Navigator.of(context)
+                                                      .push(
+                                                        MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                AddMemberScreen(
+                                                                  a: widget
+                                                                      .analytics,
+                                                                  o: widget
+                                                                      .observer,
+                                                                  memberID:
+                                                                      memberList[
+                                                                              index]
+                                                                          .id,
+                                                                  fullName:
+                                                                      memberList[
+                                                                              index]
+                                                                          .name,
+                                                                  relation: memberList[
+                                                                          index]
+                                                                      .relation,
+                                                                  specialDay: memberList[
+                                                                          index]
+                                                                      .celebrationName,
+                                                                  date: memberList[
+                                                                          index]
+                                                                      .dateDay,
+                                                                  month: memberList[
+                                                                          index]
+                                                                      .dateMonth,
+                                                                )),
+                                                      )
+                                                      .then((value) => {
+                                                            print(
+                                                                "this is the then function of user member where value =${value}"),
+                                                            value == "true"
+                                                                ? _callGetMemberApi()
+                                                                : Container(),
+                                                          });
+                                                }
 
-                                              print(
-                                                  "Nikhil swipe ${direction}");
+                                                print(
+                                                    "Nikhil swipe ${direction}");
 
-                                              setState(() {});
-                                            },
-                                            child: Container(
-                                              margin:
-                                                  EdgeInsets.only(bottom: 5),
-                                              height: MediaQuery.of(context)
-                                                      .size
-                                                      .width /
-                                                  3.6,
-                                              width: MediaQuery.of(context)
-                                                  .size
-                                                  .width,
-                                              child: Stack(
-                                                
-                                                children: <Widget>[
-                                                  Card(
-                                                    elevation: 1,
-                                                    shape:
-                                                        RoundedRectangleBorder(
+                                                setState(() {});
+                                              },
+                                              child: Container(
+                                                margin:
+                                                    EdgeInsets.only(bottom: 5),
+                                                height: MediaQuery.of(context)
+                                                        .size
+                                                        .width /
+                                                    3.6,
+                                                width: MediaQuery.of(context)
+                                                    .size
+                                                    .width,
+                                                child: Stack(
+                                                  children: <Widget>[
+                                                    Card(
+                                                      elevation: 0,
+                                                      shape:
+                                                          RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          10)),
+                                                      child: Container(
+                                                        decoration: BoxDecoration(
                                                             borderRadius:
                                                                 BorderRadius
                                                                     .circular(
-                                                                        10)),
-                                                    child: Container(
-                                                      decoration: BoxDecoration(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(10),
-                                                          color: Colors
-                                                              .grey.shade100,
-                                                          border: Border.all(
-                                                              color: Colors.grey
-                                                                  .shade300)),
-                                                      child: Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceAround,
-                                                        children: [
-                                                          SizedBox(
-                                                            width: 5,
-                                                          ),
-                                                          Expanded(
-                                                            child: Column(
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .start,
-                                                              crossAxisAlignment:
-                                                                  CrossAxisAlignment
-                                                                      .start,
-                                                              children: [
-                                                                Container(
-                                                                  width: MediaQuery.of(
-                                                                              context)
-                                                                          .size
-                                                                          .width /
-                                                                      2,
-                                                                  child:
-                                                                      Padding(
-                                                                    padding: const EdgeInsets
-                                                                        .only(
-                                                                        top: 10,
-                                                                        left:
-                                                                            5),
-                                                                    child: Text(
-                                                                      "${memberList[index].name} ",
-                                                                      textAlign:
-                                                                          TextAlign
-                                                                              .start,
-                                                                      maxLines:
-                                                                          1,
-                                                                      style: TextStyle(
-                                                                          fontFamily:
-                                                                              fontMetropolisRegular,
-                                                                          fontWeight: FontWeight
-                                                                              .w600,
-                                                                          color: ColorConstants
-                                                                              .green,
-                                                                          overflow: TextOverflow
-                                                                              .ellipsis,
-                                                                          fontSize:
-                                                                              16),
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                                SizedBox(
-                                                                  height: 5,
-                                                                ),
-                                                                Container(
-                                                                  width: MediaQuery.of(
-                                                                              context)
-                                                                          .size
-                                                                          .width /
-                                                                      2,
-                                                                  child:
-                                                                      Container(
-                                                                    padding:
-                                                                        EdgeInsets
-                                                                            .all(5),
+                                                                        10),
+                                                            color: ColorConstants
+                                                                .colorHomePageSectiondim,
+                                                            border: Border.all(
+                                                                color: Colors
+                                                                    .grey
+                                                                    .shade300)),
+                                                        child: Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceAround,
+                                                          children: [
+                                                            SizedBox(
+                                                              width: 5,
+                                                            ),
+                                                            Expanded(
+                                                              child: Column(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .start,
+                                                                crossAxisAlignment:
+                                                                    CrossAxisAlignment
+                                                                        .start,
+                                                                children: [
+                                                                  Container(
+                                                                    width: MediaQuery.of(context)
+                                                                            .size
+                                                                            .width /
+                                                                        2,
                                                                     child:
                                                                         Padding(
-                                                                      padding:
-                                                                          const EdgeInsets
-                                                                              .only(
-                                                                        top: 5,
+                                                                      padding: const EdgeInsets
+                                                                          .only(
+                                                                          top:
+                                                                              10,
+                                                                          left:
+                                                                              5),
+                                                                      child:
+                                                                          Text(
+                                                                        "${memberList[index].name} ",
+                                                                        textAlign:
+                                                                            TextAlign.start,
+                                                                        maxLines:
+                                                                            1,
+                                                                        style: TextStyle(
+                                                                            fontFamily:
+                                                                                fontRailwayRegular,
+                                                                            fontWeight:
+                                                                                FontWeight.w900,
+                                                                            color: ColorConstants.newTextHeadingFooter,
+                                                                            overflow: TextOverflow.ellipsis,
+                                                                            fontSize: 16),
                                                                       ),
+                                                                    ),
+                                                                  ),
+                                                                  SizedBox(
+                                                                    height: 5,
+                                                                  ),
+                                                                  Container(
+                                                                    width: MediaQuery.of(context)
+                                                                            .size
+                                                                            .width /
+                                                                        2,
+                                                                    child:
+                                                                        Container(
+                                                                      padding:
+                                                                          EdgeInsets.all(
+                                                                              5),
+                                                                      child:
+                                                                          Padding(
+                                                                        padding:
+                                                                            const EdgeInsets.only(
+                                                                          top:
+                                                                              5,
+                                                                        ),
+                                                                        child:
+                                                                            Row(
+                                                                          children: [
+                                                                            Text(
+                                                                              "Relation: ",
+                                                                              textAlign: TextAlign.start,
+                                                                              maxLines: 1,
+                                                                              style: TextStyle(overflow: TextOverflow.ellipsis, fontFamily: fontRailwayRegular, fontWeight: FontWeight.w200, color: ColorConstants.pureBlack, fontSize: 14),
+                                                                            ),
+                                                                            Expanded(
+                                                                              child: Text(
+                                                                                "${memberList[index].relation}",
+                                                                                textAlign: TextAlign.start,
+                                                                                maxLines: 1,
+                                                                                style: TextStyle(overflow: TextOverflow.ellipsis, fontFamily: fontRailwayRegular, fontWeight: FontWeight.w600, color: ColorConstants.newTextHeadingFooter, fontSize: 14),
+                                                                              ),
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                  Container(
+                                                                    width: MediaQuery.of(context)
+                                                                            .size
+                                                                            .width /
+                                                                        2,
+                                                                    child:
+                                                                        Padding(
+                                                                      padding: const EdgeInsets
+                                                                          .only(
+                                                                          top:
+                                                                              3,
+                                                                          left:
+                                                                              5),
                                                                       child:
                                                                           Row(
                                                                         children: [
                                                                           Text(
-                                                                            "Relation: ",
+                                                                            "Date: ",
                                                                             textAlign:
                                                                                 TextAlign.start,
-                                                                            maxLines:
-                                                                                1,
                                                                             style: TextStyle(
-                                                                                overflow: TextOverflow.ellipsis,
-                                                                                fontFamily: fontMetropolisRegular,
+                                                                                fontFamily: fontRailwayRegular,
                                                                                 fontWeight: FontWeight.w200,
                                                                                 color: ColorConstants.pureBlack,
                                                                                 fontSize: 14),
                                                                           ),
-                                                                          Expanded(
-                                                                            child:
-                                                                                Text(
-                                                                              "${memberList[index].relation}",
-                                                                              textAlign: TextAlign.start,
-                                                                              maxLines: 1,
-                                                                              style: TextStyle(overflow: TextOverflow.ellipsis, fontFamily: fontMetropolisRegular, fontWeight: FontWeight.w600, color: ColorConstants.pureBlack, fontSize: 14),
-                                                                            ),
+                                                                          Text(
+                                                                            "${memberList[index].dateDay} ${memberList[index].dateMonth!.substring(0, 3).capitalizeFirst}",
+                                                                            textAlign:
+                                                                                TextAlign.start,
+                                                                            style: TextStyle(
+                                                                                fontFamily: fontRailwayRegular,
+                                                                                fontWeight: FontWeight.w600,
+                                                                                color: ColorConstants.newTextHeadingFooter,
+                                                                                fontSize: 14),
                                                                           ),
                                                                         ],
                                                                       ),
                                                                     ),
                                                                   ),
-                                                                ),
-                                                                Container(
-                                                                  width: MediaQuery.of(
-                                                                              context)
-                                                                          .size
-                                                                          .width /
-                                                                      2,
-                                                                  child:
-                                                                      Padding(
-                                                                    padding: const EdgeInsets
-                                                                        .only(
-                                                                        top: 3,
-                                                                        left:
-                                                                            5),
-                                                                    child: Row(
-                                                                      children: [
-                                                                        Text(
-                                                                          "Date: ",
-                                                                          textAlign:
-                                                                              TextAlign.start,
-                                                                          style: TextStyle(
-                                                                              fontFamily: fontMetropolisRegular,
-                                                                              fontWeight: FontWeight.w200,
-                                                                              color: ColorConstants.pureBlack,
-                                                                              fontSize: 14),
-                                                                        ),
-                                                                        Text(
-                                                                          "${memberList[index].dateDay} ${memberList[index].dateMonth!.substring(0, 3).capitalizeFirst}",
-                                                                          textAlign:
-                                                                              TextAlign.start,
-                                                                          style: TextStyle(
-                                                                              fontFamily: fontMetropolisRegular,
-                                                                              fontWeight: FontWeight.w600,
-                                                                              color: ColorConstants.pureBlack,
-                                                                              fontSize: 14),
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                          Expanded(
-                                                            child: Padding(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                      .only(
-                                                                      top: 1),
-                                                              child: Column(
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .center,
-                                                                children: [
-                                                                  Flexible(
-                                                                    
-                                                                    child:
-                                                                        Container(
-                                                                      margin: EdgeInsets
-                                                                          .only(),
-                                                                      child:
-                                                                          CachedNetworkImage(
-                                                                        width:
-                                                                            45,
-                                                                        height:
-                                                                            45,
-                                                                        fit: BoxFit
-                                                                            .cover,
-                                                                        imageUrl:
-                                                                            global.imageBaseUrl +
-                                                                                memberList[index].icon!,
-                                                                        placeholder: (context,
-                                                                                url) =>
-                                                                            Center(
-                                                                                child: CircularProgressIndicator(
-                                                                          strokeWidth:
-                                                                              1.0,
-                                                                        )),
-                                                                        errorWidget: (context,
-                                                                                url,
-                                                                                error) =>
-                                                                            Container(
-                                                                                child: Image.asset(
-                                                                          global
-                                                                              .noImage,
-                                                                          fit: BoxFit
-                                                                              .fill,
-                                                                          width:
-                                                                              175,
-                                                                          height:
-                                                                              210,
-                                                                          alignment:
-                                                                              Alignment.center,
-                                                                        )),
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                  SizedBox(
-                                                                    height: 8,
-                                                                  ),
-                                                                  Text(
-                                                                    memberList[
-                                                                            index]
-                                                                        .celebrationName!,
-                                                                    style: TextStyle(
-                                                                        fontFamily:
-                                                                            fontMetropolisRegular,
-                                                                        fontWeight:
-                                                                            FontWeight
-                                                                                .w200,
-                                                                        color: ColorConstants
-                                                                            .appColor,
-                                                                        fontSize:
-                                                                            14),
-                                                                  ),
-                                                                  SizedBox(
-                                                                    height: 5,
-                                                                  ),
-                                                                  Row(
-                                                                    mainAxisAlignment:
-                                                                        MainAxisAlignment
-                                                                            .center,
-                                                                    children: [
-                                                                      Text(
-                                                                        memberList[index].monthValue ==
-                                                                                0
-                                                                            ? "Today"
-                                                                            : memberList[index].monthValue != 1
-                                                                                ? "Next ${memberList[index].monthValue.toString().substring(1)}"
-                                                                                : "Tomorrow", 
-                                                                        style: TextStyle(
-                                                                            fontFamily:
-                                                                                fontMetropolisRegular,
-                                                                            fontSize:
-                                                                                13,
-                                                                            fontWeight:
-                                                                                FontWeight.bold,
-                                                                            color: ColorConstants.grey),
-                                                                      ),
-                                                                      Text(
-                                                                        memberList[index].monthValue == 0 ||
-                                                                                memberList[index].monthValue == 1
-                                                                            ? ""
-                                                                            : " Days",
-                                                                        style: TextStyle(
-                                                                            fontFamily:
-                                                                                fontMetropolisRegular,
-                                                                            fontSize:
-                                                                                13,
-                                                                            fontWeight:
-                                                                                FontWeight.normal,
-                                                                            color: ColorConstants.grey),
-                                                                      )
-                                                                    ],
-                                                                  ),
                                                                 ],
                                                               ),
                                                             ),
-                                                          )
-                                                        ],
+                                                            Expanded(
+                                                              child: Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                        .only(
+                                                                        top: 1),
+                                                                child: Column(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .center,
+                                                                  children: [
+                                                                    Flexible(
+                                                                      child:
+                                                                          ClipRRect(
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(100),
+                                                                        child:
+                                                                            CachedNetworkImage(
+                                                                          width:
+                                                                              55,
+                                                                          height:
+                                                                              55,
+                                                                          fit: BoxFit
+                                                                              .contain,
+                                                                          imageUrl:
+                                                                              global.imageBaseUrl + memberList[index].icon!,
+                                                                          placeholder: (context, url) => Center(
+                                                                              child: CircularProgressIndicator(
+                                                                            strokeWidth:
+                                                                                1.0,
+                                                                          )),
+                                                                          errorWidget: (context, url, error) => Container(
+                                                                              child: Image.asset(
+                                                                            global.noImage,
+                                                                            fit:
+                                                                                BoxFit.contain,
+                                                                            width:
+                                                                                175,
+                                                                            height:
+                                                                                210,
+                                                                            alignment:
+                                                                                Alignment.center,
+                                                                          )),
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                    SizedBox(
+                                                                      height: 8,
+                                                                    ),
+                                                                    Text(
+                                                                      memberList[
+                                                                              index]
+                                                                          .celebrationName!,
+                                                                      style: TextStyle(
+                                                                          fontFamily:
+                                                                              fontRailwayRegular,
+                                                                          fontWeight: FontWeight
+                                                                              .w900,
+                                                                          color: ColorConstants
+                                                                              .newTextHeadingFooter,
+                                                                          fontSize:
+                                                                              14),
+                                                                    ),
+                                                                    SizedBox(
+                                                                      height: 5,
+                                                                    ),
+                                                                    Row(
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .center,
+                                                                      children: [
+                                                                        Text(
+                                                                          memberList[index].monthValue == 0
+                                                                              ? "Today"
+                                                                              : memberList[index].monthValue != 1
+                                                                                  ? "Next ${memberList[index].monthValue.toString().substring(1)}"
+                                                                                  : "Tomorrow",
+                                                                          style: TextStyle(
+                                                                              fontFamily: fontRailwayRegular,
+                                                                              fontSize: 13,
+                                                                              fontWeight: FontWeight.bold,
+                                                                              color: ColorConstants.appColor),
+                                                                        ),
+                                                                        Text(
+                                                                          memberList[index].monthValue == 0 || memberList[index].monthValue == 1
+                                                                              ? ""
+                                                                              : " Days",
+                                                                          style: TextStyle(
+                                                                              fontFamily: fontRailwayRegular,
+                                                                              fontSize: 13,
+                                                                              fontWeight: FontWeight.bold,
+                                                                              color: ColorConstants.appColor),
+                                                                        )
+                                                                      ],
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            )
+                                                          ],
+                                                        ),
+                                                        height: 100,
+                                                        width: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .width -
+                                                            10,
                                                       ),
-                                                      height: 100,
-                                                      width:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width -
-                                                              10,
                                                     ),
-                                                  ),
-                                                ],
+                                                  ],
+                                                ),
                                               ),
-                                            ),
-                                          );
-                                        }),
+                                            );
+                                          }),
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                         ),
@@ -663,6 +657,7 @@ class _UserMemberListScreenState extends BaseRouteState {
                     : Container(
                         width: MediaQuery.of(context).size.width,
                         height: MediaQuery.of(context).size.height,
+                        color: ColorConstants.colorPageBackground,
                         child: Center(
                           child: CircularProgressIndicator(),
                         ),
@@ -671,6 +666,7 @@ class _UserMemberListScreenState extends BaseRouteState {
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height,
                     margin: EdgeInsets.only(left: 8, right: 8),
+                    color: ColorConstants.colorPageBackground,
                     child: Center(
                       child: Text(
                         "Never miss any occasion! Set up personalized reminders for your loved ones and make every celebration memorable.",
@@ -679,7 +675,7 @@ class _UserMemberListScreenState extends BaseRouteState {
                             fontFamily: global.fontMontserratLight,
                             fontSize: 20,
                             fontWeight: FontWeight.w200,
-                            color: ColorConstants.guidlinesGolden),
+                            color: ColorConstants.newTextHeadingFooter),
                       ),
                     ),
                   )));
@@ -714,7 +710,6 @@ class _UserMemberListScreenState extends BaseRouteState {
               print("Member list  length${memberList.length}");
               for (int j = 0; j < memberList.length; j++) {
                 for (int i = 0; i < _eventsList.length; i++) {
-                  
                   if (memberList[j].celebrationName!.toLowerCase() ==
                       _eventsList[i].eventName!.toLowerCase()) {
                     memberList[j].eventImage =
@@ -833,7 +828,6 @@ class _UserMemberListScreenState extends BaseRouteState {
 
   showNetworkErrorSnackBar1(GlobalKey<ScaffoldState> scaffoldKey) {
     try {
-      
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         duration: Duration(days: 1),
         content: Row(

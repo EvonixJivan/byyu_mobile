@@ -23,18 +23,18 @@ class _FrequentlyQuestionsScreenState extends BaseRouteState {
   GlobalKey<ScaffoldState>? _scaffoldKey;
 
   TextStyle ansTextStyle = TextStyle(
-      fontFamily: global.fontMetropolisRegular,
+      fontFamily: global.fontRailwayRegular,
       fontSize: 14,
       height: 1.2,
       fontWeight: FontWeight.w200,
       color: ColorConstants.pureBlack);
   TextStyle queTextStyle = TextStyle(
-      fontFamily: global.fontMontserratLight,
-      fontSize: 12,
+      fontFamily: global.fontRailwayRegular,
+      fontSize: 14,
       fontWeight: FontWeight.w200,
       color: ColorConstants.pureBlack);
   TextStyle sectionTextStyle = TextStyle(
-      fontFamily: global.fontMontserratLight,
+      fontFamily: global.fontRailwayRegular,
       fontSize: 14,
       fontWeight: FontWeight.w200,
       color: ColorConstants.pureBlack);
@@ -56,24 +56,27 @@ class _FrequentlyQuestionsScreenState extends BaseRouteState {
     TextTheme textTheme = Theme.of(context).textTheme;
     return SafeArea(
       child: Scaffold(
+        backgroundColor: ColorConstants.colorPageBackground,
         key: _scaffoldKey,
         appBar: AppBar(
+          backgroundColor: ColorConstants.appBarColorWhite,
           title: Text(
             "FAQ",
             // '${AppLocalizations.of(context).tle_term_of_service}',
             style: TextStyle(
-                color: ColorConstants.pureBlack,
-                fontFamily: fontMetropolisRegular,
-                fontWeight: FontWeight.w200), //textTheme.headline6,
+                color: ColorConstants.newTextHeadingFooter,
+                fontFamily: fontRailwayRegular,
+                fontWeight: FontWeight.w200), //textTheme.titleLarge,
           ),
-          centerTitle: true,
+          centerTitle: false,
           leading: BackButton(
               onPressed: () {
                 Navigator.pop(context);
               },
-              color: ColorConstants.pureBlack),
+              color: ColorConstants.newAppColor),
         ),
-        body: Padding(
+        body: Container(
+            color: ColorConstants.colorPageBackground,
             padding: const EdgeInsets.only(left: 1.0, right: 1.0),
             child: SingleChildScrollView(
               child: Column(
@@ -86,10 +89,10 @@ class _FrequentlyQuestionsScreenState extends BaseRouteState {
                       style: sectionTextStyle,
                     ),
                     initiallyExpanded: parent == 0,
-                    textColor: ColorConstants.appColor,
+                    textColor: ColorConstants.newAppColor,
                     collapsedTextColor: ColorConstants.pureBlack,
-                    iconColor: ColorConstants.appColor,
-                    collapsedIconColor: ColorConstants.pureBlack,
+                    iconColor: ColorConstants.newAppColor,
+                    collapsedIconColor: ColorConstants.newAppColor,
                     onExpansionChanged: (value) {
                       
                       if (value) {
@@ -132,7 +135,7 @@ class _FrequentlyQuestionsScreenState extends BaseRouteState {
                               setState(() {
                               });
                             },
-                            collapsedIconColor: ColorConstants.pureBlack,
+                            collapsedIconColor: ColorConstants.newAppColor,
                             children: [
                               Container(
                                 margin: EdgeInsets.only(left: 10, right: 10),
@@ -168,13 +171,13 @@ class _FrequentlyQuestionsScreenState extends BaseRouteState {
                     title: Text(
                       "Orders",
                       style: TextStyle(
-                          fontFamily: global.fontMontserratLight,
+                          fontFamily: global.fontRailwayRegular,
                           fontSize: 14,
                           fontWeight: FontWeight.w200,
-                          color: ColorConstants.pureBlack),
+                          color: ColorConstants.newTextHeadingFooter),
                     ),
                     iconColor: ColorConstants.appColor,
-                    collapsedIconColor: ColorConstants.pureBlack,
+                    collapsedIconColor: ColorConstants.newAppColor,
                     initiallyExpanded: parent==1,
                     onExpansionChanged: (value) {
                       if (value) {
@@ -219,7 +222,7 @@ class _FrequentlyQuestionsScreenState extends BaseRouteState {
                               setState(() {
                               });
                             },
-                            collapsedIconColor: ColorConstants.pureBlack,
+                            collapsedIconColor: ColorConstants.newAppColor,
                             children: [
                               Container(
                                 margin: EdgeInsets.only(left: 10, right: 10),
@@ -255,13 +258,13 @@ class _FrequentlyQuestionsScreenState extends BaseRouteState {
                     title: Text(
                       "Vouchers/Discount",
                       style: TextStyle(
-                          fontFamily: global.fontMontserratLight,
+                          fontFamily: global.fontRailwayRegular,
                           fontSize: 14,
                           fontWeight: FontWeight.w200,
-                          color: ColorConstants.pureBlack),
+                          color: ColorConstants.newTextHeadingFooter),
                     ),
                     iconColor: ColorConstants.appColor,
-                    collapsedIconColor: ColorConstants.pureBlack,
+                    collapsedIconColor: ColorConstants.newAppColor,
                     initiallyExpanded: parent==2,
                     onExpansionChanged: (value) {
                       if (value) {
@@ -300,7 +303,7 @@ class _FrequentlyQuestionsScreenState extends BaseRouteState {
                               }
                               setState(() {});
                             },
-                            collapsedIconColor: ColorConstants.pureBlack,
+                            collapsedIconColor: ColorConstants.newAppColor,
                             children: [
                               Container(
                                 margin: EdgeInsets.only(left: 10, right: 10),
@@ -336,13 +339,13 @@ class _FrequentlyQuestionsScreenState extends BaseRouteState {
                     title: Text(
                       "Payment Modes",
                       style: TextStyle(
-                          fontFamily: global.fontMontserratLight,
+                          fontFamily: global.fontRailwayRegular,
                           fontSize: 14,
                           fontWeight: FontWeight.w200,
-                          color: ColorConstants.pureBlack),
+                          color: ColorConstants.newTextHeadingFooter),
                     ),
                     iconColor: ColorConstants.appColor,
-                    collapsedIconColor: ColorConstants.pureBlack,
+                    collapsedIconColor: ColorConstants.newAppColor,
                     initiallyExpanded: parent==3,
                     onExpansionChanged: (value) {
                       if (value) {
@@ -382,7 +385,7 @@ class _FrequentlyQuestionsScreenState extends BaseRouteState {
                               }
                               setState(() {});
                             },
-                            collapsedIconColor: ColorConstants.pureBlack,
+                            collapsedIconColor: ColorConstants.newAppColor,
                             children: [
                               Container(
                                 margin: EdgeInsets.only(left: 10, right: 10),

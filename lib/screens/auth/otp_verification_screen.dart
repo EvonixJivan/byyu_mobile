@@ -106,26 +106,30 @@ class _OtpVerificationScreenState extends BaseRouteState {
     TextTheme textTheme = Theme.of(context).textTheme;
     return Container(
       child: Scaffold(
-          backgroundColor: Colors.white,
+          backgroundColor: ColorConstants.colorPageBackground,
           resizeToAvoidBottomInset: false,
           key: _scaffoldKey,
           appBar: AppBar(
             leadingWidth: 46,
-            backgroundColor: ColorConstants.appBrownFaintColor,
+            backgroundColor: ColorConstants.appBarColorWhite,
             title: Text("Verify OTP",
                 style: TextStyle(
-                  fontFamily: fontMetropolisRegular,
-                  color: ColorConstants.pureBlack,
+                  fontFamily: fontRailwayRegular,
+                  color: ColorConstants.newTextHeadingFooter,
                   fontWeight: FontWeight.w200,
                 )),
-            centerTitle: true,
+            centerTitle: false,
+            leading: BackButton(
+              onPressed: () {
+                print("Go back");
+                Navigator.pop(context);
+              },
+              color: ColorConstants.appColor,
+            ),
           ),
           body: Container(
             height: MediaQuery.of(context).size.height,
-            decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage("assets/images/login_bg.png"),
-                    fit: BoxFit.cover)),
+            
             child: GestureDetector(
               onTap: () {
                 FocusScope.of(context).requestFocus(new FocusNode());
@@ -156,7 +160,7 @@ class _OtpVerificationScreenState extends BaseRouteState {
                                                   BorderRadius.circular(100),
                                               border: Border.all(
                                                   color: ColorConstants
-                                                      .appGoldenColortint,
+                                                      .newAppColor,
                                                   width: 5)),
                                           margin: EdgeInsets.only(top: 0),
                                           height: 130,
@@ -165,7 +169,7 @@ class _OtpVerificationScreenState extends BaseRouteState {
                                           child: Image.asset(
                                             'assets/images/otp_verification.png',
                                             fit: BoxFit.fill,
-                                            color: ColorConstants.goldernBrown,
+                                            color: ColorConstants.newAppColor,
                                           ),
                                         ),
                                       ),
@@ -179,8 +183,8 @@ class _OtpVerificationScreenState extends BaseRouteState {
                                               child: Text(
                                                 isFromSignUPLogin != null &&
                                                         isFromSignUPLogin
-                                                    ? "Kindly enter the OTP sent to your WhatsApp text ${addMobileCountryCode} XXXXXXX${addMobilePhone!.substring(addMobilePhone!.length - 2)}"
-                                                    : "Kindly enter the OTP sent to your SMS ${addMobileCountryCode} XXXXXXX${addMobilePhone!.substring(addMobilePhone!.length - 2)}",
+                                                    ? "Kindly enter the OTP sent to your WhatsApp text ${addMobileCountryCode}  XXXXXXX${addMobilePhone!.substring(addMobilePhone!.length - 2)}"
+                                                    : "Kindly enter the OTP sent to your SMS ${isFromSignUPLogin} ${addMobileCountryCode}  XXXXXXX${addMobilePhone!.substring(addMobilePhone!.length - 2)}",
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                     color: ColorConstants
@@ -188,7 +192,7 @@ class _OtpVerificationScreenState extends BaseRouteState {
                                                     fontWeight:
                                                         FontWeight.normal,
                                                     fontFamily:
-                                                        fontMetropolisRegular,
+                                                        fontRailwayRegular,
                                                     height: 1.5),
                                               ),
                                             )
@@ -203,7 +207,7 @@ class _OtpVerificationScreenState extends BaseRouteState {
                                                                 "971" ||
                                                             addMobileCountryCode ==
                                                                 "+971")
-                                                    ? "Kindly enter the OTP sent to your SMS ${addMobileCountryCode} XXXXXXX${addMobilePhone!.substring(addMobilePhone!.length - 2)}"
+                                                    ? "Kindly enter the OTP sent to your SMS isAddMobile${addMobileCountryCode} XXXXXXX${addMobilePhone!.substring(addMobilePhone!.length - 2)}"
                                                     : "Kindly enter the OTP sent to your WhatsApp ${addMobileCountryCode} XXXXXXX${addMobilePhone!.substring(addMobilePhone!.length - 2)}",
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
@@ -212,7 +216,7 @@ class _OtpVerificationScreenState extends BaseRouteState {
                                                     fontWeight:
                                                         FontWeight.normal,
                                                     fontFamily:
-                                                        fontMetropolisRegular,
+                                                        fontRailwayRegular,
                                                     height: 1.5),
                                               ),
                                             )
@@ -232,7 +236,7 @@ class _OtpVerificationScreenState extends BaseRouteState {
                                                               updateMobEmailResponse!
                                                                       .whatsappFlag ==
                                                                   "0"
-                                                          ? "Kindly enter the OTP sent to your SMS ${addMobileCountryCode} XXXXXXX${addMobilePhone!.substring(addMobilePhone!.length - 2)}"
+                                                          ? "Kindly enter the OTP sent to your SMS isFromUpdate ${addMobileCountryCode} XXXXXXX${addMobilePhone!.substring(addMobilePhone!.length - 2)}"
                                                           : "Kindly enter the OTP sent to your WhatsApp ${addMobileCountryCode} XXXXXXX${addMobilePhone!.substring(addMobilePhone!.length - 2)}",
                                                       textAlign:
                                                           TextAlign.center,
@@ -242,7 +246,7 @@ class _OtpVerificationScreenState extends BaseRouteState {
                                                           fontWeight:
                                                               FontWeight.normal,
                                                           fontFamily:
-                                                              fontMetropolisRegular,
+                                                              fontRailwayRegular,
                                                           height: 1.5),
                                                     )
                                                   : Text(
@@ -255,7 +259,7 @@ class _OtpVerificationScreenState extends BaseRouteState {
                                                           fontWeight:
                                                               FontWeight.normal,
                                                           fontFamily:
-                                                              fontMetropolisRegular,
+                                                              fontRailwayRegular,
                                                           height: 1.5),
                                                     ))
                                           : SizedBox(),
@@ -576,7 +580,7 @@ class _OtpVerificationScreenState extends BaseRouteState {
                     child: Text('NO',
                         style: TextStyle(
                             fontSize: 16,
-                            fontFamily: fontMetropolisRegular,
+                            fontFamily: fontRailwayRegular,
                             fontWeight: FontWeight.w200,
                             color: ColorConstants.appColor)),
                     onPressed: () async {
@@ -599,7 +603,7 @@ class _OtpVerificationScreenState extends BaseRouteState {
                     child: Text('YES',
                         style: TextStyle(
                             fontSize: 16,
-                            fontFamily: fontMetropolisRegular,
+                            fontFamily: fontRailwayRegular,
                             fontWeight: FontWeight.w200,
                             color: Colors.blue)),
                     onPressed: () async {

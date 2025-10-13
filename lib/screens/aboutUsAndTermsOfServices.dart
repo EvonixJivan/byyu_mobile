@@ -35,6 +35,7 @@ class _AboutUsAndTermsOfServiceScreenState extends BaseRouteState {
       child: Scaffold(
         key: _scaffoldKey,
         appBar: AppBar(
+          backgroundColor: ColorConstants.appBarColorWhite,
           title: Text(
             isAboutUs
                 ? "Privacy Policy" //'${AppLocalizations.of(context).tle_about_us}'
@@ -42,16 +43,16 @@ class _AboutUsAndTermsOfServiceScreenState extends BaseRouteState {
             // '${AppLocalizations.of(context).tle_term_of_service}',
             style: TextStyle(
                 color: ColorConstants.pureBlack,
-                fontFamily: fontMetropolisRegular,
-                fontWeight: FontWeight.w200), //textTheme.headline6,
+                fontFamily: fontRailwayRegular,
+                fontWeight: FontWeight.w200), //textTheme.titleLarge,
           ),
-          centerTitle: true,
-          leading: IconButton(
+          centerTitle: false,
+          leading: BackButton(
               onPressed: () {
                 Navigator.pop(context);
               },
-              icon: Icon(Icons.arrow_back),
-              color: ColorConstants.pureBlack),
+              
+              color: ColorConstants.appColor),
         ),
         body: Padding(
           padding: const EdgeInsets.only(left: 15.0, right: 15.0),
@@ -70,7 +71,7 @@ class _AboutUsAndTermsOfServiceScreenState extends BaseRouteState {
                       data: "$text",
                       style: {
                         "body": Style(
-                          fontFamily: global.fontMetropolisRegular,
+                          fontFamily: global.fontRailwayRegular,
                           fontWeight: FontWeight.normal,
                           fontSize: FontSize.medium,
                           color: Colors.black,

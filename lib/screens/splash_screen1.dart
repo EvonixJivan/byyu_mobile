@@ -70,13 +70,10 @@ class _SplashScreenState extends BaseRouteState implements TickerProvider {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor:
-          ColorConstants.appfaintColor, //or set color with: Color(0xFF0000FF)
-    ));
+    
     return Scaffold(
         key: _scaffoldKey,
-        backgroundColor: Colors.white,
+        backgroundColor: ColorConstants.colorPageBackground,
         body: Center(
           child: Container(
             margin: EdgeInsets.only(top: 0),
@@ -435,7 +432,7 @@ class _SplashScreenState extends BaseRouteState implements TickerProvider {
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                       fontSize: 14,
-                                      fontFamily: fontMetropolisRegular,
+                                      fontFamily: fontRailwayRegular,
                                       fontWeight: FontWeight.w200,
                                       color: ColorConstants.pureBlack),
                                 ),
@@ -447,7 +444,7 @@ class _SplashScreenState extends BaseRouteState implements TickerProvider {
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                       fontSize: 14,
-                                      fontFamily: fontMetropolisRegular,
+                                      fontFamily: fontRailwayRegular,
                                       fontWeight: FontWeight.w200,
                                       color: ColorConstants.pureBlack),
                                 ),
@@ -551,7 +548,7 @@ class _SplashScreenState extends BaseRouteState implements TickerProvider {
                                               style: TextStyle(
                                                   fontSize: 16,
                                                   fontFamily:
-                                                      fontMetropolisRegular,
+                                                      fontRailwayRegular,
                                                   fontWeight: FontWeight.w200,
                                                   color:
                                                       ColorConstants.appColor)),
@@ -582,7 +579,7 @@ class _SplashScreenState extends BaseRouteState implements TickerProvider {
                                               style: TextStyle(
                                                   fontSize: 16,
                                                   fontFamily:
-                                                      fontMetropolisRegular,
+                                                      fontRailwayRegular,
                                                   fontWeight: FontWeight.w200,
                                                   color: Colors.blue.shade300)),
                                         ),
@@ -606,7 +603,7 @@ class _SplashScreenState extends BaseRouteState implements TickerProvider {
                         //     '${msg}',
                         //     style: TextStyle(
                         //       fontSize: 14,
-                        //       fontFamily: fontMetropolisRegular,
+                        //       fontFamily: fontRailwayRegular,
                         //       fontWeight: FontWeight.w200,
                         //     ),
                         //   ),
@@ -615,7 +612,7 @@ class _SplashScreenState extends BaseRouteState implements TickerProvider {
                         //       child: Text('Update',
                         //           style: TextStyle(
                         //             fontSize: 16,
-                        //             fontFamily: fontMetropolisRegular,
+                        //             fontFamily: fontRailwayRegular,
                         //             fontWeight: FontWeight.w200,
                         //           )),
                         //       onPressed: () async {
@@ -663,7 +660,7 @@ class _SplashScreenState extends BaseRouteState implements TickerProvider {
       //             '${msg}',
       //             style: TextStyle(
       //                 fontSize: 14,
-      //                 fontFamily: fontMetropolisRegular,
+      //                 fontFamily: fontRailwayRegular,
       //                 fontWeight: FontWeight.w200,
       //                 color: ColorConstants.pureBlack),
       //           ),
@@ -672,7 +669,7 @@ class _SplashScreenState extends BaseRouteState implements TickerProvider {
       //               child: Text('Skip',
       //                   style: TextStyle(
       //                       fontSize: 16,
-      //                       fontFamily: fontMetropolisRegular,
+      //                       fontFamily: fontRailwayRegular,
       //                       fontWeight: FontWeight.w200,
       //                       color: ColorConstants.appColor)),
       //               onPressed: () async {
@@ -727,7 +724,7 @@ class _SplashScreenState extends BaseRouteState implements TickerProvider {
       //                 'Update',
       //                 style: TextStyle(
       //                   fontSize: 16,
-      //                   fontFamily: fontMetropolisRegular,
+      //                   fontFamily: fontRailwayRegular,
       //                   fontWeight: FontWeight.w200,
       //                 ),
       //               ),
@@ -819,7 +816,7 @@ class _SplashScreenState extends BaseRouteState implements TickerProvider {
                           //             textAlign: TextAlign.center,
                           //             style: TextStyle(
                           //                 fontSize: 14,
-                          //                 fontFamily: fontMetropolisRegular,
+                          //                 fontFamily: fontRailwayRegular,
                           //                 fontWeight: FontWeight.w200,
                           //                 color: ColorConstants.pureBlack),
                           //           ),
@@ -919,7 +916,7 @@ class _SplashScreenState extends BaseRouteState implements TickerProvider {
                       //     '${msg}',
                       //     style: TextStyle(
                       //       fontSize: 14,
-                      //       fontFamily: fontMetropolisRegular,
+                      //       fontFamily: fontRailwayRegular,
                       //       fontWeight: FontWeight.w200,
                       //     ),
                       //   ),
@@ -928,7 +925,7 @@ class _SplashScreenState extends BaseRouteState implements TickerProvider {
                       //       child: Text('Update',
                       //           style: TextStyle(
                       //             fontSize: 16,
-                      //             fontFamily: fontMetropolisRegular,
+                      //             fontFamily: fontRailwayRegular,
                       //             fontWeight: FontWeight.w200,
                       //           )),
                       //       onPressed: () async {
@@ -1045,7 +1042,7 @@ class _SplashScreenState extends BaseRouteState implements TickerProvider {
                     child: Text('OK',
                         style: TextStyle(
                             fontSize: 16,
-                            fontFamily: fontMetropolisRegular,
+                            fontFamily: fontRailwayRegular,
                             fontWeight: FontWeight.w200,
                             color: Colors.blue)),
                     onPressed: () async {

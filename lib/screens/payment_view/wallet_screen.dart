@@ -67,18 +67,18 @@ class _WalletScreenState extends BaseRouteState {
               FocusScope.of(context).requestFocus(new FocusNode());
             },
             child: Scaffold(
-              // backgroundColor: white,
+              backgroundColor: ColorConstants.colorPageBackground,
               appBar: AppBar(
-                backgroundColor: ColorConstants.appBrownFaintColor,
-                centerTitle: true,
+                backgroundColor: ColorConstants.white,
+                centerTitle: false,
                 title: Text(
                     "Wallet"
                     // "${AppLocalizations.of(context).tle_all_category} "
                     ,
                     style: TextStyle(
-                        fontFamily: global.fontMontserratMedium,
+                        fontFamily: global.fontRailwayRegular,
                         fontWeight: FontWeight.normal,
-                        color: ColorConstants.pureBlack) //textTheme.headline6,
+                        color: ColorConstants.newTextHeadingFooter) //textTheme.titleLarge,
                     ),
                 leading: BackButton(
                   onPressed: () {
@@ -94,7 +94,7 @@ class _WalletScreenState extends BaseRouteState {
                           scrollDirection: Axis.vertical,
                           physics: ScrollPhysics(),
                           child: Container(
-                            color: ColorConstants.appBrownFaintColor,
+                            color: ColorConstants.colorPageBackground,
                             child: Stack(
                               children: [
                                 Padding(
@@ -104,12 +104,12 @@ class _WalletScreenState extends BaseRouteState {
                                     children: [
                                       Container(
                                         padding: EdgeInsets.only(
-                                            left: 8, right: 8, top: 8),
+                                            left: 8, right: 8, top: 10),
                                         width:
                                             MediaQuery.of(context).size.width,
                                         decoration: BoxDecoration(
                                           color:
-                                              ColorConstants.walletSccreenColor,
+                                              ColorConstants.colorHomePageSectiondim,
                                           //color: Colors.deepPurpleAccent
                                         ),
                                         child: Column(
@@ -120,11 +120,11 @@ class _WalletScreenState extends BaseRouteState {
                                                   "Available Balance",
                                                   style: TextStyle(
                                                     fontFamily: global
-                                                        .fontMetropolisRegular,
+                                                        .fontRailwayRegular,
                                                     fontWeight: FontWeight.bold,
                                                     fontSize: 16,
                                                     color: ColorConstants
-                                                        .pureBlack,
+                                                        .newTextHeadingFooter,
                                                   ),
                                                 ),
                                                 Expanded(child: Text("")),
@@ -132,7 +132,7 @@ class _WalletScreenState extends BaseRouteState {
                                                   "${rewardWalletTransaction!.totalWalletAmount!.toStringAsFixed(2)} AED",
                                                   style: TextStyle(
                                                       fontFamily: global
-                                                          .fontMontserratLight,
+                                                          .fontOufitMedium,
                                                       fontWeight:
                                                           FontWeight.bold,
                                                       fontSize: 16,
@@ -149,12 +149,12 @@ class _WalletScreenState extends BaseRouteState {
                                                   "Wallet ",
                                                   style: TextStyle(
                                                       fontFamily: global
-                                                          .fontMetropolisRegular,
+                                                          .fontRailwayRegular,
                                                       fontWeight:
                                                           FontWeight.w600,
                                                       fontSize: 16,
                                                       color: ColorConstants
-                                                          .pureBlack,
+                                                          .newTextHeadingFooter,
                                                       letterSpacing: 1),
                                                 ),
                                                 Expanded(child: Text("")),
@@ -162,7 +162,7 @@ class _WalletScreenState extends BaseRouteState {
                                                   "${rewardWalletTransaction!.cashWalletAmount!.toStringAsFixed(2)} AED",
                                                   style: TextStyle(
                                                     fontFamily: global
-                                                        .fontMontserratLight,
+                                                        .fontOufitMedium,
                                                     fontWeight: FontWeight.w600,
                                                     fontSize: 16,
                                                     color: ColorConstants.grey,
@@ -178,11 +178,11 @@ class _WalletScreenState extends BaseRouteState {
                                                   "Gift Voucher ",
                                                   style: TextStyle(
                                                     fontFamily: global
-                                                        .fontMetropolisRegular,
+                                                        .fontRailwayRegular,
                                                     fontWeight: FontWeight.w600,
                                                     fontSize: 16,
                                                     color: ColorConstants
-                                                        .pureBlack,
+                                                        .newTextHeadingFooter,
                                                   ),
                                                 ),
                                                 Expanded(child: Text("")),
@@ -190,7 +190,7 @@ class _WalletScreenState extends BaseRouteState {
                                                   "${rewardWalletTransaction!.rewardWalletAmount!.toStringAsFixed(2)} AED",
                                                   style: TextStyle(
                                                       fontFamily: global
-                                                          .fontMontserratLight,
+                                                          .fontOufitMedium,
                                                       fontWeight:
                                                           FontWeight.w600,
                                                       fontSize: 16,
@@ -201,7 +201,7 @@ class _WalletScreenState extends BaseRouteState {
                                               ],
                                             ),
                                             SizedBox(
-                                              height: 20,
+                                              height: 10,
                                             ),
                                           ],
                                         ),
@@ -243,9 +243,9 @@ class _WalletScreenState extends BaseRouteState {
                                       //                 "Redeem Code",
                                       //                 style: TextStyle(
                                       //                     fontFamily: global
-                                      //                         .fontMetropolisRegular,
+                                      //                         .fontRailwayRegular,
                                       //                     fontWeight:
-                                      //                         FontWeight.w200,
+                                      //                         FontWeight.w400,
                                       //                     fontSize: 16,
                                       //                     color: ColorConstants
                                       //                         .appColor),
@@ -326,7 +326,7 @@ class _WalletScreenState extends BaseRouteState {
                                       //                       controller:
                                       //                           _txtRedeemCode,
                                       //                       inputTextFontWeight:
-                                      //                           FontWeight.w200,
+                                      //                           FontWeight.w400,
                                       //                       focusNode:
                                       //                           _fRedeemCode,
                                       //                       textCapitalization:
@@ -511,9 +511,9 @@ class _WalletScreenState extends BaseRouteState {
                                                   "All",
                                                   style: TextStyle(
                                                       fontFamily: global
-                                                          .fontMontserratLight,
+                                                          .fontRailwayRegular,
                                                       fontWeight:
-                                                          FontWeight.w200,
+                                                          FontWeight.w900,
                                                       fontSize: 15,
                                                       color: _onAllSelected
                                                           ? Colors.white
@@ -554,9 +554,9 @@ class _WalletScreenState extends BaseRouteState {
                                                   "Pending and Expiring",
                                                   style: TextStyle(
                                                       fontFamily: global
-                                                          .fontMontserratLight,
+                                                          .fontRailwayRegular,
                                                       fontWeight:
-                                                          FontWeight.w200,
+                                                          FontWeight.w900,
                                                       fontSize: 15,
                                                       color: !_onAllSelected
                                                           ? ColorConstants.white
@@ -616,9 +616,7 @@ class _WalletScreenState extends BaseRouteState {
                                                                               8),
                                                                   border: Border.all(
                                                                       width: 1,
-                                                                      color: Colors
-                                                                          .grey
-                                                                          .shade300)),
+                                                                      color: ColorConstants.colorHomePageSectiondim)),
                                                               child: Column(
                                                                 children: [
                                                                   InkWell(
@@ -657,14 +655,14 @@ class _WalletScreenState extends BaseRouteState {
                                                                                         width: MediaQuery.of(context).size.width,
                                                                                         child: Text(
                                                                                           "${walletTransactionList[index].walletdisname}",
-                                                                                          style: TextStyle(fontFamily: fontMetropolisRegular, color: ColorConstants.green, fontSize: 15, fontWeight: FontWeight.w600),
+                                                                                          style: TextStyle(fontFamily: fontRailwayRegular, color: ColorConstants.green, fontSize: 15, fontWeight: FontWeight.w600),
                                                                                         ),
                                                                                       )
                                                                                     : Container(
                                                                                         width: MediaQuery.of(context).size.width,
                                                                                         child: Text(
                                                                                           "${walletTransactionList[index].walletType}",
-                                                                                          style: TextStyle(fontFamily: fontMetropolisRegular, color: ColorConstants.appColor, fontSize: 15, fontWeight: FontWeight.w600),
+                                                                                          style: TextStyle(fontFamily: fontRailwayRegular, color: ColorConstants.lightRedVelvet30, fontSize: 15, fontWeight: FontWeight.w600),
                                                                                         ),
                                                                                       ),
                                                                                 Row(
@@ -674,12 +672,12 @@ class _WalletScreenState extends BaseRouteState {
                                                                                       child: walletTransactionList[index].walletType!.toLowerCase() == "reward wallet"
                                                                                           ? Text(
                                                                                               "Amount:",
-                                                                                              style: TextStyle(fontFamily: fontMetropolisRegular, color: ColorConstants.pureBlack, fontSize: 14, fontWeight: FontWeight.w200, letterSpacing: 0.1),
+                                                                                              style: TextStyle(fontFamily: fontRailwayRegular, color: ColorConstants.pureBlack, fontSize: 14, fontWeight: FontWeight.w400, letterSpacing: 0.1),
                                                                                             )
                                                                                           : Text(
                                                                                               // walletTransactionList[index].walletType!.toLowerCase() == "cash wallet" ? "Amount:" : "Total Pay:",
                                                                                               "Amount:",
-                                                                                              style: TextStyle(fontFamily: fontMetropolisRegular, color: ColorConstants.pureBlack, fontSize: 14, fontWeight: FontWeight.w200, letterSpacing: 0.1),
+                                                                                              style: TextStyle(fontFamily: fontRailwayRegular, color: ColorConstants.pureBlack, fontSize: 14, fontWeight: FontWeight.w400, letterSpacing: 0.1),
                                                                                             ),
                                                                                     ),
                                                                                     Expanded(child: Text("")),
@@ -689,7 +687,7 @@ class _WalletScreenState extends BaseRouteState {
                                                                                     //   margin: EdgeInsets.only(top: 8, left: 2),
                                                                                     //   child: Text(
                                                                                     //     walletTransactionList[index].walletType!.toLowerCase() == "reward wallet" || walletTransactionList[index].walletType!.toLowerCase() == "cash wallet" ? "Reward amount:" : "Total Pay:",
-                                                                                    //     style: TextStyle(fontFamily: fontMetropolisRegular, color: ColorConstants.pureBlack, fontSize: 14, fontWeight: FontWeight.w200, letterSpacing: 0.1),
+                                                                                    //     style: TextStyle(fontFamily: fontRailwayRegular, color: ColorConstants.pureBlack, fontSize: 14, fontWeight: FontWeight.w400, letterSpacing: 0.1),
                                                                                     //   ),
                                                                                     // ),
                                                                                     Container(
@@ -697,14 +695,14 @@ class _WalletScreenState extends BaseRouteState {
                                                                                       child: Text(
                                                                                         "${walletTransactionList[index].walletAmount!.toStringAsFixed(2)} AED",
                                                                                         style: TextStyle(
-                                                                                            fontFamily: fontMetropolisRegular,
+                                                                                            fontFamily: fontOufitMedium,
                                                                                             color: walletTransactionList[index].walletType!.toLowerCase() == "reward wallet" || walletTransactionList[index].walletType!.toLowerCase() == "cash wallet"
                                                                                                 ? walletTransactionList[index].walletAmount!.toString().contains("-")
-                                                                                                    ? ColorConstants.appColor
+                                                                                                    ? ColorConstants.lightRedVelvet30
                                                                                                     : ColorConstants.green
-                                                                                                : ColorConstants.appColor,
+                                                                                                : ColorConstants.lightRedVelvet30,
                                                                                             fontSize: 16,
-                                                                                            fontWeight: FontWeight.w200,
+                                                                                            fontWeight: FontWeight.w400,
                                                                                             letterSpacing: 1),
                                                                                       ),
                                                                                     ),
@@ -742,11 +740,11 @@ class _WalletScreenState extends BaseRouteState {
                                                                                           child: walletTransactionList[index].walletType!.toLowerCase() == "reward wallet"
                                                                                               ? Text(
                                                                                                   "Wallet Type:",
-                                                                                                  style: TextStyle(fontFamily: fontMetropolisRegular, color: ColorConstants.pureBlack, fontSize: 14, fontWeight: FontWeight.w200, letterSpacing: 0.1),
+                                                                                                  style: TextStyle(fontFamily: fontRailwayRegular, color: ColorConstants.pureBlack, fontSize: 14, fontWeight: FontWeight.w400, letterSpacing: 0.1),
                                                                                                 )
                                                                                               : Text(
                                                                                                   "Wallet Type:", //walletTransactionList[index].walletType!.toLowerCase() == "cash wallet" ? "Amount:" : "Total Pay:",
-                                                                                                  style: TextStyle(fontFamily: fontMetropolisRegular, color: ColorConstants.pureBlack, fontSize: 14, fontWeight: FontWeight.w200, letterSpacing: 0.1),
+                                                                                                  style: TextStyle(fontFamily: fontRailwayRegular, color: ColorConstants.pureBlack, fontSize: 14, fontWeight: FontWeight.w400, letterSpacing: 0.1),
                                                                                                 ),
                                                                                         )
                                                                                       : Container(
@@ -758,7 +756,7 @@ class _WalletScreenState extends BaseRouteState {
                                                                                           margin: EdgeInsets.only(top: 1, left: 2),
                                                                                           child: Text(
                                                                                             "Wallet Type:",
-                                                                                            style: TextStyle(fontFamily: fontMetropolisRegular, color: ColorConstants.pureBlack, fontSize: 14, fontWeight: FontWeight.w200, letterSpacing: 0.1),
+                                                                                            style: TextStyle(fontFamily: fontRailwayRegular, color: ColorConstants.pureBlack, fontSize: 14, fontWeight: FontWeight.w400, letterSpacing: 0.1),
                                                                                           ))
                                                                                       : Container(
                                                                                           child: Text(
@@ -769,7 +767,7 @@ class _WalletScreenState extends BaseRouteState {
                                                                                           margin: EdgeInsets.only(top: 1, left: 2),
                                                                                           child: Text(
                                                                                             "Wallet Type:", //"Refund Amount:",
-                                                                                            style: TextStyle(fontFamily: fontMetropolisRegular, color: ColorConstants.pureBlack, fontSize: 14, fontWeight: FontWeight.w200, letterSpacing: 0.1),
+                                                                                            style: TextStyle(fontFamily: fontRailwayRegular, color: ColorConstants.pureBlack, fontSize: 14, fontWeight: FontWeight.w400, letterSpacing: 0.1),
                                                                                           ))
                                                                                       : Container(
                                                                                           child: Text(
@@ -779,7 +777,7 @@ class _WalletScreenState extends BaseRouteState {
                                                                                     margin: EdgeInsets.only(top: 1, left: 5),
                                                                                     child: Text(
                                                                                       "${walletTransactionList[index].walletType}",
-                                                                                      style: TextStyle(fontFamily: fontMetropolisRegular, color: ColorConstants.pureBlack, fontSize: 14, fontWeight: FontWeight.w200, letterSpacing: 1),
+                                                                                      style: TextStyle(fontFamily: fontRailwayRegular, color: ColorConstants.newTextHeadingFooter, fontSize: 14, fontWeight: FontWeight.w400, letterSpacing: 1),
                                                                                     ),
                                                                                   ),
                                                                                 ],
@@ -793,10 +791,10 @@ class _WalletScreenState extends BaseRouteState {
                                                                                           child: Text(
                                                                                             "Order id:-",
                                                                                             style: TextStyle(
-                                                                                              fontFamily: fontMetropolisRegular,
+                                                                                              fontFamily: fontRailwayRegular,
                                                                                               color: ColorConstants.pureBlack,
                                                                                               fontSize: 14,
-                                                                                              fontWeight: FontWeight.w200,
+                                                                                              fontWeight: FontWeight.w400,
                                                                                             ),
                                                                                           ),
                                                                                         ),
@@ -805,10 +803,10 @@ class _WalletScreenState extends BaseRouteState {
                                                                                           child: Text(
                                                                                             "${walletTransactionList[index].cartId}",
                                                                                             style: TextStyle(
-                                                                                              fontFamily: fontMetropolisRegular,
+                                                                                              fontFamily: fontRailwayRegular,
                                                                                               color: ColorConstants.pureBlack,
                                                                                               fontSize: 14,
-                                                                                              fontWeight: FontWeight.w200,
+                                                                                              fontWeight: FontWeight.w400,
                                                                                             ),
                                                                                           ),
                                                                                         ),
@@ -821,14 +819,14 @@ class _WalletScreenState extends BaseRouteState {
                                                                                           margin: EdgeInsets.only(top: 8),
                                                                                           child: Text(
                                                                                             "Expiry Date:",
-                                                                                            style: TextStyle(fontFamily: fontMetropolisRegular, color: ColorConstants.pureBlack, fontSize: 14, fontWeight: FontWeight.w200, letterSpacing: 0.1),
+                                                                                            style: TextStyle(fontFamily: fontRailwayRegular, color: ColorConstants.pureBlack, fontSize: 14, fontWeight: FontWeight.w400, letterSpacing: 0.1),
                                                                                           ),
                                                                                         ),
                                                                                         Container(
                                                                                           margin: EdgeInsets.only(top: 8, left: 8),
                                                                                           child: Text(
                                                                                             walletTransactionList[index].walletExpiryDate != null ? "${global.dateOnly.format(DateTime.parse(walletTransactionList[index].walletExpiryDate!))}" : "",
-                                                                                            style: TextStyle(fontFamily: fontMetropolisRegular, color: ColorConstants.appColor, fontSize: 14, fontWeight: FontWeight.w200, letterSpacing: 1),
+                                                                                            style: TextStyle(fontFamily: fontRailwayRegular, color: ColorConstants.appColor, fontSize: 14, fontWeight: FontWeight.w400, letterSpacing: 1),
                                                                                           ),
                                                                                         ),
                                                                                       ],
@@ -840,49 +838,49 @@ class _WalletScreenState extends BaseRouteState {
                                                                                     margin: EdgeInsets.only(top: 8),
                                                                                     child: Text(
                                                                                       "Reward Date:",
-                                                                                      style: TextStyle(fontFamily: fontMetropolisRegular, color: ColorConstants.pureBlack, fontSize: 14, fontWeight: FontWeight.w200, letterSpacing: 0.1),
+                                                                                      style: TextStyle(fontFamily: fontRailwayRegular, color: ColorConstants.pureBlack, fontSize: 14, fontWeight: FontWeight.w400, letterSpacing: 0.1),
                                                                                     ),
                                                                                   ):SizedBox(),
                                                                                   walletTransactionList[index].walletType!.toLowerCase() == "deduction"?Container(
                                                                                     margin: EdgeInsets.only(top: 8),
                                                                                     child: Text(
                                                                                       "Deduction Date:",
-                                                                                      style: TextStyle(fontFamily: fontMetropolisRegular, color: ColorConstants.pureBlack, fontSize: 14, fontWeight: FontWeight.w200, letterSpacing: 0.1),
+                                                                                      style: TextStyle(fontFamily: fontRailwayRegular, color: ColorConstants.pureBlack, fontSize: 14, fontWeight: FontWeight.w400, letterSpacing: 0.1),
                                                                                     ),
                                                                                   ):SizedBox(),
                                                                                   walletTransactionList[index].walletdisname !=null && walletTransactionList[index].walletdisname!.toLowerCase() == "refund"?Container(
                                                                                     margin: EdgeInsets.only(top: 8),
                                                                                     child: Text(
                                                                                       "Refund Date:",
-                                                                                      style: TextStyle(fontFamily: fontMetropolisRegular, color: ColorConstants.pureBlack, fontSize: 14, fontWeight: FontWeight.w200, letterSpacing: 0.1),
+                                                                                      style: TextStyle(fontFamily: fontRailwayRegular, color: ColorConstants.pureBlack, fontSize: 14, fontWeight: FontWeight.w400, letterSpacing: 0.1),
                                                                                     ),
                                                                                   ):SizedBox(),
                                                                                  walletTransactionList[index].walletdisname !=null && walletTransactionList[index].walletdisname!.toLowerCase() == "referral"?Container(
                                                                                     margin: EdgeInsets.only(top: 8),
                                                                                     child: Text(
                                                                                       "Refer Date:",
-                                                                                      style: TextStyle(fontFamily: fontMetropolisRegular, color: ColorConstants.pureBlack, fontSize: 14, fontWeight: FontWeight.w200, letterSpacing: 0.1),
+                                                                                      style: TextStyle(fontFamily: fontRailwayRegular, color: ColorConstants.pureBlack, fontSize: 14, fontWeight: FontWeight.w400, letterSpacing: 0.1),
                                                                                     ),
                                                                                   ):SizedBox(),
                                                                                   walletTransactionList[index].walletdisname !=null && (walletTransactionList[index].walletType!.toLowerCase() != "deduction" && walletTransactionList[index].walletdisname!.toLowerCase() == "refund" && walletTransactionList[index].walletdisname!.toLowerCase() == "referral")?Container(
                                                                                     margin: EdgeInsets.only(top: 8),
                                                                                     child: Text(
                                                                                       "Date:",
-                                                                                      style: TextStyle(fontFamily: fontMetropolisRegular, color: ColorConstants.pureBlack, fontSize: 14, fontWeight: FontWeight.w200, letterSpacing: 0.1),
+                                                                                      style: TextStyle(fontFamily: fontRailwayRegular, color: ColorConstants.pureBlack, fontSize: 14, fontWeight: FontWeight.w400, letterSpacing: 0.1),
                                                                                     ),
                                                                                   ):SizedBox(),
                                                                                   walletTransactionList[index].walletdisname !=null && walletTransactionList[index].walletdisname!.toLowerCase() != "referral" && walletTransactionList[index].walletdisname!.toLowerCase() != "refund" && walletTransactionList[index].walletType!.toLowerCase() != "deduction" && walletTransactionList[index].walletType!.toLowerCase() != "reward wallet"?Container(
                                                                                     margin: EdgeInsets.only(top: 8),
                                                                                     child: Text(
                                                                                       "Date:",
-                                                                                      style: TextStyle(fontFamily: fontMetropolisRegular, color: ColorConstants.pureBlack, fontSize: 14, fontWeight: FontWeight.w200, letterSpacing: 0.1),
+                                                                                      style: TextStyle(fontFamily: fontRailwayRegular, color: ColorConstants.pureBlack, fontSize: 14, fontWeight: FontWeight.w400, letterSpacing: 0.1),
                                                                                     ),
                                                                                   ):SizedBox(),
                                                                                   Container(
                                                                                     margin: EdgeInsets.only(top: 8, left: 8),
                                                                                     child: Text(
                                                                                       walletTransactionList[index].createdAt != null ? "${dateOnly.format(DateTime.parse((walletTransactionList[index].createdAt!)))}" : "",
-                                                                                      style: TextStyle(fontFamily: fontMetropolisRegular, color: ColorConstants.pureBlack, fontSize: 14, fontWeight: FontWeight.w200, letterSpacing: 1),
+                                                                                      style: TextStyle(fontFamily: fontRailwayRegular, color: ColorConstants.pureBlack, fontSize: 14, fontWeight: FontWeight.w400, letterSpacing: 1),
                                                                                     ),
                                                                                   ),
                                                                                 ],
@@ -970,14 +968,14 @@ class _WalletScreenState extends BaseRouteState {
                                                                                         width: MediaQuery.of(context).size.width,
                                                                                         child: Text(
                                                                                           "${pendingWalletTransactionList[index].walletName}",
-                                                                                          style: TextStyle(fontFamily: fontMetropolisRegular, color: ColorConstants.pureBlack, fontSize: 15, fontWeight: FontWeight.w600),
+                                                                                          style: TextStyle(fontFamily: fontRailwayRegular, color: ColorConstants.pureBlack, fontSize: 15, fontWeight: FontWeight.w600),
                                                                                         ),
                                                                                       )
                                                                                     : Container(
                                                                                         width: MediaQuery.of(context).size.width,
                                                                                         child: Text(
                                                                                           "${pendingWalletTransactionList[index].walletType}",
-                                                                                          style: TextStyle(fontFamily: fontMetropolisRegular, color: ColorConstants.pureBlack, fontSize: 15, fontWeight: FontWeight.w600),
+                                                                                          style: TextStyle(fontFamily: fontRailwayRegular, color: ColorConstants.pureBlack, fontSize: 15, fontWeight: FontWeight.w600),
                                                                                         ),
                                                                                       ),
 
@@ -988,14 +986,14 @@ class _WalletScreenState extends BaseRouteState {
                                                                                 //       margin: EdgeInsets.only(top: 8, left: 2),
                                                                                 //       child: Text(
                                                                                 //         pendingWalletTransactionList[index].walletType!.toLowerCase() == "reward wallet" || pendingWalletTransactionList[index].walletType!.toLowerCase() == "cash wallet" ? "Reward amount:" : "Total Pay:",
-                                                                                //         style: TextStyle(fontFamily: fontMetropolisRegular, color: ColorConstants.pureBlack, fontSize: 14, fontWeight: FontWeight.w200, letterSpacing: 0.1),
+                                                                                //         style: TextStyle(fontFamily: fontRailwayRegular, color: ColorConstants.pureBlack, fontSize: 14, fontWeight: FontWeight.w400, letterSpacing: 0.1),
                                                                                 //       ),
                                                                                 //     ),
                                                                                 //     Container(
                                                                                 //       margin: EdgeInsets.only(top: 8, left: 5),
                                                                                 //       child: Text(
                                                                                 //         "${pendingWalletTransactionList[index].walletAmount} AED",
-                                                                                //         style: TextStyle(fontFamily: fontMetropolisRegular, color: walletTransactionList[index].walletType!.toLowerCase() == "reward wallet" || walletTransactionList[index].walletType!.toLowerCase() == "cash wallet" ? ColorConstants.green : ColorConstants.appColor, fontSize: 16, fontWeight: FontWeight.w200, letterSpacing: 1),
+                                                                                //         style: TextStyle(fontFamily: fontRailwayRegular, color: walletTransactionList[index].walletType!.toLowerCase() == "reward wallet" || walletTransactionList[index].walletType!.toLowerCase() == "cash wallet" ? ColorConstants.green : ColorConstants.appColor, fontSize: 16, fontWeight: FontWeight.w400, letterSpacing: 1),
                                                                                 //       ),
                                                                                 //     ),
                                                                                 //   ],
@@ -1007,7 +1005,7 @@ class _WalletScreenState extends BaseRouteState {
                                                                                       child: Text(
                                                                                               "Amount: ",
                                                                                               // walletTransactionList[index].walletType!.toLowerCase() == "cash wallet" ? "Amount:" : "Total Pay:",
-                                                                                              style: TextStyle(fontFamily: fontMetropolisRegular, color: ColorConstants.pureBlack, fontSize: 14, fontWeight: FontWeight.w200, letterSpacing: 0.1),
+                                                                                              style: TextStyle(fontFamily: fontRailwayRegular, color: ColorConstants.pureBlack, fontSize: 14, fontWeight: FontWeight.w400, letterSpacing: 0.1),
                                                                                             ),
                                                                                     ),
                                                                                     Expanded(
@@ -1017,7 +1015,7 @@ class _WalletScreenState extends BaseRouteState {
                                                                                       margin: EdgeInsets.only(top: 8, left: 5),
                                                                                       child: Text(
                                                                                         "${pendingWalletTransactionList[index].walletAmount!.toStringAsFixed(2)} AED",
-                                                                                        style: TextStyle(fontFamily: fontMetropolisRegular, color: walletTransactionList[index].walletType!.toLowerCase() == "reward wallet" || walletTransactionList[index].walletType!.toLowerCase() == "cash wallet" ? ColorConstants.green : ColorConstants.appColor, fontSize: 16, fontWeight: FontWeight.w200, letterSpacing: 1),
+                                                                                        style: TextStyle(fontFamily: fontRailwayRegular, color: walletTransactionList[index].walletType!.toLowerCase() == "reward wallet" || walletTransactionList[index].walletType!.toLowerCase() == "cash wallet" ? ColorConstants.green : ColorConstants.appColor, fontSize: 16, fontWeight: FontWeight.w400, letterSpacing: 1),
                                                                                       ),
                                                                                     ),
                                                                                     SizedBox(width: 8,)
@@ -1049,13 +1047,13 @@ class _WalletScreenState extends BaseRouteState {
                                                                                   Container(
                                                                                     child: Text(
                                                                                       "Wallet Type:",
-                                                                                      style: TextStyle(fontFamily: fontMetropolisRegular, color: ColorConstants.pureBlack, fontSize: 14, fontWeight: FontWeight.w200, letterSpacing: 0.1),
+                                                                                      style: TextStyle(fontFamily: fontRailwayRegular, color: ColorConstants.pureBlack, fontSize: 14, fontWeight: FontWeight.w400, letterSpacing: 0.1),
                                                                                     ),
                                                                                   ),
                                                                                   Container(
                                                                                     child: Text(
                                                                                       "${pendingWalletTransactionList[index].walletType}",
-                                                                                      style: TextStyle(fontFamily: fontMetropolisRegular, color: ColorConstants.pureBlack, fontSize: 14, fontWeight: FontWeight.w200, letterSpacing: 1),
+                                                                                      style: TextStyle(fontFamily: fontRailwayRegular, color: ColorConstants.pureBlack, fontSize: 14, fontWeight: FontWeight.w400, letterSpacing: 1),
                                                                                     ),
                                                                                   ),
                                                                                 ],
@@ -1069,10 +1067,10 @@ class _WalletScreenState extends BaseRouteState {
                                                                                             child: Text(
                                                                                               "Order id:- ",
                                                                                               style: TextStyle(
-                                                                                                fontFamily: fontMetropolisRegular,
+                                                                                                fontFamily: fontRailwayRegular,
                                                                                                 color: ColorConstants.pureBlack,
                                                                                                 fontSize: 14,
-                                                                                                fontWeight: FontWeight.w200,
+                                                                                                fontWeight: FontWeight.w400,
                                                                                               ),
                                                                                             ),
                                                                                           ),
@@ -1081,10 +1079,10 @@ class _WalletScreenState extends BaseRouteState {
                                                                                             child: Text(
                                                                                               "${pendingWalletTransactionList[index].cartId}",
                                                                                               style: TextStyle(
-                                                                                                fontFamily: fontMetropolisRegular,
+                                                                                                fontFamily: fontRailwayRegular,
                                                                                                 color: ColorConstants.pureBlack,
                                                                                                 fontSize: 14,
-                                                                                                fontWeight: FontWeight.w200,
+                                                                                                fontWeight: FontWeight.w400,
                                                                                               ),
                                                                                             ),
                                                                                           ),
@@ -1098,14 +1096,14 @@ class _WalletScreenState extends BaseRouteState {
                                                                                           margin: EdgeInsets.only(top: 8),
                                                                                           child: Text(
                                                                                             "Expiry Date:",
-                                                                                            style: TextStyle(fontFamily: fontMetropolisRegular, color: ColorConstants.pureBlack, fontSize: 14, fontWeight: FontWeight.w200, letterSpacing: 0.1),
+                                                                                            style: TextStyle(fontFamily: fontRailwayRegular, color: ColorConstants.pureBlack, fontSize: 14, fontWeight: FontWeight.w400, letterSpacing: 0.1),
                                                                                           ),
                                                                                         ),
                                                                                         Container(
                                                                                           margin: EdgeInsets.only(top: 8, left: 8),
                                                                                           child: Text(
                                                                                             pendingWalletTransactionList[index].walletExpiryDate != null ? "${dateOnly.format(DateTime.parse((pendingWalletTransactionList[index].walletExpiryDate!)))}" : "",
-                                                                                            style: TextStyle(fontFamily: fontMetropolisRegular, color: ColorConstants.pureBlack, fontSize: 14, fontWeight: FontWeight.w200, letterSpacing: 1),
+                                                                                            style: TextStyle(fontFamily: fontRailwayRegular, color: ColorConstants.pureBlack, fontSize: 14, fontWeight: FontWeight.w400, letterSpacing: 1),
                                                                                           ),
                                                                                         ),
                                                                                       ],
@@ -1145,10 +1143,10 @@ class _WalletScreenState extends BaseRouteState {
                                                           TextAlign.center,
                                                       style: TextStyle(
                                                           fontFamily: global
-                                                              .fontMontserratLight,
+                                                              .fontRailwayRegular,
                                                           fontSize: 20,
                                                           fontWeight:
-                                                              FontWeight.w200,
+                                                              FontWeight.w400,
                                                           color: ColorConstants
                                                               .guidlinesGolden),
                                                     ),
@@ -1174,9 +1172,9 @@ class _WalletScreenState extends BaseRouteState {
                               'Wallet feeling light? \n"Time to fill it with gifting perks and surprises!"',
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                  fontFamily: global.fontMontserratLight,
+                                  fontFamily: global.fontRailwayRegular,
                                   fontSize: 20,
-                                  fontWeight: FontWeight.w200,
+                                  fontWeight: FontWeight.w400,
                                   color: ColorConstants.guidlinesGolden),
                             ),
                           ),

@@ -5,6 +5,7 @@ import 'package:byyu/screens/auth/login_screen.dart';
 import 'package:byyu/screens/order/checkout_screen.dart';
 import 'package:byyu/screens/order/coupons_screen.dart';
 import 'package:byyu/screens/product/all_categories_screen.dart';
+import 'package:byyu/widgets/cart_bottom_sheet.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -46,9 +47,11 @@ String imageBaseUrl = 'https://byyu.b-cdn.net/';
 String catImageBaseUrl = 'https://byyu.com/admin/';
 // String catImageBaseUrl = 'https://byyu.com/adminDev/';
 
-String baseUrl = 'https://byyu.com/admin/api/'; //this is live base URL
+String baseUrl = 'https://esganalytix.com/admin/api/'; //this is live base URL
+// String baseUrl = 'https://byyu.com/admin/api/'; //this is live base URL
 // String baseUrl = 'https://byyu.com/adminDev/api/'; //this  is devBaseUrl
-String nodeBaseUrl = 'http://node.byyu.com/api/'; //node this is live base URL
+// String nodeBaseUrl = 'http://node.byyu.com/api/';//'https://byyu.com/admin/api/'; //node this is live base URL
+String nodeBaseUrl = 'https://node.esganalytix.com/api/';//'https://byyu.com/admin/api/'; //node this is live base URL
 // String nodeBaseUrl = 'https://byyu.com/adminDev/api/'; //node this is live base URL
 
 
@@ -207,6 +210,12 @@ List<String> allMonths = [
   "December"
 ];
 
+List<String> homeScrollingTitles = [
+  "10% OFF ON ALL ORDERS",
+  "PREMIUM QUALITY PRODUCTS",
+  "CUSTOMISABLE GIFTS        "
+];
+
 TextStyle errorTextStyle = TextStyle(
     fontFamily: fontMontserratMedium,
     fontWeight: FontWeight.w200,
@@ -217,7 +226,13 @@ TextStyle errorTextStyle = TextStyle(
 const fontAdelia = 'Adelia';
 const fontMontserratLight = 'metropolis_semi_bold';
 const fontMontserratMedium = 'metropolis_medium';
-const fontMetropolisRegular = 'metropolis_regular';
+// const fontMetropolisRegular = 'metropolis_regular';
+const fontMetropolisRegular = fontRailwayRegular;
+
+const fontOufitMedium = 'Outfit-Medium';
+const fontRalewayMedium = 'Raleway-Medium';
+const fontRailwayRegular = 'Raleway-Regular';
+const fontRailwaySemibold = 'Raleway-Semibold';
 DateFormat monthInStrFormat = DateFormat("yyyy-MMMM-dd");
 DateFormat monthInIntFormt = DateFormat("yyyy-MM-dd");
 DateFormat dateandtime = DateFormat("yyyy-MM-dd HH:mm");
@@ -961,3 +976,25 @@ void showToastMSG(String msg){
           // duration
         );  
 }
+
+void showCartBottomSheet(context,a,o){
+    showModalBottomSheet(
+                        context: context,
+                        isScrollControlled: true,
+                        useRootNavigator: true,
+                        backgroundColor: Colors.transparent,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(20),
+                            topRight: Radius.circular(20),
+                          ),
+                        ),
+                        builder: (context) => CartBottomSheet(
+                          analytics: a,
+                          observer: o,
+                          fromNavigationBar: false,
+                          callbackHomescreenSetState: null,
+                        ),
+                      );
+  }
+

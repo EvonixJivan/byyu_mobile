@@ -24,11 +24,9 @@ class _ReferralShareScreenState extends BaseRouteState {
     super.initState();
     Future.delayed(Duration.zero, () {
       if (global.currentUser != null && global.currentUser.id != null) {
-       _getAppInfo();
+        _getAppInfo();
       }
     });
-     
-    
   }
 
   _getAppInfo() async {
@@ -43,10 +41,8 @@ class _ReferralShareScreenState extends BaseRouteState {
               print(global.appInfo.userwallet);
               hideLoader();
               setState(() {});
-            }else{
-              
-            }
-          }else{
+            } else {}
+          } else {
             hideLoader();
           }
         });
@@ -54,8 +50,9 @@ class _ReferralShareScreenState extends BaseRouteState {
     } catch (e) {
       hideLoader();
       print("Exception - PaymentScreen.dart - _getAppInfo():" + e.toString());
-    } 
+    }
   }
+
   showOnlyLoaderDialog() {
     return showDialog(
       context: context,
@@ -74,26 +71,26 @@ class _ReferralShareScreenState extends BaseRouteState {
     Navigator.pop(context);
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorConstants.white,
+      backgroundColor: ColorConstants.colorPageBackground,
       appBar: AppBar(
+        backgroundColor: ColorConstants.appBarColorWhite,
         title: Text(
           "Refer & Earn",
           style: TextStyle(
               color: ColorConstants.pureBlack,
-              fontFamily: fontMetropolisRegular,
-              fontWeight: FontWeight.w200), //textTheme.headline6,
+              fontFamily: fontRailwayRegular,
+              fontWeight: FontWeight.w200), //textTheme.titleLarge,
         ),
-        centerTitle: true,
-        leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: Icon(Icons.arrow_back),
-            color: ColorConstants.pureBlack),
+        centerTitle: false,
+        leading: BackButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              color: ColorConstants.newAppColor),
+        
       ),
 
       // body: Container(
@@ -156,7 +153,7 @@ class _ReferralShareScreenState extends BaseRouteState {
       //                 "Gift joy with every referral! Invite friends to byyu and earn AED ${appInfo.myReferralAmount!.toStringAsFixed(2)} as a thank you. Your friends receive a warm welcome with AED ${appInfo.referedtoAmount!.toStringAsFixed(2)} off their first cherished order. Spread the delight with byyu!",
       //                 textAlign: TextAlign.start,
       //                 style: TextStyle(
-      //                     fontFamily: fontMetropolisRegular,
+      //                     fontFamily: fontRailwayRegular,
       //                     fontSize: 15,
       //                     fontWeight: FontWeight.w200,
       //                     letterSpacing: 0.1,
@@ -225,7 +222,7 @@ class _ReferralShareScreenState extends BaseRouteState {
       //                         "Referrals",
       //                         textAlign: TextAlign.center,
       //                         style: TextStyle(
-      //                             fontFamily: fontMetropolisRegular,
+      //                             fontFamily: fontRailwayRegular,
       //                             fontSize: 13,
       //                             fontWeight: FontWeight.w200,
       //                             color: ColorConstants.pureBlack),
@@ -281,7 +278,7 @@ class _ReferralShareScreenState extends BaseRouteState {
       //                         "Earned",
       //                         textAlign: TextAlign.center,
       //                         style: TextStyle(
-      //                             fontFamily: fontMetropolisRegular,
+      //                             fontFamily: fontRailwayRegular,
       //                             fontSize: 13,
       //                             fontWeight: FontWeight.w200,
       //                             color: ColorConstants.pureBlack),
@@ -342,63 +339,38 @@ class _ReferralShareScreenState extends BaseRouteState {
               margin: EdgeInsets.only(bottom: 10),
               height: 120,
               child: Center(
-                child:  CachedNetworkImage(
-                                                                height: 110,
-                                                                fit: BoxFit
-                                                                    .contain,
-                                                                width: 110,
-                                                                imageUrl: global
-                                                                        .imageBaseUrl +
-                                                                    global.appInfo.referralScreenImageUrl!,
-                                                                imageBuilder:
-                                                                    (context,
-                                                                            imageProvider) =>
-                                                                        Container(
-                                                                  height: double
-                                                                      .infinity,
-                                                                  width: double
-                                                                      .infinity,
-                                                                  decoration:
-                                                                      BoxDecoration(
-                                                                    // borderRadius: BorderRadius.circular(10),
-                                                                    image:
-                                                                        DecorationImage(
-                                                                      image:
-                                                                          imageProvider,
-                                                                      fit: BoxFit
-                                                                          .cover,
-                                                                      alignment:
-                                                                          Alignment
-                                                                              .center,
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                                placeholder: (context,
-                                                                        url) =>
-                                                                    Center(
-                                                                        child:
-                                                                            CircularProgressIndicator()),
-                                                                errorWidget: (context,
-                                                                        url,
-                                                                        error) =>
-                                                                    Container(
-                                                                  width: 70.0,
-                                                                  height: 70.0,
-                                                                  decoration:
-                                                                      BoxDecoration(
-                                                                    // borderRadius: BorderRadius.circular(15),
-                                                                    image:
-                                                                        DecorationImage(
-                                                                      image: AssetImage(
-                                                                          global
-                                                                              .catNoImage),
-                                                                      fit: BoxFit
-                                                                          .contain,
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                        
+                child: CachedNetworkImage(
+                  height: 110,
+                  fit: BoxFit.contain,
+                  width: 110,
+                  imageUrl: global.imageBaseUrl +
+                      global.appInfo.referralScreenImageUrl!,
+                  imageBuilder: (context, imageProvider) => Container(
+                    height: double.infinity,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      // borderRadius: BorderRadius.circular(10),
+                      image: DecorationImage(
+                        image: imageProvider,
+                        fit: BoxFit.cover,
+                        alignment: Alignment.center,
+                      ),
+                    ),
+                  ),
+                  placeholder: (context, url) =>
+                      Center(child: CircularProgressIndicator()),
+                  errorWidget: (context, url, error) => Container(
+                    width: 70.0,
+                    height: 70.0,
+                    decoration: BoxDecoration(
+                      // borderRadius: BorderRadius.circular(15),
+                      image: DecorationImage(
+                        image: AssetImage(global.catNoImage),
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                  ),
+                ),
               ),
             ),
 
@@ -412,7 +384,7 @@ class _ReferralShareScreenState extends BaseRouteState {
                 "REFER NOW AND EARN",
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                    fontFamily: fontMetropolisRegular,
+                    fontFamily: fontRailwayRegular,
                     fontWeight: FontWeight.w200,
                     fontSize: 18,
                     // fontWeight: FontWeight.w500,
@@ -426,7 +398,7 @@ class _ReferralShareScreenState extends BaseRouteState {
                 style: TextStyle(
                   color: ColorConstants.appColor,
                   fontSize: 17,
-                  fontFamily: fontMontserratLight,
+                  fontFamily: fontOufitMedium,
                 ),
                 children: <TextSpan>[
                   TextSpan(
@@ -434,7 +406,7 @@ class _ReferralShareScreenState extends BaseRouteState {
                       style: TextStyle(
                           color: ColorConstants.pureBlack,
                           fontSize: 17,
-                          fontFamily: fontMetropolisRegular,
+                          fontFamily: fontRailwayRegular,
                           fontWeight: FontWeight.w200)),
                 ],
               ),
@@ -473,13 +445,12 @@ class _ReferralShareScreenState extends BaseRouteState {
                               "Invite your friends to byyu's",
                               textAlign: TextAlign.start,
                               style: TextStyle(
-                                  fontFamily: fontMetropolisRegular,
-                                  fontWeight: FontWeight.w200,
+                                  fontFamily: fontRailwayRegular,
+                                  fontWeight: FontWeight.w400,
                                   fontSize: 15,
-                                  letterSpacing: 0.5,
-
+                                
                                   // fontWeight: FontWeight.w600,
-                                  color: ColorConstants.pureBlack),
+                                  color: ColorConstants.newTextHeadingFooter),
                             ),
                             SizedBox(
                               height: 8,
@@ -491,9 +462,9 @@ class _ReferralShareScreenState extends BaseRouteState {
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
                                     height: 1.4,
-                                    fontFamily: fontMetropolisRegular,
-                                    fontWeight: FontWeight.w200,
-                                    fontSize: 12,
+                                    fontFamily: fontRailwayRegular,
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 12.2,
                                     color: ColorConstants.appColor),
                               ),
                             ),
@@ -543,7 +514,7 @@ class _ReferralShareScreenState extends BaseRouteState {
                               "Your friends receive ",
                               textAlign: TextAlign.start,
                               style: TextStyle(
-                                  fontFamily: fontMetropolisRegular,
+                                  fontFamily: fontRailwayRegular,
                                   fontWeight: FontWeight.w200,
                                   fontSize: 15,
                                   color: ColorConstants.pureBlack),
@@ -557,8 +528,8 @@ class _ReferralShareScreenState extends BaseRouteState {
                                     'AED ${appInfo.referedtoAmount!.toStringAsFixed(2)} ',
                                 style: TextStyle(
                                   color: ColorConstants.appColor,
-                                  fontSize: 17,
-                                  fontFamily: fontMontserratLight,
+                                  fontSize: 16,
+                                  fontFamily: fontOufitMedium,
                                 ),
                                 children: <TextSpan>[
                                   TextSpan(
@@ -566,7 +537,7 @@ class _ReferralShareScreenState extends BaseRouteState {
                                       style: TextStyle(
                                         color: ColorConstants.pureBlack,
                                         fontSize: 15,
-                                        fontFamily: fontMetropolisRegular,
+                                        fontFamily: fontRailwayRegular,
                                         fontWeight: FontWeight.w200,
                                       )),
                                 ],
@@ -626,8 +597,8 @@ class _ReferralShareScreenState extends BaseRouteState {
                                 text: 'You get ',
                                 style: TextStyle(
                                   color: ColorConstants.pureBlack,
-                                  fontSize: 17,
-                                  fontFamily: fontMetropolisRegular,
+                                  fontSize: 15,
+                                  fontFamily: fontRailwayRegular,
                                   fontWeight: FontWeight.w200,
                                 ),
                                 children: <TextSpan>[
@@ -636,8 +607,8 @@ class _ReferralShareScreenState extends BaseRouteState {
                                           ' AED ${appInfo.myReferralAmount!.toStringAsFixed(2)}',
                                       style: TextStyle(
                                         color: ColorConstants.appColor,
-                                        fontSize: 17,
-                                        fontFamily: fontMontserratLight,
+                                        fontSize: 16,
+                                        fontFamily: fontOufitMedium,
                                       )),
                                   TextSpan(
                                       text:
@@ -645,9 +616,9 @@ class _ReferralShareScreenState extends BaseRouteState {
                                       style: TextStyle(
                                         height: 1.2,
                                         color: ColorConstants.pureBlack,
-                                        fontSize: 17,
-                                        fontFamily: fontMetropolisRegular,
-                                        fontWeight: FontWeight.w200,
+                                        fontSize: 15,
+                                        fontFamily: fontRailwayRegular,
+                                        fontWeight: FontWeight.w400,
                                       )),
                                 ],
                               ),
@@ -675,7 +646,7 @@ class _ReferralShareScreenState extends BaseRouteState {
               padding: EdgeInsets.only(top: 18, bottom: 18),
               margin: EdgeInsets.only(left: 10, right: 10),
               decoration: BoxDecoration(
-                  color: Colors.green.shade50,
+                  color: ColorConstants.colorHomePageSectiondim,
                   border: Border.all(
                     color: Colors.green.shade50,
                   ),
@@ -684,7 +655,7 @@ class _ReferralShareScreenState extends BaseRouteState {
                 "Referral code: ${global.currentUser.referralCode}",
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                    fontFamily: fontMontserratLight,
+                    fontFamily: fontRalewayMedium,
                     fontSize: 15,
                     letterSpacing: 0.5,
                     // fontWeight: FontWeight.w600,
@@ -706,9 +677,9 @@ class _ReferralShareScreenState extends BaseRouteState {
                         EdgeInsets.only(top: 8, bottom: 8, right: 5, left: 5),
                     decoration: BoxDecoration(
                         border: Border.all(
-                            color: ColorConstants.referalCountYellow),
+                            color: ColorConstants.appColor),
                         borderRadius: BorderRadius.circular(8),
-                        color: ColorConstants.referalCountYellow),
+                        color: ColorConstants.colorHomePageSectiondim),
                     child: Column(
                       children: [
                         Text(
@@ -716,11 +687,11 @@ class _ReferralShareScreenState extends BaseRouteState {
                           textAlign: TextAlign.center,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
-                              fontFamily: fontMontserratLight,
+                              fontFamily: fontRailwayRegular,
                               fontSize: 15,
-                              // fontWeight: FontWeight.w600,
+                              fontWeight: FontWeight.w900,
                               letterSpacing: 1,
-                              color: ColorConstants.pureBlack),
+                              color: ColorConstants.newTextHeadingFooter),
                         ),
                         SizedBox(
                           height: 8,
@@ -729,9 +700,9 @@ class _ReferralShareScreenState extends BaseRouteState {
                           "Referrals",
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                              fontFamily: fontMetropolisRegular,
+                              fontFamily: fontRailwayRegular,
                               fontSize: 13,
-                              fontWeight: FontWeight.w200,
+                              fontWeight: FontWeight.w400,
                               color: ColorConstants.pureBlack),
                         ),
                       ],
@@ -743,9 +714,9 @@ class _ReferralShareScreenState extends BaseRouteState {
                         EdgeInsets.only(top: 8, bottom: 8, right: 5, left: 5),
                     decoration: BoxDecoration(
                         border: Border.all(
-                            color: ColorConstants.referalCountYellow),
+                            color: ColorConstants.appColor),
                         borderRadius: BorderRadius.circular(8),
-                        color: ColorConstants.referalCountYellow),
+                        color: ColorConstants.colorHomePageSectiondim),
                     child: Column(
                       children: [
                         Row(
@@ -756,8 +727,8 @@ class _ReferralShareScreenState extends BaseRouteState {
                               "AED",
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                  fontFamily: fontMontserratLight,
-                                  fontSize: 10,
+                                  fontFamily: fontOufitMedium,
+                                  fontSize: 15,
                                   // fontWeight: FontWeight.w600,
                                   color: ColorConstants.pureBlack),
                             ),
@@ -770,7 +741,7 @@ class _ReferralShareScreenState extends BaseRouteState {
                                 textAlign: TextAlign.center,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
-                                    fontFamily: fontMontserratLight,
+                                    fontFamily: fontOufitMedium,
                                     fontSize: 15,
                                     // fontWeight: FontWeight.w600,
                                     color: ColorConstants.pureBlack),
@@ -785,9 +756,9 @@ class _ReferralShareScreenState extends BaseRouteState {
                           "Earned",
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                              fontFamily: fontMetropolisRegular,
+                              fontFamily: fontRailwayRegular,
                               fontSize: 13,
-                              fontWeight: FontWeight.w200,
+                              fontWeight: FontWeight.w400,
                               color: ColorConstants.pureBlack),
                         ),
                       ],

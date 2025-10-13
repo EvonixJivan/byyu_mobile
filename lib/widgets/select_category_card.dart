@@ -184,7 +184,7 @@ class _SelectCategoryCardState extends State<SelectCategoryCard> {
                       Container(
                         width: (MediaQuery.of(context).size.width / 2) - 10,
                         child: CachedNetworkImage(
-                          imageUrl: catImageBaseUrl + category!.image!,
+                          imageUrl: imageBaseUrl + category!.image!,
                           imageBuilder: (context, imageProvider) => Container(
                             child: Container(
                               decoration: BoxDecoration(
@@ -220,11 +220,11 @@ class _SelectCategoryCardState extends State<SelectCategoryCard> {
                                 "${category!.title}",
                                 textAlign: TextAlign.start,
                                 style: TextStyle(
-                                    fontFamily: global.fontMontserratLight,
+                                    fontFamily: global.fontRailwaySemibold,
                                     fontSize: 18,
                                     fontWeight: FontWeight.w200,
                                     overflow: TextOverflow.ellipsis,
-                                    color: ColorConstants.pureBlack),
+                                    color: ColorConstants.newTextHeadingFooter),
                               ),
                             ),
                             Container(
@@ -309,12 +309,12 @@ class _SelectCategoryCardState extends State<SelectCategoryCard> {
                                             "${category!.subcategory![index].title}",
                                             style: TextStyle(
                                                 fontFamily: global
-                                                    .fontMetropolisRegular,
+                                                    .fontRailwaySemibold,
                                                 fontSize: 14,
                                                 fontWeight: FontWeight.w400,
                                                 overflow: TextOverflow.ellipsis,
                                                 color:
-                                                    ColorConstants.pureBlack),
+                                                    ColorConstants.newTextHeadingFooter),
                                           ),
                                         ),
                                       )),
@@ -352,11 +352,11 @@ class _SelectCategoryCardState extends State<SelectCategoryCard> {
                                     "${category!.title}",
                                     textAlign: TextAlign.start,
                                     style: TextStyle(
-                                        fontFamily: global.fontMontserratLight,
+                                        fontFamily: global.fontRailwaySemibold,
                                         fontSize: 18,
                                         fontWeight: FontWeight.w200,
                                         overflow: TextOverflow.ellipsis,
-                                        color: ColorConstants.pureBlack),
+                                        color: ColorConstants.newTextHeadingFooter),
                                   ),
                                 ),
                                 Container(
@@ -443,13 +443,13 @@ class _SelectCategoryCardState extends State<SelectCategoryCard> {
                                                 "${category!.subcategory![index].title}",
                                                 style: TextStyle(
                                                     fontFamily: global
-                                                        .fontMetropolisRegular,
+                                                        .fontRailwaySemibold,
                                                     fontSize: 14,
                                                     fontWeight: FontWeight.w200,
                                                     overflow:
                                                         TextOverflow.ellipsis,
                                                     color: ColorConstants
-                                                        .pureBlack),
+                                                        .newTextHeadingFooter),
                                               ),
                                             ),
                                           )),
@@ -460,7 +460,7 @@ class _SelectCategoryCardState extends State<SelectCategoryCard> {
                           Container(
                             width: (MediaQuery.of(context).size.width / 2) - 10,
                             child: CachedNetworkImage(
-                              imageUrl: catImageBaseUrl + category!.image!,
+                              imageUrl: imageBaseUrl + category!.image!,
                               imageBuilder: (context, imageProvider) =>
                                   Container(
                                 decoration: BoxDecoration(

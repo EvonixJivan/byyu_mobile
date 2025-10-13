@@ -63,10 +63,10 @@ class _AllCategoriesScreenState extends BaseRouteState {
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
     return Scaffold(
-      backgroundColor: white,
+      backgroundColor: ColorConstants.colorPageBackground,
       appBar: fromHomeScreen == 1
           ? AppBar(
-              backgroundColor: ColorConstants.appBrownFaintColor,
+              backgroundColor: ColorConstants.white,
               automaticallyImplyLeading: false,
               title: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -78,7 +78,7 @@ class _AllCategoriesScreenState extends BaseRouteState {
                           // "${AppLocalizations.of(context).txt_deliver}",
                           "Deliver to",
                           style: TextStyle(
-                fontFamily: global.fontMetropolisRegular,
+                fontFamily: global.fontRailwayRegular,
                 fontWeight: FontWeight.w200,
                 fontSize: 10,
                 color: ColorConstants.pureBlack),
@@ -120,7 +120,7 @@ class _AllCategoriesScreenState extends BaseRouteState {
                             overflow: TextOverflow.ellipsis,
                             maxLines: 2,
                             style: TextStyle(
-                fontFamily: global.fontMetropolisRegular,
+                fontFamily: global.fontRailwayRegular,
                 fontWeight: FontWeight.w600,
                 fontSize: 14,
                 color: ColorConstants.grey),
@@ -164,16 +164,16 @@ class _AllCategoriesScreenState extends BaseRouteState {
               ],
             )
           : AppBar(
-              backgroundColor: ColorConstants.appBrownFaintColor,
-              centerTitle: true,
+              backgroundColor: ColorConstants.white,
+              centerTitle: false,
               title: Text(
                   "All Categories"
                   // "${AppLocalizations.of(context).tle_all_category} "
                   ,
                   style: TextStyle(
-                      fontFamily: global.fontMetropolisRegular,
+                      fontFamily: global.fontRailwayRegular,
                       fontWeight: FontWeight.normal,
-                      color: ColorConstants.pureBlack) //textTheme.headline6,
+                      color: ColorConstants.pureBlack) //textTheme.titleLarge,
                   ),
               leading: BackButton(
                 onPressed: () {
@@ -385,7 +385,7 @@ class _AllCategoriesScreenState extends BaseRouteState {
       //                                                                       TextAlign.center,
       //                                                                   style: TextStyle(
       //                                                                       fontFamily: global
-      //                                                                           .fontMetropolisRegular,
+      //                                                                           .fontRailwayRegular,
       //                                                                       fontWeight: FontWeight
       //                                                                           .w200,
       //                                                                       fontSize:
@@ -409,7 +409,7 @@ class _AllCategoriesScreenState extends BaseRouteState {
       //                                                                       TextAlign.center,
       //                                                                   style: TextStyle(
       //                                                                       fontFamily: global
-      //                                                                           .fontMetropolisRegular,
+      //                                                                           .fontRailwayRegular,
       //                                                                       fontWeight: FontWeight
       //                                                                           .w200,
       //                                                                       fontSize:

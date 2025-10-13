@@ -107,8 +107,8 @@ class _FilteredSubCategoriesScreenState extends BaseRouteState {
     return Scaffold(
       backgroundColor: global.whitebackground,
       appBar: AppBar(
-        backgroundColor: ColorConstants.appBrownFaintColor,
-        centerTitle: true,
+        backgroundColor: ColorConstants.white,
+        centerTitle: false,
         title: InkWell(
           onTap: () {
             print("###################################################");
@@ -126,9 +126,9 @@ class _FilteredSubCategoriesScreenState extends BaseRouteState {
                     )));
           },
           child: Image.asset(
-            "assets/images/byyu_logo_no_tag.png",
+            "assets/images/new_logo.png",
             fit: BoxFit.contain,
-            height: 40,
+            height: 25,
             alignment: Alignment.center,
           ),
         ),
@@ -167,13 +167,18 @@ class _FilteredSubCategoriesScreenState extends BaseRouteState {
                   builder: (context) => SearchScreen(
                         a: widget.analytics,
                         o: widget.observer,
+                        fromBottomNvigation: false,
                       )));
             },
-            child: Icon(
-              Icons.search,
-              size: 25,
-              color: ColorConstants.allIconsBlack45,
-            ),
+            child: Padding(
+                  padding: EdgeInsets.all(18),
+                  child: Image.asset(
+                  "assets/images/iv_search.png",
+                  fit: BoxFit.contain,
+                  height: 25,
+                  alignment: Alignment.center,
+                                ),
+                ),
           ),
           SizedBox(
             width: 8,
@@ -253,7 +258,7 @@ class _FilteredSubCategoriesScreenState extends BaseRouteState {
                                 child: Text(
                                   _categoryList[categoriesSelectedIndex!].title!,
                                   style: TextStyle(
-                                      fontFamily: global.fontMetropolisRegular,
+                                      fontFamily: global.fontRailwayRegular,
                                       fontWeight: FontWeight.w600,
                                       fontSize: 13,
                                       color: ColorConstants.pureBlack),
@@ -348,7 +353,7 @@ class _FilteredSubCategoriesScreenState extends BaseRouteState {
                                                                                       .center,
                                                                               style: TextStyle(
                                                                                   fontFamily: global
-                                                                                      .fontMetropolisRegular,
+                                                                                      .fontRailwayRegular,
                                                                                   fontWeight: FontWeight
                                                                                       .w200,
                                                                                   fontSize:
@@ -388,7 +393,7 @@ class _FilteredSubCategoriesScreenState extends BaseRouteState {
                                                                                       .center,
                                                                               style: TextStyle(
                                                                                   fontFamily: global
-                                                                                      .fontMetropolisRegular,
+                                                                                      .fontRailwayRegular,
                                                                                   fontWeight: FontWeight
                                                                                       .w200,
                                                                                   fontSize:
@@ -438,7 +443,7 @@ class _FilteredSubCategoriesScreenState extends BaseRouteState {
                                 child: Text(
                                   "Filters",
                                   style: TextStyle(
-                                      fontFamily: global.fontMetropolisRegular,
+                                      fontFamily: global.fontRailwayRegular,
                                       fontWeight: FontWeight.w600,
                                       fontSize: 13,
                                       color: ColorConstants.pureBlack),
@@ -633,7 +638,7 @@ class _FilteredSubCategoriesScreenState extends BaseRouteState {
                                                   child: Text(
                                                     appliedFilter[index].name!,
                                                     style: TextStyle(
-                                                        fontFamily: global.fontMetropolisRegular,
+                                                        fontFamily: global.fontRailwayRegular,
                                                                                 fontWeight: FontWeight
                                                                                     .w200,
                                                                                 fontSize:
@@ -963,7 +968,7 @@ class _FilteredSubCategoriesScreenState extends BaseRouteState {
                     //                                                       textAlign:
                     //                                                           TextAlign.center,
                     //                                                       style: TextStyle(
-                    //                                                           fontFamily: global.fontMetropolisRegular,
+                    //                                                           fontFamily: global.fontRailwayRegular,
                     //                                                           fontWeight: FontWeight.w200,
                     //                                                           fontSize: 10,
                     //                                                           overflow: TextOverflow.ellipsis,
@@ -982,7 +987,7 @@ class _FilteredSubCategoriesScreenState extends BaseRouteState {
                     //                                                       textAlign:
                     //                                                           TextAlign.center,
                     //                                                       style: TextStyle(
-                    //                                                           fontFamily: global.fontMetropolisRegular,
+                    //                                                           fontFamily: global.fontRailwayRegular,
                     //                                                           fontWeight: FontWeight.w200,
                     //                                                           fontSize: 10,
                     //                                                           overflow: TextOverflow.ellipsis,
@@ -1008,7 +1013,7 @@ class _FilteredSubCategoriesScreenState extends BaseRouteState {
                     //                                       //             .center,
                     //                                       //     style: TextStyle(
                     //                                       //         fontFamily: global
-                    //                                       //             .fontMetropolisRegular,
+                    //                                       //             .fontRailwayRegular,
                     //                                       //         fontWeight:
                     //                                       //             FontWeight
                     //                                       //                 .w200,
@@ -1367,7 +1372,7 @@ class _FilteredSubCategoriesScreenState extends BaseRouteState {
                                                                             textAlign:
                                                                                 TextAlign.center,
                                                                             style: TextStyle(
-                                                                                fontFamily: global.fontMetropolisRegular,
+                                                                                fontFamily: global.fontRailwayRegular,
                                                                                 fontWeight: FontWeight.w200,
                                                                                 fontSize: 10,
                                                                                 overflow: TextOverflow.ellipsis,
@@ -1386,7 +1391,7 @@ class _FilteredSubCategoriesScreenState extends BaseRouteState {
                                                                             textAlign:
                                                                                 TextAlign.center,
                                                                             style: TextStyle(
-                                                                                fontFamily: global.fontMetropolisRegular,
+                                                                                fontFamily: global.fontRailwayRegular,
                                                                                 fontWeight: FontWeight.w200,
                                                                                 fontSize: 10,
                                                                                 overflow: TextOverflow.ellipsis,
@@ -1412,7 +1417,7 @@ class _FilteredSubCategoriesScreenState extends BaseRouteState {
                                                             //             .center,
                                                             //     style: TextStyle(
                                                             //         fontFamily: global
-                                                            //             .fontMetropolisRegular,
+                                                            //             .fontRailwayRegular,
                                                             //         fontWeight:
                                                             //             FontWeight
                                                             //                 .w200,

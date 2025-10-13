@@ -87,25 +87,26 @@ class _ProfileEditScreenState extends BaseRouteState {
       color: global.white,
       child: SafeArea(
         child: Scaffold(
+          backgroundColor: ColorConstants.colorPageBackground,
           resizeToAvoidBottomInset: false,
           key: _scaffoldKey,
           appBar: AppBar(
-            backgroundColor: ColorConstants.appBrownFaintColor,
+            backgroundColor: ColorConstants.appBarColorWhite,
             leadingWidth: 46,
-            centerTitle: true,
+            centerTitle: false,
             title: Text(
               "Edit Profile",
               style: TextStyle(
-                fontFamily: fontMetropolisRegular,
+                fontFamily: fontRailwayRegular,
                 fontWeight: FontWeight.normal,
-                color: ColorConstants.pureBlack,
+                color: ColorConstants.newTextHeadingFooter,
               ),
             ),
             leading: BackButton(
               onPressed: () {
                 Navigator.pop(context);
               },
-              color: ColorConstants.pureBlack,
+              color: ColorConstants.appColor,
             ),
           ),
           body: _isDataLoaded!
@@ -116,10 +117,7 @@ class _ProfileEditScreenState extends BaseRouteState {
                   child: SingleChildScrollView(
                     child: Container(
                         height: MediaQuery.of(context).size.height,
-                        decoration: BoxDecoration(
-                            image: DecorationImage(
-                                image: AssetImage("assets/images/login_bg.png"),
-                                fit: BoxFit.cover)),
+                        
                         child: global.currentUser != null &&
                                 global.currentUser.id != null
                             ? Center(
@@ -149,7 +147,7 @@ class _ProfileEditScreenState extends BaseRouteState {
                                                 child: MaterialTextField(
                                                   style: TextStyle(
                                                       fontFamily: global
-                                                          .fontMetropolisRegular,
+                                                          .fontRailwayRegular,
                                                       fontSize: 14,
                                                       fontWeight:
                                                           FontWeight.w200,
@@ -229,7 +227,7 @@ class _ProfileEditScreenState extends BaseRouteState {
                                                   child: MaterialTextField(
                                                     style: TextStyle(
                                                         fontFamily: global
-                                                            .fontMetropolisRegular,
+                                                            .fontRailwayRegular,
                                                         fontSize: 14,
                                                         fontWeight:
                                                             FontWeight.w200,
@@ -356,7 +354,7 @@ class _ProfileEditScreenState extends BaseRouteState {
                                                                             : "+${countryCodeSelected}",
                                                                         style: TextStyle(
                                                                             fontFamily:
-                                                                                fontMetropolisRegular,
+                                                                                fontRailwayRegular,
                                                                             fontWeight: FontWeight
                                                                                 .w200,
                                                                             fontSize:
@@ -412,7 +410,7 @@ class _ProfileEditScreenState extends BaseRouteState {
                                                             style: TextStyle(
                                                               fontSize: 14,
                                                               fontFamily:
-                                                                  fontMetropolisRegular,
+                                                                  fontRailwayRegular,
                                                               fontWeight:
                                                                   FontWeight
                                                                       .w200,
@@ -433,7 +431,7 @@ class _ProfileEditScreenState extends BaseRouteState {
                                                                   errorStyle: const TextStyle(
                                         fontSize: 10,
                                         fontFamily:
-                                            global.fontMetropolisRegular,
+                                            global.fontRailwayRegular,
                                         fontWeight: FontWeight.w200),
                                                               focusedBorder:
                                                                   OutlineInputBorder(
@@ -497,7 +495,7 @@ class _ProfileEditScreenState extends BaseRouteState {
                                                           .appColor,
                                                       fontSize: 11,
                                                       fontFamily: global
-                                                          .fontMetropolisRegular,
+                                                          .fontRailwayRegular,
                                                       fontWeight:
                                                           FontWeight.w200),
                                                 ),
@@ -520,7 +518,7 @@ class _ProfileEditScreenState extends BaseRouteState {
                                                                   FontWeight
                                                                       .w200,
                                                               fontFamily:
-                                                                  fontMetropolisRegular,
+                                                                  fontRailwayRegular,
                                                               color:
                                                                   ColorConstants
                                                                       .pureBlack,
@@ -533,7 +531,7 @@ class _ProfileEditScreenState extends BaseRouteState {
                                                                         FontWeight
                                                                             .w200,
                                                                     fontFamily:
-                                                                        fontMetropolisRegular,
+                                                                        fontRailwayRegular,
                                                                     fontSize:
                                                                         16,
                                                                     color: ColorConstants
@@ -574,7 +572,7 @@ class _ProfileEditScreenState extends BaseRouteState {
                                                         color: Colors.black,
                                                         fontSize: 14,
                                                         fontFamily: global
-                                                            .fontMetropolisRegular,
+                                                            .fontRailwayRegular,
                                                         fontWeight:
                                                             FontWeight.w200),
                                                     dividerColor: Colors.black,
@@ -616,7 +614,7 @@ class _ProfileEditScreenState extends BaseRouteState {
                                                             "Male",
                                                             style: TextStyle(
                                                                 fontFamily:
-                                                                    fontMetropolisRegular,
+                                                                    fontRailwayRegular,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w200,
@@ -666,7 +664,7 @@ class _ProfileEditScreenState extends BaseRouteState {
                                                           "Female",
                                                           style: TextStyle(
                                                               fontFamily:
-                                                                  fontMetropolisRegular,
+                                                                  fontRailwayRegular,
                                                               fontWeight:
                                                                   FontWeight
                                                                       .w200,
@@ -715,7 +713,7 @@ class _ProfileEditScreenState extends BaseRouteState {
                                                                     .pureBlack,
                                                                 fontSize: 12,
                                                                 fontFamily:
-                                                                    fontMetropolisRegular,
+                                                                    fontRailwayRegular,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .normal,
@@ -743,7 +741,7 @@ class _ProfileEditScreenState extends BaseRouteState {
                                                                       .appColor,
                                                                   fontSize: 13,
                                                                   fontFamily:
-                                                                      fontMetropolisRegular,
+                                                                      fontRailwayRegular,
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .w400,
@@ -793,7 +791,7 @@ class _ProfileEditScreenState extends BaseRouteState {
                                                                       .pureBlack,
                                                               fontSize: 12,
                                                               fontFamily:
-                                                                  fontMetropolisRegular,
+                                                                  fontRailwayRegular,
                                                               fontWeight:
                                                                   FontWeight
                                                                       .normal,
@@ -805,7 +803,7 @@ class _ProfileEditScreenState extends BaseRouteState {
                                                                       .appColor,
                                                               fontSize: 13,
                                                               fontFamily:
-                                                                  fontMetropolisRegular,
+                                                                  fontRailwayRegular,
                                                               fontWeight:
                                                                   FontWeight
                                                                       .w400,
@@ -889,7 +887,7 @@ class _ProfileEditScreenState extends BaseRouteState {
                                                         "SAVE & UPDATE",
                                                         style: TextStyle(
                                                             fontFamily:
-                                                                fontMetropolisRegular,
+                                                                fontRailwayRegular,
                                                             fontWeight:
                                                                 FontWeight.w600,
                                                             fontSize: 14,
@@ -969,7 +967,7 @@ class _ProfileEditScreenState extends BaseRouteState {
                       : 'You will receive further communication via SMS',
                   style: TextStyle(
                       fontSize: 14,
-                      fontFamily: fontMetropolisRegular,
+                      fontFamily: fontRailwayRegular,
                       fontWeight: FontWeight.w200,
                       color: ColorConstants.pureBlack),
                 ),
@@ -979,7 +977,7 @@ class _ProfileEditScreenState extends BaseRouteState {
                       "OK",
                       style: TextStyle(
                           fontSize: 16,
-                          fontFamily: fontMetropolisRegular,
+                          fontFamily: fontRailwayRegular,
                           fontWeight: FontWeight.w200,
                           color: ColorConstants.appColor),
                     ),

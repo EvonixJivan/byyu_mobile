@@ -77,11 +77,7 @@ class _CheckoutScreenState extends BaseRouteState {
 
   @override
   Widget build(BuildContext context) {
-    TextTheme textTheme = Theme.of(context).textTheme;
-    TextStyle subHeadingStyle = textTheme.subtitle1!.copyWith(
-      fontWeight: FontWeight.bold,
-      color: Colors.black,
-    );
+   
     return WillPopScope(
       // onWillPop: () async {
       //   Navigator.of(context).pop();
@@ -103,15 +99,15 @@ class _CheckoutScreenState extends BaseRouteState {
 
       child: Scaffold(
           appBar: AppBar(
-            backgroundColor: ColorConstants.appBrownFaintColor,
+            backgroundColor: ColorConstants.appBarColorWhite,
             title: Text(
               fromProfile! ? "Saved Addresses" : "Select Delivery Address",
               style: TextStyle(
-                  color: ColorConstants.pureBlack,
-                  fontFamily: fontMetropolisRegular,
+                  color: ColorConstants.newTextHeadingFooter,
+                  fontFamily: fontRailwayRegular,
                   fontWeight: FontWeight.w200),
             ),
-            centerTitle: true,
+            centerTitle: false,
             leading: BackButton(
                 onPressed: () {
                   // print("this is fromdrawer value${fromProfile}");
@@ -121,13 +117,14 @@ class _CheckoutScreenState extends BaseRouteState {
                     Navigator.of(context).pop();
                   }
                 },
-                color: ColorConstants.pureBlack),
+                color: ColorConstants.newAppColor),
           ),
           body: _isLoading
               ? Center(
                   child: CircularProgressIndicator(),
                 )
               : Container(
+                  color: ColorConstants.colorPageBackground,
                   height: MediaQuery.of(context).size.height - 150,
                   child: Padding(
                     padding: const EdgeInsets.all(12.0),
@@ -189,7 +186,7 @@ class _CheckoutScreenState extends BaseRouteState {
                             //           textAlign: TextAlign.center,
                             //           // "${AppLocalizations.of(context).tle_add_new_address} ",
                             //           style: TextStyle(
-                            //               fontFamily: fontMetropolisRegular,
+                            //               fontFamily: fontRailwayRegular,
                             //               fontWeight: FontWeight.w200,
                             //               fontSize: 14,
                             //               color: ColorConstants.appColor),
@@ -327,7 +324,9 @@ class _CheckoutScreenState extends BaseRouteState {
                                                 //   setState(() {});
                                                 // },
                                                 child: Container(
+                                                  
                                                   child: Card(
+                                                    
                                                     elevation: 1,
                                                     shape: selectedIndex ==
                                                             index // index AAA
@@ -436,12 +435,12 @@ class _CheckoutScreenState extends BaseRouteState {
                                                                         ('${(global.userProfileController.addressList[index].type!.toLowerCase() == 'other' || global.userProfileController.addressList[index].type!.toLowerCase() == 'others') && global.userProfileController.addressList[index].recepientName != null ? global.userProfileController.addressList[index].recepientName : ""}   ${global.userProfileController.addressList[index].type}'),
                                                                     style: TextStyle(
                                                                         fontFamily:
-                                                                            fontMetropolisRegular,
+                                                                            fontRailwayRegular,
                                                                         fontWeight:
                                                                             FontWeight
                                                                                 .w600,
                                                                         color: ColorConstants
-                                                                            .pureBlack,
+                                                                            .newTextHeadingFooter,
                                                                         fontSize:
                                                                             14),
                                                                   )
@@ -633,7 +632,7 @@ class _CheckoutScreenState extends BaseRouteState {
                                                                     style:
                                                                         TextStyle(
                                                                       fontFamily:
-                                                                          fontMetropolisRegular,
+                                                                          fontRailwayRegular,
                                                                       color: ColorConstants
                                                                           .appColor,
                                                                       fontWeight:
@@ -700,7 +699,7 @@ class _CheckoutScreenState extends BaseRouteState {
                                                                 "Name:",
                                                                 style: TextStyle(
                                                                     fontFamily:
-                                                                        fontMetropolisRegular,
+                                                                        fontRailwayRegular,
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .w400,
@@ -718,7 +717,7 @@ class _CheckoutScreenState extends BaseRouteState {
                                                                 "${global.addressList[index].receiverName}",
                                                                 style: TextStyle(
                                                                     fontFamily:
-                                                                        fontMetropolisRegular,
+                                                                        fontRailwayRegular,
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .w400,
@@ -751,7 +750,7 @@ class _CheckoutScreenState extends BaseRouteState {
                                                                     "Address:",
                                                                     style: TextStyle(
                                                                         fontFamily:
-                                                                            fontMetropolisRegular,
+                                                                            fontRailwayRegular,
                                                                         fontWeight:
                                                                             FontWeight
                                                                                 .w400,
@@ -785,7 +784,7 @@ class _CheckoutScreenState extends BaseRouteState {
 
                                                                     style: TextStyle(
                                                                         fontFamily:
-                                                                            fontMetropolisRegular,
+                                                                            fontRailwayRegular,
                                                                         fontWeight:
                                                                             FontWeight
                                                                                 .w400,
@@ -820,7 +819,7 @@ class _CheckoutScreenState extends BaseRouteState {
                                                                     "Community/ Building Name:",
                                                                     style: TextStyle(
                                                                         fontFamily:
-                                                                            fontMetropolisRegular,
+                                                                            fontRailwayRegular,
                                                                         fontWeight:
                                                                             FontWeight
                                                                                 .w400,
@@ -855,7 +854,7 @@ class _CheckoutScreenState extends BaseRouteState {
 
                                                                     style: TextStyle(
                                                                         fontFamily:
-                                                                            fontMetropolisRegular,
+                                                                            fontRailwayRegular,
                                                                         fontWeight:
                                                                             FontWeight
                                                                                 .w400,
@@ -890,7 +889,7 @@ class _CheckoutScreenState extends BaseRouteState {
                                                                   "Villa/ Apartment Number:",
                                                                   style: TextStyle(
                                                                       fontFamily:
-                                                                          fontMetropolisRegular,
+                                                                          fontRailwayRegular,
                                                                       fontWeight:
                                                                           FontWeight
                                                                               .w400,
@@ -925,7 +924,7 @@ class _CheckoutScreenState extends BaseRouteState {
 
                                                                   style: TextStyle(
                                                                       fontFamily:
-                                                                          fontMetropolisRegular,
+                                                                          fontRailwayRegular,
                                                                       fontWeight:
                                                                           FontWeight
                                                                               .w400,
@@ -961,7 +960,7 @@ class _CheckoutScreenState extends BaseRouteState {
                                                                   "Street/ Locality Name:",
                                                                   style: TextStyle(
                                                                       fontFamily:
-                                                                          fontMetropolisRegular,
+                                                                          fontRailwayRegular,
                                                                       fontWeight:
                                                                           FontWeight
                                                                               .w400,
@@ -997,7 +996,7 @@ class _CheckoutScreenState extends BaseRouteState {
 
                                                                   style: TextStyle(
                                                                       fontFamily:
-                                                                          fontMetropolisRegular,
+                                                                          fontRailwayRegular,
                                                                       fontWeight:
                                                                           FontWeight
                                                                               .w400,
@@ -1040,7 +1039,7 @@ class _CheckoutScreenState extends BaseRouteState {
                                                                             Text(
                                                                           "Landmark:",
                                                                           style: TextStyle(
-                                                                              fontFamily: fontMetropolisRegular,
+                                                                              fontFamily: fontRailwayRegular,
                                                                               fontWeight: FontWeight.w400,
                                                                               color: ColorConstants.pureBlack,
                                                                               fontSize: 14),
@@ -1067,7 +1066,7 @@ class _CheckoutScreenState extends BaseRouteState {
                                                                               TextAlign.start,
 
                                                                           style: TextStyle(
-                                                                              fontFamily: fontMetropolisRegular,
+                                                                              fontFamily: fontRailwayRegular,
                                                                               fontWeight: FontWeight.w400,
                                                                               color: ColorConstants.pureBlack,
                                                                               fontSize: 14),
@@ -1130,7 +1129,7 @@ class _CheckoutScreenState extends BaseRouteState {
                                                                             Text(
                                                                           "Emirate:",
                                                                           style: TextStyle(
-                                                                              fontFamily: fontMetropolisRegular,
+                                                                              fontFamily: fontRailwayRegular,
                                                                               fontWeight: FontWeight.w400,
                                                                               color: ColorConstants.pureBlack,
                                                                               fontSize: 14),
@@ -1159,7 +1158,7 @@ class _CheckoutScreenState extends BaseRouteState {
                                                                               TextAlign.start,
 
                                                                           style: TextStyle(
-                                                                              fontFamily: fontMetropolisRegular,
+                                                                              fontFamily: fontRailwayRegular,
                                                                               fontWeight: FontWeight.w400,
                                                                               color: ColorConstants.pureBlack,
                                                                               fontSize: 14),
@@ -1188,7 +1187,7 @@ class _CheckoutScreenState extends BaseRouteState {
                                                                   "Mobile Number:",
                                                                   style: TextStyle(
                                                                       fontFamily:
-                                                                          fontMetropolisRegular,
+                                                                          fontRailwayRegular,
                                                                       fontWeight:
                                                                           FontWeight
                                                                               .w200,
@@ -1206,7 +1205,7 @@ class _CheckoutScreenState extends BaseRouteState {
                                                                   "${global.addressList[index].countryCode} ${global.addressList[index].receiverPhone}",
                                                                   style: TextStyle(
                                                                       fontFamily:
-                                                                          fontMetropolisRegular,
+                                                                          fontRailwayRegular,
                                                                       fontWeight:
                                                                           FontWeight
                                                                               .w400,
@@ -1521,7 +1520,7 @@ class _CheckoutScreenState extends BaseRouteState {
                             textAlign: TextAlign.center,
                             // "${AppLocalizations.of(context).tle_add_new_address} ",
                             style: TextStyle(
-                                fontFamily: fontMontserratMedium,
+                                fontFamily: fontOufitMedium,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 16,
                                 color: ColorConstants.white,
@@ -1551,7 +1550,7 @@ class _CheckoutScreenState extends BaseRouteState {
                               textAlign: TextAlign.center,
                               // "${AppLocalizations.of(context).tle_add_new_address} ",
                               style: TextStyle(
-                                  fontFamily: fontMontserratMedium,
+                                  fontFamily: fontOufitMedium,
                                   fontWeight: FontWeight.bold,
                                   fontSize: 16,
                                   color: ColorConstants.white,
@@ -1891,7 +1890,7 @@ class _CheckoutScreenState extends BaseRouteState {
                 child: Text('Ok',
                     style: TextStyle(
                         fontSize: 16,
-                        fontFamily: fontMetropolisRegular,
+                        fontFamily: fontRailwayRegular,
                         fontWeight: FontWeight.w200,
                         color: Colors.blue)),
                 onPressed: () async {
@@ -1904,7 +1903,7 @@ class _CheckoutScreenState extends BaseRouteState {
                 child: Text("Cancel ",
                     style: TextStyle(
                         fontSize: 16,
-                        fontFamily: fontMetropolisRegular,
+                        fontFamily: fontRailwayRegular,
                         fontWeight: FontWeight.w200,
                         color: ColorConstants.appColor)),
                 onPressed: () {

@@ -12,7 +12,8 @@ class ColorConstants {
   static Color appBrownFaintColor = global.baseUrl.contains("adminDev")
       ? Color.fromARGB(255, 193, 252, 195)
       : Color(0xfffbfaf6);
-  static const Color appColor = Color(0xffe20312);
+  // static const Color appColor = Color(0xffe20312);
+  static const Color appColor = newAppColor;
   static const Color appbrownColor = Color(0xffe8d884);
   static const Color appbrowndimColor = Color(0xfffffce9);
   static const Color appreddimColor = Color(0xfffef0df);
@@ -29,9 +30,10 @@ class ColorConstants {
   static const double filterdividerheight = 50;
   static const Color filterDivderColor = Color.fromARGB(86, 158, 158, 158);
   static const Color pureBlack = Colors.black;
-  static const Color allIconsBlack45 = Colors.black45;
+  // static const Color allIconsBlack45 = Colors.black45;
+  static const Color allIconsBlack45 = appColor;
 
-  static const Color appdimColor = Color.fromARGB(255, 248, 107, 82);
+  static const Color appdimColor = colorHomePageSection;
 
   static const Color homeYellow = Color(0xffF3E2B3);
   static const Color corporateYellow = Color(0xfff8f6ea);
@@ -47,7 +49,8 @@ class ColorConstants {
   static const Color StarRating = Color(0xffefe075);
   static const Color bottombuttonColor = Color(0xffe20312);
 
-  static const Color heartFavorite = Color(0xffe20312);
+  // static const Color heartFavorite = Color(0xffe20312);
+  static const Color heartFavorite = newAppColor;
   static const Color redVelvet = Color(0xffe20312);
   static const Color lightBrown = Color(0xfff0e9d9);
   static const Color goldernBrown = Color(0xffF6A121);
@@ -87,6 +90,20 @@ class ColorConstants {
   static const Color oDGradientDisabledTop = Color(0xfffffefe);
   static const Color orderDtailBorder = Color(0xffdfd085);
   static Color allBorderColor = Colors.grey.shade400;
+
+
+    static const Color newAppColor = Color(0xff8B4A26);
+    static const Color newTextHeadingFooter = Color(0xff3A1E14);
+    static const Color colorPageBackground = Color(0xffF8F5F2);
+    static const Color colorHomePageSection = Color(0xffE6D5C3);
+    static const Color colorHomePageSectiondim = Color(0xfffbf0e5);
+    static const Color colorContinueShop = Color(0xffFAD19E);
+    static const Color colorAllHomeTitle = Color(0xff3A1E14);
+      static const Color newHeartFavorite = newAppColor;
+      static const Color newColorBlack = Colors.black;
+      static const Color appBarColorWhite = Colors.white;
+
+
 
  
 }

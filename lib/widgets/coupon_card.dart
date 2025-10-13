@@ -62,7 +62,7 @@ class _CouponsCardState extends State<CouponsCard> {
             decoration: BoxDecoration(
               // color: Colors.amber,
               image: DecorationImage(
-                image: AssetImage("assets/images/bg_iv_coupon.png"),
+                image: AssetImage("assets/images/bg_iv_coupon_new.png"),
                 fit: BoxFit.contain,
               ),
             ),
@@ -84,8 +84,8 @@ class _CouponsCardState extends State<CouponsCard> {
                           maxLines: 1,
                           style: TextStyle(
                               overflow: TextOverflow.ellipsis,
-                              color: ColorConstants.pureBlack,
-                              fontFamily: global.fontMetropolisRegular,
+                              color: ColorConstants.newTextHeadingFooter,
+                              fontFamily: global.fontRailwayRegular,
                               fontWeight: FontWeight.w600,
                               fontSize: 16),
                         ),
@@ -100,7 +100,7 @@ class _CouponsCardState extends State<CouponsCard> {
                             style: TextStyle(
                                 overflow: TextOverflow.ellipsis,
                                 color: ColorConstants.grey,
-                                fontFamily: global.fontMetropolisRegular,
+                                fontFamily: global.fontRailwayRegular,
                                 fontWeight: FontWeight.w600,
                                 fontSize: 14),
                           ),
@@ -125,7 +125,7 @@ class _CouponsCardState extends State<CouponsCard> {
                                   style: TextStyle(
                                       overflow: TextOverflow.ellipsis,
                                       color: ColorConstants.appColor,
-                                      fontFamily: global.fontMetropolisRegular,
+                                      fontFamily: global.fontRailwayRegular,
                                       fontWeight: FontWeight.w600,
                                       fontSize: 12),
                                 ),
@@ -139,13 +139,13 @@ class _CouponsCardState extends State<CouponsCard> {
                         Row(
                           children: [
                             Text(
-                              "Expiry Date:",
+                              "Expiry Date: ",
                               maxLines: 1,
                               style: TextStyle(
                                   overflow: TextOverflow.ellipsis,
                                   color: ColorConstants.pureBlack,
-                                  fontFamily: global.fontMetropolisRegular,
-                                  fontWeight: FontWeight.w600,
+                                  fontFamily: global.fontOufitMedium,
+                                  fontWeight: FontWeight.w200,
                                   fontSize: 11),
                             ),
                             SizedBox(
@@ -157,8 +157,8 @@ class _CouponsCardState extends State<CouponsCard> {
                               style: TextStyle(
                                   overflow: TextOverflow.ellipsis,
                                   color: ColorConstants.pureBlack,
-                                  fontFamily: global.fontMetropolisRegular,
-                                  fontWeight: FontWeight.w600,
+                                  fontFamily: global.fontOufitMedium,
+                                  fontWeight: FontWeight.w200,
                                   fontSize: 11),
                             ),
                           ],
@@ -236,8 +236,8 @@ class _CouponsCardState extends State<CouponsCard> {
                           maxLines: 1,
                           style: TextStyle(
                               overflow: TextOverflow.ellipsis,
-                              color: ColorConstants.pureBlack,
-                              fontFamily: global.fontMetropolisRegular,
+                              color: ColorConstants.newTextHeadingFooter,
+                              fontFamily: global.fontRailwayRegular,
                               fontWeight: FontWeight.w600,
                               fontSize: 16)),
                     ),
@@ -253,9 +253,9 @@ class _CouponsCardState extends State<CouponsCard> {
                               maxLines: 4,
 
                               style: TextStyle(
-                                  color: ColorConstants.pureBlack,
+                                  color: ColorConstants.appColor,
                                   fontSize: 14,
-                                  fontFamily: global.fontMetropolisRegular,
+                                  fontFamily: global.fontRailwayRegular,
                                   fontWeight: FontWeight.w200),
                             ),
                           )
@@ -274,7 +274,7 @@ class _CouponsCardState extends State<CouponsCard> {
                           child: Text(
                             "Expiry date:-",
                             style: TextStyle(
-                              fontFamily: fontMetropolisRegular,
+                              fontFamily: fontRailwayRegular,
                               color: ColorConstants.pureBlack,
                               fontSize: 12,
                               fontWeight: FontWeight.w200,
@@ -288,7 +288,7 @@ class _CouponsCardState extends State<CouponsCard> {
 
                             //"${DateTime.parse(coupon.endDate.toString())}",
                             style: TextStyle(
-                              fontFamily: fontMetropolisRegular,
+                              fontFamily: fontRailwayRegular,
                               color: ColorConstants.pureBlack,
                               fontSize: 12,
                               fontWeight: FontWeight.w200,
@@ -307,7 +307,7 @@ class _CouponsCardState extends State<CouponsCard> {
                                 data: "${coupon!.term_and_conditions}",
                                 style: {
                                   "body": Style(
-                                      fontFamily: fontMetropolisRegular,
+                                      fontFamily: fontRailwayRegular,
                                       fontWeight: FontWeight.w300,
                                       fontSize: FontSize.medium,
                                       color: ColorConstants.pureBlack)

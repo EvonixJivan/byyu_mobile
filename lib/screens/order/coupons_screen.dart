@@ -81,248 +81,253 @@ class _CouponsScreenState extends BaseRouteState {
   Widget build(BuildContext context) {
     // print("this is from drawer gggggggggg ${fromDrawer}");
     return Scaffold(
-        backgroundColor: white,
+        backgroundColor: ColorConstants.colorPageBackground,
         key: _scaffoldKey1,
         appBar: AppBar(
-          backgroundColor: ColorConstants.appBrownFaintColor,
-          centerTitle: true,
+          backgroundColor: ColorConstants.appBarColorWhite,
+          centerTitle: false,
           leading: BackButton(
             onPressed: () {
               Navigator.pop(context);
             },
+            color: ColorConstants.newAppColor,
           ),
           elevation: 0,
           title: Text(
             "My Coupons",
             style: TextStyle(
-                fontFamily: global.fontMontserratMedium,
+                fontFamily: global.fontRailwayRegular,
                 fontWeight: FontWeight.normal,
-                color: ColorConstants.pureBlack),
+                color: ColorConstants.newTextHeadingFooter),
           ),
         ),
         //mycoupons_logo
-        body: Container(
-          child: Stack(
-            children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Expanded(child: Container()),
-                  Container(),
-                ],
-              ),
-              Column(
-                children: [
-                  // Container(
-                  //   width: MediaQuery.of(context).size.width - 20,
-                  //   child: InkWell(
-                  //     onTap: () {
-                  //       showModalBottomSheet(
-                  //           backgroundColor: Colors.transparent,
-                  //           context: context,
-                  //           builder: (BuildContext context) {
-                  //             return Container(
-                  //               height: MediaQuery.of(context).size.width / 2.5,
-                  //               decoration: BoxDecoration(
-                  //                   color: ColorConstants.white,
-                  //                   borderRadius: BorderRadius.only(
-                  //                       topLeft: Radius.circular(8),
-                  //                       topRight: Radius.circular(8))),
-                  //               child: Padding(
-                  //                 padding: const EdgeInsets.all(8.0),
-                  //                 child: Column(
-                  //                   children: [
-                  //                     Row(
-                  //                       children: [
-                  //                         Container(
-                  //                             width: MediaQuery.of(context)
-                  //                                     .size
-                  //                                     .width /
-                  //                                 6,
-                  //                             height: MediaQuery.of(context)
-                  //                                     .size
-                  //                                     .width /
-                  //                                 9,
-                  //                             decoration: BoxDecoration(
-                  //                                 gradient: LinearGradient(
-                  //                                     begin: Alignment
-                  //                                         .bottomCenter,
-                  //                                     end: Alignment.topCenter,
-                  //                                     colors: [
-                  //                                       ColorConstants
-                  //                                           .oDGradientbottom,
-                  //                                       ColorConstants
-                  //                                           .orderDetailGradientTop,
-                  //                                     ]),
-                  //                                 borderRadius:
-                  //                                     BorderRadius.circular(10),
-                  //                                 border: Border.all(
-                  //                                   width: 2,
-                  //                                   color: ColorConstants
-                  //                                       .orderDtailBorder,
-                  //                                 )),
-                  //                             child: Center(
-                  //                               child: Image.asset(
-                  //                                 'assets/images/green_tick.png',
-                  //                                 width: 25,
-                  //                                 height: 25,
-                  //                               ),
-                  //                             )),
-                  //                         SizedBox(
-                  //                           width: 15,
-                  //                         ),
-                  //                         Container(
-                  //                           width: MediaQuery.of(context)
-                  //                                   .size
-                  //                                   .width /
-                  //                               2,
-                  //                           child: Text(
-                  //                             "Add Items to your cart and go to checkout screen",
-                  //                             // textAlign: TextAlign.center,
-                  //                             maxLines: 2,
-                  //                             style: TextStyle(
-                  //                                 fontFamily:
-                  //                                     fontMetropolisRegular,
-                  //                                 fontSize: 13,
-                  //                                 color:
-                  //                                     ColorConstants.pureBlack,
-                  //                                 fontWeight: FontWeight.bold),
-                  //                           ),
-                  //                         ),
-                  //                       ],
-                  //                     ),
-                  //                     Padding(
-                  //                       padding:
-                  //                           EdgeInsets.only(top: 5, bottom: 5),
-                  //                       child: Text(''),
-                  //                     ),
-                  //                     Row(
-                  //                       children: [
-                  //                         Container(
-                  //                             width: MediaQuery.of(context)
-                  //                                     .size
-                  //                                     .width /
-                  //                                 6,
-                  //                             height: MediaQuery.of(context)
-                  //                                     .size
-                  //                                     .width /
-                  //                                 9,
-                  //                             decoration: BoxDecoration(
-                  //                                 gradient: LinearGradient(
-                  //                                     begin: Alignment
-                  //                                         .bottomCenter,
-                  //                                     end: Alignment.topCenter,
-                  //                                     colors: [
-                  //                                       ColorConstants
-                  //                                           .oDGradientbottom,
-                  //                                       ColorConstants
-                  //                                           .orderDetailGradientTop,
-                  //                                     ]),
-                  //                                 borderRadius:
-                  //                                     BorderRadius.circular(10),
-                  //                                 border: Border.all(
-                  //                                   width: 2,
-                  //                                   color: ColorConstants
-                  //                                       .orderDtailBorder,
-                  //                                 )),
-                  //                             child: Center(
-                  //                               child: Image.asset(
-                  //                                 'assets/images/green_tick.png',
-                  //                                 width: 25,
-                  //                                 height: 25,
-                  //                               ),
-                  //                             )),
-                  //                         SizedBox(
-                  //                           width: 15,
-                  //                         ),
-                  //                         Container(
-                  //                           width: MediaQuery.of(context)
-                  //                                   .size
-                  //                                   .width /
-                  //                               2,
-                  //                           child: Text(
-                  //                             "On checkout screen you will be able to select coupon which will be added to your order",
-                  //                             // textAlign: TextAlign.center,
-
-                  //                             style: TextStyle(
-                  //                                 fontFamily:
-                  //                                     fontMetropolisRegular,
-                  //                                 fontSize: 13,
-                  //                                 color:
-                  //                                     ColorConstants.pureBlack,
-                  //                                 fontWeight: FontWeight.bold),
-                  //                           ),
-                  //                         ),
-                  //                       ],
-                  //                     ),
-                  //                   ],
-                  //                 ),
-                  //               ),
-                  //             );
-                  //           });
-                  //     },
-                  //     child: Text(
-                  //       "How To Apply..",
-                  //       style: TextStyle(
-                  //           fontFamily: global.fontMontserratLight,
-                  //           fontSize: 16,
-                  //           fontWeight: FontWeight.w200,
-                  //           color: ColorConstants.appColor),
-                  //     ),
-                  //   ),
-                  // ),
-                  Expanded(
-                    child: _isDataLoaded
-                        ? _couponList.length > 0
-                            ? RefreshIndicator(
-                                onRefresh: () async {
-                                  await _onRefresh();
-                                },
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 10, top: 10, right: 10, bottom: 10),
-                                  child: ListView.builder(
-                                      itemCount: _couponList
-                                          .length, //_couponList.length,
-                                      itemBuilder:
-                                          (BuildContext context, int index) {
-                                        print("hello${_couponList.length}");
-                                        print("hello${index}");
-                                        print(fromDrawer);
-                                        return CouponsCard(
-                                          fromDrawer: fromDrawer,
-                                          coupon: _couponList[index],
-                                          onRedeem: () async {
-                                            _selectedCouponCode =
-                                                _couponList[index].couponCode!;
-                                            setState(() {});
-                                            isTextEnteredCoupon = false;
-                                            // if (screenId == 0) {
-                                            await _applyCoupon(
-                                                _selectedCouponCode!);
-                                          },
-                                        );
-                                      }),
-                                ),
-                              )
-                            : Center(
-                                child: Text(
-                                'No Coupons Available',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontFamily: global.fontMontserratLight,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w200,
-                                    color: ColorConstants.guidlinesGolden),
-                              ))
-                        : Center(
-                            child: CircularProgressIndicator(),
-                          ),
-                  ),
-                ],
-              ),
-            ],
+        body: SafeArea(
+          top: false,
+          bottom: true,
+          child: Container(
+            child: Stack(
+              children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Expanded(child: Container()),
+                    Container(),
+                  ],
+                ),
+                Column(
+                  children: [
+                    // Container(
+                    //   width: MediaQuery.of(context).size.width - 20,
+                    //   child: InkWell(
+                    //     onTap: () {
+                    //       showModalBottomSheet(
+                    //           backgroundColor: Colors.transparent,
+                    //           context: context,
+                    //           builder: (BuildContext context) {
+                    //             return Container(
+                    //               height: MediaQuery.of(context).size.width / 2.5,
+                    //               decoration: BoxDecoration(
+                    //                   color: ColorConstants.white,
+                    //                   borderRadius: BorderRadius.only(
+                    //                       topLeft: Radius.circular(8),
+                    //                       topRight: Radius.circular(8))),
+                    //               child: Padding(
+                    //                 padding: const EdgeInsets.all(8.0),
+                    //                 child: Column(
+                    //                   children: [
+                    //                     Row(
+                    //                       children: [
+                    //                         Container(
+                    //                             width: MediaQuery.of(context)
+                    //                                     .size
+                    //                                     .width /
+                    //                                 6,
+                    //                             height: MediaQuery.of(context)
+                    //                                     .size
+                    //                                     .width /
+                    //                                 9,
+                    //                             decoration: BoxDecoration(
+                    //                                 gradient: LinearGradient(
+                    //                                     begin: Alignment
+                    //                                         .bottomCenter,
+                    //                                     end: Alignment.topCenter,
+                    //                                     colors: [
+                    //                                       ColorConstants
+                    //                                           .oDGradientbottom,
+                    //                                       ColorConstants
+                    //                                           .orderDetailGradientTop,
+                    //                                     ]),
+                    //                                 borderRadius:
+                    //                                     BorderRadius.circular(10),
+                    //                                 border: Border.all(
+                    //                                   width: 2,
+                    //                                   color: ColorConstants
+                    //                                       .orderDtailBorder,
+                    //                                 )),
+                    //                             child: Center(
+                    //                               child: Image.asset(
+                    //                                 'assets/images/green_tick.png',
+                    //                                 width: 25,
+                    //                                 height: 25,
+                    //                               ),
+                    //                             )),
+                    //                         SizedBox(
+                    //                           width: 15,
+                    //                         ),
+                    //                         Container(
+                    //                           width: MediaQuery.of(context)
+                    //                                   .size
+                    //                                   .width /
+                    //                               2,
+                    //                           child: Text(
+                    //                             "Add Items to your cart and go to checkout screen",
+                    //                             // textAlign: TextAlign.center,
+                    //                             maxLines: 2,
+                    //                             style: TextStyle(
+                    //                                 fontFamily:
+                    //                                     fontRailwayRegular,
+                    //                                 fontSize: 13,
+                    //                                 color:
+                    //                                     ColorConstants.pureBlack,
+                    //                                 fontWeight: FontWeight.bold),
+                    //                           ),
+                    //                         ),
+                    //                       ],
+                    //                     ),
+                    //                     Padding(
+                    //                       padding:
+                    //                           EdgeInsets.only(top: 5, bottom: 5),
+                    //                       child: Text(''),
+                    //                     ),
+                    //                     Row(
+                    //                       children: [
+                    //                         Container(
+                    //                             width: MediaQuery.of(context)
+                    //                                     .size
+                    //                                     .width /
+                    //                                 6,
+                    //                             height: MediaQuery.of(context)
+                    //                                     .size
+                    //                                     .width /
+                    //                                 9,
+                    //                             decoration: BoxDecoration(
+                    //                                 gradient: LinearGradient(
+                    //                                     begin: Alignment
+                    //                                         .bottomCenter,
+                    //                                     end: Alignment.topCenter,
+                    //                                     colors: [
+                    //                                       ColorConstants
+                    //                                           .oDGradientbottom,
+                    //                                       ColorConstants
+                    //                                           .orderDetailGradientTop,
+                    //                                     ]),
+                    //                                 borderRadius:
+                    //                                     BorderRadius.circular(10),
+                    //                                 border: Border.all(
+                    //                                   width: 2,
+                    //                                   color: ColorConstants
+                    //                                       .orderDtailBorder,
+                    //                                 )),
+                    //                             child: Center(
+                    //                               child: Image.asset(
+                    //                                 'assets/images/green_tick.png',
+                    //                                 width: 25,
+                    //                                 height: 25,
+                    //                               ),
+                    //                             )),
+                    //                         SizedBox(
+                    //                           width: 15,
+                    //                         ),
+                    //                         Container(
+                    //                           width: MediaQuery.of(context)
+                    //                                   .size
+                    //                                   .width /
+                    //                               2,
+                    //                           child: Text(
+                    //                             "On checkout screen you will be able to select coupon which will be added to your order",
+                    //                             // textAlign: TextAlign.center,
+          
+                    //                             style: TextStyle(
+                    //                                 fontFamily:
+                    //                                     fontRailwayRegular,
+                    //                                 fontSize: 13,
+                    //                                 color:
+                    //                                     ColorConstants.pureBlack,
+                    //                                 fontWeight: FontWeight.bold),
+                    //                           ),
+                    //                         ),
+                    //                       ],
+                    //                     ),
+                    //                   ],
+                    //                 ),
+                    //               ),
+                    //             );
+                    //           });
+                    //     },
+                    //     child: Text(
+                    //       "How To Apply..",
+                    //       style: TextStyle(
+                    //           fontFamily: global.fontMontserratLight,
+                    //           fontSize: 16,
+                    //           fontWeight: FontWeight.w200,
+                    //           color: ColorConstants.appColor),
+                    //     ),
+                    //   ),
+                    // ),
+                    Expanded(
+                      child: _isDataLoaded
+                          ? _couponList.length > 0
+                              ? RefreshIndicator(
+                                  onRefresh: () async {
+                                    await _onRefresh();
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 10, top: 10, right: 10, bottom: 10),
+                                    child: ListView.builder(
+                                        itemCount: _couponList
+                                            .length, //_couponList.length,
+                                        itemBuilder:
+                                            (BuildContext context, int index) {
+                                          print("hello${_couponList.length}");
+                                          print("hello${index}");
+                                          print(fromDrawer);
+                                          return CouponsCard(
+                                            fromDrawer: fromDrawer,
+                                            coupon: _couponList[index],
+                                            onRedeem: () async {
+                                              _selectedCouponCode =
+                                                  _couponList[index].couponCode!;
+                                              setState(() {});
+                                              isTextEnteredCoupon = false;
+                                              // if (screenId == 0) {
+                                              await _applyCoupon(
+                                                  _selectedCouponCode!);
+                                            },
+                                          );
+                                        }),
+                                  ),
+                                )
+                              : Center(
+                                  child: Text(
+                                  'No Coupons Available',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontFamily: global.fontRalewayMedium,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w900,
+                                      color: ColorConstants.newTextHeadingFooter),
+                                ))
+                          : Center(
+                              child: CircularProgressIndicator(),
+                            ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ));
   }
@@ -350,7 +355,7 @@ class _CouponsScreenState extends BaseRouteState {
                     child: Text('OK',
                         style: TextStyle(
                             fontSize: 16,
-                            fontFamily: fontMetropolisRegular,
+                            fontFamily: fontRailwayRegular,
                             fontWeight: FontWeight.w200,
                             color: Colors
                                 .blue)), //${AppLocalizations.of(context).btn_ok}'),

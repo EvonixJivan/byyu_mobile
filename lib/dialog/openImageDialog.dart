@@ -32,7 +32,7 @@ class OpenImageDialogState extends BaseState {
     TextTheme textTheme = Theme.of(context).textTheme;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: ColorConstants.appBrownFaintColor,
+        backgroundColor: ColorConstants.appBarColorWhite,
         centerTitle: true,
         title: Text(
           name != null && name.isNotEmpty ? '$name' : '',
@@ -42,6 +42,7 @@ class OpenImageDialogState extends BaseState {
           onPressed: () {
             Navigator.of(context).pop();
           },
+          color: ColorConstants.appColor,
         ),
       ),
       body: Container(

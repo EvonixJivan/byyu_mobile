@@ -2,6 +2,7 @@ import 'package:byyu/models/cartModel.dart';
 import 'package:byyu/screens/notification_screen.dart';
 import 'package:byyu/screens/product/product_description_screen.dart';
 import 'package:byyu/screens/search_screen.dart';
+import 'package:byyu/widgets/side_drawer.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
@@ -27,7 +28,7 @@ import 'package:byyu/screens/auth/login_screen.dart';
 import 'package:byyu/screens/product/all_categories_screen.dart';
 import 'package:byyu/screens/order/checkout_screen.dart';
 import 'package:byyu/screens/home_screen.dart';
-import 'package:byyu/widgets/cart_menu.dart';
+import 'package:byyu/widgets/cart_menu_old.dart';
 
 import '../../widgets/bottom_button.dart';
 
@@ -66,7 +67,7 @@ class _CartScreenState extends BaseRouteState {
       thu = false,
       fri = false,
       sat = false;
-  GlobalKey<ScaffoldState>? _scaffoldKey;
+  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   Set<String> repeatOrders = Set(); // days in String
 
   String deliveryCount = '0', deliveryType = '';
@@ -154,9 +155,33 @@ class _CartScreenState extends BaseRouteState {
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
     return Scaffold(
+      // drawerEnableOpenDragGesture: true,
+      // drawer: SideDrawer(
+      //   analytics: widget.analytics,
+      //   observer: widget.observer,
+      // ),
+      key: _scaffoldKey,
       appBar: AppBar(
+        // leading: InkWell(
+        //         onTap: () => {
+                  
+        //           _scaffoldKey.currentState?.openDrawer()
+        //         },
+        //         child: Container(
+        //           margin:
+        //               EdgeInsets.only(left: 10, right: 5, top: 5, bottom: 5),
+        //           width: MediaQuery.of(context).size.width - 23,
+        //           height: MediaQuery.of(context).size.height - 23,
+        //           child: Icon(
+        //             Icons.menu,
+        //             size: 35,
+        //           ),
+        //         ),
+        // ),
+        
         automaticallyImplyLeading: false,
-        backgroundColor: ColorConstants.appBrownFaintColor,
+        
+        backgroundColor: ColorConstants.appBarColorWhite,
         leadingWidth: 46,
         actions: [
           InkWell(
@@ -165,13 +190,19 @@ class _CartScreenState extends BaseRouteState {
                   builder: (context) => SearchScreen(
                         a: widget.analytics,
                         o: widget.observer,
+                        fromBottomNvigation: false,
                       )));
             },
-            child: Icon(
-              Icons.search,
-              size: 25,
-              color: ColorConstants.allIconsBlack45,
-            ),
+            child:Padding(
+                  padding: EdgeInsets.all(18),
+                  child: Image.asset(
+                  "assets/images/iv_search.png",
+                  fit: BoxFit.contain,
+                  height: 25,
+                  color: ColorConstants.newAppColor,
+                  alignment: Alignment.center,
+                                ),
+                ),
           ),
           SizedBox(
             width: 8,
@@ -198,22 +229,19 @@ class _CartScreenState extends BaseRouteState {
             width: 8,
           )
         ],
-        centerTitle: true,
+        centerTitle: false,
         title: Text(
           "Cart",
           textAlign: TextAlign.center,
           style: TextStyle(
-              color: ColorConstants.pureBlack,
-              fontFamily: fontMetropolisRegular,
+              color: ColorConstants.newTextHeadingFooter,
+              fontFamily: fontRailwayRegular,
               fontWeight: FontWeight.w200),
         ),
       ),
       body: Container(
           height: MediaQuery.of(context).size.height,
-          decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage("assets/images/login_bg.png"),
-                  fit: BoxFit.cover)),
+          color: ColorConstants.colorPageBackground,
           child: _isDataLoaded
               ? global.cartItemsPresent &&
                       global.cartCount > 0 &&
@@ -301,7 +329,7 @@ class _CartScreenState extends BaseRouteState {
                                                           "+ Explore More",
                                                           style: TextStyle(
                                                             fontFamily:
-                                                                fontMetropolisRegular,
+                                                                fontRailwayRegular,
                                                             color: Colors.white,
                                                             fontWeight:
                                                                 FontWeight.w400,
@@ -349,7 +377,7 @@ class _CartScreenState extends BaseRouteState {
                                                                           "Price Details",
                                                                           style: TextStyle(
                                                                               fontSize: 15,
-                                                                              fontFamily: fontMetropolisRegular,
+                                                                              fontFamily: fontRailwayRegular,
                                                                               fontWeight: FontWeight.w600)),
                                                                     ],
                                                                   ),
@@ -364,7 +392,7 @@ class _CartScreenState extends BaseRouteState {
                                                                             fontSize:
                                                                                 13,
                                                                             fontFamily:
-                                                                                fontMetropolisRegular,
+                                                                                fontRailwayRegular,
                                                                             fontWeight:
                                                                                 FontWeight.normal),
                                                                       ),
@@ -374,11 +402,11 @@ class _CartScreenState extends BaseRouteState {
                                                                       //   children: [
                                                                       //     Container(
                                                                       //       width: 40,
-                                                                      //       child: Text("AED", style: TextStyle(fontSize: 13, fontFamily: fontMetropolisRegular, color: ColorConstants.appColor, fontWeight: FontWeight.normal)),
+                                                                      //       child: Text("AED", style: TextStyle(fontSize: 13, fontFamily: fontRailwayRegular, color: ColorConstants.appColor, fontWeight: FontWeight.normal)),
                                                                       //     ),
                                                                       //     Container(
                                                                       //       width: 100,
-                                                                      //       child: Text("${cartController.cartItemsList.cartData.totalMrp} (+)", textAlign: TextAlign.right, style: TextStyle(fontSize: 13, fontFamily: fontMetropolisRegular, color: ColorConstants.appColor, fontWeight: FontWeight.normal)),
+                                                                      //       child: Text("${cartController.cartItemsList.cartData.totalMrp} (+)", textAlign: TextAlign.right, style: TextStyle(fontSize: 13, fontFamily: fontRailwayRegular, color: ColorConstants.appColor, fontWeight: FontWeight.normal)),
                                                                       //     ),
                                                                       //   ],
                                                                       // ),
@@ -386,7 +414,7 @@ class _CartScreenState extends BaseRouteState {
                                                                           "AED ${cartController.cartItemsList.cartData!.totalPrice! - cartController.cartItemsList.cartData!.deliveryCharge!} (+)",
                                                                           style: TextStyle(
                                                                               fontSize: 13,
-                                                                              fontFamily: fontMetropolisRegular,
+                                                                              fontFamily: fontRailwayRegular,
                                                                               color: ColorConstants.appColor,
                                                                               fontWeight: FontWeight.normal))
                                                                     ],
@@ -402,10 +430,10 @@ class _CartScreenState extends BaseRouteState {
                                                                       ? Row(
                                                                           children: [
                                                                             Text("Delivery Fee",
-                                                                                style: TextStyle(fontSize: 13, fontFamily: fontMetropolisRegular, fontWeight: FontWeight.normal)),
+                                                                                style: TextStyle(fontSize: 13, fontFamily: fontRailwayRegular, fontWeight: FontWeight.normal)),
                                                                             Spacer(),
                                                                             Text(cartController.cartItemsList.cartData!.deliveryCharge == 0.0 ? "AED ${cartController.cartItemsList.cartData!.deliverychargediscount} (+)" : "AED ${cartController.cartItemsList.cartData!.deliveryCharge} (+)",
-                                                                                style: TextStyle(fontSize: 13, fontFamily: fontMetropolisRegular, fontWeight: FontWeight.normal, color: ColorConstants.appColor))
+                                                                                style: TextStyle(fontSize: 13, fontFamily: fontRailwayRegular, fontWeight: FontWeight.normal, color: ColorConstants.appColor))
                                                                           ],
                                                                         )
                                                                       : SizedBox(),
@@ -420,7 +448,7 @@ class _CartScreenState extends BaseRouteState {
                                                                   //         "Discount",
                                                                   //         style: TextStyle(
                                                                   //             fontSize: 13,
-                                                                  //             fontFamily: fontMetropolisRegular,
+                                                                  //             fontFamily: fontRailwayRegular,
                                                                   //             fontWeight: FontWeight.normal)),
                                                                   //     Expanded(
                                                                   //       child: Text(
@@ -431,7 +459,7 @@ class _CartScreenState extends BaseRouteState {
                                                                   //             " ${cartController.cartItemsList.cartData!.discountonmrp} (-)",
                                                                   //         style: TextStyle(
                                                                   //             fontSize: 13,
-                                                                  //             fontFamily: fontMetropolisRegular,
+                                                                  //             fontFamily: fontRailwayRegular,
                                                                   //             color: ColorConstants.green,
                                                                   //             fontWeight: FontWeight.normal))
                                                                   //   ],
@@ -451,11 +479,11 @@ class _CartScreenState extends BaseRouteState {
                                                                           children: [
                                                                             Text(
                                                                               "Delivery Fee Discount",
-                                                                              style: TextStyle(fontFamily: fontMetropolisRegular, fontWeight: FontWeight.w200, fontSize: 13, color: ColorConstants.pureBlack),
+                                                                              style: TextStyle(fontFamily: fontRailwayRegular, fontWeight: FontWeight.w200, fontSize: 13, color: ColorConstants.pureBlack),
                                                                             ),
                                                                             Text(
                                                                               "AED ${(cartController.cartItemsList.cartData!.deliverychargediscount)} (-)",
-                                                                              style: TextStyle(fontFamily: fontMetropolisRegular, fontWeight: FontWeight.w200, fontSize: 13, color: ColorConstants.green),
+                                                                              style: TextStyle(fontFamily: fontRailwayRegular, fontWeight: FontWeight.w200, fontSize: 13, color: ColorConstants.green),
                                                                             )
                                                                           ],
                                                                         ),
@@ -470,7 +498,7 @@ class _CartScreenState extends BaseRouteState {
                                                                           style: TextStyle(
                                                                               fontSize: 15,
                                                                               color: ColorConstants.pureBlack,
-                                                                              fontFamily: fontMetropolisRegular,
+                                                                              fontFamily: fontRailwayRegular,
                                                                               fontWeight: FontWeight.bold)),
                                                                       Expanded(
                                                                         child: Text(
@@ -481,7 +509,7 @@ class _CartScreenState extends BaseRouteState {
                                                                           style: TextStyle(
                                                                               fontSize: 15,
                                                                               color: ColorConstants.appColor,
-                                                                              fontFamily: fontMetropolisRegular,
+                                                                              fontFamily: fontRailwayRegular,
                                                                               fontWeight: FontWeight.bold))
                                                                     ],
                                                                   ),
@@ -507,7 +535,7 @@ class _CartScreenState extends BaseRouteState {
                                                               "Related Products",
                                                               style: TextStyle(
                                                                   fontFamily:
-                                                                      fontMetropolisRegular,
+                                                                      fontRailwayRegular,
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .bold)),
@@ -636,11 +664,7 @@ class _CartScreenState extends BaseRouteState {
                       child: Container(
                         width: MediaQuery.of(context).size.width,
                         height: MediaQuery.of(context).size.height - 100,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                              image: AssetImage("assets/images/login_bg.png"),
-                              fit: BoxFit.cover),
-                        ),
+                        color: ColorConstants.colorPageBackground,
                         child: Center(
                           child: Column(
                             children: [
@@ -654,7 +678,7 @@ class _CartScreenState extends BaseRouteState {
                                     fontFamily: global.fontMontserratLight,
                                     fontSize: 20,
                                     fontWeight: FontWeight.w600,
-                                    color: ColorConstants.guidlinesGolden),
+                                    color: ColorConstants.appColor),
                               ),
                               SizedBox(
                                 height: 8,
@@ -698,9 +722,12 @@ class _CartScreenState extends BaseRouteState {
                         ),
                       ),
                     )
-              : Center(
-                  child: CircularProgressIndicator(),
-                )),
+              : Container(
+                color: ColorConstants.colorPageBackground,
+                child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+              )),
       bottomNavigationBar: _isDataLoaded
           ? global.cartItemsPresent &&
                   global.cartCount > 0 &&
@@ -717,7 +744,7 @@ class _CartScreenState extends BaseRouteState {
                     10,
                     10,
                     10,
-                    MediaQuery.of(context).viewPadding.bottom + 10, // Prevents bottom overlap
+                    MediaQuery.of(context).viewPadding.bottom + 80, // Prevents bottom overlap
                   ),
                   child: BottomButton(
                     loadingState: false,
@@ -983,7 +1010,7 @@ class _CartScreenState extends BaseRouteState {
                                                                     style: TextStyle(
                                                                         fontFamily:
                                                                             global
-                                                                                .fontMetropolisRegular,
+                                                                                .fontRailwayRegular,
                                                                         fontSize:
                                                                             11,
                                                                         fontWeight:
@@ -1015,7 +1042,7 @@ class _CartScreenState extends BaseRouteState {
                                                                   style: TextStyle(
                                                                       fontFamily:
                                                                           global
-                                                                              .fontMetropolisRegular,
+                                                                              .fontRailwayRegular,
                                                                       fontSize:
                                                                           11,
                                                                       fontWeight:
@@ -1098,7 +1125,7 @@ class _CartScreenState extends BaseRouteState {
                                                               TextAlign.center,
                                                           style: TextStyle(
                                                               fontFamily: global
-                                                                  .fontMetropolisRegular,
+                                                                  .fontRailwayRegular,
                                                               fontWeight:
                                                                   FontWeight
                                                                       .w200,
@@ -1131,7 +1158,7 @@ class _CartScreenState extends BaseRouteState {
                                                                 style: TextStyle(
                                                                     fontFamily:
                                                                         global
-                                                                            .fontMetropolisRegular,
+                                                                            .fontRailwayRegular,
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .w200,
@@ -1164,7 +1191,7 @@ class _CartScreenState extends BaseRouteState {
                                                                       : "${cartController.cartItemsList.simmilarProducts![index].varients![0].price.toString().substring(0, cartController.cartItemsList.simmilarProducts![index].varients![0].price.toString().indexOf("."))}",
                                                               style: TextStyle(
                                                                   fontFamily: global
-                                                                      .fontMetropolisRegular,
+                                                                      .fontRailwayRegular,
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .w600,
@@ -1200,7 +1227,7 @@ class _CartScreenState extends BaseRouteState {
                                                                                 ? "${cartController.cartItemsList.simmilarProducts![index].varients![0].mrp!.toStringAsFixed(2)}"
                                                                                 : "${cartController.cartItemsList.simmilarProducts![index].varients![0].mrp.toString().substring(0, cartController.cartItemsList.simmilarProducts![index].varients![0].mrp.toString().indexOf("."))}",
                                                                             style: TextStyle(
-                                                                                fontFamily: global.fontMetropolisRegular,
+                                                                                fontFamily: global.fontRailwayRegular,
                                                                                 fontWeight: FontWeight.w200,
                                                                                 fontSize: 11,
                                                                                 color: Colors.grey),
@@ -1220,7 +1247,7 @@ class _CartScreenState extends BaseRouteState {
                                                                                 "----",
                                                                                 textAlign: TextAlign.center,
                                                                                 maxLines: 1,
-                                                                                style: TextStyle(fontFamily: global.fontMetropolisRegular, fontWeight: FontWeight.w200, fontSize: 11, color: Colors.grey),
+                                                                                style: TextStyle(fontFamily: global.fontRailwayRegular, fontWeight: FontWeight.w200, fontSize: 11, color: Colors.grey),
                                                                               ),
                                                                             ),
                                                                           ),
@@ -1256,7 +1283,7 @@ class _CartScreenState extends BaseRouteState {
                                                         "Estimated Delivery:",
                                                         style: TextStyle(
                                                             fontFamily: global
-                                                                .fontMetropolisRegular,
+                                                                .fontRailwayRegular,
                                                             fontWeight:
                                                                 FontWeight.w200,
                                                             fontSize: 10,
@@ -1286,7 +1313,7 @@ class _CartScreenState extends BaseRouteState {
                                                                       "Express",
                                                                       style: TextStyle(
                                                                           fontFamily: global
-                                                                              .fontMetropolisRegular,
+                                                                              .fontRailwayRegular,
                                                                           fontWeight: FontWeight
                                                                               .w200,
                                                                           fontSize:
@@ -1300,7 +1327,7 @@ class _CartScreenState extends BaseRouteState {
                                                                       ? Text(
                                                                           "Today",
                                                                           style: TextStyle(
-                                                                              fontFamily: global.fontMetropolisRegular,
+                                                                              fontFamily: global.fontRailwayRegular,
                                                                               fontWeight: FontWeight.w200,
                                                                               fontSize: 10,
                                                                               color: ColorConstants.pureBlack),
@@ -1309,11 +1336,11 @@ class _CartScreenState extends BaseRouteState {
                                                                               cartController.cartItemsList.simmilarProducts![index].delivery == "3"
                                                                           ? Text(
                                                                               "Tomorrow",
-                                                                              style: TextStyle(fontFamily: global.fontMetropolisRegular, fontWeight: FontWeight.w200, fontSize: 10, color: ColorConstants.pureBlack),
+                                                                              style: TextStyle(fontFamily: global.fontRailwayRegular, fontWeight: FontWeight.w200, fontSize: 10, color: ColorConstants.pureBlack),
                                                                             )
                                                                           : Text(
                                                                               cartController.cartItemsList.simmilarProducts![index].delivery == null || cartController.cartItemsList.simmilarProducts![index].delivery == "" ? "Tomorrow" : "${int.parse(cartController.cartItemsList.simmilarProducts![index].delivery!) - 2} days",
-                                                                              style: TextStyle(fontFamily: global.fontMetropolisRegular, fontWeight: FontWeight.w200, fontSize: 10, color: ColorConstants.pureBlack),
+                                                                              style: TextStyle(fontFamily: global.fontRailwayRegular, fontWeight: FontWeight.w200, fontSize: 10, color: ColorConstants.pureBlack),
                                                                             )),
                                                     ],
                                                   ),
@@ -1374,7 +1401,7 @@ class _CartScreenState extends BaseRouteState {
                                               fontWeight: FontWeight.w200,
                                               fontSize: 10,
                                               fontFamily:
-                                                  global.fontMetropolisRegular,
+                                                  global.fontRailwayRegular,
                                               color: Colors.white),
                                         ),
                                       ),
@@ -1407,7 +1434,7 @@ class _CartScreenState extends BaseRouteState {
                                           fontWeight: FontWeight.w200,
                                           fontSize: 15,
                                           fontFamily:
-                                              global.fontMetropolisRegular,
+                                              global.fontRailwayRegular,
                                           color: ColorConstants.white),
                                     ),
                                   ),

@@ -203,28 +203,29 @@ class _AddAddressScreenState extends BaseRouteState {
           child: Scaffold(
               key: _scaffoldKey,
               appBar: AppBar(
-                backgroundColor: ColorConstants.appBrownFaintColor,
+                backgroundColor: ColorConstants.appBarColorWhite,
                 leading: BackButton(
                   onPressed: () async {
                     Navigator.of(context).pop();
                   },
+                  color: ColorConstants.newAppColor,
                   
                 ),
-                centerTitle: true,
+                centerTitle: false,
                 title: isEditButtonClicked == false
                     ? Text("Add Receiver Address",
                         style: TextStyle(
-                            fontFamily: fontMetropolisRegular,
+                            fontFamily: fontRailwayRegular,
                             color: ColorConstants.pureBlack,
                             fontWeight: FontWeight
-                                .w200) //Theme.of(context).textTheme.headline6,
+                                .w200) //Theme.of(context).textTheme.titleLarge,
                         )
                     : Text("Save Address",
                         style: TextStyle(
-                            fontFamily: fontMetropolisRegular,
+                            fontFamily: fontRailwayRegular,
                             color: ColorConstants.pureBlack,
                             fontWeight: FontWeight
-                                .w200) //Theme.of(context).textTheme.headline6,
+                                .w200) //Theme.of(context).textTheme.titleLarge,
                         ),
               ),
               body: Form(
@@ -255,7 +256,7 @@ class _AddAddressScreenState extends BaseRouteState {
                                     Text(
                                       "${setPlace.thoroughfare}",
                                       style: TextStyle(
-                                          fontFamily: fontMetropolisRegular,
+                                          fontFamily: fontRailwayRegular,
                                           fontSize: 16,
                                           fontWeight: FontWeight.bold,
                                           color: ColorConstants.pureBlack,
@@ -275,7 +276,7 @@ class _AddAddressScreenState extends BaseRouteState {
                                       maxLines: 2,
                                       style: TextStyle(
                                           fontSize: 12,
-                                          fontFamily: fontMetropolisRegular,
+                                          fontFamily: fontRailwayRegular,
                                           color: ColorConstants.pureBlack,
                                           fontWeight: FontWeight.normal),
                                     )),
@@ -292,7 +293,7 @@ class _AddAddressScreenState extends BaseRouteState {
                                 child: MaterialTextField(
                                   textInputAction: TextInputAction.next,
                                   style: TextStyle(
-                                      fontFamily: global.fontMetropolisRegular,
+                                      fontFamily: global.fontRailwayRegular,
                                       fontSize: 16,
                                       fontWeight: FontWeight.w200,
                                       color: ColorConstants.pureBlack),
@@ -303,7 +304,7 @@ class _AddAddressScreenState extends BaseRouteState {
                                     errorStyle: const TextStyle(
                                         fontSize: 10,
                                         fontFamily:
-                                            global.fontMetropolisRegular,
+                                            global.fontRailwayRegular,
                                         fontWeight: FontWeight.w200),
                                     fillColor: Colors.transparent,
                                     enabledColor: Colors.grey,
@@ -348,7 +349,7 @@ class _AddAddressScreenState extends BaseRouteState {
                                 child: MaterialTextField(
                                   textInputAction: TextInputAction.next,
                                   style: TextStyle(
-                                      fontFamily: global.fontMetropolisRegular,
+                                      fontFamily: global.fontRailwayRegular,
                                       fontSize: 16,
                                       fontWeight: FontWeight.w200,
                                       color: ColorConstants.pureBlack),
@@ -359,7 +360,7 @@ class _AddAddressScreenState extends BaseRouteState {
                                     errorStyle: const TextStyle(
                                         fontSize: 10,
                                         fontFamily:
-                                            global.fontMetropolisRegular,
+                                            global.fontRailwayRegular,
                                         fontWeight: FontWeight.w200),
                                     fillColor: Colors.transparent,
                                     enabledColor: Colors.grey,
@@ -403,7 +404,7 @@ class _AddAddressScreenState extends BaseRouteState {
                                 child: MaterialTextField(
                                   textInputAction: TextInputAction.next,
                                   style: TextStyle(
-                                      fontFamily: global.fontMetropolisRegular,
+                                      fontFamily: global.fontRailwayRegular,
                                       fontSize: 16,
                                       fontWeight: FontWeight.w200,
                                       color: ColorConstants.pureBlack),
@@ -414,7 +415,7 @@ class _AddAddressScreenState extends BaseRouteState {
                                     errorStyle: const TextStyle(
                                         fontSize: 10,
                                         fontFamily:
-                                            global.fontMetropolisRegular,
+                                            global.fontRailwayRegular,
                                         fontWeight: FontWeight.w200),
                                     fillColor: Colors.transparent,
                                     enabledColor: Colors.grey,
@@ -457,7 +458,7 @@ class _AddAddressScreenState extends BaseRouteState {
                                 child: MaterialTextField(
                                   textInputAction: TextInputAction.next,
                                   style: TextStyle(
-                                      fontFamily: global.fontMetropolisRegular,
+                                      fontFamily: global.fontRailwayRegular,
                                       fontSize: 16,
                                       fontWeight: FontWeight.w200,
                                       color: ColorConstants.pureBlack),
@@ -468,7 +469,7 @@ class _AddAddressScreenState extends BaseRouteState {
                                     errorStyle: const TextStyle(
                                         fontSize: 10,
                                         fontFamily:
-                                            global.fontMetropolisRegular,
+                                            global.fontRailwayRegular,
                                         fontWeight: FontWeight.w200),
                                     fillColor: Colors.transparent,
                                     enabledColor: Colors.grey,
@@ -497,7 +498,7 @@ class _AddAddressScreenState extends BaseRouteState {
                                 child: MaterialTextField(
                                   textInputAction: TextInputAction.done,
                                   style: TextStyle(
-                                      fontFamily: global.fontMetropolisRegular,
+                                      fontFamily: global.fontRailwayRegular,
                                       fontSize: 16,
                                       fontWeight: FontWeight.w200,
                                       color: ColorConstants.pureBlack),
@@ -508,7 +509,7 @@ class _AddAddressScreenState extends BaseRouteState {
                                     errorStyle: const TextStyle(
                                         fontSize: 10,
                                         fontFamily:
-                                            global.fontMetropolisRegular,
+                                            global.fontRailwayRegular,
                                         fontWeight: FontWeight.w200),
                                     fillColor: Colors.transparent,
                                     enabledColor: Colors.grey,
@@ -563,7 +564,7 @@ class _AddAddressScreenState extends BaseRouteState {
                                     "Save as",
                                     // '${AppLocalizations.of(context).lbl_save_address}',
                                     style: TextStyle(
-                                        fontFamily: fontMetropolisRegular,
+                                        fontFamily: fontRailwayRegular,
                                         fontSize: 18,
                                         fontWeight: FontWeight.w600,
                                         color: ColorConstants.grey,
@@ -627,7 +628,7 @@ class _AddAddressScreenState extends BaseRouteState {
                                                 // "${AppLocalizations.of(context).txt_home} ",
                                                 style: TextStyle(
                                                   fontFamily:
-                                                      fontMetropolisRegular,
+                                                      fontRailwayRegular,
                                                   color: type == 'Home'
                                                       ? Colors.white
                                                       : Colors.black,
@@ -692,7 +693,7 @@ class _AddAddressScreenState extends BaseRouteState {
                                               // "${AppLocalizations.of(context).txt_office} ",
                                               style: TextStyle(
                                                 fontFamily:
-                                                    fontMetropolisRegular,
+                                                    fontRailwayRegular,
                                                 color: type == 'Office'
                                                     ? Colors.white
                                                     : Colors.black,
@@ -735,7 +736,7 @@ class _AddAddressScreenState extends BaseRouteState {
                                                 // "${AppLocalizations.of(context).txt_others}",
                                                 style: TextStyle(
                                                   fontFamily:
-                                                      fontMetropolisRegular,
+                                                      fontRailwayRegular,
                                                   color: type == 'Others'
                                                       ? Colors.white
                                                       : Colors.black,
@@ -764,7 +765,7 @@ class _AddAddressScreenState extends BaseRouteState {
                                           fontSize: 12,
                                           color: ColorConstants.appColor,
                                           fontFamily:
-                                              global.fontMetropolisRegular,
+                                              global.fontRailwayRegular,
                                           fontWeight: FontWeight.w200),
                                     ),
                                   ),
@@ -777,7 +778,7 @@ class _AddAddressScreenState extends BaseRouteState {
                                   child: Text(
                                     'Personal Details',
                                     style: TextStyle(
-                                        fontFamily: fontMetropolisRegular,
+                                        fontFamily: fontRailwayRegular,
                                         color: ColorConstants.grey,
                                         fontWeight: FontWeight.w600,
                                         fontSize: 18,
@@ -801,7 +802,7 @@ class _AddAddressScreenState extends BaseRouteState {
                                       child: MaterialTextField(
                                         style: TextStyle(
                                             fontFamily:
-                                                global.fontMetropolisRegular,
+                                                global.fontRailwayRegular,
                                             fontSize: 16,
                                             fontWeight: FontWeight.w200,
                                             color: ColorConstants.pureBlack),
@@ -813,7 +814,7 @@ class _AddAddressScreenState extends BaseRouteState {
                                           errorStyle: const TextStyle(
                                               fontSize: 10,
                                               fontFamily:
-                                                  global.fontMetropolisRegular,
+                                                  global.fontRailwayRegular,
                                               fontWeight: FontWeight.w200),
                                           fillColor: Colors.transparent,
                                           enabledColor: Colors.grey,
@@ -863,7 +864,7 @@ class _AddAddressScreenState extends BaseRouteState {
                                                             style: TextStyle(
                                                                 fontSize: 16,
                                                                 fontFamily:
-                                                                    fontMetropolisRegular,
+                                                                    fontRailwayRegular,
                                                                 color: ColorConstants
                                                                     .appColor),
                                                           )),
@@ -872,7 +873,7 @@ class _AddAddressScreenState extends BaseRouteState {
                                                           .pureBlack),
                                                   textStyle: TextStyle(
                                                       fontFamily:
-                                                          fontMetropolisRegular,
+                                                          fontRailwayRegular,
                                                       fontWeight:
                                                           FontWeight.w200,
                                                       fontSize: 16,
@@ -928,7 +929,7 @@ class _AddAddressScreenState extends BaseRouteState {
                                                         countryCodeSelected,
                                                         style: TextStyle(
                                                             fontFamily:
-                                                                fontMetropolisRegular,
+                                                                fontRailwayRegular,
                                                             fontWeight:
                                                                 FontWeight.w200,
                                                             fontSize: 16,
@@ -969,7 +970,7 @@ class _AddAddressScreenState extends BaseRouteState {
                                             style: TextStyle(
                                                 fontSize: 14,
                                                 fontFamily:
-                                                    fontMetropolisRegular,
+                                                    fontRailwayRegular,
                                                 fontWeight: FontWeight.w200,
                                                 color: ColorConstants.pureBlack,
                                                 letterSpacing: 1),
@@ -1016,13 +1017,13 @@ class _AddAddressScreenState extends BaseRouteState {
                                                 errorStyle: const TextStyle(
                                                     fontSize: 10,
                                                     fontFamily: global
-                                                        .fontMetropolisRegular,
+                                                        .fontRailwayRegular,
                                                     fontWeight:
                                                         FontWeight.w200),
                                                 hintText: '561234567',
                                                 hintStyle: TextStyle(
                                                     fontFamily:
-                                                        fontMetropolisRegular,
+                                                        fontRailwayRegular,
                                                     fontSize:
                                                         14) //textFieldHintStyle(context),
                                                 ),
@@ -1072,7 +1073,7 @@ class _AddAddressScreenState extends BaseRouteState {
                                     textInputAction: TextInputAction.done,
                                     style: TextStyle(
                                         fontFamily:
-                                            global.fontMetropolisRegular,
+                                            global.fontRailwayRegular,
                                         fontSize: 16,
                                         fontWeight: FontWeight.w200,
                                         color: ColorConstants.pureBlack),
@@ -1084,7 +1085,7 @@ class _AddAddressScreenState extends BaseRouteState {
                                       errorStyle: const TextStyle(
                                           fontSize: 10,
                                           fontFamily:
-                                              global.fontMetropolisRegular,
+                                              global.fontRailwayRegular,
                                           fontWeight: FontWeight.w200),
                                       fillColor: Colors.transparent,
                                       enabledColor: Colors.grey,

@@ -147,7 +147,9 @@ class _FilterCustomSheetState extends State<FilterCustomSheet> {
                   padding: const EdgeInsets.all(22),
                   child: Text(
                     "Filter",
-                    style: TextStyle(fontSize: 17),
+
+                    style: TextStyle(fontSize: 17,fontFamily: fontRailwayRegular,
+                    fontWeight: FontWeight.w600,color: ColorConstants.newTextHeadingFooter),
                   ),
                 ),
                 // Divider(
@@ -194,7 +196,7 @@ class _FilterCustomSheetState extends State<FilterCustomSheet> {
                       //                               : ColorConstants.pureBlack,
                       //                           fontSize: 15,
                       //                           fontFamily:
-                      //                               fontMetropolisRegular,
+                      //                               fontRailwayRegular,
                       //                           fontWeight: FontWeight.normal,
                       //                         ),
                       //                       )
@@ -208,7 +210,7 @@ class _FilterCustomSheetState extends State<FilterCustomSheet> {
                       //                               : ColorConstants.pureBlack,
                       //                           fontSize: 15,
                       //                           fontFamily:
-                      //                               fontMetropolisRegular,
+                      //                               fontRailwayRegular,
                       //                           fontWeight: FontWeight.normal,
                       //                         ),
                       //                       )
@@ -222,7 +224,7 @@ class _FilterCustomSheetState extends State<FilterCustomSheet> {
                       //                               : ColorConstants.pureBlack,
                       //                           fontSize: 15,
                       //                           fontFamily:
-                      //                               fontMetropolisRegular,
+                      //                               fontRailwayRegular,
                       //                           fontWeight: FontWeight.normal,
                       //                         ),
                       //                       )
@@ -264,7 +266,7 @@ class _FilterCustomSheetState extends State<FilterCustomSheet> {
                                                 controlAffinity:
                                                     ListTileControlAffinity
                                                         .leading,
-                                                activeColor: Colors.red,
+                                                activeColor: ColorConstants.appColor,
                                                 title: Transform.translate(
                                                   offset: const Offset(-15, 0),
                                                   child: Row(
@@ -277,9 +279,9 @@ class _FilterCustomSheetState extends State<FilterCustomSheet> {
                                                         style: TextStyle(
                                                           color: ColorConstants
                                                               .pureBlack,
-                                                          fontSize: 11,
+                                                          fontSize: 12,
                                                           fontFamily:
-                                                              fontMetropolisRegular,
+                                                              fontOufitMedium,
                                                           fontWeight:
                                                               FontWeight.normal,
                                                         ),
@@ -362,7 +364,7 @@ class _FilterCustomSheetState extends State<FilterCustomSheet> {
                                                 controlAffinity:
                                                     ListTileControlAffinity
                                                         .leading,
-                                                activeColor: Colors.red,
+                                                activeColor: ColorConstants.newAppColor,
                                                 title: Transform.translate(
                                                   offset: const Offset(-15, 0),
                                                   child: Row(
@@ -376,9 +378,9 @@ class _FilterCustomSheetState extends State<FilterCustomSheet> {
                                                         style: TextStyle(
                                                           color: ColorConstants
                                                               .pureBlack,
-                                                          fontSize: 11,
+                                                          fontSize: 12,
                                                           fontFamily:
-                                                              fontMetropolisRegular,
+                                                              fontOufitMedium,
                                                           fontWeight:
                                                               FontWeight.normal,
                                                         ),
@@ -462,7 +464,7 @@ class _FilterCustomSheetState extends State<FilterCustomSheet> {
                                                 controlAffinity:
                                                     ListTileControlAffinity
                                                         .leading,
-                                                activeColor: Colors.red,
+                                                activeColor: ColorConstants.appColor,
                                                 title: Transform.translate(
                                                   offset: const Offset(-15, 0),
                                                   child: Row(
@@ -473,9 +475,9 @@ class _FilterCustomSheetState extends State<FilterCustomSheet> {
                                                         style: TextStyle(
                                                           color: ColorConstants
                                                               .pureBlack,
-                                                          fontSize: 11,
+                                                          fontSize: 12,
                                                           fontFamily:
-                                                              fontMetropolisRegular,
+                                                              fontOufitMedium,
                                                           fontWeight:
                                                               FontWeight.normal,
                                                         ),
@@ -554,7 +556,7 @@ class _FilterCustomSheetState extends State<FilterCustomSheet> {
                                                 controlAffinity:
                                                     ListTileControlAffinity
                                                         .leading,
-                                                activeColor: Colors.red,
+                                                activeColor: ColorConstants.newAppColor,
                                                 title: Transform.translate(
                                                   offset: const Offset(-15, 0),
                                                   child: Row(
@@ -565,9 +567,9 @@ class _FilterCustomSheetState extends State<FilterCustomSheet> {
                                                         style: TextStyle(
                                                           color: ColorConstants
                                                               .pureBlack,
-                                                          fontSize: 11,
+                                                          fontSize: 12,
                                                           fontFamily:
-                                                              fontMetropolisRegular,
+                                                              fontOufitMedium,
                                                           fontWeight:
                                                               FontWeight.normal,
                                                         ),
@@ -671,15 +673,15 @@ class _FilterCustomSheetState extends State<FilterCustomSheet> {
                             ),
                             color: Colors.white,
                             border: Border.all(
-                              color: ColorConstants.appGoldenColortint,
+                              color: ColorConstants.appColor,
                             )),
                         child: Center(
                           child: Text(
                             "CLEAR ALL",
                             style: TextStyle(
-                              fontFamily: fontMetropolisRegular,
-                              color: ColorConstants.appGoldenColortint,
-                              fontWeight: FontWeight.w600,
+                              fontFamily: fontOufitMedium,
+                              color: ColorConstants.newTextHeadingFooter,
+                              fontWeight: FontWeight.bold,
                               fontSize: 14,
                             ),
                           ),
@@ -700,15 +702,15 @@ class _FilterCustomSheetState extends State<FilterCustomSheet> {
                           borderRadius: BorderRadius.circular(
                             10,
                           ),
-                          color: Colors.red,
+                          color: ColorConstants.newAppColor,
                         ),
                         child: Center(
                           child: Text(
                             "APPLY",
                             style: TextStyle(
-                              fontFamily: fontMetropolisRegular,
+                              fontFamily: fontOufitMedium,
                               color: ColorConstants.white,
-                              fontWeight: FontWeight.w600,
+                              fontWeight: FontWeight.bold,
                               fontSize: 14,
                             ),
                           ),

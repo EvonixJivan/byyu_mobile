@@ -47,7 +47,8 @@ class _AddressListScreenState extends BaseRouteState {
             child: Scaffold(
               key: _scaffoldKey,
               appBar: AppBar(
-                backgroundColor: ColorConstants.appBrownFaintColor,
+                backgroundColor: ColorConstants.appBarColorWhite,
+                
                 leading: InkWell(
                   customBorder: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
@@ -66,15 +67,17 @@ class _AddressListScreenState extends BaseRouteState {
                   child: Align(
                     alignment: Alignment.center,
                     child: Icon(Icons.keyboard_arrow_left,
-                        color: global.bgCompletedColor),
+                        color: ColorConstants.newAppColor),
                   ),
+
                 ),
-                centerTitle: true,
+                centerTitle: false,
+                
                 title: Text(
                   'My Address',
                   style: Theme.of(context)
                       .textTheme
-                      .headline6, //textTheme.headline6,
+                      .titleLarge, //textTheme.titleLarge,
                 ),
               ),
               body: SingleChildScrollView(
@@ -185,7 +188,7 @@ class _AddressListScreenState extends BaseRouteState {
                                               },
                                               child: ListTile(
                                                 contentPadding:
-                                                    EdgeInsets.all(7),
+                                                    EdgeInsets.only(left: 7, right: 7, top: 7, bottom: 7),
                                                 title: SizedBox(
                                                   height: 25,
                                                   child: Row(
@@ -241,7 +244,7 @@ class _AddressListScreenState extends BaseRouteState {
                                                                   (' ${global.userProfileController.addressList[index].recepientName == null ? global.userProfileController.addressList[index].recepientName : ""} ${global.userProfileController.addressList[index].type}'),
                                                               style: TextStyle(
                                                                   fontFamily:
-                                                                      fontMetropolisRegular,
+                                                                      fontRailwayRegular,
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .w200,
@@ -327,7 +330,7 @@ class _AddressListScreenState extends BaseRouteState {
                                                           : "${global.userProfileController.addressList[index].building_villa}, ${global.userProfileController.addressList[index].street}, ${global.userProfileController.addressList[index].society}",
                                                       style: TextStyle(
                                                           fontFamily:
-                                                              fontMetropolisRegular,
+                                                              fontRailwayRegular,
                                                           fontWeight:
                                                               FontWeight.w200,
                                                           fontSize: 12,
@@ -394,7 +397,7 @@ class _AddressListScreenState extends BaseRouteState {
                     "Cancel",
                     style: TextStyle(
                         fontSize: 16,
-                        fontFamily: fontMetropolisRegular,
+                        fontFamily: fontRailwayRegular,
                         fontWeight: FontWeight.w200,
                         color: ColorConstants.appColor)),
                 onPressed: () {

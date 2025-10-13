@@ -40,31 +40,22 @@ class _RatingListScreenState extends BaseRouteState {
       child: Scaffold(
         key: _scaffoldKey,
         appBar: AppBar(
-          backgroundColor: ColorConstants.appBrownFaintColor,
-          leading: InkWell(
-            customBorder: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(30),
-            ),
-            onTap: () {
-              Navigator.of(context).pop();
-            },
-            child: Align(
-              alignment: Alignment.center,
-              child: Icon(
-                MdiIcons.arrowLeft,
-                color: ColorConstants.pureBlack,
-              ),
-            ),
-          ),
-          centerTitle: true,
+          backgroundColor: ColorConstants.appBarColorWhite,
+          leading: BackButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              color: ColorConstants.newAppColor),
+        
+          centerTitle: false,
           title: Text(
             // "${AppLocalizations.of(context).tle_product_rating}",
             "Product Ratings",
             textAlign: TextAlign.center,
             style: TextStyle(
                 color: ColorConstants.pureBlack,
-                fontFamily: fontMetropolisRegular,
-                fontWeight: FontWeight.w200), //textTheme.headline6,
+                fontFamily: fontRailwayRegular,
+                fontWeight: FontWeight.w200), //textTheme.titleLarge,
           ),
         ),
         body: Padding(
@@ -176,7 +167,7 @@ class _RatingListScreenState extends BaseRouteState {
                                               style: TextStyle(
                                                 fontSize: 15,
                                                 fontFamily: global
-                                                    .fontMetropolisRegular,
+                                                    .fontRailwayRegular,
                                                 fontWeight: FontWeight.w500,
                                               ),
                                               maxLines: 1,
@@ -226,7 +217,7 @@ class _RatingListScreenState extends BaseRouteState {
                                               style: TextStyle(
                                                 fontSize: 13,
                                                 fontFamily: global
-                                                    .fontMetropolisRegular,
+                                                    .fontRailwayRegular,
                                                 fontWeight: FontWeight.w200,
                                               ),
                                               maxLines: 2,

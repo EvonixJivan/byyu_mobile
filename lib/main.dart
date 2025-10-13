@@ -17,6 +17,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 // import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 //
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -48,29 +49,54 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp();
-  FirebaseMessaging _firebaseMessaging =
-      FirebaseMessaging.instance; // Change here
-  // _firebaseMessaging.getToken().then((token) {
-  //   print("token is $token");
-  //   global.appDeviceId = token;
-  // });
+  FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
+
   FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
-      alert: true, badge: true, sound: true);
+    alert: true,
+    badge: true,
+    sound: true,
+  );
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
-//   DyanamicLinkProvider().initDynamicLink();
   FlutterError.onError = (errorDetails) {
     FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
   };
-  // Pass all uncaught asynchronous errors that aren't handled by the Flutter framework to Crashlytics
+
   PlatformDispatcher.instance.onError = (error, stack) {
     FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
     return true;
   };
+
   FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
-  // requestPermission();
-  runApp(App());
+
+  /// 👇 Ensure the system UI overlays are *enabled* and not edge-to-edge
+  await SystemChrome.setEnabledSystemUIMode(
+    SystemUiMode.manual,
+    overlays: SystemUiOverlay.values,
+  );
+
+  /// 👇 Apply the global navigation + status bar colors
+  const overlayStyle = SystemUiOverlayStyle(
+    systemNavigationBarColor: ColorConstants.white,
+    systemNavigationBarIconBrightness: Brightness.dark,
+    statusBarColor: ColorConstants.white,
+    statusBarIconBrightness: Brightness.dark,
+  );
+
+  SystemChrome.setSystemUIOverlayStyle(overlayStyle);
+
+  runApp(
+    AnnotatedRegion<SystemUiOverlayStyle>(
+      value: overlayStyle,
+      child: SafeArea(
+        top: false,
+        bottom: true,
+        child: App(),
+      ),
+    ),
+  );
 }
+
 
 AndroidNotificationChannel channel = const AndroidNotificationChannel(
     'high_importance_channel', 'High Importance Notifications',
@@ -808,6 +834,7 @@ if (uri.queryParameters != null && uri.queryParameters.length>0) {
                 child: Text(
                   'No internet available',
                   textAlign: TextAlign.start,
+                  style: TextStyle(fontFamily: fontRailwayRegular,fontWeight: FontWeight.w900),
                 ),
               ),
             ),
@@ -842,7 +869,7 @@ if (uri.queryParameters != null && uri.queryParameters.length>0) {
                     child: Text('Skip',
                         style: TextStyle(
                             fontSize: 16,
-                            fontFamily: fontMetropolisRegular,
+                            fontFamily: fontRailwayRegular,
                             fontWeight: FontWeight.w200,
                             color: ColorConstants.appColor)),
                     onPressed: () async {
@@ -899,7 +926,7 @@ if (uri.queryParameters != null && uri.queryParameters.length>0) {
                       'Update',
                       style: TextStyle(
                           fontSize: 16,
-                          fontFamily: fontMetropolisRegular,
+                          fontFamily: fontRailwayRegular,
                           fontWeight: FontWeight.w200,
                           color: Colors.blue),
                     ),
@@ -957,7 +984,7 @@ if (uri.queryParameters != null && uri.queryParameters.length>0) {
                     child: Text('Update',
                         style: TextStyle(
                             fontSize: 16,
-                            fontFamily: fontMetropolisRegular,
+                            fontFamily: fontRailwayRegular,
                             fontWeight: FontWeight.w200,
                             color: ColorConstants.appColor)),
                     onPressed: () async {

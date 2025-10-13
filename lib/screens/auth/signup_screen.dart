@@ -166,12 +166,13 @@ class _SignUpScreenState extends BaseRouteState {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ColorConstants.colorPageBackground,
       appBar: AppBar(
         leadingWidth: 46,
-        backgroundColor: ColorConstants.appBrownFaintColor,
+        backgroundColor: ColorConstants.appBarColorWhite,
         title: Text("Sign Up",
             style: TextStyle(
-              fontFamily: fontMetropolisRegular,
+              fontFamily: fontRailwayRegular,
               color: ColorConstants.pureBlack,
               fontWeight: FontWeight.w200,
             )),
@@ -191,7 +192,7 @@ class _SignUpScreenState extends BaseRouteState {
                 Navigator.of(context).pop();
               }
             },
-            color: ColorConstants.pureBlack),
+            color: ColorConstants.newAppColor),
       ),
       resizeToAvoidBottomInset: true,
       body: SafeArea(
@@ -207,10 +208,7 @@ class _SignUpScreenState extends BaseRouteState {
               padding: const EdgeInsets.only(top: 20),
               child: SingleChildScrollView(
                 child: Container(
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage("assets/images/login_bg.png"),
-                          fit: BoxFit.cover)),
+                  
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -223,7 +221,7 @@ class _SignUpScreenState extends BaseRouteState {
                           child: Text(
                             "Create an Account",
                             style: TextStyle(
-                                fontFamily: fontMetropolisRegular,
+                                fontFamily: fontRailwayRegular,
                                 color: ColorConstants.pureBlack,
                                 fontWeight: FontWeight.w200,
                                 fontSize: 18,
@@ -240,13 +238,12 @@ class _SignUpScreenState extends BaseRouteState {
                       ),
                       Container(
                         decoration: BoxDecoration(
-                            color: ColorConstants.white,
                             borderRadius: BorderRadius.all(Radius.circular(7.0))),
                         margin: EdgeInsets.only(top: 0, left: 20, right: 20),
                         padding: EdgeInsets.only(),
                         child: MaterialTextField(
                           style: TextStyle(
-                              fontFamily: global.fontMetropolisRegular,
+                              fontFamily: global.fontRailwayRegular,
                               fontSize: 16,
                               fontWeight: FontWeight.w200,
                               color: ColorConstants.pureBlack),
@@ -256,7 +253,7 @@ class _SignUpScreenState extends BaseRouteState {
                                 horizontal: 4, vertical: 4),
                             errorStyle: const TextStyle(
                                 fontSize: 10,
-                                fontFamily: global.fontMetropolisRegular,
+                                fontFamily: global.fontRailwayRegular,
                                 fontWeight: FontWeight.w200),
                             fillColor: Colors.transparent,
                             enabledColor: Colors.grey,
@@ -293,12 +290,11 @@ class _SignUpScreenState extends BaseRouteState {
                       
                       Container(
                         decoration: BoxDecoration(
-                            color: ColorConstants.white,
                             borderRadius: BorderRadius.circular(7)),
                         margin: EdgeInsets.symmetric(horizontal: 20),
                         child: MaterialTextField(
                           style: TextStyle(
-                              fontFamily: global.fontMetropolisRegular,
+                              fontFamily: global.fontRailwayRegular,
                               fontSize: 16,
                               fontWeight: FontWeight.w200,
                               color: ColorConstants.pureBlack),
@@ -308,7 +304,7 @@ class _SignUpScreenState extends BaseRouteState {
                                 horizontal: 4, vertical: 4),
                             errorStyle: const TextStyle(
                                 fontSize: 10,
-                                fontFamily: global.fontMetropolisRegular,
+                                fontFamily: global.fontRailwayRegular,
                                 fontWeight: FontWeight.w200),
                             fillColor: Colors.transparent,
                             enabledColor: Colors.grey,
@@ -365,13 +361,13 @@ class _SignUpScreenState extends BaseRouteState {
                                             "Search",
                                             style: TextStyle(
                                                 fontSize: 16,
-                                                fontFamily: fontMetropolisRegular,
+                                                fontFamily: fontRailwayRegular,
                                                 color: ColorConstants.appColor),
                                           )),
                                       searchTextStyle: TextStyle(
                                           color: ColorConstants.pureBlack),
                                       textStyle: TextStyle(
-                                          fontFamily: fontMetropolisRegular,
+                                          fontFamily: fontRailwayRegular,
                                           fontWeight: FontWeight.w200,
                                           fontSize: 16,
                                           color: ColorConstants.pureBlack,
@@ -423,7 +419,7 @@ class _SignUpScreenState extends BaseRouteState {
                                             child: Text(countryCodeSelected!,
                                                 style: TextStyle(
                                                     fontFamily:
-                                                        fontMetropolisRegular,
+                                                        fontRailwayRegular,
                                                     fontWeight: FontWeight.w200,
                                                     fontSize: 16,
                                                     color:
@@ -456,7 +452,7 @@ class _SignUpScreenState extends BaseRouteState {
                                   controller: _cPhone,
                                   style: TextStyle(
                                       fontSize: 14,
-                                      fontFamily: fontMetropolisRegular,
+                                      fontFamily: fontRailwayRegular,
                                       fontWeight: FontWeight.w200,
                                       color: ColorConstants.pureBlack,
                                       letterSpacing: 1),
@@ -474,7 +470,7 @@ class _SignUpScreenState extends BaseRouteState {
                                       border: OutlineInputBorder(),
                                       labelStyle: TextStyle(
                                           fontSize: 17,
-                                          fontFamily: fontMetropolisRegular,
+                                          fontFamily: fontRailwayRegular,
                                           fontWeight: FontWeight.w200,
                                           color: _cPhone.text.length > 0
                                               ? ColorConstants.appColor
@@ -496,10 +492,10 @@ class _SignUpScreenState extends BaseRouteState {
                                       errorStyle: const TextStyle(
                                           fontSize: 10,
                                           fontFamily:
-                                              global.fontMetropolisRegular,
+                                              global.fontRailwayRegular,
                                           fontWeight: FontWeight.w200),
                                       hintStyle: TextStyle(
-                                          fontFamily: fontMetropolisRegular,
+                                          fontFamily: fontRailwayRegular,
                                           fontSize:
                                               14) 
                                       ),
@@ -553,7 +549,7 @@ class _SignUpScreenState extends BaseRouteState {
                             style: TextStyle(
                                 fontSize: 11,
                                 color: ColorConstants.appColor,
-                                fontFamily: global.fontMetropolisRegular,
+                                fontFamily: global.fontRailwayRegular,
                                 fontWeight: FontWeight.w200),
                           ),
                         ),
@@ -571,7 +567,7 @@ class _SignUpScreenState extends BaseRouteState {
                                   text: 'Date of Birth',
                                   style: TextStyle(
                                       fontWeight: FontWeight.w200,
-                                      fontFamily: fontMetropolisRegular,
+                                      fontFamily: fontRailwayRegular,
                                       color: ColorConstants.pureBlack,
                                       fontSize: 16),
                                   children: const <TextSpan>[
@@ -579,7 +575,7 @@ class _SignUpScreenState extends BaseRouteState {
                                         text: '',
                                         style: TextStyle(
                                             fontWeight: FontWeight.w200,
-                                            fontFamily: fontMetropolisRegular,
+                                            fontFamily: fontRailwayRegular,
                                             fontSize: 16,
                                             color: ColorConstants.appColor)),
                                   ]),
@@ -624,7 +620,7 @@ class _SignUpScreenState extends BaseRouteState {
                                   itemTextStyle: TextStyle(
                                       color: Colors.black,
                                       fontSize: 14,
-                                      fontFamily: global.fontMetropolisRegular,
+                                      fontFamily: global.fontRailwayRegular,
                                       fontWeight: FontWeight.w200),
                                   dividerColor: Colors.black,
                                 ),
@@ -646,14 +642,12 @@ class _SignUpScreenState extends BaseRouteState {
                             
                             Container(
                               decoration: BoxDecoration(
-                                  color: isMale
-                                      ? ColorConstants.appColor
-                                      : ColorConstants.white,
+                                  
                                   borderRadius: BorderRadius.circular(8),
                                   border: Border.all(
                                     color: isMale
                                         ? ColorConstants.appColor
-                                        : ColorConstants.pureBlack,
+                                        : ColorConstants.grey.withOpacity(0.5),
                                   )),
                               padding: EdgeInsets.only(
                                   left: 6, right: 6, bottom: 5, top: 5),
@@ -674,14 +668,12 @@ class _SignUpScreenState extends BaseRouteState {
                             ),
                             Container(
                               decoration: BoxDecoration(
-                                  color: isFemale
-                                      ? ColorConstants.appColor
-                                      : ColorConstants.white,
+                                  
                                   borderRadius: BorderRadius.circular(8),
                                   border: Border.all(
                                     color: isFemale
                                         ? ColorConstants.appColor
-                                        : ColorConstants.pureBlack,
+                                        : ColorConstants.grey.withOpacity(0.5),
                                   )),
                               padding: EdgeInsets.only(
                                   left: 6, right: 6, bottom: 5, top: 5),
@@ -697,6 +689,7 @@ class _SignUpScreenState extends BaseRouteState {
                                   "assets/images/female_icon.png",
                                   height: Platform.isIOS ? 30 : 30,
                                   width: Platform.isIOS ? 30 : 30,
+                                  
                                 ),
                               ),
                             ),
@@ -709,13 +702,12 @@ class _SignUpScreenState extends BaseRouteState {
                       ),
                       Container(
                         decoration: BoxDecoration(
-                            color: ColorConstants.white,
                             borderRadius: BorderRadius.all(Radius.circular(7.0))),
                         margin: EdgeInsets.only(top: 10, left: 20, right: 20),
                         padding: EdgeInsets.only(),
                         child: MaterialTextField(
                           style: TextStyle(
-                              fontFamily: global.fontMetropolisRegular,
+                              fontFamily: global.fontRailwayRegular,
                               fontSize: 16,
                               fontWeight: FontWeight.w200,
                               color: ColorConstants.pureBlack),
@@ -725,7 +717,7 @@ class _SignUpScreenState extends BaseRouteState {
                                 horizontal: 4, vertical: 4),
                             errorStyle: const TextStyle(
                                 fontSize: 10,
-                                fontFamily: global.fontMetropolisRegular,
+                                fontFamily: global.fontRailwayRegular,
                                 fontWeight: FontWeight.w200),
                             fillColor: Colors.transparent,
                             enabledColor: Colors.grey,
@@ -757,7 +749,7 @@ class _SignUpScreenState extends BaseRouteState {
                                     style: TextStyle(
                                       color: ColorConstants.pureBlack,
                                       fontSize: 13,
-                                      fontFamily: fontMetropolisRegular,
+                                      fontFamily: fontRailwayRegular,
                                       fontWeight: FontWeight.normal,
                                     )),
                                 InkWell(
@@ -776,7 +768,7 @@ class _SignUpScreenState extends BaseRouteState {
                                       style: TextStyle(
                                         color: ColorConstants.appColor,
                                         fontSize: 14,
-                                        fontFamily: fontMetropolisRegular,
+                                        fontFamily: fontRailwayRegular,
                                         fontWeight: FontWeight.w400,
                                       )),
                                 ),
@@ -816,14 +808,14 @@ class _SignUpScreenState extends BaseRouteState {
                                       style: TextStyle(
                                         color: ColorConstants.pureBlack,
                                         fontSize: 12,
-                                        fontFamily: fontMetropolisRegular,
+                                        fontFamily: fontRailwayRegular,
                                         fontWeight: FontWeight.normal,
                                       )),
                                   Text("WhatsApp",
                                       style: TextStyle(
                                         color: ColorConstants.appColor,
                                         fontSize: 14,
-                                        fontFamily: fontMetropolisRegular,
+                                        fontFamily: fontRailwayRegular,
                                         fontWeight: FontWeight.w400,
                                       )),
                                 ],
@@ -930,7 +922,7 @@ class _SignUpScreenState extends BaseRouteState {
                       : 'You will receive further communication via sms. Please confirm',
                   style: TextStyle(
                       fontSize: 14,
-                      fontFamily: fontMetropolisRegular,
+                      fontFamily: fontRailwayRegular,
                       fontWeight: FontWeight.w200,
                       color: ColorConstants.pureBlack),
                 ),
@@ -943,7 +935,7 @@ class _SignUpScreenState extends BaseRouteState {
                                 : "OK",
                             style: TextStyle(
                                 fontSize: 16,
-                                fontFamily: fontMetropolisRegular,
+                                fontFamily: fontRailwayRegular,
                                 fontWeight: FontWeight.w200,
                                 color: ColorConstants.appColor),
                           ),
@@ -959,7 +951,7 @@ class _SignUpScreenState extends BaseRouteState {
                             'Yes',
                             style: TextStyle(
                                 fontSize: 16,
-                                fontFamily: fontMetropolisRegular,
+                                fontFamily: fontRailwayRegular,
                                 fontWeight: FontWeight.w200,
                                 color: Colors.blue),
                           ),
@@ -980,7 +972,7 @@ class _SignUpScreenState extends BaseRouteState {
                             "OK",
                             style: TextStyle(
                                 fontSize: 16,
-                                fontFamily: fontMetropolisRegular,
+                                fontFamily: fontRailwayRegular,
                                 fontWeight: FontWeight.w200,
                                 color: ColorConstants.appColor),
                           ),
@@ -1170,7 +1162,7 @@ class _SignUpScreenState extends BaseRouteState {
                               : "You have selected SMS as your preferred mode of communication. To make changes, please click 'No, Change.'",
                           style: TextStyle(
                               fontSize: 14,
-                              fontFamily: fontMetropolisRegular,
+                              fontFamily: fontRailwayRegular,
                               fontWeight: FontWeight.w200,
                               color: ColorConstants.pureBlack),
                         )
@@ -1178,7 +1170,7 @@ class _SignUpScreenState extends BaseRouteState {
                           "All communication outside the UAE is exclusively done through WhatsApp.",
                           style: TextStyle(
                               fontSize: 14,
-                              fontFamily: fontMetropolisRegular,
+                              fontFamily: fontRailwayRegular,
                               fontWeight: FontWeight.w200,
                               color: ColorConstants.pureBlack),
                         ),
@@ -1190,7 +1182,7 @@ class _SignUpScreenState extends BaseRouteState {
                               "No, Change",
                               style: TextStyle(
                                   fontSize: 16,
-                                  fontFamily: fontMetropolisRegular,
+                                  fontFamily: fontRailwayRegular,
                                   fontWeight: FontWeight.w200,
                                   color: ColorConstants.appColor),
                             ),
@@ -1213,7 +1205,7 @@ class _SignUpScreenState extends BaseRouteState {
                               "OK",
                               style: TextStyle(
                                   fontSize: 16,
-                                  fontFamily: fontMetropolisRegular,
+                                  fontFamily: fontRailwayRegular,
                                   fontWeight: FontWeight.w200,
                                   color: Colors.blue),
                             ),
@@ -1231,7 +1223,7 @@ class _SignUpScreenState extends BaseRouteState {
                               "OK",
                               style: TextStyle(
                                   fontSize: 16,
-                                  fontFamily: fontMetropolisRegular,
+                                  fontFamily: fontRailwayRegular,
                                   fontWeight: FontWeight.w200,
                                   color: Colors.blue),
                             ),

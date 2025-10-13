@@ -115,21 +115,21 @@ class _ContactUsScreenState extends BaseRouteState {
 
   @override
   Widget build(BuildContext context) {
-    TextTheme textTheme = Theme.of(context).textTheme;
     return SafeArea(
       child: Scaffold(
         key: _scaffoldKey,
         //backgroundColor: Theme.of(context).inputDecorationTheme.fillColor,
         backgroundColor: white,
         appBar: AppBar(
-          backgroundColor: ColorConstants.appBrownFaintColor,
-          centerTitle: true,
+          backgroundColor: ColorConstants.appBarColorWhite,
+          centerTitle: false,
           title: Text(
             "Contact us",
             // "${AppLocalizations.of(context).tle_contact_us} ",
             style: TextStyle(
-                fontFamily: fontMetropolisRegular,
-                color: ColorConstants.pureBlack), //textTheme.headline6
+                fontFamily: fontRailwayRegular,
+                fontWeight: FontWeight.w200,
+                color: ColorConstants.newTextHeadingFooter), //textTheme.titleLarge
           ),
           leading: BackButton(
             onPressed: () {
@@ -137,7 +137,7 @@ class _ContactUsScreenState extends BaseRouteState {
               Navigator.pop(context);
             },
             //icon: Icon(Icons.keyboard_arrow_left),
-            color: ColorConstants.pureBlack,
+            color: ColorConstants.appColor,
           ),
         ),
         body: Form(
@@ -156,7 +156,7 @@ class _ContactUsScreenState extends BaseRouteState {
                   //   child: Text(
                   //     "Drop us a line and let's chat",
                   //     style: TextStyle(
-                  //         fontFamily: fontMetropolisRegular,
+                  //         fontFamily: fontRailwayRegular,
                   //         fontWeight: FontWeight.bold,
                   //         fontSize: 15,
                   //         color: ColorConstants.pureBlack),
@@ -208,13 +208,13 @@ class _ContactUsScreenState extends BaseRouteState {
                   //                     controller: _dropdowncontroller,
                   //                     textStyle: TextStyle(
                   //                         fontFamily:
-                  //                             global.fontMetropolisRegular,
+                  //                             global.fontRailwayRegular,
                   //                         fontWeight: FontWeight.w200,
                   //                         color: ColorConstants.pureBlack,
                   //                         fontSize: 13),
                   //                     listTextStyle: TextStyle(
                   //                         fontFamily:
-                  //                             global.fontMetropolisRegular,
+                  //                             global.fontRailwayRegular,
                   //                         fontWeight: FontWeight.w200,
                   //                         color: ColorConstants.pureBlack,
                   //                         fontSize: 13),
@@ -236,11 +236,11 @@ class _ContactUsScreenState extends BaseRouteState {
                   //                       errorStyle: TextStyle(
                   //                           fontSize: 10,
                   //                           fontFamily:
-                  //                               global.fontMetropolisRegular,
+                  //                               global.fontRailwayRegular,
                   //                           fontWeight: FontWeight.w200),
                   //                       hintStyle: TextStyle(
                   //                           fontFamily:
-                  //                               global.fontMetropolisRegular,
+                  //                               global.fontRailwayRegular,
                   //                           fontWeight: FontWeight.w200,
                   //                           color: ColorConstants.pureBlack,
                   //                           fontSize: 13),
@@ -287,7 +287,7 @@ class _ContactUsScreenState extends BaseRouteState {
                   //   padding: EdgeInsets.only(),
                   //   child: MaterialTextField(
                   //       style: TextStyle(
-                  //           fontFamily: global.fontMetropolisRegular,
+                  //           fontFamily: global.fontRailwayRegular,
                   //           fontSize: 16,
                   //           fontWeight: FontWeight.w200,
                   //           color: ColorConstants.pureBlack),
@@ -297,7 +297,7 @@ class _ContactUsScreenState extends BaseRouteState {
                   //             horizontal: 4, vertical: 4),
                   //         errorStyle: const TextStyle(
                   //             fontSize: 10,
-                  //             fontFamily: global.fontMetropolisRegular,
+                  //             fontFamily: global.fontRailwayRegular,
                   //             fontWeight: FontWeight.w200),
                   //         fillColor: Colors.transparent,
                   //         enabledColor: Colors.grey,
@@ -344,7 +344,7 @@ class _ContactUsScreenState extends BaseRouteState {
                   //                 flagSize: 20,
                   //                 textStyle: TextStyle(
                   //                   overflow: TextOverflow.ellipsis,
-                  //                   fontFamily: fontMetropolisRegular,
+                  //                   fontFamily: fontRailwayRegular,
                   //                   fontWeight: FontWeight.w200,
                   //                   fontSize: 15,
                   //                   color: ColorConstants.pureBlack,
@@ -390,7 +390,7 @@ class _ContactUsScreenState extends BaseRouteState {
                   //                       child: Text(countryCodeSelected,
                   //                           style: TextStyle(
                   //                               fontFamily:
-                  //                                   fontMetropolisRegular,
+                  //                                   fontRailwayRegular,
                   //                               fontWeight: FontWeight.w200,
                   //                               fontSize: 16,
                   //                               color: ColorConstants.pureBlack,
@@ -422,7 +422,7 @@ class _ContactUsScreenState extends BaseRouteState {
                   //             controller: _cPhone,
                   //             style: TextStyle(
                   //                 fontSize: 14,
-                  //                 fontFamily: fontMetropolisRegular,
+                  //                 fontFamily: fontRailwayRegular,
                   //                 fontWeight: FontWeight.w200,
                   //                 color: ColorConstants.pureBlack,
                   //                 letterSpacing: 1),
@@ -458,11 +458,11 @@ class _ContactUsScreenState extends BaseRouteState {
                   //                 ),
                   //                 errorStyle: const TextStyle(
                   //                     fontSize: 10,
-                  //                     fontFamily: global.fontMetropolisRegular,
+                  //                     fontFamily: global.fontRailwayRegular,
                   //                     fontWeight: FontWeight.w200),
                   //                 hintText: '561234567',
                   //                 hintStyle: TextStyle(
-                  //                     fontFamily: fontMetropolisRegular,
+                  //                     fontFamily: fontRailwayRegular,
                   //                     fontSize:
                   //                         14) //textFieldHintStyle(context),
                   //                 ),
@@ -508,7 +508,7 @@ class _ContactUsScreenState extends BaseRouteState {
                   //   padding: EdgeInsets.only(),
                   //   child: MaterialTextField(
                   //       style: TextStyle(
-                  //           fontFamily: global.fontMetropolisRegular,
+                  //           fontFamily: global.fontRailwayRegular,
                   //           fontSize: 16,
                   //           fontWeight: FontWeight.w200,
                   //           color: ColorConstants.pureBlack),
@@ -518,7 +518,7 @@ class _ContactUsScreenState extends BaseRouteState {
                   //             horizontal: 4, vertical: 4),
                   //         errorStyle: const TextStyle(
                   //             fontSize: 10,
-                  //             fontFamily: global.fontMetropolisRegular,
+                  //             fontFamily: global.fontRailwayRegular,
                   //             fontWeight: FontWeight.w200),
                   //         fillColor: Colors.transparent,
                   //         enabledColor: Colors.grey,
@@ -567,7 +567,7 @@ class _ContactUsScreenState extends BaseRouteState {
                   //             Text(
                   //               "Attach Image*",
                   //               style: TextStyle(
-                  //                   fontFamily: fontMetropolisRegular,
+                  //                   fontFamily: fontRailwayRegular,
                   //                   color: ColorConstants.pureBlack,
                   //                   fontWeight: FontWeight.w200,
                   //                   fontSize: 14),
@@ -663,7 +663,7 @@ class _ContactUsScreenState extends BaseRouteState {
                   //   child: Text(
                   //     "Contact us!",
                   //     style: TextStyle(
-                  //         fontFamily: fontMetropolisRegular,
+                  //         fontFamily: fontRailwayRegular,
                   //         fontWeight: FontWeight.bold,
                   //         fontSize: 15,
                   //         color: ColorConstants.pureBlack),
@@ -702,7 +702,7 @@ class _ContactUsScreenState extends BaseRouteState {
                               Text(
                                 "EMAIL",
                                 style: TextStyle(
-                                    fontFamily: fontMetropolisRegular,
+                                    fontFamily: fontRailwayRegular,
                                     color: ColorConstants.pureBlack,
                                     fontWeight: FontWeight.normal,
                                     fontSize: 14),
@@ -715,7 +715,7 @@ class _ContactUsScreenState extends BaseRouteState {
                               //       ? "${global.appInfo.contactEmail}"
                               //       : "",
                               //   style: TextStyle(
-                              //       fontFamily: fontMetropolisRegular,
+                              //       fontFamily: fontRailwayRegular,
                               //       color: ColorConstants.appColor,
                               //       fontWeight: FontWeight.normal,
                               //       fontSize: 14),
@@ -748,7 +748,7 @@ class _ContactUsScreenState extends BaseRouteState {
                               Text(
                                 "WHATSAPP",
                                 style: TextStyle(
-                                    fontFamily: fontMetropolisRegular,
+                                    fontFamily: fontRailwayRegular,
                                     color: ColorConstants.pureBlack,
                                     fontWeight: FontWeight.normal,
                                     fontSize: 14),
@@ -761,7 +761,7 @@ class _ContactUsScreenState extends BaseRouteState {
                               //       ? "${global.appInfo.contactWhatsApp}"
                               //       : "",
                               //   style: TextStyle(
-                              //       fontFamily: fontMetropolisRegular,
+                              //       fontFamily: fontRailwayRegular,
                               //       color: ColorConstants.appColor,
                               //       fontWeight: FontWeight.normal,
                               //       fontSize: 14),
@@ -794,7 +794,7 @@ class _ContactUsScreenState extends BaseRouteState {
                               Text(
                                 "CONTACT NUMBER",
                                 style: TextStyle(
-                                    fontFamily: fontMetropolisRegular,
+                                    fontFamily: fontRailwayRegular,
                                     color: ColorConstants.pureBlack,
                                     fontWeight: FontWeight.normal,
                                     fontSize: 14),
@@ -807,7 +807,7 @@ class _ContactUsScreenState extends BaseRouteState {
                                     ? "${global.appInfo.contactPhone!.trim()}"
                                     : "",
                                 style: TextStyle(
-                                    fontFamily: fontMetropolisRegular,
+                                    fontFamily: fontRailwayRegular,
                                     color: ColorConstants.appColor,
                                     fontWeight: FontWeight.normal,
                                     fontSize: 14),
@@ -824,7 +824,7 @@ class _ContactUsScreenState extends BaseRouteState {
                   //   child: Text(
                   //     "Social Links: ",
                   //     style: TextStyle(
-                  //         fontFamily: fontMetropolisRegular,
+                  //         fontFamily: fontRailwayRegular,
                   //         fontWeight: FontWeight.bold,
                   //         fontSize: 15,
                   //         color: ColorConstants.pureBlack),
@@ -1005,7 +1005,7 @@ class _ContactUsScreenState extends BaseRouteState {
             CupertinoActionSheetAction(
               child: Text(
                 'Capture',
-                style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                style: Theme.of(context).textTheme.titleMedium!.copyWith(
                       fontWeight: FontWeight.bold,
                       color: Colors.black,
                     ),
@@ -1020,7 +1020,7 @@ class _ContactUsScreenState extends BaseRouteState {
             CupertinoActionSheetAction(
               child: Text(
                 'Upload Image',
-                style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                style: Theme.of(context).textTheme.titleMedium!.copyWith(
                       fontWeight: FontWeight.bold,
                       color: Colors.black,
                     ),
@@ -1035,7 +1035,7 @@ class _ContactUsScreenState extends BaseRouteState {
             CupertinoActionSheetAction(
               child: Text(
                 'Remove Image',
-                style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                style: Theme.of(context).textTheme.titleMedium!.copyWith(
                       fontWeight: FontWeight.bold,
                       color: Colors.black,
                     ),

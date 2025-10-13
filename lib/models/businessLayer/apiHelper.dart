@@ -242,7 +242,7 @@ class APIHelper {
         'qty': qty,
         'varient_id': varientId,
         'special': special,
-        "device_id": "${global.globalDeviceId}",
+        "device_id": "${global.globalDeviceId}niks",
         "platform": Platform.isIOS ? "IOS" : "ANDROID",
         "delivery_date": deliveryDate,
         "delivery_time": deliveryTime,
@@ -1849,7 +1849,7 @@ class APIHelper {
       print(
           "##########################################################################################");
       print("${global.baseUrl}show_wishlist?page=$page");
-      response = await dio.post('${global.nodeBaseUrl}show_wishlist?page=$page',
+      response = await dio.post('${global.baseUrl}show_wishlist?page=$page',
           data: {
             'page': page,
             "user_id":
@@ -2175,7 +2175,7 @@ class APIHelper {
         'user_id': global.currentUser.id != null
             ? global.currentUser.id.toString()
             : "",
-        'device_id': "${global.globalDeviceId}",
+        'device_id': "${global.globalDeviceId}niks",
         "platform": Platform.isIOS ? "IOS" : "ANDROID",
         "app_cur_version": version
       });

@@ -17,12 +17,9 @@ class _IntroScreenState extends BaseRouteState {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorConstants.white,
+      backgroundColor: ColorConstants.colorPageBackground,
       body: Container(
-        decoration: BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage("assets/images/login_bg.png"),
-                fit: BoxFit.cover)),
+        
         child: Stack(
           children: [
             // Image.asset(
@@ -91,7 +88,7 @@ class _IntroScreenState extends BaseRouteState {
                                 fontFamily: fontMontserratLight,
                                 fontWeight: FontWeight.w600,
                                 fontSize: 20,
-                                color: ColorConstants.pureBlack),
+                                color: ColorConstants.newTextHeadingFooter),
                           ),
                         ),
                         SizedBox(
@@ -103,10 +100,10 @@ class _IntroScreenState extends BaseRouteState {
                             "Effortless gifting, curated with love, delivered with a smile.",
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                                fontFamily: fontMetropolisRegular,
+                                fontFamily: fontRalewayMedium,
                                 fontSize: 14,
                                 fontWeight: FontWeight.w200,
-                                color: ColorConstants.pureBlack),
+                                color: ColorConstants.newAppColor),
                           ),
                         ),
                         Expanded(child: Text("")),
@@ -158,10 +155,10 @@ class _IntroScreenState extends BaseRouteState {
                             "Unleash your gifting genius!",
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                                fontFamily: fontMontserratLight,
+                                fontFamily: fontRalewayMedium,
                                 fontWeight: FontWeight.w600,
                                 fontSize: 20,
-                                color: ColorConstants.pureBlack),
+                                color: ColorConstants.newTextHeadingFooter),
                           ),
                         ),
                         SizedBox(
@@ -173,10 +170,10 @@ class _IntroScreenState extends BaseRouteState {
                             "Discover unique finds, personalize with a touch, send with ease.",
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                                fontFamily: fontMetropolisRegular,
+                                fontFamily: fontRalewayMedium,
                                 fontSize: 14,
                                 fontWeight: FontWeight.w200,
-                                color: ColorConstants.pureBlack),
+                                color: ColorConstants.newAppColor),
                           ),
                         ),
                         Expanded(child: Text("")),
@@ -228,9 +225,9 @@ class _IntroScreenState extends BaseRouteState {
                             "Create memories that last",
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                                fontFamily: fontMontserratLight,
+                                fontFamily: fontRalewayMedium,
                                 fontSize: 20,
-                                color: ColorConstants.pureBlack),
+                                color: ColorConstants.newTextHeadingFooter),
                           ),
                         ),
                         SizedBox(
@@ -242,10 +239,10 @@ class _IntroScreenState extends BaseRouteState {
                             "Turn everyday moments into lasting memories with byyu.",
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                                fontFamily: fontMetropolisRegular,
+                                fontFamily: fontRalewayMedium,
                                 fontSize: 14,
                                 fontWeight: FontWeight.w200,
-                                color: ColorConstants.pureBlack),
+                                color: ColorConstants.newAppColor),
                           ),
                         ),
                         Expanded(child: Text("")),
@@ -299,7 +296,7 @@ class _IntroScreenState extends BaseRouteState {
                             style: TextStyle(
                                 fontFamily: fontMontserratLight,
                                 fontSize: 20,
-                                color: ColorConstants.pureBlack),
+                                color: ColorConstants.newTextHeadingFooter),
                           ),
                         ),
                         SizedBox(
@@ -314,7 +311,7 @@ class _IntroScreenState extends BaseRouteState {
                                 fontFamily: fontMetropolisRegular,
                                 fontSize: 14,
                                 fontWeight: FontWeight.w200,
-                                color: ColorConstants.pureBlack),
+                                color: ColorConstants.newAppColor),
                           ),
                         ),
                         Expanded(child: Text("")),
@@ -368,7 +365,7 @@ class _IntroScreenState extends BaseRouteState {
                             style: TextStyle(
                                 fontFamily: fontMontserratLight,
                                 fontSize: 20,
-                                color: ColorConstants.pureBlack),
+                                color: ColorConstants.newTextHeadingFooter),
                           ),
                         ),
                         SizedBox(
@@ -383,7 +380,7 @@ class _IntroScreenState extends BaseRouteState {
                                 fontFamily: fontMetropolisRegular,
                                 fontWeight: FontWeight.w200,
                                 fontSize: 14,
-                                color: ColorConstants.pureBlack),
+                                color: ColorConstants.newAppColor),
                           ),
                         ),
                         Expanded(child: Text("")),
