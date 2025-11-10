@@ -164,7 +164,7 @@ class _SideDrawerState extends State<SideDrawer> {
                                               global.fontMontserratLight,
                                           fontWeight: FontWeight.w600,
                                           fontSize: 15,
-                                          color: Colors.black),
+                                          color: ColorConstants.newTextHeadingFooter),
                                     ),
                                   ),
 
@@ -396,7 +396,7 @@ class _SideDrawerState extends State<SideDrawer> {
                                                         fontWeight:
                                                             FontWeight.w200,
                                                         fontSize: 13,
-                                                        color: Colors.black),
+                                                        color: ColorConstants.newTextHeadingFooter),
                                                   ),
                                                 ),
                                               ],
@@ -414,7 +414,7 @@ class _SideDrawerState extends State<SideDrawer> {
                                   //               global.fontMontserratLight,
                                   //           fontWeight: FontWeight.w600,
                                   //           fontSize: 15,
-                                  //           color: Colors.black),
+                                  //           color: ColorConstants.newTextHeadingFooter),
                                   //     ),
                                   //   ),
 
@@ -435,7 +435,7 @@ class _SideDrawerState extends State<SideDrawer> {
                                                       fontWeight:
                                                           FontWeight.w600,
                                                       fontSize: 15,
-                                                      color: Colors.black),
+                                                      color: ColorConstants.newTextHeadingFooter),
                                                 ),
                                               ),
                                               // SizedBox(
@@ -915,7 +915,7 @@ class _SideDrawerState extends State<SideDrawer> {
                                           ),
                                         )
                                       : Container(),
-
+                                  showAgeField?SizedBox():SizedBox(height: 70,),
                                   showAgeField
                                       ? Container(
                                           child: Column(
@@ -935,7 +935,7 @@ class _SideDrawerState extends State<SideDrawer> {
                                                       fontWeight:
                                                           FontWeight.w600,
                                                       fontSize: 15,
-                                                      color: Colors.black),
+                                                      color: ColorConstants.newTextHeadingFooter),
                                                 ),
                                               ),
                                               SizedBox(
@@ -1002,7 +1002,7 @@ class _SideDrawerState extends State<SideDrawer> {
                                                                       .w600,
                                                               fontSize: 15,
                                                               color:
-                                                                  Colors.black),
+                                                                  ColorConstants.newTextHeadingFooter),
                                                         ),
                                                       ),
                                                       Container(
@@ -1073,7 +1073,7 @@ class _SideDrawerState extends State<SideDrawer> {
                                                       fontWeight:
                                                           FontWeight.w600,
                                                       fontSize: 15,
-                                                      color: Colors.black),
+                                                      color: ColorConstants.newTextHeadingFooter),
                                                 ),
                                               ),
                                               SizedBox(

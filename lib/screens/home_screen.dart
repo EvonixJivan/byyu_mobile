@@ -77,11 +77,11 @@ class _HomeScreenState extends BaseRouteState {
       //   a: widget.analytics,
       //   o: widget.observer,
       // ),
-      SearchScreen(
-        a: widget.analytics,
-        o: widget.observer,
-        fromBottomNvigation: true,
-      ),
+      AllCategoriesScreen(
+                                              a: widget.analytics,
+                                              o: widget.observer,
+                                              fromNavBar: true,
+                                            ),
       // OffersProductListScreen(
       //   a: widget.analytics,
       //   o: widget.observer,
@@ -119,8 +119,8 @@ class _HomeScreenState extends BaseRouteState {
           bottomNavigationBar: SafeArea(
             top: false,
             child: Container(
-              color: Colors.transparent,
-              height: 80,
+              color: Colors.white,
+              height: 70,
               child: Stack(children: [
                 Align(
                   alignment: Alignment.bottomCenter,
@@ -258,12 +258,47 @@ class _HomeScreenState extends BaseRouteState {
                               decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(100)),
-                              child: Padding(
-                                padding: const EdgeInsets.all(12.0),
-                                child: Image.asset(
-                                  'assets/images/ic_nav_cart.png',
-                                  fit: BoxFit.contain,
-                                ),
+                              child: Stack(
+                                children: [
+
+                                  Padding(
+                                    padding: const EdgeInsets.all(12.0),
+                                    child: Image.asset(
+                                      'assets/images/ic_nav_cart.png',
+                                      fit: BoxFit.contain,
+                                    ),
+                                  ),
+                                  global.cartCount != 0
+                                    ? Positioned(
+                                        right: 2,
+                                        top: 2,
+                                        child: Container(
+                                          padding: const EdgeInsets.all(2),
+                                          decoration: BoxDecoration(
+                                            color: ColorConstants
+                                                .appColor,
+                                            borderRadius:
+                                                BorderRadius.circular(60),
+                                          ),
+                                          constraints: const BoxConstraints(
+                                            minWidth: 16,
+                                            minHeight: 16,
+                                          ),
+                                          child: Text(
+                                            global.cartCount <= 99
+                                                ? '${global.cartCount}'
+                                                : "99+",
+                                            style: const TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 8,
+                                              fontFamily: fontOufitMedium
+                                            ),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ),
+                                      )
+                                    : Container(),
+                                ],
                               ),
                             ),
                           ),
@@ -331,13 +366,13 @@ class _HomeScreenState extends BaseRouteState {
                                           padding: const EdgeInsets.all(2),
                                           decoration: BoxDecoration(
                                             color: ColorConstants
-                                                .newTextHeadingFooter,
+                                                .appColor,
                                             borderRadius:
-                                                BorderRadius.circular(6),
+                                                BorderRadius.circular(60),
                                           ),
                                           constraints: const BoxConstraints(
-                                            minWidth: 14,
-                                            minHeight: 14,
+                                            minWidth: 16,
+                                            minHeight: 16,
                                           ),
                                           child: Text(
                                             global.wishlistCount <= 99

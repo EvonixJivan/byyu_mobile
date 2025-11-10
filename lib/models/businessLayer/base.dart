@@ -108,7 +108,7 @@ class BaseState extends State<Base>
     super.didChangeAppLifecycleState(state);
     print('appLifeCycleState inactive');
 
-    if (global.sp != null && global.sp!.getString("currentUser") != null) {
+    if (global.sp != null && global.sp!.getString("currentUser") != null &&  global.sp!.getBool("isLoggedIn")!=null && global.sp!.getBool("isLoggedIn")==true)   {
       if (global.localNotificationModel != null && !global.isChatNotTapped) {
         global.currentUser = CurrentUser.fromJson(
             json.decode(global.sp!.getString("currentUser")!));

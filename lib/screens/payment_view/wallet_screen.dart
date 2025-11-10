@@ -137,7 +137,7 @@ class _WalletScreenState extends BaseRouteState {
                                                           FontWeight.bold,
                                                       fontSize: 16,
                                                       color:
-                                                          ColorConstants.green,
+                                                          ColorConstants.newAppColor,
                                                       letterSpacing: 1),
                                                 ),
                                               ],
@@ -517,7 +517,7 @@ class _WalletScreenState extends BaseRouteState {
                                                       fontSize: 15,
                                                       color: _onAllSelected
                                                           ? Colors.white
-                                                          : Colors.black),
+                                                          : ColorConstants.newTextHeadingFooter),
                                                 ),
                                               ),
                                             ),
@@ -556,12 +556,12 @@ class _WalletScreenState extends BaseRouteState {
                                                       fontFamily: global
                                                           .fontRailwayRegular,
                                                       fontWeight:
-                                                          FontWeight.w900,
+                                                          FontWeight.w600,
                                                       fontSize: 15,
                                                       color: !_onAllSelected
                                                           ? ColorConstants.white
                                                           : ColorConstants
-                                                              .pureBlack),
+                                                              .newTextHeadingFooter),
                                                 ),
                                               ),
                                             ),
@@ -578,7 +578,7 @@ class _WalletScreenState extends BaseRouteState {
                                                   0
                                           ? _onAllSelected
                                               ? Container(
-                                                  color: white,
+                                                  color: ColorConstants.colorPageBackground,
                                                   margin: EdgeInsets.only(
                                                       left: 5, right: 5),
                                                   width: MediaQuery.of(context)
@@ -897,6 +897,7 @@ class _WalletScreenState extends BaseRouteState {
                                                   ),
                                                 )
                                               : Container(
+                                                  color: ColorConstants.colorPageBackground,
                                                   margin: EdgeInsets.only(
                                                       left: 8, right: 8),
                                                   width: MediaQuery.of(context)
@@ -1130,25 +1131,19 @@ class _WalletScreenState extends BaseRouteState {
                                                           .size
                                                           .height /
                                                       1.5,
-                                                  decoration: BoxDecoration(
-                                                    image: DecorationImage(
-                                                        image: AssetImage(
-                                                            "assets/images/login_bg.png"),
-                                                        fit: BoxFit.cover),
-                                                  ),
+                                                  color: ColorConstants.colorPageBackground,
                                                   child: Center(
                                                     child: Text(
                                                       'Wallet feeling light? \n"Time to fill it with gifting perks and surprises!"',
                                                       textAlign:
                                                           TextAlign.center,
                                                       style: TextStyle(
-                                                          fontFamily: global
-                                                              .fontRailwayRegular,
+                                                          fontFamily: global.fontRailwaySemibold,
                                                           fontSize: 20,
                                                           fontWeight:
                                                               FontWeight.w400,
                                                           color: ColorConstants
-                                                              .guidlinesGolden),
+                                                              .newAppColor),
                                                     ),
                                                   ),
                                                 ),
@@ -1172,7 +1167,7 @@ class _WalletScreenState extends BaseRouteState {
                               'Wallet feeling light? \n"Time to fill it with gifting perks and surprises!"',
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                  fontFamily: global.fontRailwayRegular,
+                                  fontFamily: global.fontRailwaySemibold,
                                   fontSize: 20,
                                   fontWeight: FontWeight.w400,
                                   color: ColorConstants.guidlinesGolden),

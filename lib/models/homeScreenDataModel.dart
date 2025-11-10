@@ -14,10 +14,12 @@ class HomeScreenData {
   List<String>? whatsnew;
   List<String>? spotlight;
   List<Events>? events;
-
+  List<ReviewRatingsModel>? reviewratings;
   String? category;
 
   String? popupdata;
+   List<Eventsbanner>? eventsbanner;
+  List<Eventsoccasion>? eventsoccasion;
 
   HomeScreenData();
 
@@ -32,6 +34,12 @@ class HomeScreenData {
         });
       }
 
+      if (json['review_ratings'] != null) {
+        reviewratings = <ReviewRatingsModel>[];
+        json['review_ratings'].forEach((v) {
+          reviewratings!.add(new ReviewRatingsModel.fromJson(v));
+        });
+      }
       if (json['top_cat'] != null) {
         topCat = <CategoryList>[];
         json['top_cat'].forEach((v) {
@@ -56,6 +64,18 @@ class HomeScreenData {
           topselling!.add(new Product.fromJson(v));
         });
       }
+      if (json['eventsbanner'] != null) {
+      eventsbanner = <Eventsbanner>[];
+      json['eventsbanner'].forEach((v) {
+        eventsbanner!.add(new Eventsbanner.fromJson(v));
+      });
+    }
+    if (json['eventsoccasion'] != null) {
+      eventsoccasion = <Eventsoccasion>[];
+      json['eventsoccasion'].forEach((v) {
+        eventsoccasion!.add(new Eventsoccasion.fromJson(v));
+      });
+    }
 
       // category = json['category'];
 
@@ -128,3 +148,191 @@ class EventIconName {
 }
 
 
+class ReviewRatingsModel {
+  int? id;
+  String? ratingcount;
+  
+  String? username;
+  String? message;
+
+
+
+ ReviewRatingsModel.fromJson(Map<String, dynamic> json) {
+    try {
+
+      id = json['id'];
+      ratingcount = json['rating_count'];
+      username = json['user_name'];
+      message = json['message'];
+
+    }catch (e) {
+      print("Exception - reviewRatings.dart - Product.fromJson():" +
+          e.toString());
+    }
+ }
+
+  ReviewRatingsModel({this.id, 
+  this.ratingcount, 
+  this.username, 
+  this.message
+ });
+
+  
+}
+
+
+
+
+class Eventsbanner {
+  int? id;
+  String? eventName;
+  String? eventDescription;
+  String? eventImage;
+  String? eventBannerImg;
+  String? colorcode;
+  String? status;
+  int? sequence;
+  String? addedBy;
+  String? addedOn;
+  int? isDelete;
+  String? platform;
+  String? metaTitle;
+  String? metaDescription;
+  String? startDate;
+  String? endDate;
+
+  Eventsbanner(
+      {this.id,
+      this.eventName,
+      this.eventDescription,
+      this.eventImage,
+      this.eventBannerImg,
+      this.colorcode,
+      this.status,
+      this.sequence,
+      this.addedBy,
+      this.addedOn,
+      this.isDelete,
+      this.platform,
+      this.metaTitle,
+      this.metaDescription,
+      this.startDate,
+      this.endDate});
+
+  Eventsbanner.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    eventName = json['event_name'];
+    eventDescription = json['event_description'];
+    eventImage = json['event_image'];
+    eventBannerImg = json['event_banner_img'];
+    colorcode = json['colorcode'];
+    status = json['status'];
+    sequence = json['sequence'];
+    addedBy = json['added_by'];
+    addedOn = json['added_on'];
+    isDelete = json['is_delete'];
+    platform = json['platform'];
+    metaTitle = json['meta_title'];
+    metaDescription = json['meta_description'];
+    startDate = json['start_date'];
+    endDate = json['end_date'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['event_name'] = this.eventName;
+    data['event_description'] = this.eventDescription;
+    data['event_image'] = this.eventImage;
+    data['event_banner_img'] = this.eventBannerImg;
+    data['colorcode'] = this.colorcode;
+    data['status'] = this.status;
+    data['sequence'] = this.sequence;
+    data['added_by'] = this.addedBy;
+    data['added_on'] = this.addedOn;
+    data['is_delete'] = this.isDelete;
+    data['platform'] = this.platform;
+    data['meta_title'] = this.metaTitle;
+    data['meta_description'] = this.metaDescription;
+    data['start_date'] = this.startDate;
+    data['end_date'] = this.endDate;
+    return data;
+  }
+}
+
+class Eventsoccasion {
+  int? id;
+  String? eventName;
+  String? eventDescription;
+  String? eventImage;
+  String? eventBannerImg;
+  String? colorcode;
+  String? status;
+  int? sequence;
+  String? addedBy;
+  String? addedOn;
+  int? isDelete;
+  String? platform;
+  String? metaTitle;
+  String? metaDescription;
+  String? startDate;
+  String? endDate;
+
+  Eventsoccasion(
+      {this.id,
+      this.eventName,
+      this.eventDescription,
+      this.eventImage,
+      this.eventBannerImg,
+      this.colorcode,
+      this.status,
+      this.sequence,
+      this.addedBy,
+      this.addedOn,
+      this.isDelete,
+      this.platform,
+      this.metaTitle,
+      this.metaDescription,
+      this.startDate,
+      this.endDate});
+
+  Eventsoccasion.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    eventName = json['event_name'];
+    eventDescription = json['event_description'];
+    eventImage = json['event_image'];
+    eventBannerImg = json['event_banner_img'];
+    colorcode = json['colorcode'];
+    status = json['status'];
+    sequence = json['sequence'];
+    addedBy = json['added_by'];
+    addedOn = json['added_on'];
+    isDelete = json['is_delete'];
+    platform = json['platform'];
+    metaTitle = json['meta_title'];
+    metaDescription = json['meta_description'];
+    startDate = json['start_date'];
+    endDate = json['end_date'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['event_name'] = this.eventName;
+    data['event_description'] = this.eventDescription;
+    data['event_image'] = this.eventImage;
+    data['event_banner_img'] = this.eventBannerImg;
+    data['colorcode'] = this.colorcode;
+    data['status'] = this.status;
+    data['sequence'] = this.sequence;
+    data['added_by'] = this.addedBy;
+    data['added_on'] = this.addedOn;
+    data['is_delete'] = this.isDelete;
+    data['platform'] = this.platform;
+    data['meta_title'] = this.metaTitle;
+    data['meta_description'] = this.metaDescription;
+    data['start_date'] = this.startDate;
+    data['end_date'] = this.endDate;
+    return data;
+  }
+}

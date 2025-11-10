@@ -29,7 +29,7 @@ class AddOnBottomSheet extends StatefulWidget {
   final dynamic analytics;
   final dynamic observer;
   final Function? callbackHomescreenSetState;
-  final CartController? cartController ;
+  final CartController? cartController;
   AddOnBottomSheet(
       {this.fromNavigationBar,
       this.analytics,
@@ -55,12 +55,12 @@ class _AddOnBottomSheetState extends State<AddOnBottomSheet> {
   final dynamic analytics;
   final dynamic observer;
   final Function? callbackHomescreenSetState;
-  CartController? cartController ;
+  CartController? cartController;
 
-     Order? orderDetails;
-     String? repeatOrders, selectedAddress;
+  Order? orderDetails;
+  String? repeatOrders, selectedAddress;
 
-     final List<Map<String, dynamic>> addOns = [
+  final List<Map<String, dynamic>> addOns = [
     {
       'image': 'assets/images/iv_cakes_card.png',
       'price': 'AED 150',
@@ -70,7 +70,6 @@ class _AddOnBottomSheetState extends State<AddOnBottomSheet> {
       'price': 'AED 180',
     },
   ];
-
 
   _AddOnBottomSheetState(
       {this.analytics,
@@ -87,7 +86,7 @@ class _AddOnBottomSheetState extends State<AddOnBottomSheet> {
   @override
   void initState() {
     getCartList();
-    
+
     super.initState();
   }
 
@@ -98,7 +97,7 @@ class _AddOnBottomSheetState extends State<AddOnBottomSheet> {
       // isDataLoaded(false);
 
       // cartItemsList = new Cart();
-      
+
       await apiHelper.showCart().then((result) async {
         global.globalHomeLoading = true;
         if (result != null) {
@@ -128,13 +127,12 @@ class _AddOnBottomSheetState extends State<AddOnBottomSheet> {
           }
         }
       });
-      
+
       isDataLoaded = true;
       if (fromNavigationBar!) {
         callbackHomescreenSetState!();
       }
       setState(() {});
-      
     } catch (e) {
       global.globalHomeLoading = true;
       global.cartCount = 0;
@@ -146,193 +144,192 @@ class _AddOnBottomSheetState extends State<AddOnBottomSheet> {
   showBottomSheet() {
     return isDataLoaded == true
         ? Container(
-      height: MediaQuery.of(context).size.height * 0.55,
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const SizedBox(height: 15),
-          //  Header Row
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            height: MediaQuery.of(context).size.height * 0.55,
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
               children: [
-                Row(
-                  children: [
-                    Text(
-                      "Cart Subtotal: ",
+                const SizedBox(height: 15),
+                //  Header Row
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          Text(
+                            "Cart Subtotal: ",
+                            style: TextStyle(
+                                fontFamily: global.fontOufitMedium,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w300,
+                                color: ColorConstants.newTextHeadingFooter),
+                          ),
+                          Text(
+                            " AED 1500",
+                            style: TextStyle(
+                                fontFamily: global.fontOufitMedium,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w700,
+                                color: ColorConstants.pureBlack),
+                          ),
+                        ],
+                      ),
+                      InkWell(
+                        onTap: () => Navigator.pop(context),
+                        child: const Icon(
+                          Icons.close,
+                          color: ColorConstants.pureBlack,
+                          size: 26,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                // Divider
+
+                const SizedBox(height: 10),
+
+                //  Add-Ons Title
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "Add-Ons",
                       style: TextStyle(
                           fontFamily: global.fontOufitMedium,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w300,
+                          fontSize: 24,
+                          fontWeight: FontWeight.w500,
                           color: ColorConstants.newTextHeadingFooter),
                     ),
-                    Text(
-                      " AED 1500",
-                      style: TextStyle(
-                          fontFamily: global.fontOufitMedium,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w700,
-                          color: ColorConstants.pureBlack),
-                    ),
-                  ],
-                ),
-                InkWell(
-                  onTap: () => Navigator.pop(context),
-                  child: const Icon(
-                    Icons.close,
-                    color: ColorConstants.pureBlack,
-                    size: 26,
                   ),
                 ),
-              ],
-            ),
-          ),
+                const SizedBox(height: 12),
+                Container(
+                  margin: EdgeInsets.only(left: 10, right: 10),
+                  height: 1,
+                  color: Colors.grey.shade300,
+                ),
+                const SizedBox(height: 35),
 
-          // Divider
-
-          const SizedBox(height: 10),
-
-          //  Add-Ons Title
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                "Add-Ons",
-                style: TextStyle(
-                    fontFamily: global.fontOufitMedium,
-                    fontSize: 24,
-                    fontWeight: FontWeight.w500,
-                    color: ColorConstants.newTextHeadingFooter),
-              ),
-            ),
-          ),
-          const SizedBox(height: 12),
-          Container(
-            margin: EdgeInsets.only(left: 10, right: 10),
-            height: 1,
-            color: Colors.grey.shade300,
-          ),
-          const SizedBox(height: 35),
-
-          //  Add-Ons List
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: addOns.map((item) {
-                return Expanded(
-                  child: Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 5),
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.all(Radius.circular(15)),
-                    ),
-                    child: Column(
-                      children: [
-                        // 🟠 Image container with ClipRRect
-                        Container(
-                          height: 150,
-                          width: 120,
-                          
-                          child: ClipRRect(
-                            borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(100),
-                              topRight: Radius.circular(100),
-                              bottomLeft: Radius.circular(0),
-                              bottomRight: Radius.circular(0),
-                            ),
-                            child: Image.asset(
-                              item['image'], // local asset path
-                              fit: BoxFit.cover,
-                            ),
+                //  Add-Ons List
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: addOns.map((item) {
+                      return Expanded(
+                        child: Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 5),
+                          decoration: const BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.all(Radius.circular(15)),
                           ),
-                        ),
-
-                        const SizedBox(height: 5),
-
-                        //  Add To Cart button
-                        SizedBox(
-                          height: 24,
-                          width: 80,
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: ColorConstants.appColor,
-                              padding: EdgeInsets.zero,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8),
+                          child: Column(
+                            children: [
+                              // 🟠 Image container with ClipRRect
+                              Container(
+                                height: 150,
+                                width: 120,
+                                child: ClipRRect(
+                                  borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(100),
+                                    topRight: Radius.circular(100),
+                                    bottomLeft: Radius.circular(0),
+                                    bottomRight: Radius.circular(0),
+                                  ),
+                                  child: Image.asset(
+                                    item['image'], // local asset path
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
                               ),
-                              elevation: 0, // no shadow
-                              minimumSize: const Size.fromHeight(24),
-                            ),
-                            onPressed: () {
 
-                            },
-                            child: Text(
-                              "Add To Cart",
-                              style: TextStyle(
-                                fontFamily: global.fontOufitMedium,
-                                color: ColorConstants.white,
-                                fontSize: 12,
-                                fontWeight: FontWeight.w300,
+                              const SizedBox(height: 5),
+
+                              //  Add To Cart button
+                              SizedBox(
+                                height: 24,
+                                width: 80,
+                                child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: ColorConstants.appColor,
+                                    padding: EdgeInsets.zero,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    elevation: 0, // no shadow
+                                    minimumSize: const Size.fromHeight(24),
+                                  ),
+                                  onPressed: () {},
+                                  child: Text(
+                                    "ADD To CART",
+                                    style: TextStyle(
+                                      fontFamily: global.fontOufitMedium,
+                                      color: ColorConstants.white,
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w300,
+                                    ),
+                                  ),
+                                ),
                               ),
-                            ),
+
+                              const SizedBox(height: 5),
+
+                              // 💰 Price text
+                              Text(
+                                item['price'],
+                                style: TextStyle(
+                                  fontFamily: global.fontOufitMedium,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                  color: ColorConstants.newAppColor,
+                                ),
+                              ),
+
+                              const SizedBox(height: 10),
+                            ],
                           ),
                         ),
-
-                        const SizedBox(height: 5),
-
-                        // 💰 Price text
-                        Text(
-                          item['price'],
-                          style: TextStyle(
-                            fontFamily: global.fontOufitMedium,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                            color: ColorConstants.newAppColor,
-                          ),
-                        ),
-
-                        const SizedBox(height: 10),
-                      ],
-                    ),
+                      );
+                    }).toList(),
                   ),
-                );
-              }).toList(),
-            ),
-          ),
+                ),
 
-          const Spacer(),
+                const Spacer(),
 
-          //  Bottom Buttons
-          
-       
-        Container(
-                  margin: EdgeInsets.only(left: 10,right: 10,bottom: 10,top: 5),
+                //  Bottom Buttons
+
+                Container(
+                  margin:
+                      EdgeInsets.only(left: 10, right: 10, bottom: 10, top: 5),
                   child: Row(
                     children: [
                       Expanded(
                         child: GestureDetector(
                           onTap: () {
                             Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                        builder: (context) => AllCategoriesScreen(
-                                              a: widget.analytics,
-                                              o: widget.observer,
-                                            )),
-                                  );
+                              MaterialPageRoute(
+                                  builder: (context) => AllCategoriesScreen(
+                                        a: widget.analytics,
+                                        o: widget.observer,
+                                      )),
+                            );
                           },
                           child: Container(
-                            padding: EdgeInsets.only(left: 10,right: 10,bottom: 12,top: 12),
+                            padding: EdgeInsets.only(
+                                left: 10, right: 10, bottom: 12, top: 12),
                             decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(100),
-                                        color: ColorConstants.colorHomePageSectiondim,
-                                        ),
+                              borderRadius: BorderRadius.circular(100),
+                              color: ColorConstants.colorHomePageSectiondim,
+                            ),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -356,7 +353,8 @@ class _AddOnBottomSheetState extends State<AddOnBottomSheet> {
                                         fontFamily: fontMontserratMedium,
                                         fontWeight: FontWeight.bold,
                                         fontSize: 14,
-                                        color: ColorConstants.newTextHeadingFooter,
+                                        color:
+                                            ColorConstants.newTextHeadingFooter,
                                         letterSpacing: 1),
                                   ),
                                 ),
@@ -365,42 +363,43 @@ class _AddOnBottomSheetState extends State<AddOnBottomSheet> {
                           ),
                         ),
                       ),
-                      SizedBox(width: 10,),
-                    InkWell(
-                      onTap: () {
-                        print("on click called");
-                         Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>   PaymentGatewayScreenCopy(
-
-                                      a: widget.analytics,
-                                      o: widget.observer,
-                                      screenId: 1,
-                                      totalAmount: 0,
-                                      cartController: cartController,
-                                      order: new Order(),
-                                      repeat_orders: '',
-                                      total_delivery_count: global.total_delivery_count,
-                                      selectedDate: DateTime.now(),
-                                      selectedTime:
-                                          "11:00 am - 12:00 pm", //selectedTimeSlot.timeslot,
-                                      is_subscription: null,
-                                      selectedAddressID:0,
-                                      selectedAddress: selectedAddress,
-                                      cartPrice: 0,
-                                    )));
-                        
-                       
-                      },
-                      child: Container(
-                          padding: EdgeInsets.only(left: 10,right: 10,bottom: 12,top: 12),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      InkWell(
+                        onTap: () {
+                          print("on click called");
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      PaymentGatewayScreenCopy(
+                                        a: widget.analytics,
+                                        o: widget.observer,
+                                        screenId: 1,
+                                        totalAmount: 0,
+                                        cartController: cartController,
+                                        order: new Order(),
+                                        repeat_orders: '',
+                                        total_delivery_count:
+                                            global.total_delivery_count,
+                                        selectedDate: DateTime.now(),
+                                        selectedTime:
+                                            "11:00 am - 12:00 pm", //selectedTimeSlot.timeslot,
+                                        is_subscription: null,
+                                        selectedAddressID: 0,
+                                        selectedAddress: selectedAddress,
+                                        cartPrice: 0,
+                                      )));
+                        },
+                        child: Container(
+                          padding: EdgeInsets.only(
+                              left: 10, right: 10, bottom: 12, top: 12),
                           decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(100),
-                                      color: ColorConstants.appColor,
-                                      border: Border.all(
-                                          width: 0.5,
-                                          color: ColorConstants.appColor)),
+                              borderRadius: BorderRadius.circular(100),
+                              color: ColorConstants.appColor,
+                              border: Border.all(
+                                  width: 0.5, color: ColorConstants.appColor)),
                           child: Row(
                             children: [
                               Image.asset(
@@ -431,17 +430,13 @@ class _AddOnBottomSheetState extends State<AddOnBottomSheet> {
                             ],
                           ),
                         ),
-                    )
-                 
+                      )
                     ],
                   ),
                 )
-         
-        ],
-      ),
-    )
-  
-
+              ],
+            ),
+          )
         : Container(
             height: MediaQuery.of(context).size.height / 2,
             decoration: BoxDecoration(
@@ -514,6 +509,7 @@ class _AddOnBottomSheetState extends State<AddOnBottomSheet> {
       },
     );
   }
+
   void hideLoader() {
     Navigator.pop(context);
   }

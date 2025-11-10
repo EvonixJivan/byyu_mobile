@@ -29,7 +29,7 @@ class ColorConstants {
   static const double filterdividerWidth = 1;
   static const double filterdividerheight = 50;
   static const Color filterDivderColor = Color.fromARGB(86, 158, 158, 158);
-  static const Color pureBlack = Colors.black;
+  static const Color pureBlack = newTextHeadingFooter;
   // static const Color allIconsBlack45 = Colors.black45;
   static const Color allIconsBlack45 = appColor;
 
@@ -100,8 +100,10 @@ class ColorConstants {
     static const Color colorContinueShop = Color(0xffFAD19E);
     static const Color colorAllHomeTitle = Color(0xff3A1E14);
       static const Color newHeartFavorite = newAppColor;
-      static const Color newColorBlack = Colors.black;
+      static const Color newColorBlack = newTextHeadingFooter;
       static const Color appBarColorWhite = Colors.white;
+
+      static const Color socialIconsBackground=Color(0xffe6d5c3);
 
 
 

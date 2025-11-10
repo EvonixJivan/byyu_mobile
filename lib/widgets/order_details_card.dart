@@ -121,7 +121,7 @@ class _OrderDetailsCardState extends State<OrderDetailsCard> {
                                       // style: textTheme.subtitle2.copyWith(
                                       //   fontWeight: FontWeight.w100, ),
                                       style: TextStyle(
-                                          color: Colors.black,
+                                          color: ColorConstants.newTextHeadingFooter,
                                           fontSize: 11,
                                           fontWeight: FontWeight.w300)),
                                 ),
@@ -147,7 +147,7 @@ class _OrderDetailsCardState extends State<OrderDetailsCard> {
                                         padding: EdgeInsets.only(left: 5.0),
                                         child: Text("Delivery Date: ",
                                             style: TextStyle(
-                                                color: Colors.black,
+                                                color: ColorConstants.newTextHeadingFooter,
                                                 fontSize: 11,
                                                 fontWeight: FontWeight.w300)),
                                       )
@@ -167,7 +167,7 @@ class _OrderDetailsCardState extends State<OrderDetailsCard> {
                                   padding: EdgeInsets.only(left: 5.0),
                                   child: Text("Order Status:",
                                       style: TextStyle(
-                                          color: Colors.black,
+                                          color: ColorConstants.newTextHeadingFooter,
                                           fontSize: 11,
                                           fontWeight: FontWeight.w300)),
                                 ),
@@ -748,7 +748,7 @@ class _OrderedProductsMenuItemState extends State<OrderedProductsMenuItem> {
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
                       style: TextStyle(
-                          color: Colors.black,
+                          color: ColorConstants.newTextHeadingFooter,
                           fontSize: 11,
                           fontWeight: FontWeight.w300)),
                 ),
@@ -767,7 +767,7 @@ class _OrderedProductsMenuItemState extends State<OrderedProductsMenuItem> {
                     Text("Price: ",
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
-                            color: Colors.black,
+                            color: ColorConstants.newTextHeadingFooter,
                             fontSize: 11,
                             fontWeight: FontWeight.w300)),
                     Text("${global.appInfo.currencySign} ",
@@ -789,7 +789,7 @@ class _OrderedProductsMenuItemState extends State<OrderedProductsMenuItem> {
                     Text("Qty: ",
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
-                            color: Colors.black,
+                            color: ColorConstants.newTextHeadingFooter,
                             fontSize: 11,
                             fontWeight: FontWeight.w300)),
                     Text(

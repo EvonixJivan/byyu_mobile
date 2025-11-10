@@ -591,3 +591,42 @@ class UpdateMobileEmailMobel {
     whatsappFlag = json['whatsapp_flag'];
   }
 }
+
+
+
+class GuestUserResponseModel {
+  bool? status;
+  String? message;
+  int? userId;
+  int? addressId;
+  String? deliveryDate;
+  String? timeSlot;
+
+  GuestUserResponseModel(
+      {this.status,
+      this.message,
+      this.userId,
+      this.addressId,
+      this.deliveryDate,
+      this.timeSlot});
+
+  GuestUserResponseModel.fromJson(Map<String, dynamic> json) {
+    status = json['status'];
+    message = json['message'];
+    userId = json['user_id'];
+    addressId = json['address_id'];
+    deliveryDate = json['delivery_date'];
+    timeSlot = json['time_slot'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['status'] = this.status;
+    data['message'] = this.message;
+    data['user_id'] = this.userId;
+    data['address_id'] = this.addressId;
+    data['delivery_date'] = this.deliveryDate;
+    data['time_slot'] = this.timeSlot;
+    return data;
+  }
+}

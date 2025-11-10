@@ -102,10 +102,7 @@ class _UpdateMobileEmailScreenState extends BaseRouteState {
                   },
                   child: Container(
                       height: MediaQuery.of(context).size.height,
-                      decoration: BoxDecoration(
-                          image: DecorationImage(
-                              image: AssetImage("assets/images/login_bg.png"),
-                              fit: BoxFit.cover)),
+                      color: ColorConstants.colorPageBackground,
                       child:
                           global.currentUser != null &&
                                   global.currentUser.id != null

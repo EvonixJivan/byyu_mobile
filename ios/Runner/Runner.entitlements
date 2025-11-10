@@ -16,6 +16,7 @@
 	<key>com.apple.developer.in-app-payments</key>
 	<array>
 		<string>merchant.com.byyuone</string>
+		<string>merchant.com.byyu</string>
 	</array>
 </dict>
 </plist>

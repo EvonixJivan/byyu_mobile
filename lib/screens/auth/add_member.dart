@@ -138,7 +138,8 @@ class _UserInfoTileState extends State<UserInfoTile> {
                   left: global.isRTL ? 0 : null,
                   child: Icon(
                     Icons.chevron_right,
-                    color: Colors.black,
+                    color: ColorConstants
+                                                          .newTextHeadingFooter,
                   ),
                 ),
         ],
@@ -164,7 +165,8 @@ class _UserOrdersDashboardBoxState extends State<UserOrdersDashboardBox> {
           heading!,
           style: textTheme.titleMedium!.copyWith(
             fontWeight: FontWeight.bold,
-            color: Colors.black,
+            color: ColorConstants
+                                                          .newTextHeadingFooter,
           ),
         ),
         SizedBox(height: 8),
@@ -214,34 +216,7 @@ class _AddMemberScreenState extends BaseRouteState {
       this.month})
       : super();
 
-  Widget _loadColumnData(dynamic heading, dynamic value) {
-    TextTheme textTheme = Theme.of(context).textTheme;
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          heading,
-          style: textTheme.titleMedium?.copyWith(
-            fontWeight: FontWeight.normal,
-            fontSize: 15,
-            color: Colors.black,
-          ),
-        ),
-        SizedBox(height: 8),
-        Text(
-          value,
-          style: textTheme.titleMedium,
-        )
-      ],
-    );
-  }
 
-  String? _validateDropdown(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Please select an option';
-    }
-    return null;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -827,14 +802,15 @@ class _AddMemberScreenState extends BaseRouteState {
                                                       backgroundColor:
                                                           Colors.transparent,
                                                       itemTextStyle: TextStyle(
-                                                          color: Colors.black,
+                                                          color: ColorConstants
+                                                          .newTextHeadingFooter,
                                                           fontSize: 14,
                                                           fontFamily: global
-                                                              .fontRailwayRegular,
+                                                              .fontOufitMedium,
                                                           fontWeight:
                                                               FontWeight.w200),
                                                       dividerColor:
-                                                          ColorConstants.newTextHeadingFooter,
+                                                          ColorConstants.newAppColor,
                                                     ),
                                                   ),
                                                 ],

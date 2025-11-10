@@ -183,7 +183,7 @@ class _CartBottomSheetCopyState extends State<CartBottomSheetCopy> {
 
                         const SizedBox(height: 5),
 
-                        // 💰 Price text
+                        //  Price text
                         Text(
                           item['price'],
                           style: TextStyle(
@@ -205,7 +205,7 @@ class _CartBottomSheetCopyState extends State<CartBottomSheetCopy> {
 
           const Spacer(),
 
-          // 🟤 Bottom Buttons
+          //  Bottom Buttons
           Padding(
             padding:
                 const EdgeInsets.only(left: 20, right: 20, bottom: 20, top: 10),

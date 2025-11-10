@@ -135,8 +135,9 @@ class _AppState extends State<App> {
   Future<void> checkUpdate() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var userInfoJson = prefs.getString("userInfo");
-    print('G1---->005');
-    if (userInfoJson == null) {
+    var isLogin=prefs.getBool("isLoggedIn");
+    
+    if (userInfoJson == null && isLogin!=null && isLogin==true ) {
       global.currentUser = CurrentUser.fromJson(json.decode(userInfoJson!));
     }
   }
@@ -728,7 +729,7 @@ if (uri.queryParameters != null && uri.queryParameters.length>0) {
 
     var body = json.encode(data);
     print(
-        "{'user_id': ${userId}, platform: ${platform}, app_name: byyu, 'device_id': ${fcmToken},'actual_device_id' : ${deviceID}");
+        "{'user_id': ${userId}, platform: ${platform}, app_name: byyu, 'fcm_token': ${fcmToken},'actual_device_id' : ${deviceID}");
 
     try {
       var response = await http.post(Uri.parse('${global.baseUrl}app_info'),
@@ -784,8 +785,9 @@ if (uri.queryParameters != null && uri.queryParameters.length>0) {
       global.isSplashSelected = false;
       SharedPreferences prefs = await SharedPreferences.getInstance();
       var userInfoJson = prefs.getString("userInfo");
-      print(userInfoJson);
-      if (userInfoJson != null) {
+      var isLogin=prefs.getBool("isLoggedIn");
+     
+      if (userInfoJson != null && isLogin!=null && isLogin==true) {
         global.currentUser = CurrentUser.fromJson(
             json.decode(global.sp!.getString("currentUser")!));
 
@@ -877,7 +879,7 @@ if (uri.queryParameters != null && uri.queryParameters.length>0) {
                       // bool isConnected = await br.checkConnectivity();
                       showOnlyLoaderDialog();
                       // if (isConnected) {
-                      if (global.sp!.getString('currentUser') != null) {
+                      if (global.sp!.getString('currentUser') != null &&  global.sp!.getBool("isLoggedIn")!=null && global.sp!.getBool("isLoggedIn")==true) {
                         global.currentUser = CurrentUser.fromJson(
                             json.decode(global.sp!.getString("currentUser")!));
                         if (global.sp!.getString('lastloc') != null) {

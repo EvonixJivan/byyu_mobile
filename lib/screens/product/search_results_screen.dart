@@ -166,20 +166,19 @@ class _SearchResultsScreenState extends BaseRouteState {
                       await _onRefresh();
                     },
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 1.0),
+                      padding: const EdgeInsets.symmetric(vertical: 10.0),
                       child: GetBuilder<CartController>(
                         init: cartController,
                         builder: (value) => Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: 16.0,
-                                ),
+                            Container(
+                                
                                 child: Row(
                                   // mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
+                                    
                                     BackButton(
                                         onPressed: () {
                                           // Get.to(() => HomeScreen(
@@ -221,9 +220,9 @@ class _SearchResultsScreenState extends BaseRouteState {
                                           }
                                         },
                                         //icon: Icon(Icons.keyboard_arrow_left),
-                                        color: ColorConstants.pureBlack),
+                                        color: ColorConstants.newAppColor),
 
-                                    SizedBox(width: 16),
+                                    SizedBox(width: 5),
                                     Expanded(
                                       child: TextFormField(
                                         cursorColor: Colors.grey[800],
@@ -241,7 +240,7 @@ class _SearchResultsScreenState extends BaseRouteState {
                                         decoration: InputDecoration(
                                           filled: true,
                                           fillColor:
-                                              ColorConstants.colorHomePageSectiondim,
+                                              ColorConstants.white,
                                           enabledBorder: OutlineInputBorder(
                                             borderRadius: BorderRadius.all(
                                               Radius.circular(10),
@@ -274,7 +273,7 @@ class _SearchResultsScreenState extends BaseRouteState {
                                                 _cSearch.text != ""
                                                     ? Icon(Icons.cancel,
                                                         color: ColorConstants
-                                                            .pureBlack)
+                                                            .newAppColor)
                                                     : Text(""),
                                           ),
                                           prefixIcon: Icon(
@@ -320,11 +319,12 @@ class _SearchResultsScreenState extends BaseRouteState {
                                     // ),
                                   ],
                                 )),
+                            SizedBox(height: 10,),    
                             _productSearchResult != null &&
                                     _productSearchResult.length > 0
                                 ? Padding(
                                     padding: const EdgeInsets.only(
-                                        bottom: 16.0, left: 5),
+                                        bottom: 16.0, left: 15),
                                     child: _isDataLoaded
                                         ? Text(
                                             _productSearchResult != null &&
@@ -558,7 +558,7 @@ class _SearchResultsScreenState extends BaseRouteState {
                                                                                   "${_subCategoryList[index].title}",
                                                                                   maxLines: 2,
                                                                                   textAlign: TextAlign.center,
-                                                                                  style: TextStyle(fontFamily: global.fontRailwayRegular, fontWeight: FontWeight.w200, fontSize: 12, overflow: TextOverflow.ellipsis, color: subCateSelectIndex == index ? Colors.white : Colors.black),
+                                                                                  style: TextStyle(fontFamily: global.fontRailwayRegular, fontWeight: FontWeight.w200, fontSize: 12, overflow: TextOverflow.ellipsis, color: subCateSelectIndex == index ? Colors.white : ColorConstants.newTextHeadingFooter),
                                                                                 ),
                                                                               )
                                                                             : Container(
@@ -571,7 +571,7 @@ class _SearchResultsScreenState extends BaseRouteState {
                                                                                   "${_subCategoryList[index].title}",
                                                                                   maxLines: 1,
                                                                                   textAlign: TextAlign.center,
-                                                                                  style: TextStyle(fontFamily: global.fontRailwayRegular, fontWeight: FontWeight.w200, fontSize: 12, overflow: TextOverflow.ellipsis, color: subCateSelectIndex == index ? ColorConstants.appColor : Colors.black),
+                                                                                  style: TextStyle(fontFamily: global.fontRailwayRegular, fontWeight: FontWeight.w200, fontSize: 12, overflow: TextOverflow.ellipsis, color: subCateSelectIndex == index ? ColorConstants.appColor : ColorConstants.newTextHeadingFooter),
                                                                                 ),
                                                                               ),
                                                                       ),
@@ -799,7 +799,7 @@ class _SearchResultsScreenState extends BaseRouteState {
                                                   decoration: BoxDecoration(
                                                       border: Border.all(
                                                           color: ColorConstants
-                                                              .grey,
+                                                              .colorAllHomeTitle,
                                                           width: 0.5),
                                                       borderRadius:
                                                           BorderRadius.circular(
@@ -887,7 +887,7 @@ class _SearchResultsScreenState extends BaseRouteState {
                                                                 Icons.cancel,
                                                                 size: 20,
                                                                 color: ColorConstants
-                                                                    .pureBlack,
+                                                                    .newAppColor,
                                                               ),
                                                             )
                                                           : SizedBox(),
@@ -1023,10 +1023,11 @@ class _SearchResultsScreenState extends BaseRouteState {
                                                                       .circular(
                                                                           100),
                                                               child: Container(
+                                                                padding: EdgeInsets.all(5),
                                                                 decoration:
                                                                     BoxDecoration(
                                                                   color: Colors
-                                                                      .transparent,
+                                                                      .white,
                                                                   borderRadius:
                                                                       BorderRadius
                                                                           .circular(
@@ -1114,10 +1115,7 @@ class _SearchResultsScreenState extends BaseRouteState {
                                                                 EdgeInsets.only(
                                                                     left: 1,
                                                                     right: 1),
-                                                            decoration:
-                                                                BoxDecoration(
-                                                                    color: Colors
-                                                                        .white38),
+                                                            
                                                             child:
                                                                 categoriesSelectedIndex ==
                                                                         index
@@ -1143,7 +1141,7 @@ class _SearchResultsScreenState extends BaseRouteState {
                                                                               fontWeight: FontWeight.w200,
                                                                               fontSize: 11,
                                                                               overflow: TextOverflow.ellipsis,
-                                                                              color: categoriesSelectedIndex == index ? Colors.white : Colors.black),
+                                                                              color: categoriesSelectedIndex == index ? Colors.white : ColorConstants.newTextHeadingFooter),
                                                                         ),
                                                                       )
                                                                     : Container(
@@ -1162,7 +1160,7 @@ class _SearchResultsScreenState extends BaseRouteState {
                                                                               fontWeight: FontWeight.w200,
                                                                               fontSize: 10,
                                                                               overflow: TextOverflow.ellipsis,
-                                                                              color: categoriesSelectedIndex == index ? ColorConstants.appColor : Colors.black),
+                                                                              color: categoriesSelectedIndex == index ? ColorConstants.appColor : ColorConstants.newTextHeadingFooter),
                                                                         ),
                                                                       ),
                                                           ),
@@ -1245,6 +1243,7 @@ class _SearchResultsScreenState extends BaseRouteState {
                                                                   _productSearchResult,
                                                               isHomeSelected:
                                                                   "SearchScreen",
+                                                                  refreshProductList:callProductList
                                                             )
                                                           : SizedBox(),
                                                       _isMoreDataLoaded
@@ -1269,12 +1268,7 @@ class _SearchResultsScreenState extends BaseRouteState {
                                                 height: MediaQuery.of(context)
                                                     .size
                                                     .height,
-                                                decoration: BoxDecoration(
-                                                  image: DecorationImage(
-                                                      image: AssetImage(
-                                                          "assets/images/login_bg.png"),
-                                                      fit: BoxFit.cover),
-                                                ),
+                                                color: ColorConstants.colorPageBackground,
                                                 child: Padding(
                                                   padding:
                                                       const EdgeInsets.only(
@@ -1286,12 +1280,12 @@ class _SearchResultsScreenState extends BaseRouteState {
                                                     textAlign: TextAlign.center,
                                                     style: TextStyle(
                                                         fontFamily:
-                                                            fontMontserratLight,
+                                                            fontRailwaySemibold,
                                                         fontSize: 20,
                                                         fontWeight:
                                                             FontWeight.w200,
                                                         color: ColorConstants
-                                                            .guidlinesGolden),
+                                                            .newAppColor),
                                                   )),
                                                 ),
                                               )
@@ -1434,6 +1428,10 @@ class _SearchResultsScreenState extends BaseRouteState {
     appliedFilter.add(new AppliedFilterList(
         type: "0", name: "Occasion", isFilterValue: false));
     _scrollController1 = ScrollController()..addListener(_scrollListener);
+  }
+  void callProductList()async{
+    await _getProductSearchResult();
+ 
   }
 
   _init(int loadTag) async {

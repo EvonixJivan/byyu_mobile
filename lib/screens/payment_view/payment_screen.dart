@@ -539,7 +539,7 @@ class _PaymentGatewayScreenState extends BaseRouteState
                                         child: Icon(
                                           Icons.cancel,
                                           size: 20,
-                                          color: ColorConstants.pureBlack,
+                                          color: ColorConstants.newAppColor,
                                         ),
                                       ),
                                     ),
@@ -876,7 +876,7 @@ class _PaymentGatewayScreenState extends BaseRouteState
                                         child: Icon(
                                           Icons.cancel,
                                           size: 20,
-                                          color: ColorConstants.pureBlack,
+                                          color: ColorConstants.newAppColor,
                                         ),
                                       ),
                                     ),
@@ -1027,7 +1027,7 @@ class _PaymentGatewayScreenState extends BaseRouteState
                               fontFamily: global.fontMontserratLight,
                               fontWeight: FontWeight.w200,
                               fontSize: 15,
-                              color: Colors.black)),
+                              color: ColorConstants.newTextHeadingFooter)),
                     ),
                     SizedBox(
                       height: 8,
@@ -1273,7 +1273,7 @@ class _PaymentGatewayScreenState extends BaseRouteState
                               fontFamily: global.fontMontserratLight,
                               fontWeight: FontWeight.w200,
                               fontSize: 15,
-                              color: Colors.black)),
+                              color: ColorConstants.newTextHeadingFooter)),
                     ),
                     SizedBox(
                       height: 8,

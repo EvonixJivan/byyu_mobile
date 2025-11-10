@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_google_places_hoc081098/flutter_google_places_hoc081098.dart'
     as places;
 import 'package:flutter_google_places_hoc081098/flutter_google_places_hoc081098.dart';
+import 'package:get/route_manager.dart';
 import 'package:google_maps_webservice_ex/places.dart' as gmaps;
 import 'package:geocoder2/geocoder2.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -44,6 +45,8 @@ class LocationScreen extends BaseRoute {
   bool? isHomePresent;
   bool? isOfficePresent;
 
+  bool? picklocationOnly;
+
   LocationScreen(
       {a,
       o,
@@ -53,6 +56,7 @@ class LocationScreen extends BaseRoute {
       this.lngSelected,
       this.societyName,
       this.address,
+      this.picklocationOnly,
       this.societyLat,
       isHomePresent,
       isOfficePresent,
@@ -73,6 +77,7 @@ class LocationScreen extends BaseRoute {
       latSelected: latSelected,
       lngSelected: lngSelected,
       societyName: societyName,
+      picklocationOnly: picklocationOnly,
       societyLat: societyLat,
       societyLng: societyLng,
       cartController: cartController,
@@ -99,6 +104,7 @@ class _LocationScreenState extends BaseRouteState {
   double? societyLat, societyLng;
   CartController? cartController;
   bool? isEditButtonClicked;
+  bool? picklocationOnly;
   int? isHOmeOfficePresent = 0;
 
   Completer<GoogleMapController> _controller = Completer();
@@ -116,7 +122,6 @@ class _LocationScreenState extends BaseRouteState {
 
   String location = 'Null, Press Button';
 
-
   FocusNode _fSearch = new FocusNode();
   bool _isDataLoaded = false;
   bool _isShowConfirmLocationWidget = false;
@@ -132,6 +137,7 @@ class _LocationScreenState extends BaseRouteState {
       this.societyName,
       this.address,
       this.societyLat,
+      this.picklocationOnly,
       this.societyLng,
       this.lat,
       isHomePresent,
@@ -164,8 +170,7 @@ class _LocationScreenState extends BaseRouteState {
           },
           child: _isDataLoaded
               ? Scaffold(
-                  body:
-                      Stack(
+                  body: Stack(
                   children: [
                     Column(
                       children: [
@@ -185,7 +190,6 @@ class _LocationScreenState extends BaseRouteState {
                                 initialCameraPosition: CameraPosition(
                                   target: LatLng(lat != null ? lat! : _lat!,
                                       lng != null ? lng! : _lng!),
-
                                   zoom: 15.0,
                                 ),
                                 myLocationEnabled: true,
@@ -248,7 +252,7 @@ class _LocationScreenState extends BaseRouteState {
                             },
                             icon: Icon(
                               Icons.arrow_back,
-                              color: ColorConstants.pureBlack,
+                              color: ColorConstants.newAppColor,
                               size: 25,
                             ),
                           ),
@@ -296,8 +300,7 @@ class _LocationScreenState extends BaseRouteState {
                                   ),
                                   hintStyle:
                                       Theme.of(context).textTheme.titleMedium,
-                                  hintText: "Search"
-                                  ),
+                                  hintText: "Search"),
                               onTap: () async {
                                 _handlePressedButton();
                               },
@@ -313,7 +316,6 @@ class _LocationScreenState extends BaseRouteState {
                       bottom: 180,
                       child: Container(
                         padding: EdgeInsets.all(Platform.isIOS ? 188 : 178),
-
                         width: 10,
                         height: 10,
                         child: const Icon(
@@ -324,8 +326,7 @@ class _LocationScreenState extends BaseRouteState {
                       ),
                     ),
                   ],
-                )
-                  )
+                ))
               : Center(
                   child: CircularProgressIndicator(),
                 )),
@@ -356,7 +357,7 @@ class _LocationScreenState extends BaseRouteState {
       placemarks = await placemarkFromCoordinates(
           onCameraMoveEndLatLng!.latitude, onCameraMoveEndLatLng!.longitude);
     }
-   
+
     _lat =
         onCameraMoveEndLatLng == null || onCameraMoveEndLatLng!.latitude == null
             ? lat != null
@@ -381,8 +382,9 @@ class _LocationScreenState extends BaseRouteState {
   }
 
   Future<void> updateAddress(LatLng point) async {
-    List<Placemark> placemarks =
-        await placemarkFromCoordinates(point.latitude, point.longitude, localeIdentifier: 'en_US');
+    List<Placemark> placemarks = await placemarkFromCoordinates(
+        point.latitude, point.longitude,
+        localeIdentifier: 'en_US');
     setPlace = placemarks[placemarks.length - 1];
     print("G1---->location");
     _isShowConfirmLocationWidget = true;
@@ -397,7 +399,7 @@ class _LocationScreenState extends BaseRouteState {
     print(placemarks);
     logDev.log(placemarks.toString(), name: "place");
     Placemark place = placemarks[0];
-    
+
     setState(() {});
   }
 
@@ -479,7 +481,6 @@ class _LocationScreenState extends BaseRouteState {
           _updateLocation();
           _getPinnedAddress();
         });
-
       } catch (e) {
         _lat = 25.2048;
         _lng = 55.2708;
@@ -487,13 +488,12 @@ class _LocationScreenState extends BaseRouteState {
 
         print("Exception - location_screen.dart - _init():" + e.toString());
       }
-      
     });
   }
 
   _setCurrentLocationWidget() {
     return Padding(
-        padding: const EdgeInsets.only(top: 15,left: 15,right: 15),
+        padding: const EdgeInsets.only(top: 15, left: 15, right: 15),
         child: Column(
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -537,7 +537,7 @@ class _LocationScreenState extends BaseRouteState {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 5, top: 10,bottom: 8),
+              padding: const EdgeInsets.only(left: 5, top: 10, bottom: 8),
               child: Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
@@ -556,11 +556,13 @@ class _LocationScreenState extends BaseRouteState {
             isEditButtonClicked == true
                 ? Padding(
                     padding: EdgeInsets.fromLTRB(
-                    0,
-                    0,
-                    0,
-                    MediaQuery.of(context).viewPadding.bottom, // Prevents bottom overlap
-                  ),
+                      0,
+                      0,
+                      0,
+                      MediaQuery.of(context)
+                          .viewPadding
+                          .bottom, // Prevents bottom overlap
+                    ),
                     child: Container(
                       width: MediaQuery.of(context).size.width,
                       child: ElevatedButton(
@@ -618,39 +620,50 @@ class _LocationScreenState extends BaseRouteState {
                                     .toString()
                                     .toLowerCase()
                                     .contains(global.arabicDubai)) {
-                              Navigator.of(context).push(
-                                NavigationUtils.createAnimatedRoute(
-                                    2.0,
-                                    AddAddressScreen(
-                                      address!,
-                                      a: widget.analytics,
-                                      o: widget.observer,
-                                      screenId: 0,
-                                      fromProfile: fromProfile,
-                                      isHOmeOfficePresent: isHOmeOfficePresent,
+                              if (picklocationOnly != null &&
+                                  picklocationOnly == true) {
+                                pickedLocationAddress =
+                                    setPlace!.street!.trim();
+                                Navigator.pop(context);
+                              } else {
+                                Navigator.of(context).push(
+                                  NavigationUtils.createAnimatedRoute(
+                                      2.0,
+                                      AddAddressScreen(
+                                        address!,
+                                        a: widget.analytics,
+                                        o: widget.observer,
+                                        screenId: 0,
+                                        fromProfile: fromProfile,
+                                        isHOmeOfficePresent:
+                                            isHOmeOfficePresent,
 
-                                      isEditButtonClicked: true,
-                                      // fromWhere: "editbutton",
-                                      setPlace: setPlace,
-                                      cartController:
-                                          fromProfile! ? null : cartController,
-                                      lat: onCameraMoveEndLatLng == null
-                                          ? _lat
-                                          : onCameraMoveEndLatLng!.latitude ==
-                                                  null
-                                              ? _lat
-                                              : onCameraMoveEndLatLng!.latitude,
+                                        isEditButtonClicked: true,
+                                        // fromWhere: "editbutton",
+                                        setPlace: setPlace,
+                                        cartController: fromProfile!
+                                            ? null
+                                            : cartController,
+                                        lat: onCameraMoveEndLatLng == null
+                                            ? _lat
+                                            : onCameraMoveEndLatLng!.latitude ==
+                                                    null
+                                                ? _lat
+                                                : onCameraMoveEndLatLng!
+                                                    .latitude,
 
-                                      lng: onCameraMoveEndLatLng == null
-                                          ? _lng
-                                          : onCameraMoveEndLatLng!.longitude ==
-                                                  null
-                                              ? _lng
-                                              : onCameraMoveEndLatLng!
-                                                  .longitude,
-                                      // selectedScreen: "checkout",
-                                    )),
-                              );
+                                        lng: onCameraMoveEndLatLng == null
+                                            ? _lng
+                                            : onCameraMoveEndLatLng!
+                                                        .longitude ==
+                                                    null
+                                                ? _lng
+                                                : onCameraMoveEndLatLng!
+                                                    .longitude,
+                                        // selectedScreen: "checkout",
+                                      )),
+                                );
+                              }
                               setState(() {});
                             } else {
                               Fluttertoast.showToast(
@@ -668,13 +681,15 @@ class _LocationScreenState extends BaseRouteState {
                   )
                 : Padding(
                     padding: EdgeInsets.fromLTRB(
-                    0,
-                    0,
-                    0,
-                    Platform.isIOS?0: MediaQuery.of(context).viewPadding.bottom > 0
-                        ? MediaQuery.of(context).viewPadding.bottom
-                        : 10, // Prevents bottom overlap
-                  ),
+                      0,
+                      0,
+                      0,
+                      Platform.isIOS
+                          ? 0
+                          : MediaQuery.of(context).viewPadding.bottom > 0
+                              ? MediaQuery.of(context).viewPadding.bottom
+                              : 10, // Prevents bottom overlap
+                    ),
                     child: Container(
                       width: MediaQuery.of(context).size.width,
                       child: ElevatedButton(
@@ -719,37 +734,44 @@ class _LocationScreenState extends BaseRouteState {
                                   .toString()
                                   .toLowerCase()
                                   .contains(global.arabicDubai)) {
-                            Navigator.of(context).push(
-                              NavigationUtils.createAnimatedRoute(
-                                  2.0,
-                                  AddAddressScreen(
-                                    new Address1(),
-                                    a: widget.analytics,
-                                    o: widget.observer,
-                                    screenId: 0,
-                                    isEditButtonClicked: false,
-                                    //fromWhere: "editbutton",
-                                    setPlace: setPlace,
-                                    fromProfile: fromProfile,
-                                    cartController: cartController,
-                                    isHOmeOfficePresent: isHOmeOfficePresent,
+                            if (picklocationOnly != null &&
+                                picklocationOnly == true) {
+                              pickedLocationAddress = setPlace!.street!.trim();
+                              Navigator.pop(context);
+                            } else {
+                              Navigator.of(context).push(
+                                NavigationUtils.createAnimatedRoute(
+                                    2.0,
+                                    AddAddressScreen(
+                                      new Address1(),
+                                      a: widget.analytics,
+                                      o: widget.observer,
+                                      screenId: 0,
+                                      isEditButtonClicked: false,
+                                      //fromWhere: "editbutton",
+                                      setPlace: setPlace,
+                                      fromProfile: fromProfile,
+                                      cartController: cartController,
+                                      isHOmeOfficePresent: isHOmeOfficePresent,
 
-                                    lat: onCameraMoveEndLatLng == null
-                                        ? _lat
-                                        : onCameraMoveEndLatLng!.latitude ==
-                                                null
-                                            ? _lat
-                                            : onCameraMoveEndLatLng!.latitude,
+                                      lat: onCameraMoveEndLatLng == null
+                                          ? _lat
+                                          : onCameraMoveEndLatLng!.latitude ==
+                                                  null
+                                              ? _lat
+                                              : onCameraMoveEndLatLng!.latitude,
 
-                                    lng: onCameraMoveEndLatLng == null
-                                        ? _lng
-                                        : onCameraMoveEndLatLng!.longitude ==
-                                                null
-                                            ? _lng
-                                            : onCameraMoveEndLatLng!.longitude,
-                                    // selectedScreen: "checkout",
-                                  )),
-                            );
+                                      lng: onCameraMoveEndLatLng == null
+                                          ? _lng
+                                          : onCameraMoveEndLatLng!.longitude ==
+                                                  null
+                                              ? _lng
+                                              : onCameraMoveEndLatLng!
+                                                  .longitude,
+                                      // selectedScreen: "checkout",
+                                    )),
+                              );
+                            }
                           } else {
                             Fluttertoast.showToast(
                               msg:
@@ -809,56 +831,57 @@ class _LocationScreenState extends BaseRouteState {
   // }
 
   Future<void> _handlePressedButton() async {
-  final p = await places.PlacesAutocomplete.show(
-    context: context,
-    apiKey: global.googleMapAPIKey,
-    onError: onError,
-    mode: _mode,
-    language: 'en',
-    logo: const Text(""),
-    strictbounds: false,
-    types: [""],
-    textDecoration: InputDecoration(
-      hintText: 'Search',
-      focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(20),
-        borderSide: BorderSide(color: Colors.white),
-      ),
-    ),
-    components: [],
-  );
-
-  if (p != null) {
-    // Convert places.Prediction -> gmaps.Prediction
-    final converted = gmaps.Prediction(
-  description: p.description,
-  placeId: p.placeId,
-  structuredFormatting: p.structuredFormatting == null
-      ? null
-      : gmaps.StructuredFormatting(
-          mainText: p.structuredFormatting!.mainText,
-          mainTextMatchedSubstrings: p.structuredFormatting!.mainTextMatchedSubstrings
-              .map((m) => gmaps.MatchedSubstring(offset: m.offset, length: m.length))
-              .toList(),
-          secondaryText: p.structuredFormatting!.secondaryText,
+    final p = await places.PlacesAutocomplete.show(
+      context: context,
+      apiKey: global.googleMapAPIKey,
+      onError: onError,
+      mode: _mode,
+      language: 'en',
+      logo: const Text(""),
+      strictbounds: false,
+      types: [""],
+      textDecoration: InputDecoration(
+        hintText: 'Search',
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(20),
+          borderSide: BorderSide(color: Colors.white),
         ),
-  terms: (p.terms ?? [])
-      .map((t) => gmaps.Term(offset: t.offset, value: t.value))
-      .toList(),
-  types: p.types,
-);
+      ),
+      components: [],
+    );
 
-    displayPrediction(converted);
+    if (p != null) {
+      // Convert places.Prediction -> gmaps.Prediction
+      final converted = gmaps.Prediction(
+        description: p.description,
+        placeId: p.placeId,
+        structuredFormatting: p.structuredFormatting == null
+            ? null
+            : gmaps.StructuredFormatting(
+                mainText: p.structuredFormatting!.mainText,
+                mainTextMatchedSubstrings: p
+                    .structuredFormatting!.mainTextMatchedSubstrings
+                    .map((m) => gmaps.MatchedSubstring(
+                        offset: m.offset, length: m.length))
+                    .toList(),
+                secondaryText: p.structuredFormatting!.secondaryText,
+              ),
+        terms: (p.terms ?? [])
+            .map((t) => gmaps.Term(offset: t.offset, value: t.value))
+            .toList(),
+        types: p.types,
+      );
+
+      displayPrediction(converted);
+    }
   }
-}
 
-
- void onError(dynamic error) {
-  print("Places Autocomplete Error: ${error.message}");
-  ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(content: Text(error.message)),
-  );
-}
+  void onError(dynamic error) {
+    print("Places Autocomplete Error: ${error.message}");
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(error.message)),
+    );
+  }
 
   // Future<void> displayPrediction(Prediction p) async {
   //   GoogleMapsPlaces places = GoogleMapsPlaces(
@@ -894,36 +917,33 @@ class _LocationScreenState extends BaseRouteState {
   //       CameraUpdate.newLatLngZoom(LatLng(latSelected!, lngSelected!), 15.0));
   // }
   Future<void> displayPrediction(gmaps.Prediction p) async {
-  final placesApi = gmaps.GoogleMapsPlaces(
-    apiKey: global.googleMapAPIKey,
-    apiHeaders: await const GoogleApiHeaders().getHeaders(),
-  );
-
-  print('displayPrediction----:${p.description}');
-
-  gmaps.PlacesDetailsResponse detail =
-      await placesApi.getDetailsByPlaceId(p.placeId!);
-
-  _cSearch.text = detail.result?.formattedAddress ?? "";
-
-  latSelected = detail.result?.geometry?.location.lat;
-  lngSelected = detail.result?.geometry?.location.lng;
-
-  if (latSelected != null && lngSelected != null) {
-    mapController?.animateCamera(
-      CameraUpdate.newLatLngZoom(LatLng(latSelected!, lngSelected!), 15.0),
+    final placesApi = gmaps.GoogleMapsPlaces(
+      apiKey: global.googleMapAPIKey,
+      apiHeaders: await const GoogleApiHeaders().getHeaders(),
     );
 
-    setState(() {
-      _markers[const MarkerId("0")] = Marker(
-        markerId: const MarkerId("0"),
-        position: LatLng(latSelected!, lngSelected!),
-        infoWindow: InfoWindow(title: detail.result?.name),
+    print('displayPrediction----:${p.description}');
+
+    gmaps.PlacesDetailsResponse detail =
+        await placesApi.getDetailsByPlaceId(p.placeId!);
+
+    _cSearch.text = detail.result?.formattedAddress ?? "";
+
+    latSelected = detail.result?.geometry?.location.lat;
+    lngSelected = detail.result?.geometry?.location.lng;
+
+    if (latSelected != null && lngSelected != null) {
+      mapController?.animateCamera(
+        CameraUpdate.newLatLngZoom(LatLng(latSelected!, lngSelected!), 15.0),
       );
-    });
+
+      setState(() {
+        _markers[const MarkerId("0")] = Marker(
+          markerId: const MarkerId("0"),
+          position: LatLng(latSelected!, lngSelected!),
+          infoWindow: InfoWindow(title: detail.result?.name),
+        );
+      });
+    }
   }
 }
-
-}
-
-

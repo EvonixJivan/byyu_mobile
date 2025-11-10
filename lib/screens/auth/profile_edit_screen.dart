@@ -569,13 +569,13 @@ class _ProfileEditScreenState extends BaseRouteState {
                                                     backgroundColor:
                                                         Colors.transparent,
                                                     itemTextStyle: TextStyle(
-                                                        color: Colors.black,
+                                                        color: ColorConstants.newTextHeadingFooter,
                                                         fontSize: 14,
                                                         fontFamily: global
-                                                            .fontRailwayRegular,
+                                                            .fontOufitMedium,
                                                         fontWeight:
                                                             FontWeight.w200),
-                                                    dividerColor: Colors.black,
+                                                    dividerColor: ColorConstants.newAppColor,
                                                   ),
                                                 ),
                                               ),

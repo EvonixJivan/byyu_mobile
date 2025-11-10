@@ -438,7 +438,7 @@ class _OffersProductListScreenState extends BaseRouteState {
                                                               size: 20,
                                                               color:
                                                                   ColorConstants
-                                                                      .pureBlack,
+                                                                      .newAppColor,
                                                             ),
                                                           )
                                                         : SizedBox(),
@@ -571,7 +571,7 @@ class _OffersProductListScreenState extends BaseRouteState {
                                                           Icons.cancel,
                                                           size: 20,
                                                           color: ColorConstants
-                                                              .pureBlack,
+                                                              .newAppColor,
                                                         ),
                                                       ),
                                                     ],
@@ -613,6 +613,7 @@ class _OffersProductListScreenState extends BaseRouteState {
                             analytics: widget.analytics,
                             observer: widget.observer,
                             categoryProductList: _productsList,
+                            refreshProductList:callProductList
                           ),
                           _isMoreDataLoaded
                               ? Center(
@@ -745,6 +746,9 @@ class _OffersProductListScreenState extends BaseRouteState {
   void initState() {
     super.initState();
     _init();
+  }
+  void callProductList() async{
+    await _getProductList();
   }
 
   _getProductList() async {

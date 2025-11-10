@@ -53,372 +53,369 @@ class _FrequentlyQuestionsScreenState extends BaseRouteState {
   _FrequentlyQuestionsScreenState() : super();
   @override
   Widget build(BuildContext context) {
-    TextTheme textTheme = Theme.of(context).textTheme;
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: ColorConstants.colorPageBackground,
-        key: _scaffoldKey,
-        appBar: AppBar(
-          backgroundColor: ColorConstants.appBarColorWhite,
-          title: Text(
-            "FAQ",
-            // '${AppLocalizations.of(context).tle_term_of_service}',
-            style: TextStyle(
-                color: ColorConstants.newTextHeadingFooter,
-                fontFamily: fontRailwayRegular,
-                fontWeight: FontWeight.w200), //textTheme.titleLarge,
-          ),
-          centerTitle: false,
-          leading: BackButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              color: ColorConstants.newAppColor),
+    return Scaffold(
+      backgroundColor: ColorConstants.colorPageBackground,
+      key: _scaffoldKey,
+      appBar: AppBar(
+        backgroundColor: ColorConstants.appBarColorWhite,
+        title: Text(
+          "FAQ",
+          // '${AppLocalizations.of(context).tle_term_of_service}',
+          style: TextStyle(
+              color: ColorConstants.newTextHeadingFooter,
+              fontFamily: fontRailwayRegular,
+              fontWeight: FontWeight.w200), //textTheme.titleLarge,
         ),
-        body: Container(
-            color: ColorConstants.colorPageBackground,
-            padding: const EdgeInsets.only(left: 1.0, right: 1.0),
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  ExpansionTile(
-                    key: Key('section0 ${parent.toString()}'),
-                    childrenPadding: EdgeInsets.only(left: 10),
-                    title: Text(
-                      "Delivery",
-                      style: sectionTextStyle,
-                    ),
-                    initiallyExpanded: parent == 0,
-                    textColor: ColorConstants.newAppColor,
-                    collapsedTextColor: ColorConstants.pureBlack,
-                    iconColor: ColorConstants.newAppColor,
-                    collapsedIconColor: ColorConstants.newAppColor,
-                    onExpansionChanged: (value) {
-                      
-                      if (value) {
-                        Duration(seconds: 20000);
-                        parent = 0;
-                      } else {
-                        parent = -1;
-                      }
-                      
-                      setState(() {
-                      });
-                    },
-                    children: [
-                      ListView.builder(
-                        key: Key('builder1 ${deliveryIndex.toString()}'),
-                        physics: NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        scrollDirection: Axis.vertical,
-                        itemCount: deliveryQuestion.length,
-                        itemBuilder: (context, index) {
-                          return ExpansionTile(
-                            key: Key(index.toString()),
-                            childrenPadding:
-                                EdgeInsets.only(left: 25, right: 5),
-                            title: Text(
-                              deliveryQuestion[index],
-                              style: queTextStyle,
-                            ),
-                            iconColor: ColorConstants.appColor,
-                            
-                            initiallyExpanded:
-                                deliveryIndex==index ,
-                            onExpansionChanged: (value) {
-                             if (value) {
-                                Duration(seconds: 20000);
-                                deliveryIndex = index;
-                              } else {
-                                deliveryIndex = -1;
-                              }
-                              setState(() {
-                              });
-                            },
-                            collapsedIconColor: ColorConstants.newAppColor,
-                            children: [
-                              Container(
-                                margin: EdgeInsets.only(left: 10, right: 10),
-                                height: 2,
-                                width: MediaQuery.of(context).size.width,
-                                color: ColorConstants.greyDull,
-                              ),
-                              SizedBox(
-                                height: 8,
-                              ),
-                              Text(
-                                deliveryAnswer[index],
-                                style: ansTextStyle,
-                              ),
-                              SizedBox(
-                                height: 5,
-                              )
-                            ],
-                          );
-                        },
-                      ),
-                    ],
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(left: 10, right: 10),
-                    height: 2,
-                    width: MediaQuery.of(context).size.width,
-                    color: ColorConstants.greyDull,
-                  ),
-                  //#######################################################################
-                  ExpansionTile(
-                    key: Key('section1 ${parent.toString()}'),
-                    title: Text(
-                      "Orders",
-                      style: TextStyle(
-                          fontFamily: global.fontRailwayRegular,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w200,
-                          color: ColorConstants.newTextHeadingFooter),
-                    ),
-                    iconColor: ColorConstants.appColor,
-                    collapsedIconColor: ColorConstants.newAppColor,
-                    initiallyExpanded: parent==1,
-                    onExpansionChanged: (value) {
-                      if (value) {
-                        setState(() {Duration(seconds: 20000);
-                        parent = 1;});
-                        
-                      } else {
-
-                         setState(() {Duration(seconds: 20000);
-                        parent = -1;});
-                      }
-                      print("nikhilllllllllll parent${parent}");
-                      
-                    },
-                    childrenPadding: EdgeInsets.only(left: 10),
-                    children: [
-                      ListView.builder(
-                        key: Key('builder2 ${orderIndex.toString()}'),
-                        physics: NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        scrollDirection: Axis.vertical,
-                        itemCount: orderQuestion.length,
-                        itemBuilder: (context, index) {
-                          return ExpansionTile(
-                            key: Key(index.toString()),
-                            childrenPadding:
-                                EdgeInsets.only(left: 25, right: 5),
-                            title: Text(
-                              orderQuestion[index],
-                              style: queTextStyle,
-                            ),
-                            iconColor: ColorConstants.appColor,
-                            initiallyExpanded:
-                                orderIndex == index ,
-                            onExpansionChanged: (value) {
-                              if (value) {
-                                Duration(seconds: 20000);
-                                orderIndex = index;
-                              } else {
-                                orderIndex = -1;
-                              }
-                              setState(() {
-                              });
-                            },
-                            collapsedIconColor: ColorConstants.newAppColor,
-                            children: [
-                              Container(
-                                margin: EdgeInsets.only(left: 10, right: 10),
-                                height: 2,
-                                width: MediaQuery.of(context).size.width,
-                                color: ColorConstants.greyDull,
-                              ),
-                              SizedBox(
-                                height: 8,
-                              ),
-                              Text(
-                                orderAnswer[index],
-                                style: ansTextStyle,
-                              ),
-                              SizedBox(
-                                height: 5,
-                              )
-                            ],
-                          );
-                        },
-                      ),
-                    ],
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(left: 10, right: 10),
-                    height: 2,
-                    width: MediaQuery.of(context).size.width,
-                    color: ColorConstants.greyDull,
-                  ),
-                  //#######################################################################
-                  ExpansionTile(
-                    key: Key('section2 ${parent.toString()}'),
-                    title: Text(
-                      "Vouchers/Discount",
-                      style: TextStyle(
-                          fontFamily: global.fontRailwayRegular,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w200,
-                          color: ColorConstants.newTextHeadingFooter),
-                    ),
-                    iconColor: ColorConstants.appColor,
-                    collapsedIconColor: ColorConstants.newAppColor,
-                    initiallyExpanded: parent==2,
-                    onExpansionChanged: (value) {
-                      if (value) {
-                        Duration(seconds: 20000);
-                        parent = 2;
-                      } else {
-                        parent = -1;
-                      }
-                      setState(() {});
-                    },
-                    childrenPadding: EdgeInsets.only(left: 10),
-                    children: [
-                      ListView.builder(
-                        key: Key('builder3 ${voucherIndex.toString()}'),
-                        physics: NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        scrollDirection: Axis.vertical,
-                        itemCount: vouchersQuestion.length,
-                        itemBuilder: (context, index) {
-                          return ExpansionTile(
-                            childrenPadding:
-                                EdgeInsets.only(left: 25, right: 5),
-                            title: Text(
-                              vouchersQuestion[index],
-                              style: queTextStyle,
-                            ),
-                            iconColor: ColorConstants.appColor,
-                            initiallyExpanded:
-                                voucherIndex == index,
-                            onExpansionChanged: (value) {
-                              if (value) {
-                                Duration(seconds: 20000);
-                                voucherIndex = index;
-                              } else {
-                                voucherIndex = -1;
-                              }
-                              setState(() {});
-                            },
-                            collapsedIconColor: ColorConstants.newAppColor,
-                            children: [
-                              Container(
-                                margin: EdgeInsets.only(left: 10, right: 10),
-                                height: 2,
-                                width: MediaQuery.of(context).size.width,
-                                color: ColorConstants.greyDull,
-                              ),
-                              SizedBox(
-                                height: 8,
-                              ),
-                              Text(
-                                vouchersAnswer[index],
-                                style: ansTextStyle,
-                              ),
-                              SizedBox(
-                                height: 5,
-                              )
-                            ],
-                          );
-                        },
-                      ),
-                    ],
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(left: 10, right: 10),
-                    height: 2,
-                    width: MediaQuery.of(context).size.width,
-                    color: ColorConstants.greyDull,
-                  ),
-                  //#######################################################################
-                  ExpansionTile(
-                    key: Key('section3 ${parent.toString()}'),
-                    title: Text(
-                      "Payment Modes",
-                      style: TextStyle(
-                          fontFamily: global.fontRailwayRegular,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w200,
-                          color: ColorConstants.newTextHeadingFooter),
-                    ),
-                    iconColor: ColorConstants.appColor,
-                    collapsedIconColor: ColorConstants.newAppColor,
-                    initiallyExpanded: parent==3,
-                    onExpansionChanged: (value) {
-                      if (value) {
-                        Duration(seconds: 20000);
-                        parent = 3;
-                      } else {
-                        parent = -1;
-                      }
-                      setState(() {});
-                    },
-                    childrenPadding: EdgeInsets.only(left: 10),
-                    children: [
-                      ListView.builder(
-                        key: Key('builder4 ${paymentIndex.toString()}'),
-                        physics: NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        scrollDirection: Axis.vertical,
-                        itemCount: paymentQuestion.length,
-                        itemBuilder: (context, index) {
-                          return ExpansionTile(
-                            childrenPadding:
-                                EdgeInsets.only(left: 25, right: 5),
-                            title: Text(
-                              paymentQuestion[index],
-                              style: queTextStyle,
-                            ),
-                            iconColor: ColorConstants.appColor,
-                            initiallyExpanded:
-                                paymentIndex == index ,
-                            onExpansionChanged: (value) {
-                              if (value) {
-                                Duration(seconds: 20000);
-                                paymentIndex = index;
-                                
-                              } else {
-                                paymentIndex = -1;
-                              }
-                              setState(() {});
-                            },
-                            collapsedIconColor: ColorConstants.newAppColor,
-                            children: [
-                              Container(
-                                margin: EdgeInsets.only(left: 10, right: 10),
-                                height: 2,
-                                width: MediaQuery.of(context).size.width,
-                                color: ColorConstants.greyDull,
-                              ),
-                              SizedBox(
-                                height: 8,
-                              ),
-                              Text(
-                                paymentAnswer[index],
-                                style: ansTextStyle,
-                              ),
-                              SizedBox(
-                                height: 5,
-                              )
-                            ],
-                          );
-                        },
-                      ),
-                    ],
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(left: 10, right: 10),
-                    height: 2,
-                    width: MediaQuery.of(context).size.width,
-                    color: ColorConstants.greyDull,
-                  ),
-                ],
-              ),
-            )),
+        centerTitle: false,
+        leading: BackButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            color: ColorConstants.newAppColor),
       ),
+      body: Container(
+          color: ColorConstants.colorPageBackground,
+          padding: const EdgeInsets.only(left: 1.0, right: 1.0),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                ExpansionTile(
+                  key: Key('section0 ${parent.toString()}'),
+                  childrenPadding: EdgeInsets.only(left: 10),
+                  title: Text(
+                    "Delivery",
+                    style: sectionTextStyle,
+                  ),
+                  initiallyExpanded: parent == 0,
+                  textColor: ColorConstants.newAppColor,
+                  collapsedTextColor: ColorConstants.pureBlack,
+                  iconColor: ColorConstants.newAppColor,
+                  collapsedIconColor: ColorConstants.newAppColor,
+                  onExpansionChanged: (value) {
+                    
+                    if (value) {
+                      Duration(seconds: 20000);
+                      parent = 0;
+                    } else {
+                      parent = -1;
+                    }
+                    
+                    setState(() {
+                    });
+                  },
+                  children: [
+                    ListView.builder(
+                      key: Key('builder1 ${deliveryIndex.toString()}'),
+                      physics: NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      scrollDirection: Axis.vertical,
+                      itemCount: deliveryQuestion.length,
+                      itemBuilder: (context, index) {
+                        return ExpansionTile(
+                          key: Key(index.toString()),
+                          childrenPadding:
+                              EdgeInsets.only(left: 25, right: 5),
+                          title: Text(
+                            deliveryQuestion[index],
+                            style: queTextStyle,
+                          ),
+                          iconColor: ColorConstants.appColor,
+                          
+                          initiallyExpanded:
+                              deliveryIndex==index ,
+                          onExpansionChanged: (value) {
+                           if (value) {
+                              Duration(seconds: 20000);
+                              deliveryIndex = index;
+                            } else {
+                              deliveryIndex = -1;
+                            }
+                            setState(() {
+                            });
+                          },
+                          collapsedIconColor: ColorConstants.newAppColor,
+                          children: [
+                            Container(
+                              margin: EdgeInsets.only(left: 10, right: 10),
+                              height: 2,
+                              width: MediaQuery.of(context).size.width,
+                              color: ColorConstants.greyDull,
+                            ),
+                            SizedBox(
+                              height: 8,
+                            ),
+                            Text(
+                              deliveryAnswer[index],
+                              style: ansTextStyle,
+                            ),
+                            SizedBox(
+                              height: 5,
+                            )
+                          ],
+                        );
+                      },
+                    ),
+                  ],
+                ),
+                Container(
+                  margin: EdgeInsets.only(left: 10, right: 10),
+                  height: 2,
+                  width: MediaQuery.of(context).size.width,
+                  color: ColorConstants.greyDull,
+                ),
+                //#######################################################################
+                ExpansionTile(
+                  key: Key('section1 ${parent.toString()}'),
+                  title: Text(
+                    "Orders",
+                    style: TextStyle(
+                        fontFamily: global.fontRailwayRegular,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w200,
+                        color: ColorConstants.newTextHeadingFooter),
+                  ),
+                  iconColor: ColorConstants.appColor,
+                  collapsedIconColor: ColorConstants.newAppColor,
+                  initiallyExpanded: parent==1,
+                  onExpansionChanged: (value) {
+                    if (value) {
+                      setState(() {Duration(seconds: 20000);
+                      parent = 1;});
+                      
+                    } else {
+    
+                       setState(() {Duration(seconds: 20000);
+                      parent = -1;});
+                    }
+                    print("nikhilllllllllll parent${parent}");
+                    
+                  },
+                  childrenPadding: EdgeInsets.only(left: 10),
+                  children: [
+                    ListView.builder(
+                      key: Key('builder2 ${orderIndex.toString()}'),
+                      physics: NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      scrollDirection: Axis.vertical,
+                      itemCount: orderQuestion.length,
+                      itemBuilder: (context, index) {
+                        return ExpansionTile(
+                          key: Key(index.toString()),
+                          childrenPadding:
+                              EdgeInsets.only(left: 25, right: 5),
+                          title: Text(
+                            orderQuestion[index],
+                            style: queTextStyle,
+                          ),
+                          iconColor: ColorConstants.appColor,
+                          initiallyExpanded:
+                              orderIndex == index ,
+                          onExpansionChanged: (value) {
+                            if (value) {
+                              Duration(seconds: 20000);
+                              orderIndex = index;
+                            } else {
+                              orderIndex = -1;
+                            }
+                            setState(() {
+                            });
+                          },
+                          collapsedIconColor: ColorConstants.newAppColor,
+                          children: [
+                            Container(
+                              margin: EdgeInsets.only(left: 10, right: 10),
+                              height: 2,
+                              width: MediaQuery.of(context).size.width,
+                              color: ColorConstants.greyDull,
+                            ),
+                            SizedBox(
+                              height: 8,
+                            ),
+                            Text(
+                              orderAnswer[index],
+                              style: ansTextStyle,
+                            ),
+                            SizedBox(
+                              height: 5,
+                            )
+                          ],
+                        );
+                      },
+                    ),
+                  ],
+                ),
+                Container(
+                  margin: EdgeInsets.only(left: 10, right: 10),
+                  height: 2,
+                  width: MediaQuery.of(context).size.width,
+                  color: ColorConstants.greyDull,
+                ),
+                //#######################################################################
+                ExpansionTile(
+                  key: Key('section2 ${parent.toString()}'),
+                  title: Text(
+                    "Vouchers/Discount",
+                    style: TextStyle(
+                        fontFamily: global.fontRailwayRegular,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w200,
+                        color: ColorConstants.newTextHeadingFooter),
+                  ),
+                  iconColor: ColorConstants.appColor,
+                  collapsedIconColor: ColorConstants.newAppColor,
+                  initiallyExpanded: parent==2,
+                  onExpansionChanged: (value) {
+                    if (value) {
+                      Duration(seconds: 20000);
+                      parent = 2;
+                    } else {
+                      parent = -1;
+                    }
+                    setState(() {});
+                  },
+                  childrenPadding: EdgeInsets.only(left: 10),
+                  children: [
+                    ListView.builder(
+                      key: Key('builder3 ${voucherIndex.toString()}'),
+                      physics: NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      scrollDirection: Axis.vertical,
+                      itemCount: vouchersQuestion.length,
+                      itemBuilder: (context, index) {
+                        return ExpansionTile(
+                          childrenPadding:
+                              EdgeInsets.only(left: 25, right: 5),
+                          title: Text(
+                            vouchersQuestion[index],
+                            style: queTextStyle,
+                          ),
+                          iconColor: ColorConstants.appColor,
+                          initiallyExpanded:
+                              voucherIndex == index,
+                          onExpansionChanged: (value) {
+                            if (value) {
+                              Duration(seconds: 20000);
+                              voucherIndex = index;
+                            } else {
+                              voucherIndex = -1;
+                            }
+                            setState(() {});
+                          },
+                          collapsedIconColor: ColorConstants.newAppColor,
+                          children: [
+                            Container(
+                              margin: EdgeInsets.only(left: 10, right: 10),
+                              height: 2,
+                              width: MediaQuery.of(context).size.width,
+                              color: ColorConstants.greyDull,
+                            ),
+                            SizedBox(
+                              height: 8,
+                            ),
+                            Text(
+                              vouchersAnswer[index],
+                              style: ansTextStyle,
+                            ),
+                            SizedBox(
+                              height: 5,
+                            )
+                          ],
+                        );
+                      },
+                    ),
+                  ],
+                ),
+                Container(
+                  margin: EdgeInsets.only(left: 10, right: 10),
+                  height: 2,
+                  width: MediaQuery.of(context).size.width,
+                  color: ColorConstants.greyDull,
+                ),
+                //#######################################################################
+                ExpansionTile(
+                  key: Key('section3 ${parent.toString()}'),
+                  title: Text(
+                    "Payment Modes",
+                    style: TextStyle(
+                        fontFamily: global.fontRailwayRegular,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w200,
+                        color: ColorConstants.newTextHeadingFooter),
+                  ),
+                  iconColor: ColorConstants.appColor,
+                  collapsedIconColor: ColorConstants.newAppColor,
+                  initiallyExpanded: parent==3,
+                  onExpansionChanged: (value) {
+                    if (value) {
+                      Duration(seconds: 20000);
+                      parent = 3;
+                    } else {
+                      parent = -1;
+                    }
+                    setState(() {});
+                  },
+                  childrenPadding: EdgeInsets.only(left: 10),
+                  children: [
+                    ListView.builder(
+                      key: Key('builder4 ${paymentIndex.toString()}'),
+                      physics: NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      scrollDirection: Axis.vertical,
+                      itemCount: paymentQuestion.length,
+                      itemBuilder: (context, index) {
+                        return ExpansionTile(
+                          childrenPadding:
+                              EdgeInsets.only(left: 25, right: 5),
+                          title: Text(
+                            paymentQuestion[index],
+                            style: queTextStyle,
+                          ),
+                          iconColor: ColorConstants.appColor,
+                          initiallyExpanded:
+                              paymentIndex == index ,
+                          onExpansionChanged: (value) {
+                            if (value) {
+                              Duration(seconds: 20000);
+                              paymentIndex = index;
+                              
+                            } else {
+                              paymentIndex = -1;
+                            }
+                            setState(() {});
+                          },
+                          collapsedIconColor: ColorConstants.newAppColor,
+                          children: [
+                            Container(
+                              margin: EdgeInsets.only(left: 10, right: 10),
+                              height: 2,
+                              width: MediaQuery.of(context).size.width,
+                              color: ColorConstants.greyDull,
+                            ),
+                            SizedBox(
+                              height: 8,
+                            ),
+                            Text(
+                              paymentAnswer[index],
+                              style: ansTextStyle,
+                            ),
+                            SizedBox(
+                              height: 5,
+                            )
+                          ],
+                        );
+                      },
+                    ),
+                  ],
+                ),
+                Container(
+                  margin: EdgeInsets.only(left: 10, right: 10),
+                  height: 2,
+                  width: MediaQuery.of(context).size.width,
+                  color: ColorConstants.greyDull,
+                ),
+              ],
+            ),
+          )),
     );
   }
 

@@ -316,16 +316,16 @@ class _UserSettingsScreenState extends BaseRouteState {
                 title: Text(
                   'Are you sure you want to delete your account?',
                   style: TextStyle(
-                    color: Colors.black,
+                    color: ColorConstants.newTextHeadingFooter,
                     fontSize: 16,
-                    fontFamily: fontMontserratLight,
+                    fontFamily: fontRailwayRegular,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
                 content: Text(
                   'Please note that upon account deletion, you will need to reactivate your account. Confirm to proceed.',
                   style: TextStyle(
-                    color: Colors.black,
+                    color: ColorConstants.newTextHeadingFooter,
                     fontSize: 14,
                     fontFamily: fontRailwayRegular,
                     fontWeight: FontWeight.w200,

@@ -448,7 +448,7 @@ class _SignUpScreenState extends BaseRouteState {
                                     FilteringTextInputFormatter.digitsOnly
                                   ],
                                   key: Key('1'),
-                                  cursorColor: Colors.black,
+                                  cursorColor: ColorConstants.newTextHeadingFooter,
                                   controller: _cPhone,
                                   style: TextStyle(
                                       fontSize: 14,
@@ -618,11 +618,11 @@ class _SignUpScreenState extends BaseRouteState {
                                 pickerTheme: DateTimePickerTheme(
                                   backgroundColor: Colors.transparent,
                                   itemTextStyle: TextStyle(
-                                      color: Colors.black,
+                                      color: ColorConstants.newTextHeadingFooter,
                                       fontSize: 14,
-                                      fontFamily: global.fontRailwayRegular,
+                                      fontFamily: global.fontOufitMedium,
                                       fontWeight: FontWeight.w200),
-                                  dividerColor: Colors.black,
+                                  dividerColor: ColorConstants.newAppColor,
                                 ),
                               ),
                             ),
@@ -1031,7 +1031,9 @@ class _SignUpScreenState extends BaseRouteState {
 
       _cReferralCode.text = global.refferalCode;
     }
-
+  _fPhone.addListener(() {
+      setState((){});
+    });
     _init();
   }
 

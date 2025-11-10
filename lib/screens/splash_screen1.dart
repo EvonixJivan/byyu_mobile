@@ -73,7 +73,7 @@ class _SplashScreenState extends BaseRouteState implements TickerProvider {
     
     return Scaffold(
         key: _scaffoldKey,
-        backgroundColor: ColorConstants.colorPageBackground,
+        backgroundColor: ColorConstants.white,
         body: Center(
           child: Container(
             margin: EdgeInsets.only(top: 0),
@@ -155,7 +155,8 @@ class _SplashScreenState extends BaseRouteState implements TickerProvider {
     if (global.sp != null &&
         global.sp!.getString("userInfo") != null &&
         global.sp!.containsKey(global.quickLoginEnabled) &&
-        global.sp!.getBool(global.quickLoginEnabled)!) {
+        global.sp!.getBool(global.quickLoginEnabled)! &&
+        global.sp!.getBool(global.isLoggedIn)!) {
       print("this is splashscreen checkUpdate");
       global.currentUser =
           CurrentUser.fromJson(json.decode(global.sp!.getString("userInfo")!));
@@ -184,7 +185,7 @@ class _SplashScreenState extends BaseRouteState implements TickerProvider {
   }
 
   Future _getAppInfo(String fcmToken) async {
-    global.showLoaderTransparent(context);
+    // global.showLoaderTransparent(context);
     var connectivityResult = await (Connectivity().checkConnectivity());
     if (connectivityResult != ConnectivityResult.none) {
       print("token is 111 $fcmToken");
@@ -246,6 +247,7 @@ class _SplashScreenState extends BaseRouteState implements TickerProvider {
               global.appInfo = AppInfo.fromJson(recordList);
 
               global.cartCount = global.appInfo.cartitem!;
+              global.showHamburgerMenu = global.appInfo.hamburgerEnabled!=null?global.appInfo.hamburgerEnabled!:0;
               
               global.wishlistCount = global.appInfo.wishlistCount != null
                   ? global.appInfo.wishlistCount!
@@ -254,7 +256,7 @@ class _SplashScreenState extends BaseRouteState implements TickerProvider {
               setState(() {});
               String userstatus = global.appInfo.userStatus!;
               if (userstatus == "deactivate") {
-                global.hideloaderTransparent(context);
+                // global.hideloaderTransparent(context);
                 Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -327,8 +329,9 @@ class _SplashScreenState extends BaseRouteState implements TickerProvider {
           global.stayLoggedIN = false;
         }
         global.cartCount = global.appInfo.cartitem!;
-        global.hideloaderTransparent(context);
-        Future.delayed(Duration.zero, () {
+        // global.hideloaderTransparent(context);
+        
+        Future.delayed(Duration(microseconds: 100), () {
           if(global.goToCorporatePage){
               Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => HomeScreen(
@@ -353,6 +356,7 @@ class _SplashScreenState extends BaseRouteState implements TickerProvider {
           }
         });
       } else {
+        Future.delayed(Duration(microseconds: 100), () {
         global.isSplashSelected = false;
         global.cartCount = global.appInfo.cartitem!;
         if(global.goToCorporatePage){
@@ -377,6 +381,7 @@ class _SplashScreenState extends BaseRouteState implements TickerProvider {
                     o: widget.observer,
                   )));
         }
+        });
       }
     } else {
       if (global.appInfo.app_version_status == 300) {
@@ -1002,10 +1007,11 @@ class _SplashScreenState extends BaseRouteState implements TickerProvider {
                     : 'Authenticate with fingerprint or Face ID',
                 options: const AuthenticationOptions(useErrorDialogs: false))
             .then((value) {
+          print("spalsh screen biometric value");
           print(value);
-          if (value) {
-            checkUpdate();
-          }
+          
+          checkUpdate();
+          
           return;
         });
         if (!mounted) {
@@ -1014,6 +1020,7 @@ class _SplashScreenState extends BaseRouteState implements TickerProvider {
         }
       }
     } on PlatformException catch (e) {
+      print("Exception");
       checkUpdate();
       // _sampleDialog("nikhil this is the last pop up");
       print(e);

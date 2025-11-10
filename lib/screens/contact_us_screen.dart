@@ -1007,7 +1007,8 @@ class _ContactUsScreenState extends BaseRouteState {
                 'Capture',
                 style: Theme.of(context).textTheme.titleMedium!.copyWith(
                       fontWeight: FontWeight.bold,
-                      color: Colors.black,
+                      color: ColorConstants
+                                                          .newTextHeadingFooter,
                     ),
               ),
               onPressed: () async {
@@ -1022,7 +1023,8 @@ class _ContactUsScreenState extends BaseRouteState {
                 'Upload Image',
                 style: Theme.of(context).textTheme.titleMedium!.copyWith(
                       fontWeight: FontWeight.bold,
-                      color: Colors.black,
+                      color: ColorConstants
+                                                          .newTextHeadingFooter,
                     ),
               ),
               onPressed: () async {
@@ -1037,7 +1039,8 @@ class _ContactUsScreenState extends BaseRouteState {
                 'Remove Image',
                 style: Theme.of(context).textTheme.titleMedium!.copyWith(
                       fontWeight: FontWeight.bold,
-                      color: Colors.black,
+                      color: ColorConstants
+                                                          .newTextHeadingFooter,
                     ),
               ),
               onPressed: () async {

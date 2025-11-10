@@ -220,14 +220,14 @@ class _AllEventsScreenState extends BaseRouteState {
                   style: TextStyle(
                       fontFamily: global.fontMontserratMedium,
                       fontWeight: FontWeight.normal,
-                      color: ColorConstants.pureBlack) //textTheme.titleLarge,
+                      color: ColorConstants.newTextHeadingFooter) //textTheme.titleLarge,
                   ),
               leading: BackButton(
                 onPressed: () {
                   Navigator.pop(context);
                 },
                 //icon: Icon(Icons.keyboard_arrow_left),
-                color: ColorConstants.pureBlack,
+                color: ColorConstants.newAppColor,
               ),
             ),
       body: RefreshIndicator(
@@ -494,7 +494,7 @@ class _AllEventsScreenState extends BaseRouteState {
                                                                                   fontWeight: FontWeight.w200,
                                                                                   fontSize: 12,
                                                                                   overflow: TextOverflow.ellipsis,
-                                                                                  color: subCateSelectIndex == index ? ColorConstants.appColor : Colors.black),
+                                                                                  color: subCateSelectIndex == index ? ColorConstants.appColor : ColorConstants.newTextHeadingFooter),
                                                                             ),
                                                                           ),
                                                                   ),
@@ -716,7 +716,7 @@ class _AllEventsScreenState extends BaseRouteState {
                                                                               .ellipsis,
                                                                           color: isSelectedIndex == index
                                                                               ? Colors.white
-                                                                              : Colors.black),
+                                                                              : ColorConstants.newTextHeadingFooter),
                                                                     ),
                                                                   )
                                                                 : Container(
@@ -742,7 +742,7 @@ class _AllEventsScreenState extends BaseRouteState {
                                                                               .ellipsis,
                                                                           color: isSelectedIndex == index
                                                                               ? ColorConstants.appColor
-                                                                              : Colors.black),
+                                                                              : ColorConstants.newTextHeadingFooter),
                                                                     ),
                                                                   ),
                                                       ),
@@ -1095,7 +1095,7 @@ class _AllEventsScreenState extends BaseRouteState {
                                                             size: 20,
                                                             color:
                                                                 ColorConstants
-                                                                    .pureBlack,
+                                                                    .newAppColor,
                                                           ),
                                                         )
                                                       : SizedBox(),
@@ -1221,7 +1221,7 @@ class _AllEventsScreenState extends BaseRouteState {
                                                         Icons.cancel,
                                                         size: 20,
                                                         color: ColorConstants
-                                                            .pureBlack,
+                                                            .newAppColor,
                                                       ),
                                                     ),
                                                   ],
@@ -1508,7 +1508,7 @@ class _AllEventsScreenState extends BaseRouteState {
                                                                               .ellipsis,
                                                                           color: categoriesSelectedIndex == index
                                                                               ? Colors.white
-                                                                              : Colors.black),
+                                                                              : ColorConstants.newTextHeadingFooter),
                                                                     ),
                                                                   )
                                                                 : Container(
@@ -1534,7 +1534,7 @@ class _AllEventsScreenState extends BaseRouteState {
                                                                               .ellipsis,
                                                                           color: categoriesSelectedIndex == index
                                                                               ? ColorConstants.appColor
-                                                                              : Colors.black),
+                                                                              : ColorConstants.newTextHeadingFooter),
                                                                     ),
                                                                   ),
                                                       ),
@@ -1575,6 +1575,7 @@ class _AllEventsScreenState extends BaseRouteState {
                                                               _productsList,
                                                           isHomeSelected:
                                                               "SearchScreen",
+                                                              refreshProductList:callProductList
                                                         )
                                                       : SizedBox(),
                                                   _isMoreDataLoaded
@@ -2130,6 +2131,9 @@ class _AllEventsScreenState extends BaseRouteState {
 
   void hideloadershowing() {
     Navigator.pop(context);
+  }
+  void callProductList()async{
+    await _getEventsList();
   }
 
   double boundaryOffset = 0.5;

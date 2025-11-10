@@ -2558,7 +2558,7 @@ class _ProductDescriptionScreenState extends BaseRouteState {
                                   itemBuilder: (context, index) {
                                     return InkWell(
                                       onTap: () {
-                                        addCartText = "Add To Cart";
+                                        addCartText = "ADD To CART";
                                         responseMessage = "";
                                         varientIndex = index;
                                         selectedVarientIndex = index;
@@ -4523,7 +4523,7 @@ class _ProductDescriptionScreenState extends BaseRouteState {
                 productId = selcetedProduct;
                 _selectedIndex = index;
                 print("G1--->${productId}");
-                addCartText = "Add To Cart";
+                addCartText = "ADD To CART";
                 responseMessage = "";
 
                 _init();
@@ -5394,7 +5394,7 @@ class _ProductDescriptionScreenState extends BaseRouteState {
                 productId = selcetedProduct;
                 _selectedIndex = index;
                 print("G1--->${productId}");
-                addCartText = "Add To Cart";
+                addCartText = "ADD To CART";
                 responseMessage = "";
 
                 _init();
@@ -6412,7 +6412,7 @@ class _ProductDescriptionScreenState extends BaseRouteState {
             global.cartCount = 0;
           }
           _productDetail.productDetail!.cartQty = 0;
-          addCartText = "Add To Cart";
+          addCartText = "ADD To CART";
 
           _qty = 1;
           hideloadershowing();

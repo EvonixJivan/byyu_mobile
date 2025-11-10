@@ -44,6 +44,7 @@ class AppInfo {
   double? referedtoAmount;
   int? myReferralsCount;
   double? myReferralsEarned;
+  
 
   int? codEnabled;
   int? cardEnabled;
@@ -54,6 +55,8 @@ class AppInfo {
   String? contactPhone;
   String? contactWhatsApp;
   String? tapcustomer_id;
+
+  int? hamburgerEnabled;
 
   AppInfo();
   AppInfo.fromJson(Map<String, dynamic> json) {
@@ -164,9 +167,12 @@ class AppInfo {
       myReferralsEarned = json['referral_earned'].toString() != null
           ? double.parse(json['referral_earned'].toString())
           : 0.0;
+      hamburgerEnabled = json['hamburger_enabled'].toString() != null
+          ? int.parse(json['hamburger_enabled'].toString())
+          : 0;    
     } catch (e) {
       print(
-          "Exception - appInfoModel.dart - AppInfo.fromJson():" + e.toString());
+          "Exception - appInfoModel.dart - AppInfo.fromJson():model class" + e.toString());
     }
   }
 }

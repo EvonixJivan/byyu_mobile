@@ -89,7 +89,7 @@ class _WishListScreenState extends BaseRouteState {
                 child: Container(
                   margin: EdgeInsets.only(top: 7, bottom: 7),
                   child: Padding(
-                    padding: EdgeInsets.all(11),
+                    padding: EdgeInsets.only(top:11,bottom:11),
                     child: Image.asset(
                       "assets/images/iv_search.png",
                       fit: BoxFit.contain,
@@ -480,7 +480,7 @@ class _WishListScreenState extends BaseRouteState {
                                                                               //       .white,
                                                                               // ),
                                                                               child: Text(
-                                                                                "View Detail",
+                                                                                "VIEW DETAIL",
                                                                                 textAlign: TextAlign.center,
                                                                                 style: TextStyle(
                                                                                   fontFamily: fontMontserratMedium,
@@ -514,8 +514,7 @@ class _WishListScreenState extends BaseRouteState {
                                                                             //     28, //A
 
                                                                             // width: 10,
-                                                                            decoration:
-                                                                                BoxDecoration(color: ColorConstants.appColor, borderRadius: BorderRadius.circular(10)),
+                                                                            
                                                                             padding: EdgeInsets.only(
                                                                                 left: 5,
                                                                                 right: 5,
@@ -526,7 +525,7 @@ class _WishListScreenState extends BaseRouteState {
                                                                             child:
                                                                                 Icon(
                                                                               MdiIcons.delete,
-                                                                              color: ColorConstants.white,
+                                                                              color: ColorConstants.newAppColor,
                                                                             ),
                                                                           ),
                                                                         ),
@@ -571,16 +570,16 @@ class _WishListScreenState extends BaseRouteState {
                                     child: Text(""),
                                   ),
                                   Text(
-                                    'No wishes here! \n"Time to sprinkle some gift magic"',
+                                    'No wishes here! \nTime to sprinkle some gift magic',
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
-                                        fontFamily: global.fontMontserratLight,
+                                        fontFamily: global.fontRailwaySemibold,
                                         fontSize: 20,
                                         fontWeight: FontWeight.w200,
-                                        color: ColorConstants.guidlinesGolden),
+                                        color: ColorConstants.newAppColor),
                                   ),
                                   SizedBox(
-                                    height: 8,
+                                    height: 28,
                                   ),
                                   InkWell(
                                     onTap: () {
@@ -647,15 +646,20 @@ class _WishListScreenState extends BaseRouteState {
             _isMoreDataLoaded = true;
           });
           if (_wishListProductList.isEmpty) {
+            print("init is geetiing called djsnsc --=-=-=-=-=");
             page = 1;
           } else {
+            print("init is geetiing called --=-=-=-=-=");
             page++;
           }
 
           await apiHelper
               .getWishListProduct(page, _productFilter, 1)
               .then((result) async {
+                print(result);
             if (result != null) {
+              print("init is geetiing --=-=-=-=-=");
+              print(result);
               if (result.status == "1") {
                 List<Product> _tList = result.data;
                 if (_tList.isEmpty) {
@@ -686,6 +690,8 @@ class _WishListScreenState extends BaseRouteState {
                   global.wishlistCount = 0;
                   callbackHomescreenSetState!();
                 } else {
+                  print(
+                    "Niks-----------222222222wishkis-------_>>>>>>>${_wishListProductList.length}>>>>");
                   global.wishlistCount = _wishListProductList.length;
                   callbackHomescreenSetState!();
                 }
@@ -724,6 +730,7 @@ class _WishListScreenState extends BaseRouteState {
 
   _init() async {
     try {
+      
       await _getWishListProduct();
       _scrollController = ScrollController()..addListener(_scrollListener);
 
@@ -805,9 +812,11 @@ class _WishListScreenState extends BaseRouteState {
           print("Wishlist result status${result.status}");
           if (result.status == "1" || result.status == "2") {
             if (result.status == "2") {
+              _isRecordPending = true;
               _wishListProductList.clear();
-              setState(() {});
               await _init();
+              setState(() {});
+              
             }
             //_isAddedSuccesFully = true;
             Navigator.pop(context);

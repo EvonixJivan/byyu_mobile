@@ -30,12 +30,13 @@ import 'package:byyu/widgets/select_category_card.dart';
 
 class AllCategoriesScreen extends BaseRoute {
   int? fromHomeScreen;
-  AllCategoriesScreen({a, o, this.fromHomeScreen})
+  bool? fromNavBar;
+  AllCategoriesScreen({a, o, this.fromHomeScreen,this.fromNavBar})
       : super(a: a, o: o, r: 'AllCategoriesScreen');
 
   @override
   _AllCategoriesScreenState createState() => _AllCategoriesScreenState(
-      //fromHomeScreen: fromHomeScreen
+      fromNavBar: fromNavBar
       );
 }
 
@@ -58,7 +59,8 @@ class _AllCategoriesScreenState extends BaseRouteState {
   ScrollController _scrollController = ScrollController();
   int page = 1;
   GlobalKey<ScaffoldState>? _scaffoldKey;
-  _AllCategoriesScreenState({this.fromHomeScreen});
+  bool? fromNavBar;
+  _AllCategoriesScreenState({this.fromNavBar});
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
@@ -175,27 +177,28 @@ class _AllCategoriesScreenState extends BaseRouteState {
                       fontWeight: FontWeight.normal,
                       color: ColorConstants.pureBlack) //textTheme.titleLarge,
                   ),
-              leading: BackButton(
-                onPressed: () {
-                  if (global.iscatListRouting) {
-                    global.iscatListRouting = false;
-                    setState(() {});
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => HomeScreen(
-                                  a: widget.analytics,
-                                  o: widget.observer,
-                                  selectedIndex: 0,
-                                )));
-                  } else {
-                    print("Go back");
-                    Navigator.pop(context);
-                  }
-                },
-                //icon: Icon(Icons.keyboard_arrow_left),
-                color: ColorConstants.pureBlack,
-              ),
+              automaticallyImplyLeading: false,
+              // leading: fromNavBar!=null && fromNavBar==true?Container(): BackButton(
+              //   onPressed: () {
+              //     if (global.iscatListRouting) {
+              //       global.iscatListRouting = false;
+              //       setState(() {});
+              //       Navigator.push(
+              //           context,
+              //           MaterialPageRoute(
+              //               builder: (context) => HomeScreen(
+              //                     a: widget.analytics,
+              //                     o: widget.observer,
+              //                     selectedIndex: 0,
+              //                   )));
+              //     } else {
+              //       print("Go back");
+              //       Navigator.pop(context);
+              //     }
+              //   },
+              //   //icon: Icon(Icons.keyboard_arrow_left),
+              //   color: ColorConstants.pureBlack,
+              // ),
             ),
       //AAA--> body
       // body: RefreshIndicator(

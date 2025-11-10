@@ -144,13 +144,13 @@ class _MyTextFieldState extends State<MyTextField> {
   Widget build(BuildContext context) {
     return TextFormField(
       key: key,
-      cursorColor: Colors.black,
+      cursorColor: ColorConstants.newTextHeadingFooter,
       controller: controller,
       style: TextStyle(
           fontSize: 14,
           fontFamily: fontRailwayRegular,
           fontWeight: FontWeight.w200,
-          color: ColorConstants.pureBlack,
+          color: ColorConstants.newTextHeadingFooter,
           letterSpacing: 1),
       keyboardType: keyboardType ?? TextInputType.text,
       textCapitalization: textCapitalization ?? TextCapitalization.none,

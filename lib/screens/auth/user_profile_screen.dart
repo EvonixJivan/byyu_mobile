@@ -1229,13 +1229,14 @@ class _UserProfileScreenState extends BaseRouteState {
                                   Expanded(
                                     child: InkWell(
                                       onTap: () {
-                                        Navigator.of(context).push(
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    CorporateGiftsScreen(
-                                                      a: widget.analytics,
-                                                      o: widget.observer,
-                                                    )));
+                                        // Navigator.of(context).push(
+                                        //     MaterialPageRoute(
+                                        //         builder: (context) =>
+                                        //             CorporateGiftsScreen(
+                                        //               a: widget.analytics,
+                                        //               o: widget.observer,
+                                        //             )));
+                                        _launchURL("https://corporate.byyu.com/");
                                       },
                                       child: Container(
                                         child: Container(
@@ -1754,7 +1755,7 @@ class _UserProfileScreenState extends BaseRouteState {
                           fontSize: 14,
                           fontFamily: fontRalewayMedium,
                           fontWeight: FontWeight.w200,
-                          color: ColorConstants.appColor),
+                          color: ColorConstants.newTextHeadingFooter),
                     ),
                     onPressed: () {
                       return Navigator.of(context).pop(false);
@@ -1767,7 +1768,7 @@ class _UserProfileScreenState extends BaseRouteState {
                           fontSize: 14,
                           fontFamily: global.fontRalewayMedium,
                           fontWeight: FontWeight.w200,
-                          color: Colors.blue),
+                          color: ColorConstants.newAppColor),
                     ),
                     onPressed: () async {
                       SharedPreferences preferences =
@@ -1778,14 +1779,18 @@ class _UserProfileScreenState extends BaseRouteState {
                         quickLoginEnabled =
                             preferences.getBool('quickLoginEnabled')!;
                       }
-                      global.currentUser = new CurrentUser();
+                      
                       await preferences.clear();
                       preferences.setString(global.appLoadString, "true");
                       preferences.setString(
                           'currentUser', json.encode(global.currentUser));
                       preferences.setString(
                           'userInfo', json.encode(global.currentUser));
-
+                      global.currentUser = CurrentUser();   
+                      print("this is the print on signout current user---=-=-=--=-=---=-=-==--="); 
+                      print(global.currentUser);
+                      global.wishlistCount=0;
+                      global.cartCount=0;
                       preferences.setBool(
                           global.quickLoginEnabled, quickLoginEnabled);
                       preferences.setBool(global.isLoggedIn, false);
@@ -1915,7 +1920,7 @@ class _UserProfileScreenState extends BaseRouteState {
                                                   child: Icon(
                                                     Icons.cancel,
                                                     color: ColorConstants
-                                                        .pureBlack,
+                                                        .newAppColor,
                                                     size: 20,
                                                   )),
                                               Key('21'),
@@ -2270,12 +2275,21 @@ class _UserProfileScreenState extends BaseRouteState {
                                   'https://www.facebook.com/profile.php?id=61552755963187', // Facebook
                             );
                           },
-                          child: Image.asset(
-                            "assets/images/facebookgrad.png",
-                            fit: BoxFit.contain,
-                            height: 45,
-                            width: 45,
-                            alignment: Alignment.center,
+                          child: Container(
+                            width: 50,
+                            height: 50,
+                            // padding: EdgeInsets.only(top:10,right: 15,bottom:10,left:15),
+                            padding: EdgeInsets.all(12),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(100),
+                              color: ColorConstants.socialIconsBackground
+                            ),
+                            child: Image.asset(
+                              "assets/images/facebookgrad.png",
+                              fit: BoxFit.contain,
+                             
+                              alignment: Alignment.center,
+                            ),
                           ),
                         ),
                       ),
@@ -2285,12 +2299,21 @@ class _UserProfileScreenState extends BaseRouteState {
                             _launchSocialMediaAppIfInstalled(
                                 url: "https://twitter.com/byyu_com");
                           },
-                          child: Image.asset(
-                            "assets/images/twitter_gradient.png",
-                            fit: BoxFit.contain,
-                            height: 45,
-                            width: 45,
-                            alignment: Alignment.center,
+                          child: Container(
+                             width: 50,
+                            height: 50,
+                            // padding: EdgeInsets.only(top:10,right: 15,bottom:10,left:15),
+                            padding: EdgeInsets.all(12),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(100),
+                              color: ColorConstants.socialIconsBackground
+                            ),
+                            child: Image.asset(
+                              "assets/images/twitter_gradient.png",
+                              fit: BoxFit.contain,
+                                                     
+                              alignment: Alignment.center,
+                            ),
                           ),
                         ),
                       ),
@@ -2301,12 +2324,42 @@ class _UserProfileScreenState extends BaseRouteState {
                                 url:
                                     "https://www.linkedin.com/company/101379431/admin/settings/");
                           },
-                          child: Image.asset(
-                            "assets/images/linkedin_gradient.png",
-                            fit: BoxFit.contain,
-                            height: 45,
-                            width: 45,
-                            alignment: Alignment.center,
+                          child: Container(
+                             width: 50,
+                            height: 50,
+                            // padding: EdgeInsets.only(top:10,right: 15,bottom:10,left:15),
+                            padding: EdgeInsets.all(12),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(100),
+                              color: ColorConstants.socialIconsBackground
+                            ),
+                            child: Image.asset(
+                              "assets/images/linkedin_gradient.png",
+                              fit: BoxFit.contain,
+                              alignment: Alignment.center,
+                            ),
+                          ),
+                        ),
+                      ),
+                       Container(
+                        child: InkWell(
+                          onTap: () async{
+                            await _launchWhatsapp();
+                          },
+                          child: Container(
+                             width: 50,
+                            height: 50,
+                            // padding: EdgeInsets.only(top:10,right: 15,bottom:10,left:15),
+                            padding: EdgeInsets.all(12),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(100),
+                              color: ColorConstants.socialIconsBackground
+                            ),
+                            child: Image.asset(
+                              "assets/images/whatsapp.png",
+                              fit: BoxFit.contain,
+                              alignment: Alignment.center,
+                            ),
                           ),
                         ),
                       ),
@@ -2316,12 +2369,20 @@ class _UserProfileScreenState extends BaseRouteState {
                             _launchSocialMediaAppIfInstalled(
                                 url: "https://www.instagram.com/byyu.ae/");
                           },
-                          child: Image.asset(
-                            "assets/images/instagram_grdient.png",
-                            fit: BoxFit.contain,
-                            height: 45,
-                            width: 45,
-                            alignment: Alignment.center,
+                          child: Container(
+                             width: 50,
+                            height: 50,
+                            // padding: EdgeInsets.only(top:10,right: 15,bottom:10,left:15),
+                            padding: EdgeInsets.all(12),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(100),
+                              color: ColorConstants.socialIconsBackground
+                            ),
+                            child: Image.asset(
+                              "assets/images/instagram_grdient.png",
+                              fit: BoxFit.contain,
+                              alignment: Alignment.center,
+                            ),
                           ),
                         ),
                       ),
@@ -2331,12 +2392,20 @@ class _UserProfileScreenState extends BaseRouteState {
                             _launchSocialMediaAppIfInstalled(
                                 url: "https://www.tiktok.com/@byyu.ae/");
                           },
-                          child: Image.asset(
-                            "assets/images/tiktok.png",
-                            fit: BoxFit.contain,
-                            height: 45,
-                            width: 45,
-                            alignment: Alignment.center,
+                          child: Container(
+                             width: 50,
+                            height: 50,
+                            // padding: EdgeInsets.only(top:10,right: 15,bottom:10,left:15),
+                            padding: EdgeInsets.all(12),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(100),
+                              color: ColorConstants.socialIconsBackground
+                            ),
+                            child: Image.asset(
+                              "assets/images/tiktok.png",
+                              fit: BoxFit.contain,
+                              alignment: Alignment.center,
+                            ),
                           ),
                         ),
                       )
@@ -2408,4 +2477,14 @@ class _UserProfileScreenState extends BaseRouteState {
       launch(url!); // Launch web view if app is not installed!
     }
   }
+  Future<void> _launchURL(String url) async {
+  final Uri uri = Uri.parse(url);
+
+  if (!await launchUrl(
+    uri,
+    mode: LaunchMode.externalApplication, // Opens in browser
+  )) {
+    throw 'Could not launch $url';
+  }
+}
 }

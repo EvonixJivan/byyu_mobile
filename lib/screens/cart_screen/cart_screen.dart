@@ -1572,6 +1572,7 @@ class _CartScreenState extends BaseRouteState {
   _getCartList() async {
     try {
       print("Nikhil----get cart list---");
+      cartController = CartController();
       await cartController.getCartList();
       if (cartController.isDataLoaded.value == true) {
         print("Cart Screen Outer IF condition");

@@ -5,6 +5,7 @@ import 'package:byyu/models/categoryListModel.dart';
 import 'package:byyu/screens/filter_screen.dart';
 import 'package:byyu/screens/home_screen.dart';
 import 'package:byyu/screens/search_screen.dart';
+import 'package:byyu/widgets/cart_bottom_sheet.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -159,7 +160,7 @@ class _FilteredSubCategoriesScreenState extends BaseRouteState {
         }
             },
             //icon: Icon(Icons.keyboard_arrow_left),
-            color: ColorConstants.pureBlack),
+            color: ColorConstants.newAppColor),
         actions: [
           InkWell(
             onTap: () {
@@ -171,7 +172,7 @@ class _FilteredSubCategoriesScreenState extends BaseRouteState {
                       )));
             },
             child: Padding(
-                  padding: EdgeInsets.all(18),
+                  padding: EdgeInsets.only(top: 18, bottom: 18),
                   child: Image.asset(
                   "assets/images/iv_search.png",
                   fit: BoxFit.contain,
@@ -188,18 +189,37 @@ class _FilteredSubCategoriesScreenState extends BaseRouteState {
               Center(
                 child: InkWell(
                   onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => HomeScreen(
-                              a: widget.analytics,
-                              o: widget.observer,
-                              selectedIndex: 2,
-                            )));
+                    global.routingProductID = 0;
+                        Future.delayed(Duration.zero, () {
+                          showModalBottomSheet(
+                            context: context,
+                            isScrollControlled: true,
+                            useRootNavigator: true,
+                            backgroundColor: Colors.transparent,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(20),
+                                topRight: Radius.circular(20),
+                              ),
+                            ),
+                            builder: (context) => CartBottomSheet(
+                              analytics: widget.analytics,
+                              observer: widget.observer,
+                              fromNavigationBar: false,
+                            ),
+                          );
+                        });
+                    
                   },
-                  child: Icon(
-                    Icons.shopping_cart_outlined,
-                    size: 25,
-                    color: ColorConstants.allIconsBlack45,
-                  ),
+                  child: Padding(
+                        padding: EdgeInsets.only(top: 15, bottom: 15, right: 10),
+                        child: Image.asset(
+                          "assets/images/ic_nav_cart.png",
+                          fit: BoxFit.contain,
+                          height: 25,
+                          alignment: Alignment.center,
+                        ),
+                      ),
                 ),
               ),
               global.cartCount != 0 && global.cartCount <= 10
@@ -209,7 +229,7 @@ class _FilteredSubCategoriesScreenState extends BaseRouteState {
                       child: new Container(
                         padding: EdgeInsets.all(2),
                         decoration: new BoxDecoration(
-                          color: Colors.red,
+                          color: ColorConstants.newAppColor,
                           borderRadius: BorderRadius.circular(6),
                         ),
                         constraints: BoxConstraints(
@@ -221,6 +241,7 @@ class _FilteredSubCategoriesScreenState extends BaseRouteState {
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 8,
+                            fontFamily: fontOufitMedium
                           ),
                           textAlign: TextAlign.center,
                         ),
@@ -362,7 +383,7 @@ class _FilteredSubCategoriesScreenState extends BaseRouteState {
                                                                                       .ellipsis,
                                                                                   color: subCateSelectIndex == index
                                                                                       ? Colors.white
-                                                                                      : Colors.black),
+                                                                                      : ColorConstants.newTextHeadingFooter),
                                                                             ),
                                                                           )
                                                                         : Container(
@@ -402,7 +423,7 @@ class _FilteredSubCategoriesScreenState extends BaseRouteState {
                                                                                       .ellipsis,
                                                                                   color: subCateSelectIndex == index
                                                                                       ? ColorConstants.appColor
-                                                                                      : Colors.black),
+                                                                                      : ColorConstants.newTextHeadingFooter),
                                                                             ),
                                                                           ),
                                                               ),
@@ -627,7 +648,7 @@ class _FilteredSubCategoriesScreenState extends BaseRouteState {
                                             margin: EdgeInsets.only(right: 10),
                                             decoration: BoxDecoration(
                                                 border: Border.all(
-                                                    color: ColorConstants.grey,
+                                                    color: ColorConstants.colorAllHomeTitle,
                                                     width: 0.5),
                                                 borderRadius:
                                                     BorderRadius.circular(8)),
@@ -715,7 +736,7 @@ class _FilteredSubCategoriesScreenState extends BaseRouteState {
                                                           Icons.cancel,
                                                           size: 20,
                                                           color: ColorConstants
-                                                              .pureBlack,
+                                                              .newAppColor,
                                                         ),
                                                       )
                                                     : SizedBox(),
@@ -1376,7 +1397,7 @@ class _FilteredSubCategoriesScreenState extends BaseRouteState {
                                                                                 fontWeight: FontWeight.w200,
                                                                                 fontSize: 10,
                                                                                 overflow: TextOverflow.ellipsis,
-                                                                                color: categoriesSelectedIndex == index ? Colors.white : Colors.black),
+                                                                                color: categoriesSelectedIndex == index ? Colors.white : ColorConstants.newTextHeadingFooter),
                                                                           ),
                                                                         )
                                                                       : Container(
@@ -1395,7 +1416,7 @@ class _FilteredSubCategoriesScreenState extends BaseRouteState {
                                                                                 fontWeight: FontWeight.w200,
                                                                                 fontSize: 10,
                                                                                 overflow: TextOverflow.ellipsis,
-                                                                                color: categoriesSelectedIndex == index ? ColorConstants.appColor : Colors.black),
+                                                                                color: categoriesSelectedIndex == index ? ColorConstants.appColor : ColorConstants.newTextHeadingFooter),
                                                                           ),
                                                                         ),
                                                             ),
@@ -1465,6 +1486,8 @@ class _FilteredSubCategoriesScreenState extends BaseRouteState {
                                               passdata1: screenHeading,
                                               passdata2: categoryId,
                                               passdata3: subscriptionProduct,
+                                              refreshProductList:callProductList
+
                                             ),
                                           ],
                                         ),
@@ -1475,11 +1498,7 @@ class _FilteredSubCategoriesScreenState extends BaseRouteState {
                                   child: Container(
                                       width: MediaQuery.of(context).size.width,
                                       height: MediaQuery.of(context).size.height,
-                                      decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                            image: AssetImage("assets/images/login_bg.png"),
-                                            fit: BoxFit.cover),
-                                      ),
+                                      color: ColorConstants.colorPageBackground,
                                       child: Center(
                                         child: Column(
                                           children: [
@@ -1559,85 +1578,7 @@ class _FilteredSubCategoriesScreenState extends BaseRouteState {
 
   bool isSortOpen = false;
 
-  _shimmer1() {
-    return Shimmer.fromColors(
-        baseColor: Colors.grey.shade300,
-        highlightColor: Colors.grey.shade100,
-        child: Column(
-          children: [
-            SizedBox(
-                height: 43,
-                width: MediaQuery.of(context).size.width,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    SizedBox(
-                        width: MediaQuery.of(context).size.width / 3.3,
-                        height: 43,
-                        child: Card(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(7.0),
-                          ),
-                        )),
-                    SizedBox(
-                        width: MediaQuery.of(context).size.width / 3.3,
-                        height: 43,
-                        child: Card(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(7.0),
-                          ),
-                        )),
-                    SizedBox(
-                        width: MediaQuery.of(context).size.width / 3.3,
-                        height: 43,
-                        child: Card(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(7.0),
-                          ),
-                        ))
-                  ],
-                )),
-            SizedBox(
-                height: 43,
-                width: MediaQuery.of(context).size.width,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    SizedBox(
-                        width: MediaQuery.of(context).size.width / 3.3,
-                        height: 43,
-                        child: Card(
-                          elevation: 0,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(7.0),
-                          ),
-                        )),
-                    SizedBox(
-                        width: MediaQuery.of(context).size.width / 3.3,
-                        height: 43,
-                        child: Card(
-                          elevation: 0,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(7.0),
-                          ),
-                        )),
-                    SizedBox(
-                        width: MediaQuery.of(context).size.width / 3.3,
-                        height: 43,
-                        child: Card(
-                          elevation: 0,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(7.0),
-                          ),
-                        ))
-                  ],
-                )),
-          ],
-        ));
-  }
-
+  
   @override
   void initState() {
     super.initState();
@@ -1659,6 +1600,15 @@ class _FilteredSubCategoriesScreenState extends BaseRouteState {
   void dispose() {
     // TODO: implement dispose
     super.dispose();
+  }
+
+  void callProductList(){
+    _productsList.clear();
+    _isDataLoading=false;
+    _getCategoryList();
+
+    _getCategoryProduct();
+      
   }
 
   _init() async {

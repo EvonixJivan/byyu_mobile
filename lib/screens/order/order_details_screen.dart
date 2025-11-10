@@ -433,6 +433,8 @@ class _OrderDetailsScreenState extends BaseRouteState {
                                                           : 'assets/images/grey_tick.png',
                                                       width: 25,
                                                       height: 25,
+                                                      color: index <=
+                                                              orderStatusActiveIndex!?ColorConstants.newAppColor:ColorConstants.colorContinueShop,
                                                     ),
                                                   )),
                                               SizedBox(

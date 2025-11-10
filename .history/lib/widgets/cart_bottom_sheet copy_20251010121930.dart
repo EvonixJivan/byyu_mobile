@@ -171,7 +171,7 @@ class _CartBottomSheetCopyState extends State<CartBottomSheetCopy> {
                             ),
                             onPressed: () {},
                             child: Text(
-                              "Add to Cart",
+                              "ADD To CART",
                               style: TextStyle(
                                 fontFamily: global.fontOufitMedium,
                                 color: Colors.black,

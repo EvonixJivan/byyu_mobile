@@ -672,10 +672,10 @@ class _UserMemberListScreenState extends BaseRouteState {
                         "Never miss any occasion! Set up personalized reminders for your loved ones and make every celebration memorable.",
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                            fontFamily: global.fontMontserratLight,
+                            fontFamily: global.fontRalewayMedium,
                             fontSize: 20,
                             fontWeight: FontWeight.w200,
-                            color: ColorConstants.newTextHeadingFooter),
+                            color: ColorConstants.newAppColor),
                       ),
                     ),
                   )));

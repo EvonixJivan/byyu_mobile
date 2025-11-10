@@ -13,6 +13,7 @@ import 'package:dio/dio.dart';
 import 'package:dropdown_textfield/dropdown_textfield.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -108,19 +109,21 @@ class _LoginScreenState extends BaseRouteState {
             )),
         centerTitle: false,
         leading: BackButton(
-              onPressed: () {
-                print("Go back");
-                Navigator.pop(context);
-              },
-              color: ColorConstants.appColor,
-            ),
+          onPressed: () {
+            global.currentUser = CurrentUser();
+            global.cartCount = 0;
+            global.wishlistCount = 0;
+            print("Go back");
+            Navigator.pop(context);
+          },
+          color: ColorConstants.appColor,
+        ),
       ),
       body: GestureDetector(
         onTap: () {
           FocusScope.of(context).unfocus();
         },
         child: Container(
-          
           child: _isLoading
               ? Center(
                   child: CircularProgressIndicator(),
@@ -351,24 +354,25 @@ class _LoginScreenState extends BaseRouteState {
                                                           borderRadius:
                                                               BorderRadius
                                                                   .circular(7),
-                                                          borderSide:
-                                                              BorderSide(
-                                                                  color: Colors
-                                                                      .grey
-                                                                      .shade400,
-                                                                  width: 0.0),
+                                                          borderSide: BorderSide(
+                                                              color: _fPhone
+                                                                          .hasFocus ==
+                                                                      true
+                                                                  ? ColorConstants
+                                                                      .appColor
+                                                                  : ColorConstants
+                                                                      .grey,
+                                                              width: 0.0),
                                                         ),
                                                         enabledBorder:
                                                             OutlineInputBorder(
                                                           borderRadius:
                                                               BorderRadius
                                                                   .circular(7),
-                                                          borderSide:
-                                                              BorderSide(
-                                                                  color: Colors
-                                                                      .grey
-                                                                      .shade400,
-                                                                  width: 0.0),
+                                                          borderSide: BorderSide(
+                                                              color: ColorConstants
+                                                                  .newAppColor,
+                                                              width: 0.0),
                                                         ),
                                                         hintText: '561234567',
                                                         hintStyle: TextStyle(
@@ -394,8 +398,8 @@ class _LoginScreenState extends BaseRouteState {
                                                   color:
                                                       ColorConstants.appColor,
                                                   fontSize: 11,
-                                                  fontFamily: global
-                                                      .fontRailwayRegular,
+                                                  fontFamily:
+                                                      global.fontRailwayRegular,
                                                   fontWeight: FontWeight.w200),
                                             ),
                                           ),
@@ -420,8 +424,8 @@ class _LoginScreenState extends BaseRouteState {
                                                   color:
                                                       ColorConstants.appColor,
                                                   fontSize: 11,
-                                                  fontFamily: global
-                                                      .fontRailwayRegular,
+                                                  fontFamily:
+                                                      global.fontRailwayRegular,
                                                   fontWeight: FontWeight.w200),
                                             ),
                                           ),
@@ -560,7 +564,7 @@ class _LoginScreenState extends BaseRouteState {
                                                                   width: 40,
                                                                   height: 40,
                                                                   color: ColorConstants
-                                                                      .pureBlack,
+                                                                      .newAppColor,
                                                                   fit: BoxFit
                                                                       .fill,
                                                                 ),
@@ -579,14 +583,14 @@ class _LoginScreenState extends BaseRouteState {
                                                                             height:
                                                                                 40,
                                                                             color:
-                                                                                ColorConstants.pureBlack,
+                                                                                ColorConstants.newAppColor,
                                                                             fit:
                                                                                 BoxFit.fill,
                                                                           )
                                                                         : Icon(
                                                                             MdiIcons.fingerprint,
                                                                             color:
-                                                                                ColorConstants.pureBlack,
+                                                                                ColorConstants.newAppColor,
                                                                             size:
                                                                                 40,
                                                                           ),
@@ -1148,7 +1152,11 @@ class _LoginScreenState extends BaseRouteState {
       print("Niks----2");
       isBiometricEnabled = false;
     }
-
+    _fPhone.addListener(() {
+      setState(() {});
+    });
+    print("Niks-----------current user in intstate");
+    print(global.currentUser);
     if (global.sp != null &&
         global.sp!.getString("currentUser") != null &&
         global.sp!.containsKey(global.quickLoginEnabled) &&
@@ -1199,28 +1207,33 @@ class _LoginScreenState extends BaseRouteState {
 //   }
 
   Future<void> authenticateWithBiometrics() async {
+    print("jhnfjkasndjkf afojasbdfkj asdfbsjd fjasdhfjnasj");
     try {
       final LocalAuthentication auth = LocalAuthentication();
       bool canCheckBiometrics = await auth.canCheckBiometrics;
-
+      global.currentUser = CurrentUser();
       if (canCheckBiometrics) {
         await auth
             .authenticate(
                 localizedReason: 'Authenticate with fingerprint or Face ID',
                 options: const AuthenticationOptions(useErrorDialogs: false))
             .then((value) async {
+          print("authenticateWithBiometrics ------");
           print(value);
           if (value) {
-            global.currentUser = CurrentUser.fromJson(
-                json.decode(global.sp!.getString("currentUser")!));
-            global.cartCount = global.appInfo.cartitem!;
-
             global.stayLoggedIN = true;
             SharedPreferences preferences =
                 await SharedPreferences.getInstance();
+            print("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
+            print(preferences.getString("currentUser"));
+            global.currentUser = CurrentUser.fromJson(
+                json.decode(preferences.getString("currentUser")!));
+            global.cartCount = global.currentUser.cart_count != null
+                ? global.currentUser.cart_count!
+                : 0;
             preferences.setBool(global.quickLoginEnabled, true);
             preferences.setBool(global.isLoggedIn, true);
-
+            print(global.currentUser);
             Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => HomeScreen(
                       a: widget.analytics,
@@ -1231,7 +1244,8 @@ class _LoginScreenState extends BaseRouteState {
             SharedPreferences preferences =
                 await SharedPreferences.getInstance();
             preferences.setBool(global.quickLoginEnabled, false);
-
+            // global.currentUser=CurrentUser();
+            print(global.currentUser);
             print("biometric auth cancelled");
           }
           return;
@@ -1265,22 +1279,24 @@ class _LoginScreenState extends BaseRouteState {
           if (result != null) {
             print(result.status);
             if (result.status == "1") {
-              print("Nikhil login method-countryCode- ${int.parse(countryCode)!=971}");
-              print("Nikhil login method-global.currentUser.whatsapp_flag- ${global.currentUser.whatsapp_flag}");
+              print(
+                  "Nikhil login method-countryCode- ${int.parse(countryCode) != 971}");
+              print(
+                  "Nikhil login method-global.currentUser.whatsapp_flag- ${global.currentUser.whatsapp_flag}");
               bool isWhatsAppFlag;
-                
-                if(global.currentUser.whatsapp_flag != null &&
-                    global.currentUser.whatsapp_flag == "1") {
-                  isWhatsAppFlag = true;
-                } else if (int.parse(countryCode)==971) {
-                  print("Nikhil login method-countryCode- ${countryCode}");
-                  isWhatsAppFlag = false;
-                }else{
-                  isWhatsAppFlag = true;
-                }
+
+              if (global.currentUser.whatsapp_flag != null &&
+                  global.currentUser.whatsapp_flag == "1") {
+                isWhatsAppFlag = true;
+              } else if (int.parse(countryCode) == 971) {
+                print("Nikhil login method-countryCode- ${countryCode}");
+                isWhatsAppFlag = false;
+              } else {
+                isWhatsAppFlag = true;
+              }
               if (Platform.isAndroid) {
                 hideLoader();
-                
+
                 Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -1289,8 +1305,7 @@ class _LoginScreenState extends BaseRouteState {
                             isPhoneChange: 1,
                             isFromUpdate: false,
                             isAddMobile: false,
-                            isFromSignUPLogin:
-                                isWhatsAppFlag,
+                            isFromSignUPLogin: isWhatsAppFlag,
                             countryCode:
                                 countryCode != null ? countryCode : "971",
                             a: widget.analytics,
@@ -1305,8 +1320,7 @@ class _LoginScreenState extends BaseRouteState {
                             isPhoneChange: 1,
                             isFromUpdate: false,
                             isAddMobile: false,
-                            isFromSignUPLogin:
-                                isWhatsAppFlag,
+                            isFromSignUPLogin: isWhatsAppFlag,
                             countryCode:
                                 countryCode != null ? countryCode : "+971",
                             a: widget.analytics,
@@ -1361,20 +1375,107 @@ class _LoginScreenState extends BaseRouteState {
     }
   }
 
+//  _signInWithApple() async {
+//   print("Firebase app name: ${Firebase.app().options.appId}");
+//   try {
+//     bool isConnected = await br!.checkConnectivity();
+//     if (!isConnected) {
+//       showNetworkErrorSnackBar(_scaffoldKey1!);
+//       return;
+//     }
+
+//     showOnlyLoaderDialog();
+//     final _firebaseAuth = FirebaseAuth.instance;
+
+//     String generateNonce([int length = 32]) {
+//       final charset =
+//           '0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._';
+//       final random = Random.secure();
+//       return List.generate(
+//           length, (_) => charset[random.nextInt(charset.length)]).join();
+//     }
+
+//     String sha256ofString(String input) {
+//       final bytes = utf8.encode(input);
+//       final digest = sha256.convert(bytes);
+//       return digest.toString();
+//     }
+
+//     final rawNonce = generateNonce();
+//     final nonce = sha256ofString(rawNonce);
+
+//     // ✅ Handle error properly and rethrow if needed
+//     final credential = await SignInWithApple.getAppleIDCredential(
+//   scopes: [
+//     AppleIDAuthorizationScopes.email,
+//     AppleIDAuthorizationScopes.fullName,
+//   ],
+//   nonce: nonce,
+//   // webAuthenticationOptions: WebAuthenticationOptions(
+//   //   clientId: 'com.byyu.signin', // 🔹 Your Apple Service ID
+//   //   redirectUri: Uri.parse(
+//   //     'https://byyu-a656a.firebaseapp.com/__/auth/handler', // 🔹 Your Firebase redirect
+//   //   ),
+//   // ),
+// );
+//     print('Raw nonce: $rawNonce');
+//     print('Hashed nonce: $nonce');
+//     print('Apple identity token: ${credential.identityToken}');
+
+//     final oauthCredential = OAuthProvider("apple.com").credential(
+//       idToken: credential.identityToken,
+//       rawNonce: rawNonce,
+//     );
+
+//     final authResult = await _firebaseAuth
+//         .signInWithCredential(oauthCredential)
+//         .catchError((e) {
+
+//       throw Exception("Firebase sign-in failed: $e");
+//     });
+
+//     // ✅ Hide loader after successful login
+
+//     User? currentUser = authResult.user;
+//     if (currentUser == null) throw Exception("User not found after sign-in");
+
+//     hideLoader();
+//     print("User: ${currentUser.displayName} | ${currentUser.email}");
+
+//     apiCallForSocialMedia(
+//       currentUser.displayName ?? "",
+//       currentUser.email ?? "",
+//     );
+//   } catch (e) {
+//     hideLoader();
+//     print("Exception - login_screen.dart - _signinWithApple(): $e");
+//   }
+// }
+
   _signInWithApple() async {
+    print("Firebase app name: ${Firebase.app().options.appId}");
     try {
       bool isConnected = await br!.checkConnectivity();
       if (isConnected) {
         showOnlyLoaderDialog();
-
         final _firebaseAuth = FirebaseAuth.instance;
+        // String generateNonce([int length = 32]) {
+        //   final charset =
+        //       '0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._';
+        //   final random = Random.secure();
+        //   return List.generate(
+        //       length, (_) => charset[random.nextInt(charset.length)]).join();
+        // }
 
+        // String sha256ofString(String input) {
+        //   final bytes = utf8.encode(input);
+        //   final digest = sha256.convert(bytes);
+        //   return digest.toString();
+        // }
         String generateNonce([int length = 32]) {
-          final charset =
-              '0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._';
+          const charset = '0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._';
           final random = Random.secure();
-          return List.generate(
-              length, (_) => charset[random.nextInt(charset.length)]).join();
+          return List.generate(length, (_) => charset[random.nextInt(charset.length)]).join();
         }
 
         String sha256ofString(String input) {
@@ -1385,31 +1486,42 @@ class _LoginScreenState extends BaseRouteState {
 
         final rawNonce = generateNonce();
         final nonce = sha256ofString(rawNonce);
+
+          
         final credential = await SignInWithApple.getAppleIDCredential(
           scopes: [
             AppleIDAuthorizationScopes.email,
             AppleIDAuthorizationScopes.fullName,
           ],
           nonce: nonce,
+          state: generateNonce(),
         ).catchError((e) {
           hideLoader();
         });
+        print('Apple identity token: ${credential.identityToken}');
 
         final oauthCredential = OAuthProvider("apple.com").credential(
           idToken: credential.identityToken,
           rawNonce: rawNonce,
+          accessToken: credential.authorizationCode,
         );
+        print("rawNonce: $rawNonce");
+        print("hashed nonce: $nonce");
+        print("Apple returned token: ${credential.identityToken}");
+        print("Recomputed hash: ${sha256ofString(rawNonce)}");
         final authResult = await _firebaseAuth
             .signInWithCredential(oauthCredential)
             .onError((error, stackTrace) {
-          hideLoader();
-          return Future.delayed(const Duration(seconds: 2));
+              print("on error method ------- $error");
+         throw Exception("Firebase sign-in failed: $error");
+          
         }).catchError((e) {
-          hideLoader();
+          print(e);
+          
+          throw Exception("Firebase sign-in failed: $e");
         });
         User currentUser = FirebaseAuth.instance.currentUser!;
-        print("  ${currentUser.displayName} ??? ${currentUser.email}");
-
+        print(" ${currentUser.displayName} ??? ${currentUser.email}");
         apiCallForSocialMedia(
             currentUser.displayName != null ? currentUser.displayName! : "",
             currentUser.email != null ? currentUser.email! : "");
@@ -1485,7 +1597,7 @@ class _LoginScreenState extends BaseRouteState {
               global.stayLoggedIN = true;
               prefs.setBool('ISSOCIALMEDIA', true);
               hideLoader();
-
+              global.wishlistCount = 0;
               if (global.availableBiometrics.length > 0 &&
                   prefs.containsKey(global.quickLoginEnabled) &&
                   !prefs.getBool(quickLoginEnabled)!) {
@@ -1649,7 +1761,7 @@ class _LoginScreenState extends BaseRouteState {
                 title: Text(
                   activateMessage,
                   style: TextStyle(
-                    color: Colors.black,
+                    color: ColorConstants.newTextHeadingFooter,
                     fontSize: 16,
                     fontFamily: fontRailwayRegular,
                     fontWeight: FontWeight.w200,

@@ -146,7 +146,7 @@ class _MyTextBoxState extends State<MyTextBox> {
         inputFormatters: inputFormatters ?? [],
         decoration: InputDecoration(
           filled: true,
-          fillColor: Colors.grey.shade200,
+          fillColor: Colors.white,
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.all(
               Radius.circular(borderRadius!),

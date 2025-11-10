@@ -184,7 +184,7 @@ class _OtpVerificationScreenState extends BaseRouteState {
                                                 isFromSignUPLogin != null &&
                                                         isFromSignUPLogin
                                                     ? "Kindly enter the OTP sent to your WhatsApp text ${addMobileCountryCode}  XXXXXXX${addMobilePhone!.substring(addMobilePhone!.length - 2)}"
-                                                    : "Kindly enter the OTP sent to your SMS ${isFromSignUPLogin} ${addMobileCountryCode}  XXXXXXX${addMobilePhone!.substring(addMobilePhone!.length - 2)}",
+                                                    : "Kindly enter the OTP sent to your SMS  ${addMobileCountryCode}  XXXXXXX${addMobilePhone!.substring(addMobilePhone!.length - 2)}",
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                     color: ColorConstants
@@ -502,6 +502,7 @@ class _OtpVerificationScreenState extends BaseRouteState {
               prefs.setString('currentUser', json.encode(result.data));
               prefs.setString('userInfo', json.encode(result.data));
               global.cartCount = global.currentUser.cart_count!;
+              global.wishlistCount=0;
               global.refferalCode = "";
               if (global.availableBiometrics.length > 0 &&
                   prefs.containsKey(global.quickLoginEnabled) &&
@@ -573,7 +574,7 @@ class _OtpVerificationScreenState extends BaseRouteState {
                       ? "Would you like to register FaceID for quick login?"
                       : 'Would you like to register fingerprint for quick login?',
                   style: TextStyle(
-                      fontSize: 14, fontFamily: global.fontMontserratLight),
+                      fontSize: 14, fontFamily: global.fontRailwayRegular),
                 ),
                 actions: <Widget>[
                   CupertinoDialogAction(
@@ -582,7 +583,7 @@ class _OtpVerificationScreenState extends BaseRouteState {
                             fontSize: 16,
                             fontFamily: fontRailwayRegular,
                             fontWeight: FontWeight.w200,
-                            color: ColorConstants.appColor)),
+                            color: ColorConstants.newTextHeadingFooter)),
                     onPressed: () async {
                       prefs.setBool(global.quickLoginEnabled, false);
                       prefs.setBool(global.isLoggedIn, true);
@@ -605,7 +606,7 @@ class _OtpVerificationScreenState extends BaseRouteState {
                             fontSize: 16,
                             fontFamily: fontRailwayRegular,
                             fontWeight: FontWeight.w200,
-                            color: Colors.blue)),
+                            color: ColorConstants.newAppColor)),
                     onPressed: () async {
                       prefs.setBool('quickLoginEnabled', true);
                       prefs.setBool("isLoggedIn", true);

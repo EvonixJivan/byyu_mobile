@@ -1447,6 +1447,13 @@ class _CorporateGiftsScreenState extends BaseRouteState {
                               keyboardType: TextInputType.name,
                               onChanged: (val) {
                                 boolSubmitMessage = false;
+                                String filtered = val.replaceAll(RegExp(r'[^a-zA-Z\s]'), '');
+                                if (filtered != val) {
+                                  _firstNameTextController.text = filtered;
+                                  _firstNameTextController.selection = TextSelection.fromPosition(
+                                    TextPosition(offset: filtered.length),
+                                  );
+                                }
                                 setState(() {});
                                 if (submitClicked &&
                                     _formCorporateGiftsKey.currentState!
@@ -1498,8 +1505,16 @@ class _CorporateGiftsScreenState extends BaseRouteState {
                               controller: _lastNameTextController,
                               labelText: "Last Name*",
                               keyboardType: TextInputType.name,
+                              
                               onChanged: (val) {
                                 boolSubmitMessage = false;
+                                String filtered = val.replaceAll(RegExp(r'[^a-zA-Z\s]'), '');
+                                if (filtered != val) {
+                                  _lastNameTextController.text = filtered;
+                                  _lastNameTextController.selection = TextSelection.fromPosition(
+                                    TextPosition(offset: filtered.length),
+                                  );
+                                }
                                 setState(() {});
                                 if (submitClicked &&
                                     _formCorporateGiftsKey.currentState!
@@ -1511,7 +1526,9 @@ class _CorporateGiftsScreenState extends BaseRouteState {
                                 print(value);
                                 if (value == null || value.isEmpty) {
                                   return "Please enter Last Name  ";
-                                } else {
+                                } else if (!RegExp(r"^[a-zA-Z\s]+$").hasMatch(value)) {
+      return "Only alphabets are allowed";
+    } else {
                                   return null;
                                 }
                               }),

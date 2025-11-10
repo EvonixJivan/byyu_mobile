@@ -16,11 +16,11 @@ TextStyle boldbodySmallStyle(BuildContext context) =>
 TextStyle boldSubtitle(BuildContext context) =>
     Theme.of(context).textTheme.titleMedium!.copyWith(
           fontWeight: FontWeight.bold,
-          color: Colors.black,
+          color: ColorConstants.newTextHeadingFooter,
         );
 
 TextStyle loginButtonTextStyle(BuildContext context) =>
-    Theme.of(context).textTheme.labelLarge!.copyWith(color: Colors.black);
+    Theme.of(context).textTheme.labelLarge!.copyWith(color: ColorConstants.newTextHeadingFooter);
 
 TextStyle normalbodySmallStyle(BuildContext context) =>
     Theme.of(context).textTheme.bodySmall!.copyWith(
@@ -42,7 +42,7 @@ TextStyle textFieldHintStyle(BuildContext context) =>
 
 TextStyle textFieldInputStyle(BuildContext context, FontWeight fontWeight) =>
     Theme.of(context).textTheme.bodyLarge!.copyWith(
-          color: Colors.black,
+          color: ColorConstants.newTextHeadingFooter,
           fontSize: 18,
           fontWeight: fontWeight ?? FontWeight.normal,
         );
@@ -57,7 +57,7 @@ TextStyle textFieldLabelStyle(BuildContext context) =>
 TextStyle textFieldSuffixStyle(BuildContext context) =>
     Theme.of(context).textTheme.bodySmall!.copyWith(
           fontWeight: FontWeight.bold,
-          color: Colors.black,
+          color: ColorConstants.newTextHeadingFooter,
         );
 
 class ThemeUtils {
@@ -96,6 +96,10 @@ class ThemeUtils {
             ),
           ),
         ),
+        progressIndicatorTheme: ProgressIndicatorThemeData(
+          color: ColorConstants.newAppColor, // <-- Change this to your desired color
+          circularTrackColor: Colors.grey.shade300, // optional track color
+        ),
         textButtonTheme: TextButtonThemeData(
           style: TextButton.styleFrom(foregroundColor: primaryColor),
         ),
@@ -132,7 +136,7 @@ class ThemeUtils {
           color: ColorConstants.appBrownFaintColor,
           surfaceTintColor: white, // scroll color change issue resolve ?
           elevation: 0,
-          iconTheme: IconThemeData(color: Colors.black),
+          iconTheme: IconThemeData(color: ColorConstants.newTextHeadingFooter),
         ),
         iconTheme: IconThemeData(
           color: primaryColor,
@@ -163,7 +167,7 @@ class ThemeUtils {
           ),
           bodySmall: TextStyle(
             fontSize: 13,
-            color: Colors.black,
+            color: ColorConstants.newTextHeadingFooter,
           ),
           bodyLarge: TextStyle(fontWeight: FontWeight.normal, fontSize: 15),
           labelLarge: TextStyle(
@@ -177,19 +181,19 @@ class ThemeUtils {
             focusedBorder: UnderlineInputBorder(
               borderSide: BorderSide(
                 width: 2.0,
-                color: Colors.black,
+                color: ColorConstants.newTextHeadingFooter,
               ),
             ),
             enabledBorder: UnderlineInputBorder(
               borderSide: BorderSide(
                 width: 0.7,
-                color: Colors.black,
+                color: ColorConstants.newTextHeadingFooter,
               ),
             ),
             contentPadding: EdgeInsets.only(top: 10, left: 10, right: 10),
             hintStyle: TextStyle(
               fontSize: 13,
-              color: Colors.black,
+              color: ColorConstants.newTextHeadingFooter,
               fontWeight: FontWeight.normal,
             )));
   }

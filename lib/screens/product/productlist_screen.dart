@@ -129,6 +129,8 @@ class _ProductListScreenState extends BaseRouteState {
                                 analytics: widget.analytics,
                                 observer: widget.observer,
                                 categoryProductList: _productsList,
+                                refreshProductList:callProductList
+
                               ),
                               _isMoreDataLoaded
                                   ? Center(
@@ -165,6 +167,10 @@ class _ProductListScreenState extends BaseRouteState {
   @override
   void initState() {
     super.initState();
+    _init();
+  }
+
+  void callProductList(){
     _init();
   }
 
