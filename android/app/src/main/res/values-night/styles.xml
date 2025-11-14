@@ -18,9 +18,9 @@
          This Theme is only used starting with V2 of Flutter's Android embedding. -->
     <style name="NormalTheme" parent="@android:style/Theme.Black.NoTitleBar">
         <!-- <item name="android:windowBackground">@drawable/ic_notification</item> -->
-        <item name="android:windowBackground">@drawable/byyu_icon</item>
+        <item name="android:windowBackground">@drawable/by</item>
         <item name="android:windowSplashScreenBackground">@color/white</item>
-        <item name="android:windowSplashScreenAnimatedIcon">@drawable/byyu_icon</item>
+        <item name="android:windowSplashScreenAnimatedIcon">@drawable/by</item>
         <!-- <item name="android:windowSplashScreenAnimationDuration">1000</item> -->
         <item name="android:windowSplashScreenIconBackgroundColor">@color/white</item>
     </style>
