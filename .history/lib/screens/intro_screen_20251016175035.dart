@@ -19,7 +19,6 @@ class _IntroScreenState extends BaseRouteState {
     return Scaffold(
       backgroundColor: ColorConstants.colorPageBackground,
       body: Container(
-        
         child: Stack(
           children: [
             // Image.asset(
@@ -236,7 +235,7 @@ class _IntroScreenState extends BaseRouteState {
                         Container(
                           width: MediaQuery.of(context).size.width,
                           child: Text(
-                            "Turn everyday moments into lasting memories with byyu.",
+                            "Turn everyday moments into lasting memories with BYYU.",
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 fontFamily: fontRalewayMedium,
@@ -305,7 +304,7 @@ class _IntroScreenState extends BaseRouteState {
                         Container(
                           width: MediaQuery.of(context).size.width,
                           child: Text(
-                            "byyu curates gifts as unique as they are thoughtful. Discover yours today.",
+                            "BYYU curates gifts as unique as they are thoughtful. Discover yours today.",
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 fontFamily: fontMetropolisRegular,
@@ -374,7 +373,7 @@ class _IntroScreenState extends BaseRouteState {
                         Container(
                           width: MediaQuery.of(context).size.width,
                           child: Text(
-                            "Relax! byyu guides you through gifting with ease, every step of the way.",
+                            "Relax! BYYU guides you through gifting with ease, every step of the way.",
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 fontFamily: fontMetropolisRegular,
