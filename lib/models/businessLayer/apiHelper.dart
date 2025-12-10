@@ -7,6 +7,7 @@ import 'package:byyu/constants/analytics_GA4.dart';
 import 'package:byyu/models/businessLayer/global.dart';
 import 'package:byyu/models/checkoutOrderModel.dart';
 import 'package:byyu/models/eventsListModel.dart';
+import 'package:byyu/models/filterModelsNew.dart';
 import 'package:byyu/models/genderRelationSelectionFilter.dart';
 import 'package:byyu/models/orderDetailsModel.dart';
 import 'package:byyu/models/relationship_model.dart';
@@ -1257,87 +1258,109 @@ class APIHelper {
     }
   }
 
-  Future<dynamic> getCategoryProducts(int catId, int page,
-      ProductFilter productFilter, int isSubscription) async {
+  Future<dynamic> getCategoryProducts(
+      int catId,
+      int page,
+      ProductFilter productFilter,
+      int isSubscription,
+      dynamic occasionid,
+      dynamic deliveryType,
+      dynamic flavourFilter,
+      dynamic plantFilter,
+      dynamic packFilter,
+      dynamic TypeFilter,
+      dynamic colorFilter,
+      String sliderFilter1,
+      String sliderFilter2,
+      String selectedSortID) async {
     try {
       Response response;
       var dio = Dio();
-      var formData = FormData.fromMap({
-        'cat_id': catId,
-        'user_id': global.currentUser != null ? global.currentUser.id : "",
-        'byname': "", //productFilter.byname,
-        'min_price': "", //productFilter.minPrice,
-        'max_price': "", //productFilter.maxPrice,
-        'stock': "", //productFilter.stock,
-        'min_discount': "", // productFilter.minDiscount,
-        'max_discount': "", //productFilter.maxDiscount,
-        'min_rating': "", //productFilter.minRating,
-        'max_rating': "", //productFilter.maxRating,
-        "sortid": productFilter != null && productFilter.filterSortID != null
-            ? productFilter.filterSortID
-            : "",
-        "pricesortid":
-            productFilter != null && productFilter.filterPriceID != Null
-                ? productFilter.filterPriceID
-                : "",
-        "discountsortid":
-            productFilter != null && productFilter.filterDiscountID != null
-                ? productFilter.filterDiscountID
-                : "",
-        "ocassionid":
-            productFilter != null && productFilter.filterOcassionID != null
-                ? productFilter.filterOcassionID
-                : "",
-        // "sort": productFilter.sort,
-        // "sortname": productFilter.sortName,
-        // "sortprice": productFilter.sortprice
-      });
-      print(formData.fields);
+
       print(
           "#################################################################");
+      print({
+        "page": 1,
+        "cat_id": catId,
+        "user_id": global.currentUser != null ? global.currentUser.id : "",
+        "platform": "ios",
 
-      print('${global.nodeBaseUrl}cat_product?page=$page');
+        // FILTER ARRAYS WE SELECTED
+        "occasionid": occasionid, // Occasion
+        "deliveryType": deliveryType, // Delivery
+        "colorFilter": colorFilter, // Colors
+        "packFilter": packFilter, // Packs
+        "plantFilter": TypeFilter, // Plants
+        "flavourFilter": flavourFilter, // Flavour
+        "variantFilter": "", // Variants
+        "TypeFilter": TypeFilter, // Types
+
+        // other filters
+        "sortid": selectedSortID,
+        "pricesortid": "",
+        "discountsortid": "",
+        "quantity": "",
+        "unit": "",
+        "eventId": "",
+        "sliderFilter1": sliderFilter1,
+        "sliderFilter2": sliderFilter2,
+
+        // base fields
+        "byname": "",
+        "min_price": "",
+        "max_price": "",
+        "stock": "",
+        "min_discount": "",
+        "max_discount": "",
+        "min_rating": "",
+        "max_rating": "",
+      });
+
+      print('${global.nodeBaseUrl}cat_Product_new?page=1');
 
       response = await dio.post(
-          '${global.nodeBaseUrl}cat_product?page=$page', // '${global.baseUrl}cat_product?page=$page',
+          // '${global.nodeBaseUrl}cat_product?page=$page', // '${global.baseUrl}cat_product?page=$page',
+          'https://node.esganalytix.com/api/cat_Product_new?page=1',
           data: {
-            'page': page,
-            'cat_id': catId,
-            'user_id': global.currentUser != null ? global.currentUser.id : "",
-            'byname': "", //productFilter.byname,
-            'min_price': "", //productFilter.minPrice,
-            'max_price': "", //productFilter.maxPrice,
-            'stock': "", //productFilter.stock,
-            'min_discount': "", // productFilter.minDiscount,
-            'max_discount': "", //productFilter.maxDiscount,
-            'min_rating': "", //productFilter.minRating,
-            'max_rating': "", //productFilter.maxRating,
-            "sortid":
-                productFilter != null && productFilter.filterSortID != null
-                    ? productFilter.filterSortID
-                    : "",
-            "pricesortid":
-                productFilter != null && productFilter.filterPriceID != Null
-                    ? productFilter.filterPriceID
-                    : "",
-            "discountsortid":
-                productFilter != null && productFilter.filterDiscountID != null
-                    ? productFilter.filterDiscountID
-                    : "",
-            "ocassionid":
-                productFilter != null && productFilter.filterOcassionID != null
-                    ? productFilter.filterOcassionID
-                    : "",
-            // "sort": productFilter.sort,
-            // "sortname": productFilter.sortName,
-            // "sortprice": productFilter.sortprice
+            "page": 1,
+            "cat_id": catId,
+            "user_id": global.currentUser != null ? global.currentUser.id : "",
+            "platform": "ios",
+
+            // ALL other filters = blank array
+            "sortid": selectedSortID,
+            "pricesortid": "",
+            "discountsortid": "",
+            "occasionid": occasionid,
+
+            "deliveryType": deliveryType,
+            "flavourFilter": flavourFilter,
+            "plantFilter": plantFilter,
+            "packFilter": packFilter,
+            "quantity": "",
+            "unit": "",
+            "TypeFilter": TypeFilter,
+            "eventId": "",
+            "sliderFilter1": "",
+            "sliderFilter2": "",
+            "colorFilter": colorFilter,
+
+            // base fields also blank array as requested
+            "byname": "",
+            "min_price": "",
+            "max_price": "",
+            "stock": "",
+            "min_discount": "",
+            "max_discount": "",
+            "min_rating": "",
+            "max_rating": "",
           },
           options: Options(
             headers: await global.getApiHeaders(true),
           ));
       dynamic recordList;
       print("n statuscode----------niks------------${response.statusCode}");
-      // print("n response data ----------------------${response.data}");
+      print("n response data ----------------------${response.data}");
       // print("n data status----------------------${response.data["status"]}");
       if (response.statusCode == 200 && response.data["status"] == "1") {
         print("n1----------------------");
@@ -1356,74 +1379,101 @@ class APIHelper {
     }
   }
 
-  Future<dynamic> getSubCategoryProducts(int catId, int page,
-      ProductFilter productFilter, int isSubscription) async {
+  Future<dynamic> getSubCategoryProducts(dynamic catId, int page,
+      ProductFilter productFilter, int isSubscription,
+       dynamic occasionid,
+      dynamic deliveryType,
+      dynamic flavourFilter,
+      dynamic plantFilter,
+      dynamic packFilter,
+      dynamic TypeFilter,
+      dynamic colorFilter,
+      String sliderFilter1,
+      String sliderFilter2,
+     String selectedSortID
+      ) async {
     try {
       Response response;
       var dio = Dio();
-      var formData = FormData.fromMap({
-        'cat_id': catId,
-        'user_id': global.currentUser.id,
-        'byname': "",
-        'min_price': "",
-        'max_price': "",
-        'stock': "",
-        'min_discount': "",
-        'max_discount': "",
-        'min_rating': "",
-        'max_rating': "",
-        "sortid": productFilter != null && productFilter.filterSortID != null
-            ? productFilter.filterSortID
-            : "",
-        "pricesortid":
-            productFilter != null && productFilter.filterPriceID != Null
-                ? productFilter.filterPriceID
-                : "",
-        "discountsortid":
-            productFilter != null && productFilter.filterDiscountID != null
-                ? productFilter.filterDiscountID
-                : "",
-        "ocassionid":
-            productFilter != null && productFilter.filterOcassionID != null
-                ? productFilter.filterOcassionID
-                : "",
-      });
+
+      print('${global.nodeBaseUrl}sub_cat_product_new?page=$page');
+
       print(
           "#################################################################");
-      print('${global.nodeBaseUrl}sub_cat_product?page=$page');
-      print(formData.fields);
+      print({
+        "page": 1,
+        "cat_id": catId,
+        "user_id": global.currentUser != null ? global.currentUser.id : "",
+        "platform": "ios",
+
+        // FILTER ARRAYS WE SELECTED
+        "occasionid": occasionid, // Occasion
+        "deliveryType": deliveryType, // Delivery
+        "colorFilter": colorFilter, // Colors
+        "packFilter": packFilter, // Packs
+        "plantFilter": TypeFilter, // Plants
+        "flavourFilter": flavourFilter, // Flavour
+        "variantFilter": "", // Variants
+        "TypeFilter": TypeFilter, // Types
+
+        // other filters
+        "sortiddddddd12222": selectedSortID,
+        "pricesortid": "",
+        "discountsortid": "",
+        "quantity": "",
+        "unit": "",
+        "eventId": "",
+        "sliderFilter1": sliderFilter1,
+        "sliderFilter2": sliderFilter2,
+
+        // base fields
+        "byname": "",
+        "min_price": "",
+        "max_price": "",
+        "stock": "",
+        "min_discount": "",
+        "max_discount": "",
+        "min_rating": "",
+        "max_rating": "",
+      });
+   
       response = await dio.post(
-          '${global.nodeBaseUrl}sub_cat_product?page=$page',
+          // '${global.nodeBaseUrl}sub_cat_product?page=$page',
+          'https://node.esganalytix.com/api/sub_cat_product_new?page=$page',
           data: {
-            'page': page,
-            'cat_id': catId,
-            "device_id": "${globalDeviceId}",
-            "user_id":
-                global.currentUser.id != null ? global.currentUser.id : "",
-            'byname': "",
-            'min_price': "",
-            'max_price': "",
-            'stock': "",
-            'min_discount': "",
-            'max_discount': "",
-            'min_rating': "",
-            'max_rating': "",
-            "sortid":
-                productFilter != null && productFilter.filterSortID != null
-                    ? productFilter.filterSortID
-                    : "",
-            "pricesortid":
-                productFilter != null && productFilter.filterPriceID != Null
-                    ? productFilter.filterPriceID
-                    : "",
-            "discountsortid":
-                productFilter != null && productFilter.filterDiscountID != null
-                    ? productFilter.filterDiscountID
-                    : "",
-            "ocassionid":
-                productFilter != null && productFilter.filterOcassionID != null
-                    ? productFilter.filterOcassionID
-                    : "",
+           
+            "page": 1,
+            "cat_id": catId,
+            "user_id": global.currentUser != null ? global.currentUser.id : "",
+            "platform": "ios",
+
+            // ALL other filters = blank array
+            "sortid": selectedSortID,
+            "pricesortid": "",
+            "discountsortid": "",
+            "occasionid": occasionid,
+
+            "deliveryType": deliveryType,
+            "flavourFilter": flavourFilter,
+            "plantFilter": plantFilter,
+            "packFilter": packFilter,
+            "quantity": "",
+            "unit": "",
+            "TypeFilter": TypeFilter,
+            "eventId": "",
+            "sliderFilter1": "",
+            "sliderFilter2": "",
+            "colorFilter": colorFilter,
+
+            // base fields also blank array as requested
+            "byname": "",
+            "min_price": "",
+            "max_price": "",
+            "stock": "",
+            "min_discount": "",
+            "max_discount": "",
+            "min_rating": "",
+            "max_rating": "",
           }, // formData,
           options: Options(
             headers: await global.getApiHeaders(false),
@@ -1433,59 +1483,46 @@ class APIHelper {
       if (response.statusCode == 200 && response.data["status"] == "1") {
         recordList = List<Product>.from(
             response.data["data"].map((x) => Product.fromJson(x)));
+            print("${recordList}checking dataaaa>>>>>>>>>");
+            print("n response data ----------------------${response.data}");
       } else {
+         print("n response data ----------------------${response.data}");
+         print("${recordList}checking dataaaa>>>>11111>>>>>");
         recordList = null;
       }
       return getDioResult(response, recordList);
     } catch (e) {
+       print("checking dataaaa>>>>>22222222>>>>");
       print("Exception - getCategoryProducts(): " + e.toString());
     }
   }
 
-// PRODUCT FILTER EXPRESS → API CALL...G1
-  Future<dynamic> productfilterExpress({
-    required String userId,
-  }) async {
-    try {
-      var dio = Dio();
 
-      print("${global.nodeBaseUrl}productFiltersDelivery");
-      print("user_id: $userId,");
-      final response = await dio.post(
-        "${global.nodeBaseUrl}productFiltersDelivery",
-        data: {
-          "user_id": userId,
-        },
-        options: Options(
-          headers: await global.getApiHeaders(true),
-        ),
-      );
+  //     dynamic recordList;
 
-      dynamic recordList;
+  //     print("STATUS CODE: ${response.statusCode}");
+  //     print("API RESPONSE: ${response.data}");
 
-      print("STATUS CODE: ${response.statusCode}");
-      print("API RESPONSE: ${response.data}");
+  //     if (response.statusCode == 200 && response.data["status"] == "1") {
+  //       // Parse the Product list
+  //       recordList = List<Product>.from(
+  //         response.data["data"].map((x) => Product.fromJson(x)),
+  //       );
+  //     } else {
+  //       recordList = null;
+  //     }
 
-      if (response.statusCode == 200 && response.data["status"] == "1") {
-        // Parse the Product list
-        recordList = List<Product>.from(
-          response.data["data"].map((x) => Product.fromJson(x)),
-        );
-      } else {
-        recordList = null;
-      }
-
-      // return proper structure
-      return getDioResult(response, recordList);
-    } catch (e) {
-      print("Exception - productfilterExpress(): $e");
-      return {
-        "status": "0",
-        "message": "Exception occurred",
-        "data": null,
-      };
-    }
-  }
+  //     // return proper structure
+  //     return getDioResult(response, recordList);
+  //   } catch (e) {
+  //     print("Exception - productfilterExpress(): $e");
+  //     return {
+  //       "status": "0",
+  //       "message": "Exception occurred",
+  //       "data": null,
+  //     };
+  //   }
+  // }
 
 //PRODUCTFILTER DELIVERY >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>ABOVE
 
@@ -3307,10 +3344,13 @@ class APIHelper {
       } //formData,
           );
       dynamic recordList;
+      print("check response dataaaa>>>>>>>>>>>>>>>>>>>>>>>>>>${recordList}");
 
       if (response.statusCode == 200 && response.data["status"] == '1') {
         recordList = List<Product>.from(
             response.data["productlist"].map((x) => Product.fromJson(x)));
+        print(
+            "check response dataaaa>>>>>>>>>>>>>11111111111111>>>>>>>>>>>>>${recordList}");
       } else if (response.statusCode == 200 && response.data["status"] == '0') {
         recordList = null;
       } else {
@@ -3596,49 +3636,84 @@ class APIHelper {
     int page,
     cat_subCat_ID,
     catType,
+    deliveryType
   ) async {
     try {
       Response response;
       var dio = Dio();
-
+ var check = deliveryType == 1
+    ? "123456789"
+    : "relationship-$relationID";
+    print("RELATIONNNNNNN IDDDD>>>>>>>>>>>>>>>>>>>>>>>${check}");
+ 
       print('${global.nodeBaseUrl}productfilter');
       print("""
           {
             "age_id": "",
             "gender_id": "",
             "occasion_id": "",
-            "relationship_id": "relationship-$relationID",
+            "relationship_id": "relationship1111111111111111-$relationID",
             "min_age": $minAge,
             "max_age": $maxAge,
             "sortid": "",
             "pricesortid": "",
             "discountsortid": "",
             "cat_id": $cat_subCat_ID,
-            "cat_type": "$catType"
+            "cat_type": $catType,
+            "delivery_type" : "$deliveryType"
           }
           """);
       response = await dio.post('${global.nodeBaseUrl}productfilter',
+       
           data: {
-            "age_id": "",
-            "gender_id": "",
-            "occasion_id": "",
-            "relationship_id": "relationship-${relationID}",
-            "min_age": minAge,
-            "max_age": maxAge,
-            "sortid": "",
-            "pricesortid": "",
-            "discountsortid": "",
-            "cat_id": cat_subCat_ID,
-            "cat_type": catType
-          }, //formData,
+  "age_id": "",
+  "gender_id": "",
+  "occasion_id": "",
+ "relationship_id": deliveryType != 1
+    ? "relationship-$relationID"
+    : "",
+
+  "min_age": minAge ?? "",
+  "max_age": maxAge ?? "",
+  "sortid": "",
+  "pricesortid": "",
+  "discountsortid": "",
+
+  "cat_id": cat_subCat_ID ?? "",
+  "cat_type": catType ?? "",
+  "platform": "${Platform.isIOS ? "IOS" : "ANDROID"}",
+
+  "delivery_type": deliveryType ?? "",     
+  "sliderFilter1": "",
+  "sliderFilter2":  "",
+
+  "ocassionid":  [],  // array
+  "colorFilter":  [],   // array
+  "packFilter":  [],     // array
+  "plantFilter": [],   // array
+  "flavourFilter":  [],
+  "TypeFilter": [],
+
+  "quantity": "",
+  "unit": "",
+},
+
+
+
+
+
+           //formData,
           options: Options(
             headers: await global.getApiHeaders(false),
           ));
       dynamic recordList;
+     
       print("n statuscode----------------------${response.statusCode}");
       print("n response data ----------------------${response.data}");
       print("n data status----------------------${response.data["status"]}");
+     
       if (response.statusCode == 200 && response.data["status"] == "1") {
+       
         print("n1----------------------");
         recordList = List<Product>.from(
             response.data["data"].map((x) => Product.fromJson(x)));
@@ -4121,6 +4196,122 @@ class APIHelper {
       print("Exception API HELPER- addons(): " + e.toString());
     }
   }
+
+  Future<dynamic> newFilters1(String? catId) async {
+    try {
+      final dio = Dio();
+      final Map<String, dynamic> body = {"cat_id": catId ?? "8"};
+      print("cat_id: $catId");
+
+      final response = await dio.post(
+        '${global.baseUrl}get-filter-data',
+        data: body,
+        options: Options(
+          headers: await global.getApiHeaders(false),
+          validateStatus: (status) => status != null && status < 500,
+        ),
+      );
+      final status = response.data?['status']?.toString() ?? "";
+      dynamic recordList;
+
+      dynamic payload = response;
+
+      print("G1----->$response");
+      if (response != null && response is DioResult) {
+        payload = response.data; // unwrap
+      }
+
+      if (payload is Response) {
+        payload = payload.data;
+      }
+
+      // Now payload should be the actual JSON (Map or List)
+      if (payload is Map<String, dynamic>) {
+        final status = payload['status']?.toString() ?? '';
+        if (response.statusCode == 200 && status == "1") {
+          // payload['data'] is the map of categories
+          final dataNode = payload['data']; // Map<String, dynamic>
+          // Parse to your model
+          final model = NewFilterModel.fromJson(payload);
+          print("Parsed filters count: ${model.data?.length ?? 0}");
+
+          // Return typed model (or list of categories) — depends on getDioResult expectation
+          return getDioResult(response, dataNode);
+        } else {
+          return getDioResult(response, null);
+        }
+      } else {
+        // Unexpected shape: log for debugging and return failure
+        print("Unexpected payload type: ${payload.runtimeType}");
+        print("payload: $payload");
+        return getDioResult(response, null);
+      }
+    } catch (e, st) {
+      print("FILTER CATEGORY error: $e");
+      print(st);
+      return {
+        "statusCode": null,
+        "status": "0",
+        "message": e.toString(),
+        "data": null,
+        "raw": null,
+      };
+    }
+  }
+
+  Future<NewFilterModel> newFilters(String? catId) async {
+    try {
+      final dio = Dio();
+      final Map<String, dynamic> body = {"cat_id": catId ?? "8"};
+      print("cat_id: $catId");
+
+      final response = await dio.post(
+        "https://esganalytix.com/admin/api/get-filter-data",
+        data: body,
+        options: Options(
+          headers: await global.getApiHeaders(false),
+          validateStatus: (status) => status != null && status < 500,
+        ),
+      );
+
+      // unwrap typical Dio Response -> payload map
+      dynamic payload = response.data ?? {};
+      print("G1-----> response data: $payload");
+
+      if (payload is Map<String, dynamic>) {
+        final statusStr = payload['status']?.toString() ?? '';
+        if (response.statusCode == 200 && statusStr == "1") {
+          // Parse into your model (handles data being Map or List)
+          final model = NewFilterModel.fromJson(payload);
+          print("Parsed filters count: ${model.data?.length ?? 0}");
+          return model;
+        } else {
+          // Return a model representing the failure (keeps API consistent)
+          return NewFilterModel(
+            status: payload['status']?.toString() ?? '0',
+            message: payload['message']?.toString() ?? 'Unknown error',
+            data: [],
+          );
+        }
+      } else {
+        // Unexpected shape — return a failure model
+        print("Unexpected payload type: ${payload.runtimeType}");
+        return NewFilterModel(
+          status: "0",
+          message: "Unexpected payload type: ${payload.runtimeType}",
+          data: [],
+        );
+      }
+    } catch (e, st) {
+      print("FILTER CATEGORY error: $e");
+      print(st);
+      return NewFilterModel(
+        status: "0",
+        message: e.toString(),
+        data: [],
+      );
+    }
+  }
 }
 
 // API CALLS ABHISHEK >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -4149,8 +4340,8 @@ Future<dynamic> oneAPIfirst(Object? object) async {
 
     if (response.statusCode == 200 && status == "1") {
       // If API sends list of events → parse here
-      if (response.data["events"] is List) {
-        recordList = response.data["events"].map((x) => x).toList();
+      if (response.data["eventsoccasion"] is List) {
+        recordList = response.data["eventsoccasion"].map((x) => x).toList();
         print(recordList);
         print("api sucesssssssss>>>>>>>>>>>>>>>>>>>>>>>");
       } else {

@@ -1804,7 +1804,7 @@ class _FilteredSubCategoriesScreenState extends BaseRouteState {
                   : !global.isSubCatSelected &&
                           (selectedCatID != null && selectedCatID! > 0)
                       ? "parent"
-                      : "")
+                      : "",null)
           .then((result) async {
         if (result != null && result.data != null) {
           // if (result.status == "1") {

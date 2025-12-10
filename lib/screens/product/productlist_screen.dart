@@ -223,7 +223,7 @@ class _ProductListScreenState extends BaseRouteState {
           page++;
         }
         await apiHelper
-            .getCategoryProducts(categoryId!, page, _productFilter, 1)
+            .getCategoryProducts(categoryId!, page, _productFilter, 1 , "","","","","","","","","","")
             .then((result) async {
           print("This is the result${result}");
           if (result != null) {

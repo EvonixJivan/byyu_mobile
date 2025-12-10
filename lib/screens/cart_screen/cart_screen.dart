@@ -2,7 +2,7 @@ import 'package:byyu/models/cartModel.dart';
 import 'package:byyu/screens/notification_screen.dart';
 import 'package:byyu/screens/product/product_description_screen.dart';
 import 'package:byyu/screens/search_screen.dart';
-import 'package:byyu/widgets/side_drawer.dart';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 

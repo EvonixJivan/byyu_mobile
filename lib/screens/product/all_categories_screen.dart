@@ -166,40 +166,28 @@ class _AllCategoriesScreenState extends BaseRouteState {
               ],
             )
           : AppBar(
-              backgroundColor: ColorConstants.white,
-              centerTitle: false,
-              title: Text(
-                  "All Categories"
-                  // "${AppLocalizations.of(context).tle_all_category} "
-                  ,
-                  style: TextStyle(
-                      fontFamily: global.fontRailwayRegular,
-                      fontWeight: FontWeight.normal,
-                      color: ColorConstants.pureBlack) //textTheme.titleLarge,
-                  ),
-              automaticallyImplyLeading: false,
-              // leading: fromNavBar!=null && fromNavBar==true?Container(): BackButton(
-              //   onPressed: () {
-              //     if (global.iscatListRouting) {
-              //       global.iscatListRouting = false;
-              //       setState(() {});
-              //       Navigator.push(
-              //           context,
-              //           MaterialPageRoute(
-              //               builder: (context) => HomeScreen(
-              //                     a: widget.analytics,
-              //                     o: widget.observer,
-              //                     selectedIndex: 0,
-              //                   )));
-              //     } else {
-              //       print("Go back");
-              //       Navigator.pop(context);
-              //     }
-              //   },
-              //   //icon: Icon(Icons.keyboard_arrow_left),
-              //   color: ColorConstants.pureBlack,
-              // ),
-            ),
+  backgroundColor: ColorConstants.white,
+  centerTitle: true,
+  automaticallyImplyLeading: false,
+
+  // Back Icon
+  leading: IconButton(
+    icon: Icon(Icons.arrow_back,  color: ColorConstants.appColor,),
+    onPressed: () {
+      Navigator.pop(context);
+    },
+  ),
+
+  // Center Title
+  title: Text(
+    "All Categories",
+    style: TextStyle(
+      fontFamily: global.fontRailwayRegular,
+      fontWeight: FontWeight.normal,
+      color: ColorConstants.appColor,
+    ),
+  ),
+),
       //AAA--> body
       // body: RefreshIndicator(
       //   onRefresh: () async {

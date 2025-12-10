@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:byyu/models/eventsListModel.dart';
 import 'package:byyu/models/userModel.dart';
 import 'package:byyu/screens/product/buy_together_screen.dart';
+import 'package:byyu/screens/product/wishlist_screen.dart';
 import 'package:byyu/screens/search_screen.dart';
 import 'package:byyu/widgets/addOn_bottom_sheet.dart';
 import 'package:byyu/widgets/cart_bottom_sheet.dart';
@@ -362,6 +363,52 @@ class _ProductDescriptionScreenState extends BaseRouteState {
                   ),
                 ),
               ),
+              // SizedBox(
+              //   width: 8,
+              // ),
+              // InkWell(
+              //   onTap: () {
+              //     if (global.stayLoggedIN == null || !global.stayLoggedIN!) {
+              //       // User not logged in → Navigate to login screen
+              //       Navigator.push(
+              //         context,
+              //         MaterialPageRoute(
+              //           builder: (context) => LoginScreen(
+              //             a: widget.analytics,
+              //             o: widget.observer,
+              //           ),
+              //         ),
+              //       );
+              //     } else {
+              //       // User logged in → Go to Wishlist tab
+              //       Navigator.push(
+              //         context,
+              //         MaterialPageRoute(
+              //           builder: (context) => WishListScreen(
+              //             a: widget.analytics,
+              //             o: widget.observer,
+              //           ),
+              //         ),
+              //       );
+              //     }
+              //     global.routingProductID = 0;
+              //     // Navigator.of(context).push(MaterialPageRoute(
+              //     //     builder: (context) => WishListScreen(
+              //     //           a: widget.analytics,
+              //     //           o: widget.observer,
+              //     //           // fromBottomNvigation: false,
+              //     //         )));
+              //   },
+              //   child: Padding(
+              //     padding: EdgeInsets.only(top: 16, bottom: 16, left: 8),
+              //     child: Image.asset(
+              //       "assets/images/ic_nav_favorites.png",
+              //       fit: BoxFit.contain,
+              //       height: 28,
+              //       alignment: Alignment.center,
+              //     ),
+              //   ),
+              // ),
               SizedBox(
                 width: 8,
               ),
@@ -964,7 +1011,15 @@ class _ProductDescriptionScreenState extends BaseRouteState {
                                   ],
                                 ),
                               ),
-
+_productDetail.deliveryInformation != null &&
+                  _productDetail.deliveryInformation!.length > 0 &&
+                  _productDetail.deliveryInformation![0].productRowsName !=
+                      null &&
+                  _productDetail.deliveryInformation![0].productRowsName!
+                          .trim()
+                          .length >
+                      0
+              ?
                               Theme(
                                 data: ThemeData()
                                     .copyWith(dividerColor: Colors.transparent),
@@ -976,7 +1031,7 @@ class _ProductDescriptionScreenState extends BaseRouteState {
                                   key: Key('section1 ${parent.toString()}'),
                                   childrenPadding: EdgeInsets.only(left: 10),
                                   title: Text(
-                                    "After Care Instructions",
+                                    "Delivery Information",
                                     style: sectionTextStyle,
                                   ),
                                   initiallyExpanded: parent == 1,
@@ -1003,7 +1058,7 @@ class _ProductDescriptionScreenState extends BaseRouteState {
                                   children: [
                                     Html(
                                       data:
-                                          "${_productDetail.productDetail!.description}",
+                                          "${_productDetail.deliveryInformation![0].productRowsName}",
                                       style: {
                                         "body": Style(
                                             fontFamily: fontRailwayRegular,
@@ -1016,7 +1071,7 @@ class _ProductDescriptionScreenState extends BaseRouteState {
                                     ),
                                   ],
                                 ),
-                              ),
+                              ): Container(),
                               SizedBox(
                                 height: 30,
                               ),
@@ -2473,57 +2528,57 @@ class _ProductDescriptionScreenState extends BaseRouteState {
           //         ))
           //     : SizedBox(),
 
-          _productDetail.deliveryInformation != null &&
-                  _productDetail.deliveryInformation!.length > 0 &&
-                  _productDetail.deliveryInformation![0].productRowsName !=
-                      null &&
-                  _productDetail.deliveryInformation![0].productRowsName!
-                          .trim()
-                          .length >
-                      0
-              ? Container(
-                  width: MediaQuery.of(context).size.width,
-                  margin:
-                      EdgeInsets.only(top: 10, bottom: 5, right: 10, left: 10),
-                  child: Text(
-                    "Delivery Information",
-                    textAlign: TextAlign.left,
-                    style: TextStyle(
-                        fontFamily: global.fontMontserratLight,
-                        fontWeight: FontWeight.w300,
-                        fontSize: 15,
-                        color: ColorConstants.pureBlack),
-                  ),
-                )
-              : SizedBox(),
-          _productDetail.deliveryInformation != null &&
-                  _productDetail.deliveryInformation!.length > 0 &&
-                  _productDetail.deliveryInformation![0].productRowsName !=
-                      null &&
-                  _productDetail.deliveryInformation![0].productRowsName!
-                          .trim()
-                          .length >
-                      0
-              ? Container(
-                  margin: EdgeInsets.only(left: 10, right: 10, top: 10),
-                  child: Html(
-                    data: _productDetail.deliveryInformation!.length > 0 &&
-                            _productDetail
-                                    .deliveryInformation![0].productRowsName !=
-                                null
-                        ? "${_productDetail.deliveryInformation![0].productRowsName}"
-                        : "",
-                    style: {
-                      "body": Style(
-                          fontFamily: fontRailwayRegular,
-                          fontWeight: FontWeight.w300,
-                          fontSize: FontSize.medium,
-                          color: ColorConstants.pureBlack)
-                      // Style(color: Theme.of(context).textTheme.bodyText1.color),
-                    },
-                  ),
-                )
-              : SizedBox(),
+          // _productDetail.deliveryInformation != null &&
+          //         _productDetail.deliveryInformation!.length > 0 &&
+          //         _productDetail.deliveryInformation![0].productRowsName !=
+          //             null &&
+          //         _productDetail.deliveryInformation![0].productRowsName!
+          //                 .trim()
+          //                 .length >
+          //             0
+          //     ? Container(
+          //         width: MediaQuery.of(context).size.width,
+          //         margin:
+          //             EdgeInsets.only(top: 10, bottom: 5, right: 10, left: 10),
+          //         child: Text(
+          //           "Delivery Information",
+          //           textAlign: TextAlign.left,
+          //           style: TextStyle(
+          //               fontFamily: global.fontMontserratLight,
+          //               fontWeight: FontWeight.w300,
+          //               fontSize: 15,
+          //               color: ColorConstants.pureBlack),
+          //         ),
+          //       )
+          //     : SizedBox(),
+          // _productDetail.deliveryInformation != null &&
+          //         _productDetail.deliveryInformation!.length > 0 &&
+          //         _productDetail.deliveryInformation![0].productRowsName !=
+          //             null &&
+          //         _productDetail.deliveryInformation![0].productRowsName!
+          //                 .trim()
+          //                 .length >
+          //             0
+          //     ? Container(
+          //         margin: EdgeInsets.only(left: 10, right: 10, top: 10),
+          //         child: Html(
+          //           data: _productDetail.deliveryInformation!.length > 0 &&
+          //                   _productDetail
+          //                           .deliveryInformation![0].productRowsName !=
+          //                       null
+          //               ? "${_productDetail.deliveryInformation![0].productRowsName}"
+          //               : "",
+          //           style: {
+          //             "body": Style(
+          //                 fontFamily: fontRailwayRegular,
+          //                 fontWeight: FontWeight.w300,
+          //                 fontSize: FontSize.medium,
+          //                 color: ColorConstants.pureBlack)
+          //             // Style(color: Theme.of(context).textTheme.bodyText1.color),
+          //           },
+          //         ),
+          //       )
+          //     : SizedBox(),
 
           (_productDetail.productDetail!.varient!.length > 1 ||
                   _productDetail.productDetail!.vegOrNonveg != null &&

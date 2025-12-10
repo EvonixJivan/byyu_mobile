@@ -33,6 +33,8 @@ class Base extends StatefulWidget {
 
   Base({this.analytics, this.observer, this.routeName});
 
+  get sortOptions => null;
+
   @override
   BaseState createState() => BaseState();
 

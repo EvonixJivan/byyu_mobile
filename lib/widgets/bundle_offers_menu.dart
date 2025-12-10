@@ -515,7 +515,7 @@ class _BundleOffersMenuItemState extends State<BundleOffersMenuItem> {
                                       onTap: () {
                                         print("Nikhil-----this is on pressed");
 
-                                        addToCartRO(1);
+                                        addToCartRO(1,"add");
                                       },
                                       child: Padding(
                                         padding: const EdgeInsets.only(
@@ -573,7 +573,7 @@ class _BundleOffersMenuItemState extends State<BundleOffersMenuItem> {
                                               print("nikhil");
                                               if (product!.cartQty! >= 0) {
                                                 addToCartRO(
-                                                    product!.cartQty! - 1);
+                                                    product!.cartQty! - 1 , "remove");
                                                 _qty = _qty! - 1;
                                               }
 
@@ -617,7 +617,7 @@ class _BundleOffersMenuItemState extends State<BundleOffersMenuItem> {
                                                     product!.cartQty! + 1;
                                               }
                                               _qty = _qty! + 1;
-                                              addToCartRO(_qty!);
+                                              addToCartRO(_qty!, "add");
                                               setState(() {});
                                             },
                                             child: Container(
@@ -817,7 +817,7 @@ class _BundleOffersMenuItemState extends State<BundleOffersMenuItem> {
     showToast(snackBarMessage);
   }
 
-  void addToCartRO(int qty) async {
+  void addToCartRO(int qty,String status) async {
     showOnlyLoaderDialog();
     print("Nikhil ADD TO CART RO");
     try {
@@ -851,7 +851,7 @@ class _BundleOffersMenuItemState extends State<BundleOffersMenuItem> {
               product!.price!,
               qty,
               product!.mrp!,
-              false,
+              status == "add" ? true : false,
               false);
           if (global.cartCount > 0) {
             global.cartCount = global.cartCount - 1;

@@ -7,7 +7,6 @@ import 'package:byyu/screens/auth/add_member.dart';
 import 'package:byyu/screens/auth/login_screen.dart';
 import 'package:byyu/screens/auth/user_members_list_sccreen.dart';
 import 'package:byyu/screens/product/search_results_screen.dart';
-import 'package:byyu/screens/product/sub_categories_screen%20copy.dart';
 import 'package:byyu/screens/product/sub_categories_screen.dart';
 import 'package:byyu/screens/webviewDrawer.dart';
 import 'package:byyu/utils/navigation_utils.dart';
@@ -228,6 +227,8 @@ class _NewSideDrawerState extends State<NewSideDrawer> {
           return InkWell(
             borderRadius: BorderRadius.circular(8),
             onTap: () {
+                print(_minAge);
+                   print(_maxAge);
               print("G1------->111111");
               global.isSubCatSelected = true;
               Navigator.push(
@@ -496,6 +497,12 @@ class _NewSideDrawerState extends State<NewSideDrawer> {
                   setState(() {});
                   final name = item["title"];
                   final id = item["cat_id"];
+                  final subcatID = item["cat_id"]?.toString().trim().isNotEmpty == true
+    ? item["cat_id"].toString()
+    : ""; 
+    global.isSubCatSelected = item["parent"] != 0 ? true : false;
+  global.homeSelectedCatID = item["parent"] != 0 ? item["cat_id"] : 05;
+  
 
                   // guard against missing id
                   if (id == null) {
@@ -505,7 +512,7 @@ class _NewSideDrawerState extends State<NewSideDrawer> {
 
                   print(
                       "Tapped:>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> $name (id: $id)");
-
+global.isEventProduct = false;
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -518,7 +525,7 @@ class _NewSideDrawerState extends State<NewSideDrawer> {
                         screenHeading: name,
                         categoryId: id,
                         isEventProducts: false,
-                        isSubcategory: false,
+                         isSubcategory: item["parent"] != 0 ? true : false,
                       ),
                     ),
                   );
@@ -832,6 +839,7 @@ class _NewSideDrawerState extends State<NewSideDrawer> {
 
                               // If Express Delivery (index 2) → Navigate
                               if (index == 2) {
+
                                 global.isSubCatSelected = true;
                                 Navigator.push(
                                   context,
@@ -844,9 +852,10 @@ class _NewSideDrawerState extends State<NewSideDrawer> {
                                       categoryId: null,
                                       isEventProducts: true,
                                       isSubcategory: false,
-                                      // minAge: _minAge,
-                                      // maxAge: _maxAge,
-                                      // recipientId: null,
+                                      DeliveryType: 1,
+                                      minAge: null,
+                                      maxAge: null,
+                                       recipientId: null,
                                     ),
                                   ),
                                 );
@@ -1071,9 +1080,10 @@ class _NewSideDrawerState extends State<NewSideDrawer> {
           if (result["status"] == "1") {
             final list = result["data"] is List
                 ? result["data"]
-                : result["data"]["events"] ?? [];
+                : result["data"]["eventsoccasion"] ?? [];
 
             celebrateEvents = List.from(list);
+            print(list.toString());
             print("Total events: ${celebrateEvents.length}");
 
             setState(() {});

@@ -5,7 +5,8 @@ import 'package:byyu/constants/color_constants.dart';
 import 'package:byyu/models/businessLayer/global.dart';
 import 'package:byyu/screens/home_screen.dart';
 import 'package:byyu/screens/web_view/web_view.dart';
-import 'package:byyu/widgets/side_drawer.dart';
+import 'package:byyu/widgets/new_side_drawer.dart';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:email_validator/email_validator.dart';
@@ -73,7 +74,7 @@ class _CorporateGiftsScreenState extends BaseRouteState {
     return Scaffold(
       backgroundColor: ColorConstants.colorPageBackground,
       drawerEnableOpenDragGesture: true,
-      drawer: SideDrawer(
+      drawer: NewSideDrawer(
         analytics: widget.analytics,
         observer: widget.observer,
       ),

@@ -1,11 +1,13 @@
 import 'dart:io';
+// import 'dart:js_interop';
 import 'dart:math';
 import 'package:banner_image/banner_image.dart';
 import 'package:byyu/screens/auth/signup_screen.dart';
 import 'package:byyu/screens/product/all_events_screen.dart';
 import 'package:byyu/screens/product/filtered_sub_categories_screen.dart';
 import 'package:byyu/screens/product/product_description_screen.dart';
-import 'package:byyu/widgets/side_drawer.dart';
+import 'package:byyu/widgets/new_side_drawer.dart';
+
 import 'package:byyu/widgets/toastfile.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -334,7 +336,7 @@ class _DashboardScreenState extends BaseRouteState with WidgetsBindingObserver {
       key: _scaffoldKey,
       drawerEnableOpenDragGesture: global.showHamburgerMenu == 1 ? true : false,
       drawer: global.showHamburgerMenu == 1
-          ? SideDrawer(
+          ? NewSideDrawer(
               analytics: widget.analytics,
               observer: widget.observer,
             )
@@ -648,6 +650,8 @@ class _DashboardScreenState extends BaseRouteState with WidgetsBindingObserver {
                                                         (context, index) {
                                                       return InkWell(
                                                         onTap: () {
+                                                           print(
+                                                              "CHECKKKKIDMAIN<<<<<<<<<<<<<<<<<<<<<<<${global.homeSelectedCatID}");
                                                           global.homeSelectedCatID =
                                                               _homeScreenData!
                                                                   .events![
@@ -655,6 +659,9 @@ class _DashboardScreenState extends BaseRouteState with WidgetsBindingObserver {
                                                                   .id!;
                                                           global.isEventProduct =
                                                               true;
+
+                                                          print(
+                                                              "CHECKKKKIDMAIN<<<<<<<<<<<<<<<<<<<<<<<${global.homeSelectedCatID}");
                                                           Navigator.push(
                                                               context,
                                                               MaterialPageRoute(
@@ -668,7 +675,8 @@ class _DashboardScreenState extends BaseRouteState with WidgetsBindingObserver {
                                                                             screenHeading:
                                                                                 _homeScreenData!.events![index].eventName,
                                                                             categoryId:
-                                                                                _homeScreenData!.events![index].id,
+                                                                                // _homeScreenData!.events![index].id,
+                                                                                bannerEventIconURL[index].eventID,
                                                                             isEventProducts:
                                                                                 true,
                                                                             isSubcategory:
@@ -1463,6 +1471,31 @@ class _DashboardScreenState extends BaseRouteState with WidgetsBindingObserver {
                       //     width: MediaQuery.of(context).size.width,
                       //   ),
                       // ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 15, bottom: 25),
+                        child: Container(
+                          alignment: Alignment.centerLeft,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment:
+                                CrossAxisAlignment.start, // ← FIX HERE
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(left: 10),
+                                child: Text(
+                                  "Exclusive Picks",
+                                  style: TextStyle(
+                                      fontFamily: global.fontRailwayRegular,
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 19,
+                                      color:
+                                          ColorConstants.newTextHeadingFooter),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
                       Container(
                           margin: EdgeInsets.only(left: 10, right: 10),
                           // height: 160,
@@ -2515,6 +2548,8 @@ class _DashboardScreenState extends BaseRouteState with WidgetsBindingObserver {
                       _homeScreenData!.eventsoccasion![i].eventName!,
                       _homeScreenData!.eventsoccasion![i].eventImage! +
                           "?width=500&height=500"));
+                  print(
+                      "EVENT OCCASSION DATA>>>>>>>>>>${_homeScreenData!.eventsoccasion.toString()}");
                 }
               }
             }

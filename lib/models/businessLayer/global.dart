@@ -50,7 +50,8 @@ String catImageBaseUrl = 'https://byyu.com/admin/';
 // String catImageBaseUrl = 'https://byyu.com/adminDev/';
 
 // String baseUrl = 'https://esganalytix.com/admin/api/'; //this is dev base URL
-String baseUrl = 'https://byyu.com/admin/api/'; //this is live base URL
+// String baseUrl = 'https://byyu.com/admin/api/'; //this is live base URL
+String baseUrl ='https://www.byyu.com/admin/api/';
 // String baseUrl = 'https://byyu.com/adminDev/api/'; //this  is devBaseUrl
 String nodeBaseUrl =
     'http://node.byyu.com/api/'; //'https://byyu.com/admin/api/'; //node this is live base URL

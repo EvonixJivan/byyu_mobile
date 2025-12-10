@@ -600,7 +600,7 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
                                       total_delivery_count:
                                           global.total_delivery_count,
                                       // selectedDate: DateTime.now(),
-                                      selectedTime: "11:00 am - 12:00 pm",
+                                      selectedTime: "",
                                       is_subscription: null,
                                       selectedAddressID: 0,
                                       selectedAddress: selectedAddress,

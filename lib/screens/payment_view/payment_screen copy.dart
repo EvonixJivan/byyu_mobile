@@ -25,7 +25,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
-import 'package:byyu/widgets/side_drawer.dart';
+
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
 
@@ -35,6 +35,7 @@ import 'package:get/get_utils/get_utils.dart';
 import 'package:go_sell_sdk_flutter/go_sell_sdk_flutter.dart';
 import 'package:go_sell_sdk_flutter/model/models.dart';
 import 'package:http/http.dart';
+import 'package:intl/intl.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:material_text_fields/material_text_fields.dart';
 import 'package:material_text_fields/theme/material_text_field_theme.dart';
@@ -165,6 +166,7 @@ class _PaymentGatewayScreenState extends BaseRouteState
   String guestAddress = "";
   bool guestDeliveryTimeslotbool = false;
   bool isCardSelected = true;
+  String couponTextCheck = "";
 
   double totalWalletAmount = 0.00;
   double totalWalletSpendings = 0.00;
@@ -678,67 +680,67 @@ class _PaymentGatewayScreenState extends BaseRouteState
                                                             ),
                                                             InkWell(
                                                               onTap: () {
-                                                                Navigator.of(
-                                                                        context)
-                                                                    .push(
-                                                                      NavigationUtils
-                                                                          .createAnimatedRoute(
-                                                                        1.0,
-                                                                        CouponsScreen(
-                                                                          a: widget
-                                                                              .analytics,
-                                                                          o: widget
-                                                                              .observer,
-                                                                          screenId:
-                                                                              0,
-                                                                          fromDrawer:
-                                                                              false,
-                                                                          screenIdO:
-                                                                              screenId,
-                                                                          cartId: cartController
-                                                                              .cartItemsList
-                                                                              .cartData!
-                                                                              .cartProductdata![0]
-                                                                              .storeId
-                                                                              .toString(),
-                                                                          total_delivery:
-                                                                              global.total_delivery_count,
-                                                                          cartController:
-                                                                              cartController,
-                                                                        ),
-                                                                      ),
-                                                                    )
-                                                                    .then(
-                                                                        (value) =>
-                                                                            {
-                                                                              setState(() {
-                                                                                if (value != null) {
-                                                                                  showCouponField = false;
-                                                                                  boolCouponCodeError = false;
-                                                                                  CouponCode couponCode = value;
-                                                                                  double percentCalOfCoupon = 0;
-                                                                                  couponDiscount = 0.0;
+                                                                // Navigator.of(
+                                                                //         context)
+                                                                //     .push(
+                                                                //       NavigationUtils
+                                                                //           .createAnimatedRoute(
+                                                                //         1.0,
+                                                                //         CouponsScreen(
+                                                                //           a: widget
+                                                                //               .analytics,
+                                                                //           o: widget
+                                                                //               .observer,
+                                                                //           screenId:
+                                                                //               0,
+                                                                //           fromDrawer:
+                                                                //               false,
+                                                                //           screenIdO:
+                                                                //               screenId,
+                                                                //           cartId: cartController
+                                                                //               .cartItemsList
+                                                                //               .cartData!
+                                                                //               .cartProductdata![0]
+                                                                //               .storeId
+                                                                //               .toString(),
+                                                                //           total_delivery:
+                                                                //               global.total_delivery_count,
+                                                                //           cartController:
+                                                                //               cartController,
+                                                                //         ),
+                                                                //       ),
+                                                                //     )
+                                                                //     .then(
+                                                                //         (value) =>
+                                                                //             {
+                                                                //               setState(() {
+                                                                //                 if (value != null) {
+                                                                //                   showCouponField = false;
+                                                                //                   boolCouponCodeError = false;
+                                                                //                   CouponCode couponCode = value;
+                                                                //                   double percentCalOfCoupon = 0;
+                                                                //                   couponDiscount = 0.0;
 
-                                                                                  couponDiscount = couponCode != null ? couponCode.save_amount! : 0.0;
-                                                                                  couponCodeStr = couponCode != null ? couponCode.coupon_code : "";
-                                                                                  couponid = couponCode != null ? couponCode.coupon_id! : 0;
-                                                                                  if (couponDiscount > 0) {
-                                                                                    isCouponCodeVisible = true;
-                                                                                    isDiscountCodeVisible = false;
-                                                                                  } else {
-                                                                                    isCouponCodeVisible = false;
-                                                                                    isDiscountCodeVisible = true;
-                                                                                  }
-                                                                                  _isCOD = 0;
+                                                                //                   couponDiscount = couponCode != null ? couponCode.save_amount! : 0.0;
+                                                                //                   couponCodeStr = couponCode != null ? couponCode.coupon_code : "";
+                                                                //                   couponid = couponCode != null ? couponCode.coupon_id! : 0;
+                                                                //                   if (couponDiscount > 0) {
+                                                                //                     isCouponCodeVisible = true;
+                                                                //                     isDiscountCodeVisible = false;
+                                                                //                   } else {
+                                                                //                     isCouponCodeVisible = false;
+                                                                //                     isDiscountCodeVisible = true;
+                                                                //                   }
+                                                                //                   _isCOD = 0;
 
-                                                                                  if ((addAmount - couponDiscount).toStringAsFixed(2) == "0.00" || (addAmount - couponDiscount).toStringAsFixed(2) == "-0.00" || (addAmount - couponDiscount).toStringAsFixed(2) == "0.0") {
-                                                                                    isAlertVisible = false;
-                                                                                  }
-                                                                                }
-                                                                              }),
-                                                                              walletAppliedRemoved(),
-                                                                            });
-                                                                setState(() {});
+                                                                //                   if ((addAmount - couponDiscount).toStringAsFixed(2) == "0.00" || (addAmount - couponDiscount).toStringAsFixed(2) == "-0.00" || (addAmount - couponDiscount).toStringAsFixed(2) == "0.0") {
+                                                                //                     isAlertVisible = false;
+                                                                //                   }
+                                                                //                 }
+                                                                //               }),
+                                                                //               walletAppliedRemoved(),
+                                                                //             });
+                                                                // setState(() {});
                                                               },
                                                               child:
                                                                   Image.asset(
@@ -793,47 +795,37 @@ class _PaymentGatewayScreenState extends BaseRouteState
                                                                 ),
                                                                 height: 40,
                                                                 child:
-                                                                    MyTextField(
-                                                                  Key('21'),
-                                                                  textCapitalization:
-                                                                      TextCapitalization
-                                                                          .characters,
-                                                                  controller:
-                                                                      _txtApplyCoupan,
-                                                                  focusNode:
-                                                                      _fCoupan,
-                                                                  hintText:
-                                                                      'Enter coupon code',
-                                                                  maxLines: 1,
-                                                                  onChanged:
-                                                                      (p0) {
-                                                                    if (p0.length >
-                                                                        0) {
-                                                                      boolCouponCodeError =
-                                                                          false;
-                                                                      setState(
-                                                                          () {});
-                                                                    }
-                                                                    setState(
-                                                                        () {});
-                                                                  },
-                                                                  onFieldSubmitted:
-                                                                      (val) {},
-                                                                  suffixIcon:
-                                                                      InkWell(
-                                                                    onTap: () {
-                                                                      _txtApplyCoupan
-                                                                          .text = "";
-                                                                    },
-                                                                    child: Icon(
-                                                                      Icons
-                                                                          .cancel,
-                                                                      size: 20,
-                                                                      color: ColorConstants
-                                                                          .newAppColor,
-                                                                    ),
-                                                                  ),
-                                                                ),
+                                                                   MyTextField(
+  Key('21'),
+  textCapitalization: TextCapitalization.characters,
+  controller: _txtApplyCoupan,
+  focusNode: _fCoupan,
+  hintText: 'Enter coupon code',
+  maxLines: 1,
+  onChanged: (value) {
+    setState(() {
+      boolCouponCodeError = false;
+      couponTextCheck = value;
+    });
+  },
+  onFieldSubmitted: (val) {},
+  suffixIcon: _txtApplyCoupan.text.isNotEmpty
+      ? IconButton(
+          icon: Icon(
+            Icons.cancel,
+            size: 20,
+            color: ColorConstants.newAppColor,
+          ),
+          onPressed: () {
+            _txtApplyCoupan.clear();
+            setState(() {
+              couponTextCheck = "";
+            });
+          },
+        )
+      : null,
+),
+
                                                               ),
                                                             ),
                                                             SizedBox(width: 5),
@@ -1790,38 +1782,6 @@ class _PaymentGatewayScreenState extends BaseRouteState
                                                       mainAxisAlignment:
                                                           MainAxisAlignment
                                                               .spaceBetween,
-                                                      // children: [
-                                                      //   Text(
-                                                      //     "Wallet Amount",
-                                                      //     style: TextStyle(
-                                                      //         fontFamily:
-                                                      //             fontRalewayMedium,
-                                                      //         fontWeight:
-                                                      //             FontWeight.w600,
-                                                      //         fontSize:
-                                                      //             priceDetailsLabelFontSize,
-                                                      //         color: ColorConstants
-                                                      //             .pureBlack),
-                                                      //   ),
-                                                      //   Text(
-                                                      //     cartController
-                                                      //                 .cartItemsList
-                                                      //                 .cartData!
-                                                      //                 .deliveryCharge ==
-                                                      //             0.0
-                                                      //         ? "AED ${(cartController.cartItemsList.cartData!.deliverychargediscount!.toStringAsFixed(2))} (+)"
-                                                      //         : "AED ${(cartController.cartItemsList.cartData!.deliveryCharge!.toStringAsFixed(2))} (+)",
-                                                      //     style: TextStyle(
-                                                      //         fontFamily:
-                                                      //             fontRailwayRegular,
-                                                      //         fontWeight:
-                                                      //             FontWeight.w200,
-                                                      //         fontSize:
-                                                      //             priceDetailsLValueFontSize,
-                                                      //         color: ColorConstants
-                                                      //             .appColor),
-                                                      //   ),
-                                                      // ],
                                                     ),
                                                   ),
                                                   SizedBox(height: 3),
@@ -2064,118 +2024,6 @@ class _PaymentGatewayScreenState extends BaseRouteState
                               ),
                             )),
                         SizedBox(height: 10),
-
-                        // Visibility(
-                        //   visible: boolCouponCodeError,
-                        //   child: Container(
-                        //     width: MediaQuery.of(context).size.width - 20,
-                        //     child: Text(strCouponCodeError,
-                        //         maxLines: 2,
-                        //         overflow: TextOverflow.ellipsis,
-                        //         textAlign: TextAlign.start,
-                        //         style: TextStyle(
-                        //             fontFamily: global.fontRailwayRegular,
-                        //             fontWeight: FontWeight.w200,
-                        //             fontSize: 11,
-                        //             color: ColorConstants.appColor)),
-                        //   ),
-                        // ),
-
-                        // Visibility(
-                        //     visible: !isCouponCodeVisible,
-                        //     child: Container(
-                        //       padding: const EdgeInsets.only(
-                        //         left: 10,
-                        //         right: 10,
-                        //       ),
-                        //       width: MediaQuery.of(context).size.width,
-                        //       color: ColorConstants.colorPageBackground,
-                        //       child: InkWell(
-                        //         onTap: () {
-                        //           Navigator.of(context)
-                        //               .push(
-                        //                 NavigationUtils.createAnimatedRoute(
-                        //                   1.0,
-                        //                   CouponsScreen(
-                        //                     a: widget.analytics,
-                        //                     o: widget.observer,
-                        //                     screenId: 0,
-                        //                     fromDrawer: false,
-                        //                     screenIdO: screenId,
-                        //                     cartId: cartController
-                        //                         .cartItemsList
-                        //                         .cartData!
-                        //                         .cartProductdata![0]
-                        //                         .storeId
-                        //                         .toString(),
-                        //                     total_delivery:
-                        //                         global.total_delivery_count,
-                        //                     cartController: cartController,
-                        //                   ),
-                        //                 ),
-                        //               )
-                        //               .then((value) => {
-                        //                     setState(() {
-                        //                       if (value != null) {
-                        //                         showCouponField = false;
-                        //                         boolCouponCodeError = false;
-                        //                         CouponCode couponCode = value;
-                        //                         double percentCalOfCoupon = 0;
-                        //                         couponDiscount = 0.0;
-
-                        //                         couponDiscount = couponCode != null
-                        //                             ? couponCode.save_amount!
-                        //                             : 0.0;
-                        //                         couponCodeStr = couponCode != null
-                        //                             ? couponCode.coupon_code
-                        //                             : "";
-                        //                         couponid = couponCode != null
-                        //                             ? couponCode.coupon_id!
-                        //                             : 0;
-                        //                         if (couponDiscount > 0) {
-                        //                           isCouponCodeVisible = true;
-                        //                           isDiscountCodeVisible = false;
-                        //                         } else {
-                        //                           isCouponCodeVisible = false;
-                        //                           isDiscountCodeVisible = true;
-                        //                         }
-                        //                         _isCOD = 0;
-                        //                         selectedPaymentType = "Wallet";
-
-                        //                         if ((addAmount - couponDiscount)
-                        //                                     .toStringAsFixed(2) ==
-                        //                                 "0.00" ||
-                        //                             (addAmount - couponDiscount)
-                        //                                     .toStringAsFixed(2) ==
-                        //                                 "-0.00" ||
-                        //                             (addAmount - couponDiscount)
-                        //                                     .toStringAsFixed(2) ==
-                        //                                 "0.0") {
-                        //                           isAlertVisible = false;
-                        //                         }
-                        //                       }
-                        //                     }),
-                        //                     walletAppliedRemoved(),
-                        //                   });
-                        //           setState(() {});
-                        //         },
-                        //         child: Container(
-                        //           width: MediaQuery.of(context).size.width,
-                        //           padding: EdgeInsets.only(
-                        //               top: 8, bottom: 8, left: 5, right: 5),
-                        //           // child: Text(
-                        //           //   "View Coupons",
-                        //           //   textAlign: TextAlign.start,
-                        //           //   style: TextStyle(
-                        //           //     fontFamily: fontRailwayRegular,
-                        //           //     color: ColorConstants.appColor,
-                        //           //     fontWeight: FontWeight.w600,
-                        //           //     fontSize: 11,
-                        //           //   ),
-                        //           // ),
-                        //         ),
-                        //       ),
-                        //     )),
 
                         Visibility(
                           visible: global.appInfo.codEnabled == 1 &&
@@ -3868,7 +3716,9 @@ class _PaymentGatewayScreenState extends BaseRouteState
                                                           CrossAxisAlignment
                                                               .start,
                                                       children: [
+                                                       
                                                         GestureDetector(
+
                                                           onTap: () async {
                                                             FocusScope.of(
                                                                     context)
@@ -4290,7 +4140,7 @@ class _PaymentGatewayScreenState extends BaseRouteState
                                                                 EdgeInsets.only(
                                                                     top: 6),
                                                             child: Text(
-                                                              "required*",
+                                                              " Time slot required*",
                                                               style: TextStyle(
                                                                 color: ColorConstants
                                                                     .redVelvet,
@@ -4897,6 +4747,7 @@ class _PaymentGatewayScreenState extends BaseRouteState
                                                           "in condition----------1113");
 
                                                       selectedDate = pickedDate;
+                                                      
                                                       guestDeliveryDate =
                                                           "${pickedDate.day.toString().padLeft(2, '0')}-${pickedDate.month.toString().padLeft(2, '0')}-${pickedDate.year}";
                                                       loggedindeliveryDateController
@@ -4904,7 +4755,8 @@ class _PaymentGatewayScreenState extends BaseRouteState
                                                           guestDeliveryDate!;
                                                       callTimeslotAPI = true;
                                                       print(
-                                                          "G1------selecteddate---->$selectedDate");
+                                                          "G1------guestDeliveryDate---->$guestDeliveryDate");
+                                                          
                                                       _getTimeSlots(
                                                           guestDeliveryDate,
                                                           true);
@@ -5052,117 +4904,8 @@ class _PaymentGatewayScreenState extends BaseRouteState
                                                                 ),
                                                               ),
                                                             )
-                                                          // : ListView.separated(
-                                                          //     scrollDirection:
-                                                          //         Axis.horizontal,
-                                                          //     padding: EdgeInsets
-                                                          //         .symmetric(
-                                                          //             horizontal:
-                                                          //                 6,
-                                                          //             vertical:
-                                                          //                 6),
-                                                          //     itemCount:
-                                                          //         timeSlotsDropDown
-                                                          //             .length,
-                                                          //     separatorBuilder:
-                                                          //         (_, __) =>
-                                                          //             SizedBox(
-                                                          //                 width:
-                                                          //                     8),
-                                                          //     itemBuilder:
-                                                          //         (context,
-                                                          //             index) {
-                                                          //       final item =
-                                                          //           timeSlotsDropDown[
-                                                          //               index];
-                                                          //       final slotName = (item
-                                                          //               is DropDownValueModel)
-                                                          //           ? item.name
-                                                          //           : item
-                                                          //               .toString();
-                                                          //       final bool
-                                                          //           isSelected =
-                                                          //           selectedTime ==
-                                                          //               slotName;
-                                                          //       return GestureDetector(
-                                                          //         onTap: () {
-                                                          //           setState(
-                                                          //               () {
-                                                          //             _selectedTime =
-                                                          //                 slotName;
-                                                          //             selectedTime =
-                                                          //                 slotName;
-                                                          //             boolDeliverySlotErrorShow =
-                                                          //                 false;
-                                                          //             print(
-                                                          //                 selectedTime);
-                                                          //           });
-                                                          //         },
-                                                          //         child:
-                                                          //             AnimatedContainer(
-                                                          //           duration: Duration(
-                                                          //               milliseconds:
-                                                          //                   160),
-                                                          //           padding: EdgeInsets.symmetric(
-                                                          //               horizontal:
-                                                          //                   8,
-                                                          //               vertical:
-                                                          //                   8),
-                                                          //           constraints:
-                                                          //               BoxConstraints(
-                                                          //                   minWidth:
-                                                          //                       110),
-                                                          //           decoration:
-                                                          //               BoxDecoration(
-                                                          //             color: isSelected
-                                                          //                 ? Color(
-                                                          //                     0xFF8B4513)
-                                                          //                 : ColorConstants
-                                                          //                     .white,
-                                                          //             borderRadius:
-                                                          //                 BorderRadius.circular(
-                                                          //                     10),
-                                                          //             border:
-                                                          //                 Border
-                                                          //                     .all(
-                                                          //               color: isSelected
-                                                          //                   ? Color(
-                                                          //                       0xFF8B4513)
-                                                          //                   : const Color.fromARGB(
-                                                          //                       255,
-                                                          //                       232,
-                                                          //                       228,
-                                                          //                       228),
-                                                          //               width:
-                                                          //                   0.8,
-                                                          //             ),
-                                                          //           ),
-                                                          //           child:
-                                                          //               Center(
-                                                          //             child:
-                                                          //                 Text(
-                                                          //               slotName,
-                                                          //               textAlign:
-                                                          //                   TextAlign.center,
-                                                          //               style:
-                                                          //                   TextStyle(
-                                                          //                 fontFamily:
-                                                          //                     global.fontRailwayRegular,
-                                                          //                 fontSize:
-                                                          //                     13,
-                                                          //                 color: isSelected
-                                                          //                     ? Colors.white
-                                                          //                     : ColorConstants.newTextHeadingFooter,
-                                                          //                 fontWeight: isSelected
-                                                          //                     ? FontWeight.w600
-                                                          //                     : FontWeight.w400,
-                                                          //               ),
-                                                          //             ),
-                                                          //           ),
-                                                          //         ),
-                                                          //       );
-                                                          //     },
-                                                          //   )
+                                                   
+                                              
 
 // Replace your current ListView.separated with this GridView.builder
                                                           : GridView.builder(
@@ -5602,8 +5345,7 @@ class _PaymentGatewayScreenState extends BaseRouteState
                                                   color: isCardSelected
                                                       // ? ColorConstants.appColor
                                                       //     .withOpacity(0.3)
-                                                      ? ColorConstants
-                                                          .colorHomePageSectiondim
+                                                      ? ColorConstants.white
                                                       : ColorConstants.appColor,
                                                   border: Border.all(
                                                       color: ColorConstants
@@ -6616,12 +6358,26 @@ class _PaymentGatewayScreenState extends BaseRouteState
 
     super.initState();
     // boolCouponCodeError = false;
-
+    _txtApplyCoupan.addListener(() {
+      setState(() {});
+      // Rebuild UI when typing happens
+    });
+   
+    // selectedDate = DateTime.now();
+    selectedDate = DateTime.now();
+loggedindeliveryDateController.text =
+    "${DateTime.now().day.toString().padLeft(2, '0')}-"
+    "${DateTime.now().month.toString().padLeft(2, '0')}-"
+    "${DateTime.now().year}";
+    deliveryDateController.text = "${DateTime.now().day.toString().padLeft(2, '0')}-"
+    "${DateTime.now().month.toString().padLeft(2, '0')}-"
+    "${DateTime.now().year}";
     print(
-        "paymentscreen copy initstate>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>HHhhhhhhhhhhhhhh<<<<<<<<<<<<<<<<<<<<<<<");
+        "paymentscreen copy initstate>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<");
     print(currentUser);
 
     print("-----addressid");
+     print(selectedDate);
     print(selectedAddressID);
     // selectedIndex = 0;
     // print(addressList.length);
@@ -6646,7 +6402,8 @@ class _PaymentGatewayScreenState extends BaseRouteState
     // else {
     //   print("Address list is EMPTY, cannot assign default ID!");
     // }
-
+    print("checkkkkkkkkk timeslotsss");
+      _getTimeSlots(guestDeliveryDate, true);
     _getCouponsList();
     _getAppInfo();
     _init();
@@ -7561,7 +7318,12 @@ class _PaymentGatewayScreenState extends BaseRouteState
     _isDataLoaded = true;
     if (callTimeslotAPI) {
       callTimeslotAPI = true;
-
+DateTime parsedDate = DateFormat('dd-MM-yyyy').parse(selectedDate);
+  
+  // Format to yyyy-MM-dd
+  String formattedDate = DateFormat('yyyy-MM-dd').format(parsedDate);
+  
+  print("G1-------->$formattedDate");
       if (showLoading) {
         showOnlyLoaderDialog();
       }
@@ -7570,7 +7332,7 @@ class _PaymentGatewayScreenState extends BaseRouteState
             .getTimeSlots(
                 cartController
                     .cartItemsList.cartData!.cartProductdata![0].varientId!,
-                "2025-11-29")
+                formattedDate)
             .then((result) async {
           if (result != null) {
             timeSlotsDropDown.clear();

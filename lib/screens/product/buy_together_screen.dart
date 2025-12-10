@@ -1389,73 +1389,73 @@ class _BuyTogetherScreenState extends BaseRouteState {
     _init();
   }
 
-  _getBuyTogetherProductList() async {
-    _isDataLoaded = false;
-    print("Sub Category Product-------------------");
-    try {
-      // if (_isRecordPending) {
-      _productsList.clear();
-      setState(() {
-        _isMoreDataLoaded = true;
-      });
-      if (_productsList.isEmpty) {
-        page = 1;
-      } else {
-        page = page + 1;
-      }
-      List<AddOnProduct> _tList = [];
-      await apiHelper
-          .getCategoryProducts(5, page, new ProductFilter(), 1)
-          .then((result) async {
-        if (result != null) {
-          if (result.data != null) {
-            print("nikhil result---->result---->${result.data}");
+  // _getBuyTogetherProductList() async {
+  //   _isDataLoaded = false;
+  //   print("Sub Category Product-------------------");
+  //   try {
+  //     // if (_isRecordPending) {
+  //     _productsList.clear();
+  //     setState(() {
+  //       _isMoreDataLoaded = true;
+  //     });
+  //     if (_productsList.isEmpty) {
+  //       page = 1;
+  //     } else {
+  //       page = page + 1;
+  //     }
+  //     List<AddOnProduct> _tList = [];
+  //     await apiHelper
+  //         .getCategoryProducts(5, page, new ProductFilter(), 1 , "", "","","","","","",)
+  //         .then((result) async {
+  //       if (result != null) {
+  //         if (result.data != null) {
+  //           print("nikhil result---->result---->${result.data}");
 
-            _tList.clear();
-            _tList = result.data;
-            if (page == 1) {
-              _productsList.clear();
-            }
-            if (_tList.isEmpty) {
-              _isRecordPending = false;
-            }
-            _isMoreDataLoaded = false;
+  //           _tList.clear();
+  //           _tList = result.data;
+  //           if (page == 1) {
+  //             _productsList.clear();
+  //           }
+  //           if (_tList.isEmpty) {
+  //             _isRecordPending = false;
+  //           }
+  //           _isMoreDataLoaded = false;
 
-            print('Product api  count:--->${_tList.length} &&& page--->$page');
-            print('Product count1:--->${_productsList.length}');
+  //           print('Product api  count:--->${_tList.length} &&& page--->$page');
+  //           print('Product count1:--->${_productsList.length}');
 
-            if (_tList.length > 0) {
-              // _productsList.addAll(_tList);
-              print('Product count1:--->${_productsList.length}');
-              _isDataLoaded = true;
+  //           if (_tList.length > 0) {
+  //             // _productsList.addAll(_tList);
+  //             print('Product count1:--->${_productsList.length}');
+  //             _isDataLoaded = true;
 
-              setState(() {
-                _isDataLoaded = true;
-                _isMoreDataLoaded = true;
-              });
-            }
-            // }
-            else {
-              setState(() {
-                _isMoreDataLoaded = false;
-              });
-            }
-          } else {
-            _isDataLoaded = true;
-            _productsList = _productsList;
-            setState(() {
-              _isMoreDataLoaded = false;
-            });
-          }
-        } else {
-          page++;
-        }
-      });
-      // }
-    } catch (e) {
-      print("Exception - offers.dart - _getEventProduct():" + e.toString());
-    }
-  }
+  //             setState(() {
+  //               _isDataLoaded = true;
+  //               _isMoreDataLoaded = true;
+  //             });
+  //           }
+  //           // }
+  //           else {
+  //             setState(() {
+  //               _isMoreDataLoaded = false;
+  //             });
+  //           }
+  //         } else {
+  //           _isDataLoaded = true;
+  //           _productsList = _productsList;
+  //           setState(() {
+  //             _isMoreDataLoaded = false;
+  //           });
+  //         }
+  //       } else {
+  //         page++;
+  //       }
+  //     });
+  //     // }
+  //   } catch (e) {
+  //     print("Exception - offers.dart - _getEventProduct():" + e.toString());
+  //   }
+  // }
 
   _init() async {
     try {

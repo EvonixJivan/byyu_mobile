@@ -6,7 +6,7 @@ import 'package:byyu/screens/product/all_events_screen.dart';
 import 'package:byyu/screens/product/filtered_sub_categories_screen.dart';
 import 'package:byyu/screens/product/product_description_screen.dart';
 import 'package:byyu/widgets/new_side_drawer.dart';
-import 'package:byyu/widgets/side_drawer.dart';
+
 import 'package:byyu/widgets/toastfile.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';

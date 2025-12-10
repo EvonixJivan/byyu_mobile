@@ -185,7 +185,7 @@ class _MyTextFieldState extends State<MyTextField> {
           ),
           hintText: hintText,
           prefixIcon: prefixIcon,
-          suffixIcon: suffixIcon,
+          suffixIcon: widget.suffixIcon,
           hintStyle: TextStyle(
               fontFamily: fontRailwayRegular,
               fontSize: 14) //textFieldHintStyle(context),
