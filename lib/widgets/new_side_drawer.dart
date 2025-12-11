@@ -501,8 +501,9 @@ class _NewSideDrawerState extends State<NewSideDrawer> {
     ? item["cat_id"].toString()
     : ""; 
     global.isSubCatSelected = item["parent"] != 0 ? true : false;
-  global.homeSelectedCatID = item["parent"] != 0 ? item["cat_id"] : 05;
-  
+  global.homeSelectedCatID = item["parent"] != 0 ? item["cat_id"] : 0;
+  global.selectedDrawerCatID = item["parent"] != 0 ? item["parent"] : 0;
+   print("checkkkk id 11111111111 ${ global.selectedDrawerCatID}");
 
                   // guard against missing id
                   if (id == null) {
@@ -512,6 +513,11 @@ class _NewSideDrawerState extends State<NewSideDrawer> {
 
                   print(
                       "Tapped:>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> $name (id: $id)");
+
+print(
+                      "Tapped:>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> $name (subcatid: $subcatID checkkkk${global.homeSelectedCatID})");
+
+
 global.isEventProduct = false;
                   Navigator.push(
                     context,
@@ -1115,7 +1121,9 @@ global.isEventProduct = false;
             result["data"] is List ? List.from(result["data"]) : [];
 
         // Use the variable you actually want to show in UI:
+           print("API FILTER CATEGORY SUCCESS >>> ");
         filterCategoryItems = List.from(dataList);
+        print(filterCategoryItems.toString());
         // If you also need celebrateEvents for other code, set it intentionally:
 
         print("Total categories: ${filterCategoryItems.length}");

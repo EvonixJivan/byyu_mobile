@@ -76,6 +76,10 @@ class _SearchResultsScreenState extends BaseRouteState {
   int? selectedCatID;
   final CartController cartController = Get.put(CartController());
 
+
+  //new var for new filters and sort
+  
+
   _SearchResultsScreenState({
     required this.searchParams,
     required searchScreen,
@@ -380,11 +384,7 @@ class _SearchResultsScreenState extends BaseRouteState {
                                                     ),
                                                   )
                                                 : SizedBox(),
-                                            // categoriesSelectedIndex!=null && categoriesSelectedIndex!>=0?Container(
-                                            //   height: ColorConstants.filterdividerheight,
-                                            //   width: ColorConstants.filterdividerWidth,
-                                            //   color: ColorConstants.filterDivderColor,
-                                            // ):SizedBox(),
+                                          
                                             categoriesSelectedIndex != null &&
                                                     categoriesSelectedIndex! >=
                                                         0
@@ -439,89 +439,7 @@ class _SearchResultsScreenState extends BaseRouteState {
                                                             },
                                                             child: Column(
                                                               children: [
-                                                                // Container(
-                                                                //   width: 60,
-                                                                //   height: 60,
-                                                                //   color: Colors.transparent,
-                                                                //   child: Column(
-                                                                //     children: [
-                                                                //       ClipRRect(
-                                                                //         borderRadius:
-                                                                //             BorderRadius.circular(
-                                                                //                 8),
-                                                                //         child: Container(
-                                                                //           // decoration: BoxDecoration(
-                                                                //           //   borderRadius:
-                                                                //           //       BorderRadius.circular(
-                                                                //           //           10),
-                                                                //           //   border: Border.all(
-                                                                //           //       color:
-                                                                //           //           subCateSelectIndex ==
-                                                                //           //                   index
-                                                                //           //               ? ColorConstants
-                                                                //           //                   .appColor
-                                                                //           //               : Colors
-                                                                //           //                   .transparent),
-                                                                //           // ),
-                                                                //           width: 60,
-                                                                //           height: 60,
-                                                                //           child:
-                                                                //               CachedNetworkImage(
-                                                                //             height: 40,
-                                                                //             width: 40,
-                                                                //             imageUrl: imageBaseUrl +
-                                                                //                 _subCategoryList[
-                                                                //                         index]
-                                                                //                     .image!,
-                                                                //             imageBuilder: (context,
-                                                                //                     imageProvider) =>
-                                                                //                 Container(
-                                                                //               height:
-                                                                //                   double.infinity,
-                                                                //               width:
-                                                                //                   double.infinity,
-                                                                //               decoration:
-                                                                //                   BoxDecoration(
-                                                                //                 // borderRadius: BorderRadius.circular(10),
-                                                                //                 image:
-                                                                //                     DecorationImage(
-                                                                //                   image:
-                                                                //                       imageProvider,
-                                                                //                   fit:
-                                                                //                       BoxFit.fill,
-                                                                //                   alignment:
-                                                                //                       Alignment
-                                                                //                           .center,
-                                                                //                 ),
-                                                                //               ),
-                                                                //             ),
-                                                                //             placeholder: (context,
-                                                                //                     url) =>
-                                                                //                 Center(
-                                                                //                     child:
-                                                                //                         CircularProgressIndicator()),
-                                                                //             errorWidget: (context,
-                                                                //                     url, error) =>
-                                                                //                 Container(
-                                                                //               decoration:
-                                                                //                   BoxDecoration(
-                                                                //                 // borderRadius: BorderRadius.circular(15),
-                                                                //                 image:
-                                                                //                     DecorationImage(
-                                                                //                   image: AssetImage(
-                                                                //                       global
-                                                                //                           .catNoImage),
-                                                                //                   fit: BoxFit
-                                                                //                       .contain,
-                                                                //                 ),
-                                                                //               ),
-                                                                //             ),
-                                                                //           ),
-                                                                //         ),
-                                                                //       ),
-                                                                //     ],
-                                                                //   ),
-                                                                // ),
+                                                             
                                                                 Container(
                                                                   margin: EdgeInsets
                                                                       .only(
@@ -593,312 +511,314 @@ class _SearchResultsScreenState extends BaseRouteState {
                                       child: CircularProgressIndicator(),
                                     ),
                                   ),
-                            Container(
-                              height: 60,
-                              color: ColorConstants.white,
-                              padding: EdgeInsets.only(
-                                  bottom: 5, left: 10, right: 10),
-                              width: MediaQuery.of(context).size.width,
-                              child: Row(
-                                children: [
-                                  Container(
-                                    height: 50,
-                                    padding: EdgeInsets.all(10),
-                                    child: Align(
-                                      alignment: Alignment.center,
-                                      child: Text(
-                                        "Filters",
-                                        style: TextStyle(
-                                            fontFamily:
-                                                global.fontRailwayRegular,
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 13,
-                                            color: ColorConstants.pureBlack),
-                                      ),
-                                    ),
-                                  ),
-                                  Container(
-                                    height: ColorConstants.filterdividerheight,
-                                    width: ColorConstants.filterdividerWidth,
-                                    color: ColorConstants.filterDivderColor,
-                                  ),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  Expanded(
-                                    child: Container(
-                                      height: 30,
-                                      child: ListView.builder(
-                                          controller: _scrollController,
-                                          physics:
-                                              AlwaysScrollableScrollPhysics(),
-                                          itemCount: appliedFilter.length,
-                                          scrollDirection: Axis.horizontal,
-                                          itemBuilder: (context, index) =>
-                                              InkWell(
-                                                onTap: () {
-                                                  if (!appliedFilter[index]
-                                                      .isFilterValue!) {
-                                                    showModalBottomSheet(
-                                                      // isDismissible: false,
-                                                      backgroundColor:
-                                                          Colors.white,
-                                                      shape:
-                                                          RoundedRectangleBorder(
-                                                        borderRadius:
-                                                            BorderRadius.only(
-                                                          topLeft:
-                                                              Radius.circular(
-                                                                  20),
-                                                          topRight:
-                                                              Radius.circular(
-                                                                  20),
-                                                        ),
-                                                      ),
-                                                      context: context,
-                                                      builder: (BuildContext
-                                                          context) {
-                                                        return FilterCustomSheet(
-                                                          showFilters:
-                                                              _productFilter,
-                                                          filterTypeIndex:
-                                                              index,
-                                                        );
-                                                      },
-                                                    ).then((value) => {
-                                                          if (value != null)
-                                                            {
-                                                              _productFilter =
-                                                                  value,
-                                                              print(value),
-                                                              appliedFilter
-                                                                  .clear(),
-                                                              appliedFilter.add(
-                                                                  new AppliedFilterList(
-                                                                      type: "0",
-                                                                      name:
-                                                                          "Price",
-                                                                      isFilterValue:
-                                                                          false)),
-                                                              appliedFilter.add(
-                                                                  new AppliedFilterList(
-                                                                      type: "0",
-                                                                      name:
-                                                                          "Discount",
-                                                                      isFilterValue:
-                                                                          false)),
-                                                              appliedFilter.add(
-                                                                  new AppliedFilterList(
-                                                                      type: "0",
-                                                                      name:
-                                                                          "Sort",
-                                                                      isFilterValue:
-                                                                          false)),
-                                                              appliedFilter.add(
-                                                                  new AppliedFilterList(
-                                                                      type: "0",
-                                                                      name:
-                                                                          "Occasion",
-                                                                      isFilterValue:
-                                                                          false)),
-                                                              if (_productFilter
-                                                                          .filterPriceValue !=
-                                                                      null &&
-                                                                  _productFilter
-                                                                          .filterPriceValue!
-                                                                          .length >
-                                                                      0)
-                                                                {
-                                                                  appliedFilter.add(new AppliedFilterList(
-                                                                      type: "1",
-                                                                      name: _productFilter
-                                                                          .filterPriceValue!,
-                                                                      isFilterValue:
-                                                                          true)),
-                                                                },
-                                                              if (_productFilter
-                                                                          .filterDiscountValue !=
-                                                                      null &&
-                                                                  _productFilter
-                                                                          .filterDiscountValue!
-                                                                          .length >
-                                                                      0)
-                                                                {
-                                                                  appliedFilter.add(new AppliedFilterList(
-                                                                      type: "2",
-                                                                      name: _productFilter
-                                                                          .filterDiscountValue!,
-                                                                      isFilterValue:
-                                                                          true)),
-                                                                },
-                                                              if (_productFilter
-                                                                          .filterSortID !=
-                                                                      null &&
-                                                                  _productFilter
-                                                                          .filterSortID!
-                                                                          .length >
-                                                                      0)
-                                                                {
-                                                                  appliedFilter.add(new AppliedFilterList(
-                                                                      type: "3",
-                                                                      name: _productFilter
-                                                                          .filterSortValue!,
-                                                                      isFilterValue:
-                                                                          true)),
-                                                                },
-                                                              if (_productFilter
-                                                                          .filterOcassionValue !=
-                                                                      null &&
-                                                                  _productFilter
-                                                                          .filterOcassionValue!
-                                                                          .length >
-                                                                      0)
-                                                                {
-                                                                  appliedFilter.add(new AppliedFilterList(
-                                                                      type: "4",
-                                                                      name: _productFilter
-                                                                          .filterOcassionValue!,
-                                                                      isFilterValue:
-                                                                          true)),
-                                                                },
-                                                              if (_productSearchResult !=
-                                                                      null &&
-                                                                  _productSearchResult
-                                                                          .length >
-                                                                      0)
-                                                                {
-                                                                  _productSearchResult
-                                                                      .clear(),
-                                                                  _isDataLoaded =
-                                                                      false,
-                                                                },
-                                                              _getProductSearchResult(),
-                                                              setState(() {}),
-                                                            }
-                                                          else
-                                                            {
-                                                              print(
-                                                                  "Clear all or dismissed"),
-                                                            }
-                                                        });
-                                                  }
-                                                },
-                                                child: Container(
-                                                  padding: EdgeInsets.only(
-                                                      top: 5,
-                                                      bottom: 5,
-                                                      left: 8,
-                                                      right: 8),
-                                                  margin: EdgeInsets.only(
-                                                      right: 10),
-                                                  decoration: BoxDecoration(
-                                                      border: Border.all(
-                                                          color: ColorConstants
-                                                              .colorAllHomeTitle,
-                                                          width: 0.5),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              8)),
-                                                  child: Row(
-                                                    children: [
-                                                      Align(
-                                                        alignment:
-                                                            Alignment.center,
-                                                        child: Text(
-                                                          appliedFilter[index]
-                                                              .name!,
-                                                          style: TextStyle(
-                                                              fontFamily: global
-                                                                  .fontRailwayRegular,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w200,
-                                                              fontSize: 13,
-                                                              color:
-                                                                  ColorConstants
-                                                                      .pureBlack),
-                                                        ),
-                                                      ),
-                                                      appliedFilter[index]
-                                                              .isFilterValue!
-                                                          ? SizedBox(
-                                                              width: 8,
-                                                            )
-                                                          : SizedBox(),
-                                                      appliedFilter[index]
-                                                              .isFilterValue!
-                                                          ? InkWell(
-                                                              onTap: () {
-                                                                if (appliedFilter[
-                                                                            index]
-                                                                        .type ==
-                                                                    "1") {
-                                                                  _productFilter
-                                                                      .filterPriceID = "";
-                                                                  _productFilter
-                                                                      .filterPriceValue = "";
-                                                                }
-                                                                if (appliedFilter[
-                                                                            index]
-                                                                        .type ==
-                                                                    "2") {
-                                                                  _productFilter
-                                                                      .filterDiscountID = "";
-                                                                  _productFilter
-                                                                      .filterDiscountValue = "";
-                                                                }
-                                                                if (appliedFilter[
-                                                                            index]
-                                                                        .type ==
-                                                                    "3") {
-                                                                  _productFilter
-                                                                      .filterSortID = "";
-                                                                  _productFilter
-                                                                      .filterSortValue = "";
-                                                                }
-                                                                if (appliedFilter[
-                                                                            index]
-                                                                        .type ==
-                                                                    "4") {
-                                                                  _productFilter
-                                                                      .filterOcassionID = "";
-                                                                  _productFilter
-                                                                      .filterOcassionValue = "";
-                                                                }
-                                                                if (_productSearchResult !=
-                                                                        null &&
-                                                                    _productSearchResult
-                                                                            .length >
-                                                                        0) {
-                                                                  _productSearchResult
-                                                                      .clear();
-                                                                  _isDataLoaded =
-                                                                      false;
-                                                                }
-                                                                appliedFilter
-                                                                    .removeAt(
-                                                                        index);
+                            // Container(
+                            //   height: 60,
+                            //   color: ColorConstants.white,
+                            //   padding: EdgeInsets.only(
+                            //       bottom: 5, left: 10, right: 10),
+                            //   width: MediaQuery.of(context).size.width,
+                            //   child: Row(
+                            //     children: [
+                            //       Container(
+                            //         height: 50,
+                            //         padding: EdgeInsets.all(10),
+                            //         child: Align(
+                            //           alignment: Alignment.center,
+                            //           child: Text(
+                            //             "Filters",
+                            //             style: TextStyle(
+                            //                 fontFamily:
+                            //                     global.fontRailwayRegular,
+                            //                 fontWeight: FontWeight.w600,
+                            //                 fontSize: 13,
+                            //                 color: ColorConstants.pureBlack),
+                            //           ),
+                            //         ),
+                            //       ),
+                            //       Container(
+                            //         height: ColorConstants.filterdividerheight,
+                            //         width: ColorConstants.filterdividerWidth,
+                            //         color: ColorConstants.filterDivderColor,
+                            //       ),
+                            //       SizedBox(
+                            //         width: 10,
+                            //       ),
+                            //       Expanded(
+                            //         child: Container(
+                            //           height: 30,
+                            //           child: ListView.builder(
+                            //               controller: _scrollController,
+                            //               physics:
+                            //                   AlwaysScrollableScrollPhysics(),
+                            //               itemCount: appliedFilter.length,
+                            //               scrollDirection: Axis.horizontal,
+                            //               itemBuilder: (context, index) =>
+                            //                   InkWell(
+                            //                     onTap: () {
+                            //                       if (!appliedFilter[index]
+                            //                           .isFilterValue!) {
+                            //                         showModalBottomSheet(
+                            //                           // isDismissible: false,
+                            //                           backgroundColor:
+                            //                               Colors.white,
+                            //                           shape:
+                            //                               RoundedRectangleBorder(
+                            //                             borderRadius:
+                            //                                 BorderRadius.only(
+                            //                               topLeft:
+                            //                                   Radius.circular(
+                            //                                       20),
+                            //                               topRight:
+                            //                                   Radius.circular(
+                            //                                       20),
+                            //                             ),
+                            //                           ),
+                            //                           context: context,
+                            //                           builder: (BuildContext
+                            //                               context) {
+                            //                             return FilterCustomSheet(
+                            //                               showFilters:
+                            //                                   _productFilter,
+                            //                               filterTypeIndex:
+                            //                                   index,
+                            //                             );
+                            //                           },
+                            //                         ).then((value) => {
+                            //                               if (value != null)
+                            //                                 {
+                            //                                   _productFilter =
+                            //                                       value,
+                            //                                   print(value),
+                            //                                   appliedFilter
+                            //                                       .clear(),
+                            //                                   appliedFilter.add(
+                            //                                       new AppliedFilterList(
+                            //                                           type: "0",
+                            //                                           name:
+                            //                                               "Price",
+                            //                                           isFilterValue:
+                            //                                               false)),
+                            //                                   appliedFilter.add(
+                            //                                       new AppliedFilterList(
+                            //                                           type: "0",
+                            //                                           name:
+                            //                                               "Discount",
+                            //                                           isFilterValue:
+                            //                                               false)),
+                            //                                   appliedFilter.add(
+                            //                                       new AppliedFilterList(
+                            //                                           type: "0",
+                            //                                           name:
+                            //                                               "Sort",
+                            //                                           isFilterValue:
+                            //                                               false)),
+                            //                                   appliedFilter.add(
+                            //                                       new AppliedFilterList(
+                            //                                           type: "0",
+                            //                                           name:
+                            //                                               "Occasion",
+                            //                                           isFilterValue:
+                            //                                               false)),
+                            //                                   if (_productFilter
+                            //                                               .filterPriceValue !=
+                            //                                           null &&
+                            //                                       _productFilter
+                            //                                               .filterPriceValue!
+                            //                                               .length >
+                            //                                           0)
+                            //                                     {
+                            //                                       appliedFilter.add(new AppliedFilterList(
+                            //                                           type: "1",
+                            //                                           name: _productFilter
+                            //                                               .filterPriceValue!,
+                            //                                           isFilterValue:
+                            //                                               true)),
+                            //                                     },
+                            //                                   if (_productFilter
+                            //                                               .filterDiscountValue !=
+                            //                                           null &&
+                            //                                       _productFilter
+                            //                                               .filterDiscountValue!
+                            //                                               .length >
+                            //                                           0)
+                            //                                     {
+                            //                                       appliedFilter.add(new AppliedFilterList(
+                            //                                           type: "2",
+                            //                                           name: _productFilter
+                            //                                               .filterDiscountValue!,
+                            //                                           isFilterValue:
+                            //                                               true)),
+                            //                                     },
+                            //                                   if (_productFilter
+                            //                                               .filterSortID !=
+                            //                                           null &&
+                            //                                       _productFilter
+                            //                                               .filterSortID!
+                            //                                               .length >
+                            //                                           0)
+                            //                                     {
+                            //                                       appliedFilter.add(new AppliedFilterList(
+                            //                                           type: "3",
+                            //                                           name: _productFilter
+                            //                                               .filterSortValue!,
+                            //                                           isFilterValue:
+                            //                                               true)),
+                            //                                     },
+                            //                                   if (_productFilter
+                            //                                               .filterOcassionValue !=
+                            //                                           null &&
+                            //                                       _productFilter
+                            //                                               .filterOcassionValue!
+                            //                                               .length >
+                            //                                           0)
+                            //                                     {
+                            //                                       appliedFilter.add(new AppliedFilterList(
+                            //                                           type: "4",
+                            //                                           name: _productFilter
+                            //                                               .filterOcassionValue!,
+                            //                                           isFilterValue:
+                            //                                               true)),
+                            //                                     },
+                            //                                   if (_productSearchResult !=
+                            //                                           null &&
+                            //                                       _productSearchResult
+                            //                                               .length >
+                            //                                           0)
+                            //                                     {
+                            //                                       _productSearchResult
+                            //                                           .clear(),
+                            //                                       _isDataLoaded =
+                            //                                           false,
+                            //                                     },
+                            //                                   _getProductSearchResult(),
+                            //                                   setState(() {}),
+                            //                                 }
+                            //                               else
+                            //                                 {
+                            //                                   print(
+                            //                                       "Clear all or dismissed"),
+                            //                                 }
+                            //                             });
+                            //                       }
+                            //                     },
+                            //                     child: Container(
+                            //                       padding: EdgeInsets.only(
+                            //                           top: 5,
+                            //                           bottom: 5,
+                            //                           left: 8,
+                            //                           right: 8),
+                            //                       margin: EdgeInsets.only(
+                            //                           right: 10),
+                            //                       decoration: BoxDecoration(
+                            //                           border: Border.all(
+                            //                               color: ColorConstants
+                            //                                   .colorAllHomeTitle,
+                            //                               width: 0.5),
+                            //                           borderRadius:
+                            //                               BorderRadius.circular(
+                            //                                   8)),
+                            //                       child: Row(
+                            //                         children: [
+                            //                           Align(
+                            //                             alignment:
+                            //                                 Alignment.center,
+                            //                             child: Text(
+                            //                               appliedFilter[index]
+                            //                                   .name!,
+                            //                               style: TextStyle(
+                            //                                   fontFamily: global
+                            //                                       .fontRailwayRegular,
+                            //                                   fontWeight:
+                            //                                       FontWeight
+                            //                                           .w200,
+                            //                                   fontSize: 13,
+                            //                                   color:
+                            //                                       ColorConstants
+                            //                                           .pureBlack),
+                            //                             ),
+                            //                           ),
+                            //                           appliedFilter[index]
+                            //                                   .isFilterValue!
+                            //                               ? SizedBox(
+                            //                                   width: 8,
+                            //                                 )
+                            //                               : SizedBox(),
+                            //                           appliedFilter[index]
+                            //                                   .isFilterValue!
+                            //                               ? InkWell(
+                            //                                   onTap: () {
+                            //                                     if (appliedFilter[
+                            //                                                 index]
+                            //                                             .type ==
+                            //                                         "1") {
+                            //                                       _productFilter
+                            //                                           .filterPriceID = "";
+                            //                                       _productFilter
+                            //                                           .filterPriceValue = "";
+                            //                                     }
+                            //                                     if (appliedFilter[
+                            //                                                 index]
+                            //                                             .type ==
+                            //                                         "2") {
+                            //                                       _productFilter
+                            //                                           .filterDiscountID = "";
+                            //                                       _productFilter
+                            //                                           .filterDiscountValue = "";
+                            //                                     }
+                            //                                     if (appliedFilter[
+                            //                                                 index]
+                            //                                             .type ==
+                            //                                         "3") {
+                            //                                       _productFilter
+                            //                                           .filterSortID = "";
+                            //                                       _productFilter
+                            //                                           .filterSortValue = "";
+                            //                                     }
+                            //                                     if (appliedFilter[
+                            //                                                 index]
+                            //                                             .type ==
+                            //                                         "4") {
+                            //                                       _productFilter
+                            //                                           .filterOcassionID = "";
+                            //                                       _productFilter
+                            //                                           .filterOcassionValue = "";
+                            //                                     }
+                            //                                     if (_productSearchResult !=
+                            //                                             null &&
+                            //                                         _productSearchResult
+                            //                                                 .length >
+                            //                                             0) {
+                            //                                       _productSearchResult
+                            //                                           .clear();
+                            //                                       _isDataLoaded =
+                            //                                           false;
+                            //                                     }
+                            //                                     appliedFilter
+                            //                                         .removeAt(
+                            //                                             index);
 
-                                                                _getProductSearchResult();
-                                                                setState(() {});
-                                                              },
-                                                              child: Icon(
-                                                                Icons.cancel,
-                                                                size: 20,
-                                                                color: ColorConstants
-                                                                    .newAppColor,
-                                                              ),
-                                                            )
-                                                          : SizedBox(),
-                                                    ],
-                                                  ),
-                                                ),
-                                              )),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
+                            //                                     _getProductSearchResult();
+                            //                                     setState(() {});
+                            //                                   },
+                            //                                   child: Icon(
+                            //                                     Icons.cancel,
+                            //                                     size: 20,
+                            //                                     color: ColorConstants
+                            //                                         .newAppColor,
+                            //                                   ),
+                            //                                 )
+                            //                               : SizedBox(),
+                            //                         ],
+                            //                       ),
+                            //                     ),
+                            //                   )),
+                            //         ),
+                            //       ),
+                            //     ],
+                            //   ),
+                            // ),
+                           
+                           
                             Expanded(
                               child: Row(
                                 children: [
@@ -1165,40 +1085,7 @@ class _SearchResultsScreenState extends BaseRouteState {
                                                                       ),
                                                           ),
 
-                                                          // Container(
-                                                          //   padding: EdgeInsets
-                                                          //       .only(
-                                                          //           left: 1,
-                                                          //           right: 1),
-                                                          //   decoration:
-                                                          //       BoxDecoration(
-                                                          //           color: Colors
-                                                          //               .white38),
-                                                          //   child: Text(
-                                                          //     "${_eventsList[index].eventName}",
-                                                          //     maxLines: 2,
-                                                          //     textAlign:
-                                                          //         TextAlign
-                                                          //             .center,
-                                                          //     style: TextStyle(
-                                                          //         fontFamily: global
-                                                          //             .fontRailwayRegular,
-                                                          //         fontWeight:
-                                                          //             FontWeight
-                                                          //                 .w200,
-                                                          //         fontSize:
-                                                          //             12,
-                                                          //         overflow:
-                                                          //             TextOverflow
-                                                          //                 .ellipsis,
-                                                          //         color: isSelectedIndex ==
-                                                          //                 index
-                                                          //             ? ColorConstants
-                                                          //                 .appColor
-                                                          //             : Colors
-                                                          //                 .black),
-                                                          //   ),
-                                                          // ),
+                                                       
                                                         ],
                                                       ),
                                                     ),
@@ -1314,6 +1201,7 @@ class _SearchResultsScreenState extends BaseRouteState {
                                 ],
                               ),
                             ),
+                          
                           ],
                         ),
                       ),
@@ -1324,112 +1212,7 @@ class _SearchResultsScreenState extends BaseRouteState {
             ),
           ),
         ),
-        // floatingActionButton: (_productSearchResult != null &&
-        //             _productSearchResult.length > 0) ||
-        //         (_isFilterApplied)
-        //     ? FloatingActionButton(
-        //         backgroundColor: Colors.white,
-        //         //   shape: RoundedRectangleBorder(),
-        //         onPressed: () {
-        //           FocusScope.of(context).requestFocus(new FocusNode());
-        //           showModalBottomSheet(
-        //             backgroundColor: Colors.white,
-        //             shape: RoundedRectangleBorder(
-        //               borderRadius: BorderRadius.only(
-        //                 topLeft: Radius.circular(20),
-        //                 topRight: Radius.circular(20),
-        //               ),
-        //             ),
-        //             context: context,
-        //             builder: (BuildContext context) {
-        //               return FilterCustomSheet(
-        //                 showFilters: _productFilter,
-        //               );
-        //             },
-        //           ).then((value) => {
-        //                 if (value != null)
-        //                   {
-        //                     _isDataLoaded = false,
-        //                     _productFilter = value,
-        //                     _isFilterApplied = true,
-        //                     print(value),
-        //                     _productSearchResult.clear(),
-        //                     setState(() {}),
-        //                     appliedFilter.clear(),
-        //                     appliedFilter.add(new AppliedFilterList(
-        //                         type: "0",
-        //                         name: "Price",
-        //                         isFilterValue: false)),
-        //                     appliedFilter.add(new AppliedFilterList(
-        //                         type: "0",
-        //                         name: "Discount",
-        //                         isFilterValue: false)),
-        //                     appliedFilter.add(new AppliedFilterList(
-        //                         type: "0", name: "Sort", isFilterValue: false)),
-        //                     if (_productFilter.filterPriceValue != null &&
-        //                         _productFilter.filterPriceValue!.length > 0)
-        //                       {
-        //                         appliedFilter.add(new AppliedFilterList(
-        //                             type: "1",
-        //                             name: _productFilter.filterPriceValue!)),
-        //                       },
-        //                     if (_productFilter.filterDiscountValue != null &&
-        //                         _productFilter.filterDiscountValue!.length > 0)
-        //                       {
-        //                         appliedFilter.add(new AppliedFilterList(
-        //                             type: "2",
-        //                             name: _productFilter.filterDiscountValue!)),
-        //                       },
-        //                     if (_productFilter.filterSortID != null &&
-        //                         _productFilter.filterSortID!.length > 0)
-        //                       {
-        //                         appliedFilter.add(new AppliedFilterList(
-        //                             type: "3",
-        //                             name: _productFilter.filterSortValue!)),
-        //                       },
-        //                     if (_productSearchResult != null &&
-        //                         _productSearchResult.length > 0)
-        //                       {
-        //                         // _productsList.clear();
-        //                         _isDataLoaded = false,
-        //                       }
-        //                     else
-        //                       {
-        //                         if (appliedFilter != null &&
-        //                             appliedFilter.length > 0)
-        //                           {
-        //                             _isFilterApplied = true,
-        //                           }
-        //                         else
-        //                           {
-        //                             _isFilterApplied = false,
-        //                           },
-        //                         print("Clear all or dismissed"),
-        //                       },
-        //                     _getProductSearchResult(),
-        //                   }
-        //                 else
-        //                   {
-        //                     if (appliedFilter != null &&
-        //                         appliedFilter.length > 0)
-        //                       {
-        //                         _isFilterApplied = true,
-        //                       }
-        //                     else
-        //                       {
-        //                         _isFilterApplied = false,
-        //                       },
-        //                     print("Clear all or dismissed"),
-        //                   }
-        //               });
-        //         },
-        //         child: Icon(
-        //           MdiIcons.filterOutline,
-        //           color: Colors.red,
-        //           size: 30,
-        //         ),
-        //       )
-        //     : SizedBox(),
+        
       ),
     );
   }

@@ -649,10 +649,11 @@ class _PaymentGatewayScreenState extends BaseRouteState
                                             left: 10, right: 10, top: 10),
                                         child: Column(
                                           children: [
-                                            currentUser != null &&
-                                                    currentUser.id != null
-                                                ? !isCouponCodeVisible
-                                                    ? Container(
+                                            // currentUser != null &&
+                                            //         currentUser.id != null
+                                            //     ? !isCouponCodeVisible
+                                            //         ? 
+                                                    Container(
                                                         padding:
                                                             const EdgeInsets
                                                                 .only(
@@ -753,16 +754,17 @@ class _PaymentGatewayScreenState extends BaseRouteState
                                                             ),
                                                           ],
                                                         ),
-                                                      )
-                                                    : SizedBox()
-                                                : SizedBox(),
+                                                      ),
+                                                    // : SizedBox()
+                                                // : SizedBox(),
 
                                             // Apply Coupon Code Row (your existing code)
 
-                                            currentUser != null &&
-                                                    currentUser.id != null
-                                                ? !isCouponCodeVisible
-                                                    ? Container(
+                                            // currentUser != null &&
+                                            //         currentUser.id != null
+                                            //     ? !isCouponCodeVisible
+                                            //         ?
+                                                     Container(
                                                         decoration:
                                                             BoxDecoration(
                                                           // color: global.white,
@@ -899,9 +901,9 @@ class _PaymentGatewayScreenState extends BaseRouteState
                                                             ),
                                                           ],
                                                         ),
-                                                      )
-                                                    : SizedBox()
-                                                : SizedBox(),
+                                                      ),
+                                                //     : SizedBox()
+                                                // : SizedBox(),
                                             Visibility(
                                               visible: isCouponCodeVisible,
                                               child: Align(
@@ -1004,11 +1006,12 @@ class _PaymentGatewayScreenState extends BaseRouteState
 
                                             //UI DESIGN COUPON CODE
 
-                                            global.currentUser != null &&
-                                                    global.stayLoggedIN! &&
-                                                    global.currentUser.name !=
-                                                        null
-                                                ? Padding(
+                                            // global.currentUser != null &&
+                                            //         global.stayLoggedIN! &&
+                                            //         global.currentUser.name !=
+                                            //             null
+                                            //     ?
+                                                 Padding(
                                                     padding:
                                                         const EdgeInsets.only(
                                                             top: 20),
@@ -1175,8 +1178,8 @@ class _PaymentGatewayScreenState extends BaseRouteState
                                                         },
                                                       ),
                                                     ),
-                                                  )
-                                                : const SizedBox(),
+                                                  ),
+                                                // : const SizedBox(),
                                             SizedBox(
                                               height: 6,
                                             ),
@@ -1209,9 +1212,10 @@ class _PaymentGatewayScreenState extends BaseRouteState
                                                   ? 10
                                                   : 0,
                                             ),
-                                            currentUser != null &&
-                                                    currentUser.id != null
-                                                ? Container(
+                                            // currentUser != null &&
+                                            //         currentUser.id != null
+                                            //     ?
+                                                Container(
                                                     // margin: EdgeInsets.only(left: 10),
                                                     child: CheckboxListTile(
                                                       contentPadding:
@@ -1352,8 +1356,8 @@ class _PaymentGatewayScreenState extends BaseRouteState
                                                           ListTileControlAffinity
                                                               .leading, //  <-- leading Checkbox
                                                     ),
-                                                  )
-                                                : Container(),
+                                                  ),
+                                                // : Container(),
 
                                             Visibility(
                                               visible: isWalletSelected &&
@@ -6203,7 +6207,8 @@ class _PaymentGatewayScreenState extends BaseRouteState
                 user_id: global.currentUser != null
                     ? global.currentUser.id.toString()
                     : "",
-                total_delivery: global.total_delivery_count)
+                total_delivery: global.total_delivery_count,
+                cart_value: totalOrderPrice.toString())
             .then((result) async {
           if (result != null) {
             if (result.status == "1") {

@@ -130,14 +130,32 @@ class _WishListScreenState extends BaseRouteState {
               )
             ],
             centerTitle: false,
-            title: Text(
-              "Wishlist",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  color: ColorConstants.pureBlack,
-                  fontFamily: fontRailwayRegular,
-                  fontWeight: FontWeight.w200),
-            )),
+            title: Row(
+  children: [
+    global.wishlistNav == true ?
+    IconButton(
+      icon: Icon(
+        Icons.arrow_back,
+        color: ColorConstants.appColor, // Black back button
+      ),
+      onPressed: () {
+        Navigator.pop(context);   // Go back
+      },
+    ) : Container(),
+
+    Text(
+      "Wishlist",
+      textAlign: TextAlign.center, 
+      style: TextStyle(
+        color: ColorConstants.pureBlack,
+        fontFamily: fontRailwayRegular,
+        fontWeight: FontWeight.w200,
+      ),
+    ),
+  ],
+),
+        ),
+
         body: Container(
             height: MediaQuery.of(context).size.height,
             child: Container(
@@ -638,6 +656,9 @@ class _WishListScreenState extends BaseRouteState {
   }
 
   _getWishListProduct() async {
+    print(page);
+    print(_productFilter);
+
     try {
       bool isConnected = await br!.checkConnectivity();
       if (isConnected) {

@@ -333,18 +333,20 @@ class APIHelper {
       {String? cartId,
       String? couponCode,
       String? user_id,
-      int? total_delivery}) async {
+      int? total_delivery,
+      String? cart_value}) async {
     try {
       Response response;
       var dio = Dio();
       var formData = FormData.fromMap({
         'coupon_code': couponCode,
         'user_id': user_id,
-        'total_delivery': total_delivery
+        'total_delivery': total_delivery,
+        'cart_value' : cart_value
       });
       print('${global.baseUrl}apply_coupon');
       print(
-          "'store_id': ${cartId}, 'coupon_code': ${couponCode},'user_id': ${user_id}, 'total_delivery': ${total_delivery}");
+          "'store_id': ${cartId}, 'coupon_code': ${couponCode},'user_id': ${user_id}, 'total_delivery': ${total_delivery} , 'cart_value' : ${cart_value}");
 
       response = await dio.post(
         '${global.baseUrl}apply_coupon',
@@ -981,19 +983,23 @@ class APIHelper {
       Response response;
       var dio = Dio();
       var formData = FormData.fromMap({});
+      print(formData.fields);
       print("G11111>>>>>>>>>>>>>>>2222222>>>>>>>>>>>>>${formData.toString()}");
       print(
           'G111111111>>>>>>>>>>>>>>>>>.base urlllllll>>>>>>>>>>>${global.baseUrl}catee?page=${page}');
       response = await dio.post(
         '${global.baseUrl}catee?page=${page}',
         data: formData,
+        
       );
+     
       // print(response);
       dynamic recordList;
       if (response.statusCode == 200 &&
           response.data["message"] == 'data found') {
         recordList = List<CategoryList>.from(
             response.data["data"].map((x) => CategoryList.fromJson(x)));
+            print(recordList.toString());
       } else {
         recordList = null;
       }
@@ -1010,7 +1016,7 @@ class APIHelper {
       var dio = Dio();
       var formData = FormData.fromMap({"cat_id": parentCatId});
       print(
-          "#################################################################");
+          "########################<<<<<<<<SUBCATTTTLISTTT ABHIIII>>>>>>>>>#########################################");
       print('sub cat id${formData.fields}');
       print("${baseUrl}subcatlist");
       response = await dio.post(
@@ -1023,7 +1029,7 @@ class APIHelper {
       if (response.statusCode == 200 && response.data["status"] == '1') {
         recordList = List<SubCateeList>.from(
             response.data["data"].map((x) => SubCateeList.fromJson(x)));
-        // print(recordList);
+         print(recordList);
       } else {
         recordList = null;
       }
@@ -1280,7 +1286,7 @@ class APIHelper {
       print(
           "#################################################################");
       print({
-        "page": 1,
+        "page": page,
         "cat_id": catId,
         "user_id": global.currentUser != null ? global.currentUser.id : "",
         "platform": "ios",
@@ -1320,9 +1326,10 @@ class APIHelper {
 
       response = await dio.post(
           // '${global.nodeBaseUrl}cat_product?page=$page', // '${global.baseUrl}cat_product?page=$page',
-          'https://node.esganalytix.com/api/cat_Product_new?page=1',
+          // 'https://node.esganalytix.com/api/cat_Product_new?page=1',
+          '${global.nodeBaseUrl}cat_Product_new?page=$page',
           data: {
-            "page": 1,
+            "page": page,
             "cat_id": catId,
             "user_id": global.currentUser != null ? global.currentUser.id : "",
             "platform": "ios",
@@ -1396,7 +1403,7 @@ class APIHelper {
       Response response;
       var dio = Dio();
 
-      print('${global.nodeBaseUrl}sub_cat_product_new?page=$page');
+      // print('${global.nodeBaseUrl}sub_cat_product_new?page=$page');
 
       print(
           "#################################################################");
@@ -1439,10 +1446,11 @@ class APIHelper {
    
       response = await dio.post(
           // '${global.nodeBaseUrl}sub_cat_product?page=$page',
-          'https://node.esganalytix.com/api/sub_cat_product_new?page=$page',
+          // 'https://node.esganalytix.com/api/sub_cat_product_new?page=$page',
+          '${global.nodeBaseUrl}sub_cat_Product_new?page=$page',
           data: {
            
-            "page": 1,
+            "page": page,
             "cat_id": catId,
             "user_id": global.currentUser != null ? global.currentUser.id : "",
             "platform": "ios",
@@ -4267,12 +4275,14 @@ class APIHelper {
 
       final response = await dio.post(
         "https://esganalytix.com/admin/api/get-filter-data",
+        
         data: body,
         options: Options(
           headers: await global.getApiHeaders(false),
           validateStatus: (status) => status != null && status < 500,
         ),
       );
+      
 
       // unwrap typical Dio Response -> payload map
       dynamic payload = response.data ?? {};

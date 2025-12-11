@@ -344,7 +344,9 @@ class _HomeScreenState extends BaseRouteState {
                         } else {
                           // User logged in → Go to Wishlist tab
                           setState(() {
+                             global.wishlistNav = false;
                             selectedIndex = 2;
+                           
                           });
                         }
                       },

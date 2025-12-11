@@ -87,83 +87,7 @@ class _SelectCategoryCardState extends State<SelectCategoryCard> {
   Widget build(BuildContext context) {
     // double containerWidth;
 
-    // print("nikhil this is the sorted list value${sortedList}");
-    // print("nikhil this is the index value${index}");
-    // if (category.isgridView) {
-    //   containerWidth = MediaQuery.of(context).size.width;
-    // } else {
-    //   containerWidth = MediaQuery.of(context).size.width / 2;
-    // }
-
-    // return InkWell(
-    //   onTap: () {
-    //     onPressed();
-    //   },
-    //   child: Container(
-    //     width: containerWidth - 15,
-    //     height: MediaQuery.of(context).size.width / 2.6,
-    //     margin: EdgeInsets.only(top: 3, bottom: 3, right: 8, left: 8),
-    //     color: Colors.transparent,
-    //     child: Card(
-    //       shape: RoundedRectangleBorder(
-    //         borderRadius: BorderRadius.circular(8.0),
-    //       ),
-    //       child: Stack(
-    //         children: [
-    //           Container(
-    //             width: containerWidth,
-    //             child: CachedNetworkImage(
-    //               imageUrl: imageBaseUrl + category.image,
-    //               imageBuilder: (context, imageProvider) => Container(
-    //                 child: Container(
-    //                   decoration: BoxDecoration(
-    //                       borderRadius: BorderRadius.all(Radius.circular(8)),
-    //                       image: DecorationImage(
-    //                           image: imageProvider, fit: BoxFit.cover)),
-    //                 ),
-    //               ),
-    //               placeholder: (context, url) => Center(
-    //                   child: CircularProgressIndicator(
-    //                 strokeWidth: 1.0,
-    //               )),
-    //               errorWidget: (context, url, error) => Container(
-    //                 //height: 100,
-    //                 width: (MediaQuery.of(context).size.width / 2) - 50,
-    //                 child: Image.asset(global.noImage),
-    //               ),
-    //             ),
-    //           ),
-    //           Container(
-    //             width: containerWidth,
-    //             height: MediaQuery.of(context).size.width / 2.6,
-    //             child: Align(
-    //               alignment: Alignment.bottomCenter,
-    //               child: Container(
-    //                 padding: EdgeInsets.only(bottom: 5, top: 5),
-    //                 decoration: BoxDecoration(
-    //                     color: ColorConstants.black26,
-    //                     borderRadius: BorderRadius.only(
-    //                         bottomLeft: Radius.circular(8),
-    //                         bottomRight: Radius.circular(8))),
-    //                 width: containerWidth,
-    //                 child: Text(
-    //                   "${category.title}",
-    //                   textAlign: TextAlign.center,
-    //                   style: TextStyle(
-    //                       fontFamily: global.fontMontserratLight,
-    //                       fontSize: 22,
-    //                       fontWeight: FontWeight.w200,
-    //                       overflow: TextOverflow.ellipsis,
-    //                       color: ColorConstants.white),
-    //                 ),
-    //               ),
-    //             ),
-    //           )
-    //         ],
-    //       ),
-    //     ),
-    //   ),
-    // );
+  
 
     return InkWell(
         onTap: () {
@@ -249,29 +173,7 @@ class _SelectCategoryCardState extends State<SelectCategoryCard> {
                                           //   }
                                           // });
 
-                                          // print(
-                                          //     "Catagory id on click---${category!.catId}");
-                                          // global.isSubCatSelected = false;
-                                          // global.isEventProduct = false;
-
-                                          // global.homeSelectedCatID =
-                                          //     category!.catId!;
-                                          // Navigator.push(
-                                          //     context,
-                                          //     MaterialPageRoute(
-                                          //         builder: (context) =>
-                                          //             SubCategoriesScreen(
-                                          //               a: widget.analytics,
-                                          //               o: widget.observer,
-                                          //               screenHeading:
-                                          //                   category!.title,
-                                          //               categoryId:
-                                          //                   category!.catId,
-                                          //               isSubcategory: global
-                                          //                   .isSubCatSelected,
-                                          //               isEventProducts: false,
-                                          //               //subscriptionProduct: 1,
-                                          //             )));
+                                        
                                           print(
                                               "SubCategory id on click---${category!.subcategory![index].catId}");
                                           setState(() {});
@@ -375,30 +277,7 @@ class _SelectCategoryCardState extends State<SelectCategoryCard> {
                                       physics: NeverScrollableScrollPhysics(),
                                       itemBuilder: (context, index) => InkWell(
                                             onTap: () {
-                                              // print(
-                                              //     "Catagory id on click---${category!.catId}");
-                                              // global.isSubCatSelected = false;
-                                              // global.isEventProduct = false;
-
-                                              // global.homeSelectedCatID =
-                                              //     category!.catId!;
-                                              // Navigator.push(
-                                              //     context,
-                                              //     MaterialPageRoute(
-                                              //         builder: (context) =>
-                                              //             SubCategoriesScreen(
-                                              //               a: widget.analytics,
-                                              //               o: widget.observer,
-                                              //               screenHeading:
-                                              //                   category!.title,
-                                              //               categoryId:
-                                              //                   category!.catId,
-                                              //               isSubcategory: global
-                                              //                   .isSubCatSelected,
-                                              //               isEventProducts:
-                                              //                   false,
-                                              //               //subscriptionProduct: 1,
-                                              //             )));
+                             
 
                                               print(
                                                   "SubCategory id on click---${category!.subcategory![index].catId}");
@@ -440,17 +319,16 @@ class _SelectCategoryCardState extends State<SelectCategoryCard> {
                                             child: Container(
                                               margin: EdgeInsets.only(top: 10),
                                               child: Text(
-                                                "${category!.subcategory![index].title}",
-                                                style: TextStyle(
-                                                    fontFamily: global
-                                                        .fontRailwaySemibold,
-                                                    fontSize: 14,
-                                                    fontWeight: FontWeight.w200,
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    color: ColorConstants
-                                                        .newTextHeadingFooter),
-                                              ),
+                                            "${category!.subcategory![index].title}",
+                                            style: TextStyle(
+                                                fontFamily: global
+                                                    .fontRailwaySemibold,
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w400,
+                                                overflow: TextOverflow.ellipsis,
+                                                color:
+                                                    ColorConstants.newTextHeadingFooter),
+                                          ),
                                             ),
                                           )),
                                 )

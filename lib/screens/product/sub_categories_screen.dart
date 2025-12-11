@@ -7,8 +7,10 @@ import 'package:byyu/models/businessLayer/apiHelper.dart';
 import 'package:byyu/models/businessLayer/global.dart';
 import 'package:byyu/models/categoryListModel.dart';
 import 'package:byyu/models/filterModelsNew.dart';
+import 'package:byyu/screens/auth/login_screen.dart';
 import 'package:byyu/screens/filter_screen.dart';
 import 'package:byyu/screens/home_screen.dart';
+import 'package:byyu/screens/product/wishlist_screen.dart';
 import 'package:byyu/screens/search_screen.dart';
 
 import 'package:cached_network_image/cached_network_image.dart';
@@ -219,12 +221,14 @@ class _SubCategoriesScreenState extends BaseRouteState {
     if (global.isSubCatSelected == true) {
       print("subcategoriesssss APIIII");
       _getSubCategoryProduct(selectedSubCatID);
+      setState(() {});
     } else {
       print("categoriesssss APIIII");
       _getCategoryProduct(global.homeSelectedCatID);
+      setState(() {});
     }
 
-    setState(() {});
+    // setState(() {});
     
     Navigator.pop(context);
   },
@@ -264,6 +268,13 @@ class _SubCategoriesScreenState extends BaseRouteState {
             alignment: Alignment.center,
           ),
         ),
+
+
+
+
+
+
+        
         leading: BackButton(
             onPressed: () {
               // Navigator.pop(context);
@@ -282,6 +293,17 @@ class _SubCategoriesScreenState extends BaseRouteState {
             },
             //icon: Icon(Icons.keyboard_arrow_left),
             color: ColorConstants.newAppColor),
+
+
+
+
+
+
+
+
+
+
+            
         actions: [
           InkWell(
             onTap: () {
@@ -303,8 +325,57 @@ class _SubCategoriesScreenState extends BaseRouteState {
             ),
           ),
           SizedBox(
-            width: 8,
+            width: 5,
           ),
+
+
+          InkWell(
+                onTap: () {
+                  if (global.stayLoggedIN == null || !global.stayLoggedIN!) {
+                    // User not logged in → Navigate to login screen
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => LoginScreen(
+                          a: widget.analytics,
+                          o: widget.observer,
+                        ),
+                      ),
+                    );
+                  } else {
+                    // User logged in → Go to Wishlist tab
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => WishListScreen(
+                          a: widget.analytics,
+                          o: widget.observer,
+                     
+        callbackHomescreenSetState: callHomeScreenSetState,
+        onAppDrawerButtonPressed: () {},
+                        ),
+                      ),
+                    );
+                    global.wishlistNav = true;
+                  }
+                  global.routingProductID = 0;
+                  // Navigator.of(context).push(MaterialPageRoute(
+                  //     builder: (context) => WishListScreen(
+                  //           a: widget.analytics,
+                  //           o: widget.observer,
+                  //           // fromBottomNvigation: false,
+                  //         )));
+                },
+                child: Padding(
+                  padding: EdgeInsets.only(top: 16, bottom: 16, left: 8),
+                  child: Image.asset(
+                    "assets/images/ic_nav_favorites.png",
+                    fit: BoxFit.contain,
+                    height: 28,
+                    alignment: Alignment.center,
+                  ),
+                ),
+              ),
           // Center(
           //   child: InkWell(
           //     onTap: () {
@@ -320,6 +391,10 @@ class _SubCategoriesScreenState extends BaseRouteState {
           // SizedBox(
           //   width: 8,
           // ),
+           SizedBox(
+            width: 5,
+          ),
+
           Stack(
             children: [
               Center(
@@ -621,32 +696,72 @@ class _SubCategoriesScreenState extends BaseRouteState {
                                                   margin:
                                                       const EdgeInsets.all(5),
                                                   child: GestureDetector(
-                                                    onTap: () {
-                                                      setState(() {
-                                                        if (isSelected) {
-                                                          selectedSubCatID
-                                                              .remove(item.catId
-                                                                  .toString());
-                                                          print(
-                                                              "REMOVED SUBCAT → $selectedSubCatID");
-                                                        } else {
-                                                          selectedSubCatID.add(
-                                                              item.catId
-                                                                  .toString());
-                                                          print(
-                                                              "ADDED SUBCAT → $selectedSubCatID");
-                                                        }
+                                                    // onTap: () {
+                                                    //   setState(() {
+                                                    //     if (isSelected) {
+                                                    //       selectedSubCatID
+                                                    //           .remove(item.catId
+                                                    //               .toString());
+                                                    //       print(
+                                                    //           "REMOVED SUBCAT → $selectedSubCatID");
+                                                    //     } else {
+                                                    //       selectedSubCatID.add(
+                                                    //           item.catId
+                                                    //               .toString());
+                                                    //       print(
+                                                    //           "ADDED SUBCAT → $selectedSubCatID");
+                                                    //     }
 
-                                                        _productsList.clear();
-                                                        global.isSubCatSelected =
-                                                            true;
-                                                        global.homeSelectedCatID =
-                                                            item.catId!;
-                                                        _getSubCategoryProduct(
-                                                            global
-                                                                .homeSelectedCatID);
-                                                      });
-                                                    },
+                                                    //     _productsList.clear();
+                                                    //     global.isSubCatSelected =
+                                                    //         true;
+                                                    //     global.homeSelectedCatID =
+                                                    //         item.catId!;
+                                                    //     _getSubCategoryProduct(
+                                                    //         global
+                                                    //             .homeSelectedCatID);
+                                                    //   });
+                                                    // },
+                                                    onTap: () {
+  setState(() {
+    // -------------------------
+    // REMOVE subcategory (if already selected)
+    // -------------------------
+    if (isSelected) {
+      selectedSubCatID.remove(item.catId.toString());
+      print("REMOVED SUBCAT → $selectedSubCatID");
+      if (selectedSubCatID.isNotEmpty) {
+        // still have some selected subcategories
+        _productsList.clear();
+        global.isSubCatSelected = true;
+        global.homeSelectedCatID = item.catId!;
+        _getSubCategoryProduct(global.homeSelectedCatID);
+         print("checkkkk id 22222222222222 ${ global.selectedDrawerCatID!}");
+      } else {
+        // no subcategories left
+        _productsList.clear();
+        global.isSubCatSelected = false; // since no subcategory chosen
+        global.homeSelectedCatID = item.catId!;
+
+        print("checkkkk id 11111111111 ${ global.selectedDrawerCatID!}");
+_getCategoryProduct(
+  global.selectedDrawerCatID!
+);
+      }
+    }
+    // -------------------------
+    // ADD subcategory (not selected before)
+    // -------------------------
+    else {
+      selectedSubCatID.add(item.catId.toString());
+      print("ADDED SUBCAT → $selectedSubCatID");
+      _productsList.clear();
+      global.isSubCatSelected = true;
+      global.homeSelectedCatID = item.catId!;
+      _getSubCategoryProduct(global.homeSelectedCatID);
+    }
+  });
+},
                                                     child: Container(
                                                       padding: const EdgeInsets
                                                           .symmetric(
@@ -1237,6 +1352,7 @@ class _SubCategoriesScreenState extends BaseRouteState {
                                       margin: EdgeInsets.all(5),
                                       child: GestureDetector(
                                         onTap: () {
+                                          isEventProducts = false;
                                           selectedSubCatID.clear();
 
                                           print(
@@ -1710,8 +1826,10 @@ class _SubCategoriesScreenState extends BaseRouteState {
 
   @override
   void initState() {
+    print(categoryId);
     print("checkkkkkkkk1111>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
     print(selectedSubCatID);
+    
 
 //     print("${minAge}, ${maxAge}, 0, 0, , 0, page, null, null, ${deliveryType}");
 //  print("checkkkkkkkk1111>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>${deliveryType}");
@@ -1719,7 +1837,7 @@ class _SubCategoriesScreenState extends BaseRouteState {
 // //  getFilteredProductsAPICall(deliveryType);
 //     print("CHECK IDDDDDDDDDD>>>>>>>>>>>>>>>>>${categoryId}");
     super.initState();
-    selectedSubCatID.add(categoryId.toString()); 
+   
     selectedCatID = categoryId;
     _getCategoryList();
     _productsList.clear();
@@ -1731,10 +1849,13 @@ class _SubCategoriesScreenState extends BaseRouteState {
       // _getSubCategoryList(global.parentCatID);
       if (!global.isSubCatSelected) {
         print("555555555>>>>>>>>");
-        _getCategoryProduct(categoryId!); // _init();
+        _getCategoryProduct(categoryId!); 
+        // _init();
       } else if (global.isSubCatSelected =
           true && screenHeading != "Express" && screenHeading != "recipients") {
+            selectedSubCatID.add(categoryId.toString()); 
         print("666666666666666666>>>>>>>>");
+        print(_subCategoryList);
         _getSubCategoryProduct(global.homeSelectedCatID);
       } else if (screenHeading == "Express" && screenHeading != "recipients") {
         // productFilterDelivery();
@@ -1772,7 +1893,7 @@ class _SubCategoriesScreenState extends BaseRouteState {
       case "Delivery Type": // must match selectedMap keySelected 111111111
         selecteddeliveryIds = ids;
         break;
-      case "Colors":
+      case "Color Palette":
         selectedcolorsIds = ids;
         break;
       case "Packaging": // must match selectedMap key
@@ -1822,7 +1943,7 @@ class _SubCategoriesScreenState extends BaseRouteState {
         (c.title ?? "Unknown"): {
           if (c.title == "Occasion") ...selectedOccasionIds,
           if (c.title == "Delivery Type") ...selecteddeliveryIds,
-          if (c.title == "Colors") ...selectedcolorsIds,
+          if (c.title == "Color Palette") ...selectedcolorsIds,
           if (c.title == "Packaging") ...selectedpacksIds,
           if (c.title == "Plants") ...selectedplantsIds,
           if (c.title == "Flavours") ...selectedflavoursIds,
@@ -1952,25 +2073,25 @@ class _SubCategoriesScreenState extends BaseRouteState {
                               fontWeight: FontWeight.w600,
                               color: Color(0xff8B4A26))),
                       const Spacer(),
-                      TextButton(
-                        onPressed: () {
-                          clearAll();
-                          selectedOccasionIds.clear();
-                          selecteddeliveryIds.clear();
-                          selectedcolorsIds.clear();
-                          selectedpacksIds.clear();
-                          selectedplantsIds.clear();
-                          selectedflavoursIds.clear();
-                          selectedvariantsIds.clear();
-                          selectedtypesIds.clear();
+                      // TextButton(
+                      //   onPressed: () {
+                      //     clearAll();
+                      //     selectedOccasionIds.clear();
+                      //     selecteddeliveryIds.clear();
+                      //     selectedcolorsIds.clear();
+                      //     selectedpacksIds.clear();
+                      //     selectedplantsIds.clear();
+                      //     selectedflavoursIds.clear();
+                      //     selectedvariantsIds.clear();
+                      //     selectedtypesIds.clear();
 
-                          Slider1 = 0;
-                          Slider2 = 3999;
+                      //     Slider1 = 0;
+                      //     Slider2 = 3999;
 
-                          setState(() {}); // refresh UI
-                        },
-                        child: const Text("Clear All"),
-                      ),
+                      //     setState(() {}); // refresh UI
+                      //   },
+                      //   child: const Text("Clear All"),
+                      // ),
                     ],
                   ),
                 ),
@@ -2091,11 +2212,14 @@ class _SubCategoriesScreenState extends BaseRouteState {
                       const Spacer(),
                       ElevatedButton(
                         onPressed: () {
+
                           // Save IDs into arrays
                           selectedMap.forEach((category, set) {
                             print("G1------->$category    && $set");
+                    
                             // saveSelectedIds(category, set.toList());
                           });
+                         
 
                           // Debug print
                           print("Occasion       → $selectedOccasionIds");
@@ -2937,6 +3061,7 @@ class _SubCategoriesScreenState extends BaseRouteState {
     }
   }
 
+
   // show cart items
   final CartController cartController = Get.put(CartController());
 
@@ -3139,6 +3264,7 @@ class _SubCategoriesScreenState extends BaseRouteState {
   newfiltersAPICALL(categoryId) async {
     try {
       final result = await apiHelper.newFilters(categoryId.toString());
+     
       print("G1----->1");
 
       if (result != null && result.status == "1") {
@@ -3229,7 +3355,11 @@ class _SubCategoriesScreenState extends BaseRouteState {
   //     print("filter apiii>>>>>>>>>>>>>${e}");
   //   }
   // }
+ callHomeScreenSetState() {
+    print("this is home screen setState called");
 
+    setState(() {});
+  }
 //product filter xpressss code above abhishek
   showNetworkErrorSnackBar1(GlobalKey<ScaffoldState> scaffoldKey) {
     try {

@@ -363,54 +363,58 @@ class _ProductDescriptionScreenState extends BaseRouteState {
                   ),
                 ),
               ),
-              // SizedBox(
-              //   width: 8,
-              // ),
-              // InkWell(
-              //   onTap: () {
-              //     if (global.stayLoggedIN == null || !global.stayLoggedIN!) {
-              //       // User not logged in → Navigate to login screen
-              //       Navigator.push(
-              //         context,
-              //         MaterialPageRoute(
-              //           builder: (context) => LoginScreen(
-              //             a: widget.analytics,
-              //             o: widget.observer,
-              //           ),
-              //         ),
-              //       );
-              //     } else {
-              //       // User logged in → Go to Wishlist tab
-              //       Navigator.push(
-              //         context,
-              //         MaterialPageRoute(
-              //           builder: (context) => WishListScreen(
-              //             a: widget.analytics,
-              //             o: widget.observer,
-              //           ),
-              //         ),
-              //       );
-              //     }
-              //     global.routingProductID = 0;
-              //     // Navigator.of(context).push(MaterialPageRoute(
-              //     //     builder: (context) => WishListScreen(
-              //     //           a: widget.analytics,
-              //     //           o: widget.observer,
-              //     //           // fromBottomNvigation: false,
-              //     //         )));
-              //   },
-              //   child: Padding(
-              //     padding: EdgeInsets.only(top: 16, bottom: 16, left: 8),
-              //     child: Image.asset(
-              //       "assets/images/ic_nav_favorites.png",
-              //       fit: BoxFit.contain,
-              //       height: 28,
-              //       alignment: Alignment.center,
-              //     ),
-              //   ),
-              // ),
               SizedBox(
-                width: 8,
+                width: 3,
+              ),
+              InkWell(
+                onTap: () {
+                  if (global.stayLoggedIN == null || !global.stayLoggedIN!) {
+                    // User not logged in → Navigate to login screen
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => LoginScreen(
+                          a: widget.analytics,
+                          o: widget.observer,
+                        ),
+                      ),
+                    );
+                  } else {
+                    // User logged in → Go to Wishlist tab
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => WishListScreen(
+                          a: widget.analytics,
+                          o: widget.observer,
+                     
+        callbackHomescreenSetState: callHomeScreenSetState,
+        onAppDrawerButtonPressed: () {},
+                        ),
+                      ),
+                    );
+                    global.wishlistNav = true;
+                  }
+                  global.routingProductID = 0;
+                  // Navigator.of(context).push(MaterialPageRoute(
+                  //     builder: (context) => WishListScreen(
+                  //           a: widget.analytics,
+                  //           o: widget.observer,
+                  //           // fromBottomNvigation: false,
+                  //         )));
+                },
+                child: Padding(
+                  padding: EdgeInsets.only(top: 16, bottom: 16, left: 8),
+                  child: Image.asset(
+                    "assets/images/ic_nav_favorites.png",
+                    fit: BoxFit.contain,
+                    height: 28,
+                    alignment: Alignment.center,
+                  ),
+                ),
+              ),
+              SizedBox(
+                width: 10,
               ),
               Stack(
                 children: [
@@ -6631,6 +6635,11 @@ _productDetail.deliveryInformation != null &&
     Uint8List uint8list = base64.decode(imageAsString);
     Image image = Image.memory(uint8list);
     return image;
+  }
+   callHomeScreenSetState() {
+    print("this is home screen setState called");
+
+    setState(() {});
   }
 
   Future<bool> addRemoveWishListO(int varientId) async {

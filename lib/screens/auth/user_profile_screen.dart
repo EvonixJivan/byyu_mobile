@@ -1629,6 +1629,8 @@ class _UserProfileScreenState extends BaseRouteState {
   @override
   void initState() {
     super.initState();
+    print("check Profile Data API");
+      //  _getMyProfile();
     if (global.goToCorporatePage) {
       Future.delayed(Duration.zero, () {
         Navigator.of(context)
@@ -1693,6 +1695,7 @@ class _UserProfileScreenState extends BaseRouteState {
       await apiHelper.myProfile().then((result) async {
         if (result != null) {
           if (result.status == "1") {
+            print("1111111>>>>>>");
             currentUser = result.data;
             global.currentUser = currentUser;
 
@@ -1702,6 +1705,7 @@ class _UserProfileScreenState extends BaseRouteState {
               _getAppInfo();
             });
           } else {
+             print("222222222222>>>>>>");
             hideLoader();
             _isDataLoaded = true;
             currentUser = new CurrentUser();
@@ -1713,6 +1717,7 @@ class _UserProfileScreenState extends BaseRouteState {
       });
     } catch (e) {
       _isDataLoaded = false;
+       print("3333333333333>>>>>>");
 
       print("Exception - UserProfileScreen.dart - _getMyProfile():" +
           e.toString());

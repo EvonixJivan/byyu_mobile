@@ -241,11 +241,12 @@ class _SplashScreenState extends BaseRouteState implements TickerProvider {
             // var isLocalEnable = prefs.setBool("isLocalEnable", true);
 
             if (recordList != null) {
-              print(recordList);
+           
               percentValue++;
               global.appInfo = AppInfo.fromJson(recordList);
-
+   print("check APP INFO>>>>>>>>>>>>>>>>>>>> check check${ global.appInfo.toString()}");
               global.cartCount = global.appInfo.cartitem!;
+              print("check total cartcount user check check >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>${global.appInfo.cartitem!}");
               global.showHamburgerMenu = global.appInfo.hamburgerEnabled != null
                   ? global.appInfo.hamburgerEnabled!
                   : 0;

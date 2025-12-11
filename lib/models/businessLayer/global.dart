@@ -54,7 +54,8 @@ String catImageBaseUrl = 'https://byyu.com/admin/';
 String baseUrl ='https://www.byyu.com/admin/api/';
 // String baseUrl = 'https://byyu.com/adminDev/api/'; //this  is devBaseUrl
 String nodeBaseUrl =
-    'http://node.byyu.com/api/'; //'https://byyu.com/admin/api/'; //node this is live base URL
+    'http://node.byyu.com/api/'; 
+    //'https://byyu.com/admin/api/'; //node this is live base URL
 // String nodeBaseUrl = 'https://node.esganalytix.com/api/';//'https://byyu.com/admin/api/'; //node this is live base URL
 // String nodeBaseUrl = 'https://byyu.com/adminDev/api/'; //node this is live base URL
 
@@ -71,6 +72,8 @@ AppLifecycleState appLifecycleState = AppLifecycleState.detached;
 
 var sAnalytics;
 var sObserver;
+bool wishlistNav = false;
+int? selectedDrawerCatID = 0;
 int? isSubscription = 1, selectedCardIDN;
 String? currentLocation, selctedSubCatN;
 bool currentLocationSelected = false;

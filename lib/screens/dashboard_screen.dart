@@ -902,6 +902,8 @@ class _DashboardScreenState extends BaseRouteState with WidgetsBindingObserver {
                                                           e.isSelected = false)
                                                       .toList();
                                                   _selectedIndex = index;
+                                                  print(_selectedIndex);
+                                                  print(index);
                                                   if (_selectedIndex == index) {
                                                     _homeScreenData!
                                                         .topCat![index]
